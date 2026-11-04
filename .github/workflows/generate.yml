@@ -10,7 +10,7 @@ on:
         description: proto repo tag or SHA (e.g. v0.2.0)
         required: true
       proto_repo:
-        description: owner/name of the proto repo (empty = PROTO_REPO var or huponx/x-protos)
+        description: owner/name of the proto repo (empty = PROTO_REPO var or huponx/protos)
         required: false
         default: ""
 
@@ -42,7 +42,7 @@ jobs:
           if [ -z "${repo}" ]; then
             repo="${{ vars.PROTO_REPO }}"
           fi
-          repo="${repo:-huponx/x-protos}"
+          repo="${repo:-huponx/protos}"
           if [ -z "${ref}" ]; then
             echo "proto_ref is empty" >&2
             exit 1
@@ -70,7 +70,7 @@ jobs:
         with:
           go-version: "1.26"
 
-      # Add a language: enable the plugin in x-protos/buf.gen.yaml;
+      # Add a language: enable the plugin in protos/buf.gen.yaml;
       # add setup-java / setup-python here if compile/publish needs it.
 
       - name: Generate stubs
@@ -83,7 +83,7 @@ jobs:
         working-directory: go
         run: |
           if [ ! -f go.mod ]; then
-            go mod init github.com/huponx/x-protogen
+            go mod init github.com/huponx/protogen
           fi
           go mod tidy
 

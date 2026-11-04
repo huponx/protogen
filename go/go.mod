@@ -1,4 +1,4 @@
-module github.com/huponx/x-protogen
+module github.com/huponx/protogen
 
 go 1.26.7
 
