@@ -283,7 +283,10 @@ const file_courier_v1_courier_proto_rawDesc = "" +
 	"\x12\x14\n" +
 	"\x10CHANNEL_TELEGRAM\x10\x142o\n" +
 	"\x0eCourierService\x12]\n" +
-	"\x10SendNotification\x12#.courier.v1.SendNotificationRequest\x1a$.courier.v1.SendNotificationResponseB3Z1github.com/huponx/x-protogen/courier/v1;courierv1b\x06proto3"
+	"\x10SendNotification\x12#.courier.v1.SendNotificationRequest\x1a$.courier.v1.SendNotificationResponseB\x9b\x01\n" +
+	"\x0ecom.courier.v1B\fCourierProtoP\x01Z2github.com/huponx/protogen/go/courier/v1;courierv1\xa2\x02\x03CXX\xaa\x02\n" +
+	"Courier.V1\xca\x02\n" +
+	"Courier\\V1\xe2\x02\x16Courier\\V1\\GPBMetadata\xea\x02\vCourier::V1b\x06proto3"
 
 var (
 	file_courier_v1_courier_proto_rawDescOnce sync.Once

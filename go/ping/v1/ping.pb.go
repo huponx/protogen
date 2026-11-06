@@ -119,7 +119,8 @@ const file_ping_v1_ping_proto_rawDesc = "" +
 	"\x0ecorrelation_id\x18\x01 \x01(\tR\rcorrelationId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId2B\n" +
 	"\vPingService\x123\n" +
-	"\x04Ping\x12\x14.ping.v1.PingRequest\x1a\x15.ping.v1.PingResponseB-Z+github.com/huponx/x-protogen/ping/v1;pingv1b\x06proto3"
+	"\x04Ping\x12\x14.ping.v1.PingRequest\x1a\x15.ping.v1.PingResponseB\x83\x01\n" +
+	"\vcom.ping.v1B\tPingProtoP\x01Z,github.com/huponx/protogen/go/ping/v1;pingv1\xa2\x02\x03PXX\xaa\x02\aPing.V1\xca\x02\aPing\\V1\xe2\x02\x13Ping\\V1\\GPBMetadata\xea\x02\bPing::V1b\x06proto3"
 
 var (
 	file_ping_v1_ping_proto_rawDescOnce sync.Once
