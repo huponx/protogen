@@ -7,7 +7,7 @@ go/            # module github.com/huponx/protogen/go (go/vN/ for major >= 2)
   go.mod
   ping/v1/
 java/          # Maven: pom.xml, stubs in src/main/java
-scala/         # sbt: build.sbt, stubs in src/main/scala
+scala/         # sbt: build.sbt, stubs in src/main/scala (package com.huponx.protogen.<proto package>)
 rust/          # Cargo: Cargo.toml, stubs in src/gen
 .github/
   workflows/   # generate.yml, check.yml, automerge.yml
