@@ -1,0 +1,49 @@
+name: Check
+
+# Required status check for PRs into main (including the bot PRs opened by
+# generate.yml). Compiles the committed stubs of every language.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compile:
+    name: compile (${{ matrix.lang }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [go, java, scala, rust]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: huponx/actions/.github/actions/lang-setup@main
+        with:
+          lang: ${{ matrix.lang }}
+          root: ${{ matrix.lang }}
+
+      - uses: huponx/actions/.github/actions/lang-compile@main
+        with:
+          lang: ${{ matrix.lang }}
+          root: ${{ matrix.lang }}
+
+  # Single stable name for the branch protection rule.
+  check:
+    needs: compile
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: All languages compile
+        env:
+          RESULT: ${{ needs.compile.result }}
+        run: |
+          echo "compile matrix: ${RESULT}"
+          [ "${RESULT}" = "success" ]

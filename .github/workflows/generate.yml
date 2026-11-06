@@ -1,144 +1,295 @@
 name: Generate stubs
 run-name: Generate ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.proto_ref || inputs.proto_ref }}
 
+# One matrix job per language: a failing language never blocks the others.
+# `publish` then opens a PR with the stubs of the languages that passed
+# (main is protected), waits for it to merge and tags each passing language.
 on:
   repository_dispatch:
     types: [proto_release]
   workflow_dispatch:
     inputs:
       proto_ref:
-        description: proto repo tag or SHA (e.g. v0.2.0)
+        description: proto repo release tag (e.g. v0.2.0)
         required: true
       proto_repo:
         description: owner/name of the proto repo (empty = PROTO_REPO var or huponx/protos)
         required: false
         default: ""
+      langs:
+        description: Languages to generate, space separated (re-run only the ones that failed)
+        required: false
+        default: "go java scala rust"
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: generate
+  cancel-in-progress: false
+
+env:
+  # Keep in sync with protos/.github/workflows/ci.yml. Bump in its own PR.
+  BUF_VERSION: "1.75.0"
 
 jobs:
-  generate:
+  meta:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       proto_ref: ${{ steps.meta.outputs.proto_ref }}
       proto_repo: ${{ steps.meta.outputs.proto_repo }}
-      tag: ${{ steps.publish.outputs.tag }}
-      committed: ${{ steps.publish.outputs.committed }}
-      skipped: ${{ steps.publish.outputs.skipped }}
-      release_url: ${{ steps.publish.outputs.release_url }}
+      langs: ${{ steps.meta.outputs.langs }}
+      matrix: ${{ steps.meta.outputs.matrix }}
     steps:
-      - name: Resolve proto_ref
+      - name: Resolve inputs
         id: meta
+        env:
+          EVENT: ${{ github.event_name }}
+          DISPATCH_REF: ${{ github.event.client_payload.proto_ref }}
+          DISPATCH_REPO: ${{ github.event.client_payload.proto_repo }}
+          INPUT_REF: ${{ inputs.proto_ref }}
+          INPUT_REPO: ${{ inputs.proto_repo }}
+          INPUT_LANGS: ${{ inputs.langs }}
+          REPO_VAR: ${{ vars.PROTO_REPO }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            ref="${{ github.event.client_payload.proto_ref }}"
-            repo="${{ github.event.client_payload.proto_repo }}"
-          else
-            ref="${{ inputs.proto_ref }}"
-            repo="${{ inputs.proto_repo }}"
-          fi
-          if [ -z "${repo}" ]; then
-            repo="${{ vars.PROTO_REPO }}"
-          fi
-          repo="${repo:-huponx/protos}"
-          if [ -z "${ref}" ]; then
-            echo "proto_ref is empty" >&2
+
+          # Stubs are committed through PRs against the default branch.
+          if [ "${GITHUB_REF_NAME}" != "${DEFAULT_BRANCH}" ]; then
+            echo "::error::run this workflow on ${DEFAULT_BRANCH}, not ${GITHUB_REF_NAME}"
             exit 1
           fi
-          echo "proto_ref=${ref}" >> "${GITHUB_OUTPUT}"
-          echo "proto_repo=${repo}" >> "${GITHUB_OUTPUT}"
 
+          if [ "${EVENT}" = "repository_dispatch" ]; then
+            ref="${DISPATCH_REF}"
+            repo="${DISPATCH_REPO}"
+          else
+            ref="${INPUT_REF}"
+            repo="${INPUT_REPO}"
+          fi
+          repo="${repo:-${REPO_VAR:-huponx/protos}}"
+
+          if ! [[ "${ref}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::proto_ref '${ref}' must be a release tag like v1.2.3"
+            exit 1
+          fi
+          if ! [[ "${repo}" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$ ]]; then
+            echo "::error::proto_repo '${repo}' must look like owner/name"
+            exit 1
+          fi
+
+          # To add a language: add it here, add protos/buf.gen.<lang>.yaml, a
+          # build file under <lang>/, and a case in huponx/actions lang-setup + lang-compile.
+          all="go java scala rust"
+          wanted="${INPUT_LANGS:-${all}}"
+          [ "${EVENT}" = "repository_dispatch" ] && wanted="${all}"
+          langs=""
+          for l in ${wanted}; do
+            case " ${all} " in
+              *" ${l} "*) langs="${langs} ${l}" ;;
+              *) echo "::error::unknown language '${l}' (known: ${all})"; exit 1 ;;
+            esac
+          done
+          langs="${langs# }"
+          # shellcheck disable=SC2086
+          matrix="$(printf '%s\n' ${langs} | jq -R . | jq -sc '{lang: .}')"
+
+          {
+            echo "proto_ref=${ref}"
+            echo "proto_repo=${repo}"
+            echo "langs=${langs}"
+            echo "matrix=${matrix}"
+          } >> "${GITHUB_OUTPUT}"
+
+  generate:
+    name: generate (${{ matrix.lang }})
+    needs: meta
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.meta.outputs.matrix) }}
+    env:
+      PROTO_REF: ${{ needs.meta.outputs.proto_ref }}
+      LANG_NAME: ${{ matrix.lang }}
+      BUF_TOKEN: ${{ secrets.BUF_TOKEN }}
+    steps:
       - uses: actions/checkout@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout proto
         uses: actions/checkout@v5
         with:
-          repository: ${{ steps.meta.outputs.proto_repo }}
-          ref: ${{ steps.meta.outputs.proto_ref }}
+          repository: ${{ needs.meta.outputs.proto_repo }}
+          ref: ${{ needs.meta.outputs.proto_ref }}
           path: proto-src
+          # A private proto repo needs a read token; public repos fall back to the default.
+          token: ${{ secrets.PROTO_READ_TOKEN || github.token }}
 
       - uses: bufbuild/buf-action@v1
         with:
           setup_only: true
+          version: ${{ env.BUF_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-go@v6
+      - uses: huponx/actions/.github/actions/lang-setup@main
         with:
-          go-version: "1.26"
+          lang: ${{ matrix.lang }}
+          root: ${{ matrix.lang }}
 
-      # Add a language: enable the plugin in protos/buf.gen.yaml;
-      # add setup-java / setup-python here if compile/publish needs it.
+      # ScalaPB has no remote plugin on the BSR: install protoc-gen-scala.
+      - if: matrix.lang == 'scala'
+        uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:17
+
+      - name: Install protoc-gen-scala
+        if: matrix.lang == 'scala'
+        run: |
+          set -euo pipefail
+          bash proto-src/scripts/install-scalapb.sh "${HOME}/.local/bin"
+          echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
 
       - name: Generate stubs
+        id: gen
         env:
           PROTO_DIR: ${{ github.workspace }}/proto-src
           PROTOGEN_DIR: ${{ github.workspace }}
-        run: bash proto-src/scripts/generate.sh
-
-      - name: Tidy Go module
-        working-directory: go
-        run: |
-          if [ ! -f go.mod ]; then
-            go mod init github.com/huponx/protogen
-          fi
-          go mod tidy
-
-      - name: Publish
-        id: publish
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ steps.meta.outputs.proto_ref }}
         run: |
           set -euo pipefail
-          echo "committed=false" >> "${GITHUB_OUTPUT}"
-          echo "skipped=false" >> "${GITHUB_OUTPUT}"
-          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
-          echo "release_url=" >> "${GITHUB_OUTPUT}"
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add go
-          # git add java python rust
-          if git diff --cached --quiet; then
-            echo "No stub changes"
-          else
-            git commit -m "chore: generate from proto@${TAG}"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-            echo "committed=true" >> "${GITHUB_OUTPUT}"
+          bash proto-src/scripts/generate.sh "${LANG_NAME}"
+          if [ "${LANG_NAME}" = "go" ]; then
+            # Module path follows the major version: go/ (v0, v1) or go/vN/ (N >= 2).
+            . proto-src/scripts/lib.sh
+            go_layout "${PROTO_REF}"
+            cd "${GO_DIR}"
+            if [ -f go.mod ]; then
+              go mod edit -module "${GO_MODULE}"
+            else
+              go mod init "${GO_MODULE}"
+            fi
           fi
 
-          if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
-            echo "Tag ${TAG} already exists"
-            echo "skipped=true" >> "${GITHUB_OUTPUT}"
-            url="$(gh release view "${TAG}" --json url --jq .url || true)"
-            echo "release_url=${url}" >> "${GITHUB_OUTPUT}"
-            exit 0
-          fi
+      - name: Compile
+        id: compile
+        uses: huponx/actions/.github/actions/lang-compile@main
+        with:
+          lang: ${{ matrix.lang }}
+          root: ${{ matrix.lang }}
+          tidy: "true"
 
-          git tag "${TAG}"
-          git push origin "${TAG}"
-          url="$(gh release create "${TAG}" --generate-notes --target "${GITHUB_REF_NAME}")"
-          echo "release_url=${url}" >> "${GITHUB_OUTPUT}"
-
-      - name: Summary
-        if: always()
+      - name: Package stubs
         run: |
+          set -euo pipefail
+          . proto-src/scripts/lib.sh
+          if [ "${LANG_NAME}" = "go" ]; then
+            go_layout "${PROTO_REF}"
+          fi
+          list_stub_files . "${LANG_NAME}" > stubs.list
+          if [ ! -s stubs.list ]; then
+            echo "::error::no stub files produced for ${LANG_NAME}"
+            exit 1
+          fi
+          tar -cf stubs.tar -T stubs.list
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: stubs-${{ matrix.lang }}
+          path: stubs.tar
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Record result
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          GEN_OUTCOME: ${{ steps.gen.outcome }}
+          COMPILE_OUTCOME: ${{ steps.compile.outcome }}
+        run: |
+          set -euo pipefail
+          status=success
+          note=""
+          if [ "${JOB_STATUS}" != "success" ]; then
+            status=failure
+            if [ "${GEN_OUTCOME}" != "success" ]; then
+              note="generate step ${GEN_OUTCOME}"
+            elif [ "${COMPILE_OUTCOME}" != "success" ]; then
+              note="compile step ${COMPILE_OUTCOME}"
+            else
+              note="job ${JOB_STATUS}"
+            fi
+            echo "::error title=${LANG_NAME}::${LANG_NAME} failed (${note})"
+          fi
+          mkdir -p result
+          jq -n --arg lang "${LANG_NAME}" --arg status "${status}" --arg note "${note}" \
+            '{lang: $lang, status: $status, note: $note}' > result/result.json
           {
-            echo "## Generate stubs"
-            echo ""
-            echo "| Field | Value |"
-            echo "|---|---|"
-            echo "| Result | ${{ job.status }} |"
-            echo "| proto_ref | \`${{ steps.meta.outputs.proto_ref }}\` |"
-            echo "| proto_repo | \`${{ steps.meta.outputs.proto_repo }}\` |"
-            echo "| Tag | \`${{ steps.publish.outputs.tag }}\` |"
-            echo "| Committed | ${{ steps.publish.outputs.committed }} |"
-            echo "| Skipped existing tag | ${{ steps.publish.outputs.skipped }} |"
-            echo "| Release | ${{ steps.publish.outputs.release_url || '—' }} |"
-            echo "| Event | ${{ github.event_name }} |"
-          } >> "${GITHUB_STEP_SUMMARY}"
+            echo "### ${LANG_NAME}: ${status}"
+            [ -n "${note}" ] && echo "${note}"
+          } >> "${GITHUB_STEP_SUMMARY}" || true
+
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: result-${{ matrix.lang }}
+          path: result/result.json
+          retention-days: 7
+
+  publish:
+    needs: [meta, generate]
+    if: always() && needs.meta.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Require BOT_TOKEN
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: |
+          if [ -z "${BOT_TOKEN}" ]; then
+            echo "::error::secret BOT_TOKEN is not set (needed to open PRs that trigger checks and to push tags)"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ secrets.BOT_TOKEN }}
+
+      - name: Checkout proto
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ needs.meta.outputs.proto_repo }}
+          ref: ${{ needs.meta.outputs.proto_ref }}
+          path: proto-src
+          token: ${{ secrets.PROTO_READ_TOKEN || github.token }}
+
+      - uses: actions/download-artifact@v5
+        with:
+          path: artifacts
+
+      - name: Publish (PR, wait for merge, tag)
+        id: publish
+        env:
+          GH_TOKEN: ${{ secrets.BOT_TOKEN }}
+          PROTO_REF: ${{ needs.meta.outputs.proto_ref }}
+          PROTO_REPO: ${{ needs.meta.outputs.proto_repo }}
+          LANGS: ${{ needs.meta.outputs.langs }}
+          PROTO_DIR: proto-src
+          ARTIFACTS: artifacts
+          MAIN_BRANCH: ${{ github.event.repository.default_branch }}
+        run: bash .github/scripts/publish.sh
+
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: result
+          path: result/result.json
+          if-no-files-found: ignore
+          retention-days: 30
