@@ -14,14 +14,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Only languages that already have a project in the repo are compiled, so a
+  # language that was never generated does not fail the check.
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      langs: ${{ steps.detect.outputs.langs }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Detect languages
+        id: detect
+        run: |
+          set -euo pipefail
+          langs=()
+          [ -f go/go.mod ] && langs+=(go)
+          [ -f java/pom.xml ] && langs+=(java)
+          [ -f scala/build.sbt ] && langs+=(scala)
+          [ -f rust/Cargo.toml ] && langs+=(rust)
+          if [ "${#langs[@]}" -eq 0 ]; then
+            json='[]'
+          else
+            json="$(printf '%s\n' "${langs[@]}" | jq -R . | jq -sc .)"
+          fi
+          echo "langs=${json}" >> "${GITHUB_OUTPUT}"
+          echo "Languages to compile: ${json}" | tee -a "${GITHUB_STEP_SUMMARY}"
+
   compile:
     name: compile (${{ matrix.lang }})
+    needs: detect
+    if: needs.detect.outputs.langs != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        lang: [go, java, scala, rust]
+        lang: ${{ fromJSON(needs.detect.outputs.langs) }}
     steps:
       - uses: actions/checkout@v5
 
@@ -37,13 +66,16 @@ jobs:
 
   # Single stable name for the branch protection rule.
   check:
-    needs: compile
+    needs: [detect, compile]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - name: All languages compile
         env:
-          RESULT: ${{ needs.compile.result }}
+          DETECT: ${{ needs.detect.result }}
+          COMPILE: ${{ needs.compile.result }}
         run: |
-          echo "compile matrix: ${RESULT}"
-          [ "${RESULT}" = "success" ]
+          echo "detect: ${DETECT}, compile matrix: ${COMPILE}"
+          [ "${DETECT}" = "success" ] || exit 1
+          # "skipped" means no language project exists yet (nothing to compile).
+          [ "${COMPILE}" = "success" ] || [ "${COMPILE}" = "skipped" ]
