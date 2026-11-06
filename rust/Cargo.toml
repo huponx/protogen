@@ -1,0 +1,11 @@
+[package]
+name = "protogen"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+# Keep in sync with plugin versions in protos/buf.gen.rust.yaml
+# (neoeinstein-prost v0.4.x / tonic v0.4.x -> prost 0.13, tonic 0.12).
+[dependencies]
+prost = "0.13"
+tonic = "0.12"

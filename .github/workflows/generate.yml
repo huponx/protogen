@@ -133,6 +133,22 @@ jobs:
           version: ${{ env.BUF_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+      # The build files are committed by hand; only the stubs are generated.
+      - name: Check project scaffold
+        run: |
+          set -euo pipefail
+          case "${LANG_NAME}" in
+            go) marker=go/go.mod ;;
+            java) marker=java/pom.xml ;;
+            scala) marker=scala/build.sbt ;;
+            rust) marker=rust/Cargo.toml ;;
+            *) echo "::error::unknown language ${LANG_NAME}"; exit 1 ;;
+          esac
+          if [ ! -f "${marker}" ]; then
+            echo "::error::${marker} is missing in protogen. Commit the ${LANG_NAME} project files (see README: Add a language) before generating."
+            exit 1
+          fi
+
       - uses: huponx/actions/.github/actions/lang-setup@main
         with:
           lang: ${{ matrix.lang }}
