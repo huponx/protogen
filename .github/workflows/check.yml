@@ -28,11 +28,13 @@ jobs:
         id: detect
         run: |
           set -euo pipefail
+          # A language is compiled once it has a build file AND generated stubs.
+          has_files() { [ -n "$(find "$1" -type f -name "$2" -print -quit 2>/dev/null)" ]; }
           langs=()
           [ -f go/go.mod ] && langs+=(go)
-          [ -f java/pom.xml ] && langs+=(java)
-          [ -f scala/build.sbt ] && langs+=(scala)
-          [ -f rust/Cargo.toml ] && langs+=(rust)
+          [ -f java/pom.xml ] && has_files java/src/main/java '*.java' && langs+=(java)
+          [ -f scala/build.sbt ] && has_files scala/src/main/scala '*.scala' && langs+=(scala)
+          [ -f rust/Cargo.toml ] && [ -f rust/src/gen/mod.rs ] && langs+=(rust)
           if [ "${#langs[@]}" -eq 0 ]; then
             json='[]'
           else
