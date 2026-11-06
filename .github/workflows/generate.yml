@@ -149,7 +149,7 @@ jobs:
             exit 1
           fi
 
-      - uses: huponx/actions/.github/actions/lang-setup@main
+      - uses: huponx/actions/.github/actions/lang-setup@v1
         with:
           lang: ${{ matrix.lang }}
           root: ${{ matrix.lang }}
@@ -184,7 +184,7 @@ jobs:
 
       - name: Compile
         id: compile
-        uses: huponx/actions/.github/actions/lang-compile@main
+        uses: huponx/actions/.github/actions/lang-compile@v1
         with:
           lang: ${{ matrix.lang }}
           root: ${{ matrix.lang }}
@@ -304,3 +304,85 @@ jobs:
           path: result/result.json
           if-no-files-found: ignore
           retention-days: 30
+
+  # Internal Maven publish (GitHub Packages) for the JVM languages. Runs after `publish`
+  # has tagged: only a language that was generated, merged and tagged is published, and
+  # each language is independent (a failure here never affects the other one).
+  publish-maven:
+    name: publish maven (${{ matrix.lang }})
+    needs: [meta, publish]
+    if: always() && needs.meta.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [java, scala]
+    env:
+      LANG_NAME: ${{ matrix.lang }}
+      PROTO_REF: ${{ needs.meta.outputs.proto_ref }}
+      # setup-java (java) and build.sbt (scala) read these for the registry credentials.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Download publish result
+        uses: actions/download-artifact@v5
+        continue-on-error: true
+        with:
+          name: result
+          path: result
+
+      - name: Decide
+        id: decide
+        run: |
+          set -euo pipefail
+          status=""
+          if [ -f result/result.json ]; then
+            status="$(jq -r --arg l "${LANG_NAME}" '.langs[$l].status // empty' result/result.json)"
+          fi
+          case "${status}" in
+            success|exists) echo "publish=true" >> "${GITHUB_OUTPUT}" ;;
+            *)
+              echo "publish=false" >> "${GITHUB_OUTPUT}"
+              echo "### maven ${LANG_NAME}: skipped (stubs result: ${status:-none})" >> "${GITHUB_STEP_SUMMARY}"
+              ;;
+          esac
+
+      # The tag was created by `publish` on the merge commit.
+      - uses: actions/checkout@v5
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          ref: refs/tags/${{ matrix.lang }}/${{ needs.meta.outputs.proto_ref }}
+
+      - uses: huponx/actions/.github/actions/lang-setup@v1
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          lang: ${{ matrix.lang }}
+          root: ${{ matrix.lang }}
+
+      - name: Deploy
+        if: steps.decide.outputs.publish == 'true'
+        run: |
+          set -uo pipefail
+          version="${PROTO_REF#v}"
+          set +e
+          if [ "${LANG_NAME}" = "java" ]; then
+            mvn -B -f java/pom.xml -Drevision="${version}" deploy 2>&1 | tee deploy.log
+          else
+            (cd scala && PROTOGEN_VERSION="${version}" sbt -batch publish) 2>&1 | tee deploy.log
+          fi
+          rc="${PIPESTATUS[0]}"
+          set -e
+          coords="com.huponx.protogen:protogen-${LANG_NAME}:${version}"
+          if [ "${rc}" -eq 0 ]; then
+            echo "### maven ${LANG_NAME}: published \`${coords}\`" >> "${GITHUB_STEP_SUMMARY}"
+          elif grep -qiE 'conflict|already exists|status code: 409|409' deploy.log; then
+            # GitHub Packages never overwrites a version: a re-run for the same tag is fine.
+            echo "### maven ${LANG_NAME}: \`${coords}\` already published (not overwritten)" >> "${GITHUB_STEP_SUMMARY}"
+          else
+            echo "### maven ${LANG_NAME}: FAILED" >> "${GITHUB_STEP_SUMMARY}"
+            echo "::error title=maven ${LANG_NAME}::deploy of ${coords} failed; see the log"
+            exit 1
+          fi
