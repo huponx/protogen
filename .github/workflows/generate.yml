@@ -138,12 +138,7 @@ jobs:
           lang: ${{ matrix.lang }}
           root: ${{ matrix.lang }}
 
-      # ScalaPB has no remote plugin on the BSR: install protoc-gen-scala.
-      - if: matrix.lang == 'scala'
-        uses: coursier/setup-action@v1
-        with:
-          jvm: temurin:17
-
+      # ScalaPB has no remote plugin on the BSR: install protoc-gen-scala (needs the JDK from lang-setup).
       - name: Install protoc-gen-scala
         if: matrix.lang == 'scala'
         run: |
