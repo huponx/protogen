@@ -56,12 +56,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: huponx/actions/.github/actions/lang-setup@main
+      - uses: huponx/actions/.github/actions/lang-setup@v1
         with:
           lang: ${{ matrix.lang }}
           root: ${{ matrix.lang }}
 
-      - uses: huponx/actions/.github/actions/lang-compile@main
+      - uses: huponx/actions/.github/actions/lang-compile@v1
         with:
           lang: ${{ matrix.lang }}
           root: ${{ matrix.lang }}

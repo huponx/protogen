@@ -45,7 +45,24 @@ Rust (git dependency on the language tag; the crate lives in `rust/`):
 protogen = { git = "https://github.com/huponx/protogen", tag = "rust/v0.2.0" }
 ```
 
-Java / Scala: build from the tag (`mvn -Drevision=0.2.0 ...` / `PROTOGEN_VERSION=0.2.0 sbt ...`) or point JitPack at it. Publishing to a registry is not set up yet.
+Java / Scala: published to this repo's GitHub Packages (internal use; the version is the proto tag without `v`):
+
+| Language | Coordinates |
+|---|---|
+| Java | `com.huponx.protogen:protogen-java:0.2.0` |
+| Scala 2.13 | `com.huponx.protogen::protogen-scala:0.2.0` (artifact `protogen-scala_2.13`) |
+
+Registry URL: `https://maven.pkg.github.com/huponx/protogen`. GitHub Packages needs authentication even to read:
+
+- Locally: a **classic** personal access token with `read:packages` (fine-grained tokens are not supported for packages). Maven `~/.m2/settings.xml`:
+  ```xml
+  <servers><server><id>github</id><username>YOUR_GITHUB_USER</username><password>TOKEN</password></server></servers>
+  ```
+  and in the consumer pom `<repositories><repository><id>github</id><url>https://maven.pkg.github.com/huponx/protogen</url></repository></repositories>`.
+  sbt: `resolvers += "GitHub Packages" at "https://maven.pkg.github.com/huponx/protogen"` plus `credentials += Credentials("GitHub Package Registry", "maven.pkg.github.com", user, token)`.
+- In another repo's CI: give that repo read access under **protogen > Packages > (package) > Package settings > Manage Actions access**, then use its `GITHUB_TOKEN` (`packages: read`) as the password.
+
+Java and Scala stay usable straight from the tag too: `mvn -Drevision=0.2.0 ...` / `PROTOGEN_VERSION=0.2.0 sbt ...`.
 
 ## CI
 
@@ -71,6 +88,8 @@ flowchart LR
 2. `generate` (matrix): checks out the proto repo at `proto_ref`, runs `proto-src/scripts/generate.sh <lang>`, compiles the result (`go build`, `mvn compile`, `sbt compile`, `cargo check`) and uploads the stubs as an artifact. Each language is independent: a failure only affects that language.
 3. `publish`: takes the languages that passed, commits their stubs on `generate/<ref>`, opens a PR with the `automerge` label, waits for it to merge (up to 45 minutes), tags each passing language on the merge commit, creates or updates the Release.
 
+4. `publish-maven` (matrix `java`, `scala`): after `publish`, for each of these languages that was generated, merged and tagged, checks out the tag `<lang>/<ref>` and deploys it to GitHub Packages (`mvn deploy -Drevision=<ref without v>` / `sbt publish` with `PROTOGEN_VERSION`). It uses `GITHUB_TOKEN` with `packages: write`; no extra secret. The languages are independent: a failed one never affects the other, and the summary reports each. GitHub Packages never overwrites a version, so a re-run reports "already published" instead of failing.
+
 `main` is protected, so stubs are never pushed to it directly. The run fails when any language failed, but only after the passing ones were published.
 
 The run summary has one row per language (`failure` first, marked `FAILED, no tag`) and each failure has an error annotation. `publish` uploads `result.json` (per-language status, PR, commit, release) as the `result` artifact; the proto repo's notify job reads it to report `failed_langs`.
@@ -81,7 +100,7 @@ Only one generate run at a time (`concurrency: generate`, runs queue). `workflow
 
 ### Shared actions
 
-`generate.yml` and `check.yml` use the composite actions `lang-setup` and `lang-compile` from [`huponx/actions`](https://github.com/huponx/actions) (`@main`; pin a tag once one exists). They take `lang` and `root` (the language directory).
+`generate.yml` and `check.yml` use the composite actions `lang-setup` and `lang-compile` from [`huponx/actions`](https://github.com/huponx/actions) (`@v1`, the floating major tag that follows non-breaking releases). They take `lang` and `root` (the language directory).
 
 ### [check.yml](.github/workflows/check.yml)
 

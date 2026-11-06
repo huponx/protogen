@@ -47,6 +47,16 @@
     </dependency>
   </dependencies>
 
+  <!-- Internal registry. Credentials: server id "github" (actions/setup-java writes it from
+       GITHUB_ACTOR and GITHUB_TOKEN). Published by generate.yml; no manual deploys. -->
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/huponx/protogen</url>
+    </repository>
+  </distributionManagement>
+
   <build>
     <plugins>
       <plugin>
