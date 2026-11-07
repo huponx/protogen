@@ -204,7 +204,7 @@ jobs:
           fi
           tar -cf stubs.tar -T stubs.list
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: stubs-${{ matrix.lang }}
           path: stubs.tar
@@ -242,7 +242,7 @@ jobs:
 
       - name: Upload result
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: result-${{ matrix.lang }}
           path: result/result.json
@@ -280,7 +280,7 @@ jobs:
           path: proto-src
           token: ${{ secrets.PROTO_READ_TOKEN || github.token }}
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v7
         with:
           path: artifacts
 
@@ -298,7 +298,7 @@ jobs:
 
       - name: Upload result
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: result
           path: result/result.json
@@ -328,7 +328,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Download publish result
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         continue-on-error: true
         with:
           name: result
@@ -362,16 +362,26 @@ jobs:
           lang: ${{ matrix.lang }}
           root: ${{ matrix.lang }}
 
+      # Registry settings are passed on the command line, so a tag created before this
+      # existed (or any later edit of pom.xml/build.sbt) can still be published.
       - name: Deploy
         if: steps.decide.outputs.publish == 'true'
+        env:
+          REGISTRY: https://maven.pkg.github.com/${{ github.repository }}
         run: |
           set -uo pipefail
           version="${PROTO_REF#v}"
           set +e
           if [ "${LANG_NAME}" = "java" ]; then
-            mvn -B -f java/pom.xml -Drevision="${version}" deploy 2>&1 | tee deploy.log
+            mvn -B -f java/pom.xml -Drevision="${version}" \
+              -DaltDeploymentRepository="github::${REGISTRY}" deploy 2>&1 | tee deploy.log
           else
-            (cd scala && PROTOGEN_VERSION="${version}" sbt -batch publish) 2>&1 | tee deploy.log
+            (cd scala && PROTOGEN_VERSION="${version}" sbt -batch \
+              "set ThisBuild / publishMavenStyle := true" \
+              "set ThisBuild / publishTo := Some(\"GitHub Package Registry\" at \"${REGISTRY}\")" \
+              "set ThisBuild / credentials += Credentials(\"GitHub Package Registry\", \"maven.pkg.github.com\", sys.env(\"GITHUB_ACTOR\"), sys.env(\"GITHUB_TOKEN\"))" \
+              "set Compile / packageDoc / publishArtifact := false" \
+              publish) 2>&1 | tee deploy.log
           fi
           rc="${PIPESTATUS[0]}"
           set -e
