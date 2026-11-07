@@ -32,6 +32,18 @@ set_row() { # lang status tag note
 }
 row_status() { awk -F'\t' -v l="$1" '$1==l{print $2}' "${rows}"; }
 
+# stubs_unchanged <tag> <commit> <lang>: true when the generated files are identical.
+# Build files (pom.xml, build.sbt, Cargo.toml) are ignored: they are edited by hand and
+# a re-run must not fail only because they changed after the tag was created.
+stubs_unchanged() {
+  if [ "$3" = "go" ]; then
+    # go/ holds only stubs plus go.mod/go.sum; later majors live in go/vN/ and are not ours.
+    git diff --quiet "$1" "$2" -- "$(lang_root go)" ":(exclude,glob)$(lang_root go)/v[0-9]*/**"
+  else
+    git diff --quiet "$1" "$2" -- "$(stub_dir "$3")"
+  fi
+}
+
 lang_tag() {
   if [ "$1" = "go" ]; then echo "${GO_TAG_PREFIX}/${PROTO_REF}"; else echo "$1/${PROTO_REF}"; fi
 }
@@ -166,7 +178,7 @@ git fetch --quiet --tags --force
 for lang in ${ok_langs}; do
   tag="$(lang_tag "${lang}")"
   if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
-    if git diff --quiet "${tag}" "${commit}" -- "$(lang_root "${lang}")"; then
+    if stubs_unchanged "${tag}" "${commit}" "${lang}"; then
       set_row "${lang}" "exists" "${tag}" "tag already exists with identical stubs"
     else
       set_row "${lang}" "failure" "${tag}" "tag exists but stubs differ; not moving it"
