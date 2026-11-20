@@ -6,6 +6,13 @@ pub mod courier {
         // @@protoc_insertion_point(courier.v1)
     }
 }
+pub mod identity {
+    // @@protoc_insertion_point(attribute:identity.v1)
+    pub mod v1 {
+        include!("identity.v1.rs");
+        // @@protoc_insertion_point(identity.v1)
+    }
+}
 pub mod ping {
     // @@protoc_insertion_point(attribute:ping.v1)
     pub mod v1 {
