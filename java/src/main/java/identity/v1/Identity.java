@@ -60711,6 +60711,2994 @@ public final class Identity {
 
   }
 
+  public interface GetUIStyleRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetUIStyleRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetUIStyleRequest}
+   */
+  public static final class GetUIStyleRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetUIStyleRequest)
+      GetUIStyleRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetUIStyleRequest.class.getName());
+    }
+    // Use GetUIStyleRequest.newBuilder() to construct.
+    private GetUIStyleRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetUIStyleRequest() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetUIStyleRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetUIStyleRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetUIStyleRequest.class, identity.v1.Identity.GetUIStyleRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetUIStyleRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetUIStyleRequest other = (identity.v1.Identity.GetUIStyleRequest) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetUIStyleRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetUIStyleRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetUIStyleRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetUIStyleRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetUIStyleRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetUIStyleRequest)
+        identity.v1.Identity.GetUIStyleRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetUIStyleRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetUIStyleRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetUIStyleRequest.class, identity.v1.Identity.GetUIStyleRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetUIStyleRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetUIStyleRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetUIStyleRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.GetUIStyleRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetUIStyleRequest build() {
+        identity.v1.Identity.GetUIStyleRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetUIStyleRequest buildPartial() {
+        identity.v1.Identity.GetUIStyleRequest result = new identity.v1.Identity.GetUIStyleRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetUIStyleRequest) {
+          return mergeFrom((identity.v1.Identity.GetUIStyleRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetUIStyleRequest other) {
+        if (other == identity.v1.Identity.GetUIStyleRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetUIStyleRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetUIStyleRequest)
+    private static final identity.v1.Identity.GetUIStyleRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetUIStyleRequest();
+    }
+
+    public static identity.v1.Identity.GetUIStyleRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetUIStyleRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetUIStyleRequest>() {
+      @java.lang.Override
+      public GetUIStyleRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetUIStyleRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetUIStyleRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetUIStyleRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetUIStyleResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetUIStyleResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * saas (the default), glass or mono.
+     * </pre>
+     *
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The uiStyle.
+     */
+    java.lang.String getUiStyle();
+    /**
+     * <pre>
+     * saas (the default), glass or mono.
+     * </pre>
+     *
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The bytes for uiStyle.
+     */
+    com.google.protobuf.ByteString
+        getUiStyleBytes();
+
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    int getUiPalettesCount();
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    boolean containsUiPalettes(
+        java.lang.String key);
+    /**
+     * Use {@link #getUiPalettesMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getUiPalettes();
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getUiPalettesMap();
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    /* nullable */
+java.lang.String getUiPalettesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue);
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    java.lang.String getUiPalettesOrThrow(
+        java.lang.String key);
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetUIStyleResponse}
+   */
+  public static final class GetUIStyleResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetUIStyleResponse)
+      GetUIStyleResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetUIStyleResponse.class.getName());
+    }
+    // Use GetUIStyleResponse.newBuilder() to construct.
+    private GetUIStyleResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetUIStyleResponse() {
+      uiStyle_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetUIStyleResponse_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 20:
+          return internalGetUiPalettes();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetUIStyleResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetUIStyleResponse.class, identity.v1.Identity.GetUIStyleResponse.Builder.class);
+    }
+
+    public static final int UI_STYLE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object uiStyle_ = "";
+    /**
+     * <pre>
+     * saas (the default), glass or mono.
+     * </pre>
+     *
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The uiStyle.
+     */
+    @java.lang.Override
+    public java.lang.String getUiStyle() {
+      java.lang.Object ref = uiStyle_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uiStyle_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * saas (the default), glass or mono.
+     * </pre>
+     *
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The bytes for uiStyle.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUiStyleBytes() {
+      java.lang.Object ref = uiStyle_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uiStyle_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UI_PALETTES_FIELD_NUMBER = 20;
+    private static final class UiPalettesDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  identity.v1.Identity.internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> uiPalettes_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetUiPalettes() {
+      if (uiPalettes_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            UiPalettesDefaultEntryHolder.defaultEntry);
+      }
+      return uiPalettes_;
+    }
+    public int getUiPalettesCount() {
+      return internalGetUiPalettes().getMap().size();
+    }
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public boolean containsUiPalettes(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetUiPalettes().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getUiPalettesMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getUiPalettes() {
+      return getUiPalettesMap();
+    }
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getUiPalettesMap() {
+      return internalGetUiPalettes().getMap();
+    }
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getUiPalettesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUiPalettes().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public java.lang.String getUiPalettesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUiPalettes().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uiStyle_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, uiStyle_);
+      }
+      com.google.protobuf.GeneratedMessage
+        .serializeStringMapTo(
+          output,
+          internalGetUiPalettes(),
+          UiPalettesDefaultEntryHolder.defaultEntry,
+          20);
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uiStyle_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, uiStyle_);
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetUiPalettes().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        uiPalettes__ = UiPalettesDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(20, uiPalettes__);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetUIStyleResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetUIStyleResponse other = (identity.v1.Identity.GetUIStyleResponse) obj;
+
+      if (!getUiStyle()
+          .equals(other.getUiStyle())) return false;
+      if (!internalGetUiPalettes().equals(
+          other.internalGetUiPalettes())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UI_STYLE_FIELD_NUMBER;
+      hash = (53 * hash) + getUiStyle().hashCode();
+      if (!internalGetUiPalettes().getMap().isEmpty()) {
+        hash = (37 * hash) + UI_PALETTES_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetUiPalettes().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetUIStyleResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetUIStyleResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetUIStyleResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetUIStyleResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetUIStyleResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetUIStyleResponse)
+        identity.v1.Identity.GetUIStyleResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetUIStyleResponse_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 20:
+            return internalGetUiPalettes();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 20:
+            return internalGetMutableUiPalettes();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetUIStyleResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetUIStyleResponse.class, identity.v1.Identity.GetUIStyleResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetUIStyleResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        uiStyle_ = "";
+        internalGetMutableUiPalettes().clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetUIStyleResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetUIStyleResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.GetUIStyleResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetUIStyleResponse build() {
+        identity.v1.Identity.GetUIStyleResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetUIStyleResponse buildPartial() {
+        identity.v1.Identity.GetUIStyleResponse result = new identity.v1.Identity.GetUIStyleResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.GetUIStyleResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.uiStyle_ = uiStyle_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.uiPalettes_ = internalGetUiPalettes();
+          result.uiPalettes_.makeImmutable();
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetUIStyleResponse) {
+          return mergeFrom((identity.v1.Identity.GetUIStyleResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetUIStyleResponse other) {
+        if (other == identity.v1.Identity.GetUIStyleResponse.getDefaultInstance()) return this;
+        if (!other.getUiStyle().isEmpty()) {
+          uiStyle_ = other.uiStyle_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        internalGetMutableUiPalettes().mergeFrom(
+            other.internalGetUiPalettes());
+        bitField0_ |= 0x00000002;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                uiStyle_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+                uiPalettes__ = input.readMessage(
+                    UiPalettesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableUiPalettes().getMutableMap().put(
+                    uiPalettes__.getKey(), uiPalettes__.getValue());
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object uiStyle_ = "";
+      /**
+       * <pre>
+       * saas (the default), glass or mono.
+       * </pre>
+       *
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return The uiStyle.
+       */
+      public java.lang.String getUiStyle() {
+        java.lang.Object ref = uiStyle_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uiStyle_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * saas (the default), glass or mono.
+       * </pre>
+       *
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return The bytes for uiStyle.
+       */
+      public com.google.protobuf.ByteString
+          getUiStyleBytes() {
+        java.lang.Object ref = uiStyle_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uiStyle_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * saas (the default), glass or mono.
+       * </pre>
+       *
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @param value The uiStyle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUiStyle(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        uiStyle_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * saas (the default), glass or mono.
+       * </pre>
+       *
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUiStyle() {
+        uiStyle_ = getDefaultInstance().getUiStyle();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * saas (the default), glass or mono.
+       * </pre>
+       *
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @param value The bytes for uiStyle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUiStyleBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        uiStyle_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> uiPalettes_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetUiPalettes() {
+        if (uiPalettes_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              UiPalettesDefaultEntryHolder.defaultEntry);
+        }
+        return uiPalettes_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetMutableUiPalettes() {
+        if (uiPalettes_ == null) {
+          uiPalettes_ = com.google.protobuf.MapField.newMapField(
+              UiPalettesDefaultEntryHolder.defaultEntry);
+        }
+        if (!uiPalettes_.isMutable()) {
+          uiPalettes_ = uiPalettes_.copy();
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return uiPalettes_;
+      }
+      public int getUiPalettesCount() {
+        return internalGetUiPalettes().getMap().size();
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public boolean containsUiPalettes(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetUiPalettes().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getUiPalettesMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getUiPalettes() {
+        return getUiPalettesMap();
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, java.lang.String> getUiPalettesMap() {
+        return internalGetUiPalettes().getMap();
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+java.lang.String getUiPalettesOrDefault(
+          java.lang.String key,
+          /* nullable */
+java.lang.String defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetUiPalettes().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public java.lang.String getUiPalettesOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetUiPalettes().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearUiPalettes() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        internalGetMutableUiPalettes().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder removeUiPalettes(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableUiPalettes().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+          getMutableUiPalettes() {
+        bitField0_ |= 0x00000002;
+        return internalGetMutableUiPalettes().getMutableMap();
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder putUiPalettes(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableUiPalettes().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <pre>
+       * Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder putAllUiPalettes(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableUiPalettes().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetUIStyleResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetUIStyleResponse)
+    private static final identity.v1.Identity.GetUIStyleResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetUIStyleResponse();
+    }
+
+    public static identity.v1.Identity.GetUIStyleResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetUIStyleResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetUIStyleResponse>() {
+      @java.lang.Override
+      public GetUIStyleResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetUIStyleResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetUIStyleResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetUIStyleResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetUIStyleRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.SetUIStyleRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The uiStyle.
+     */
+    java.lang.String getUiStyle();
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The bytes for uiStyle.
+     */
+    com.google.protobuf.ByteString
+        getUiStyleBytes();
+
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    int getUiPalettesCount();
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    boolean containsUiPalettes(
+        java.lang.String key);
+    /**
+     * Use {@link #getUiPalettesMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getUiPalettes();
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getUiPalettesMap();
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    /* nullable */
+java.lang.String getUiPalettesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue);
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    java.lang.String getUiPalettesOrThrow(
+        java.lang.String key);
+  }
+  /**
+   * Protobuf type {@code identity.v1.SetUIStyleRequest}
+   */
+  public static final class SetUIStyleRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.SetUIStyleRequest)
+      SetUIStyleRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        SetUIStyleRequest.class.getName());
+    }
+    // Use SetUIStyleRequest.newBuilder() to construct.
+    private SetUIStyleRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private SetUIStyleRequest() {
+      uiStyle_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_SetUIStyleRequest_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 20:
+          return internalGetUiPalettes();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_SetUIStyleRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.SetUIStyleRequest.class, identity.v1.Identity.SetUIStyleRequest.Builder.class);
+    }
+
+    public static final int UI_STYLE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object uiStyle_ = "";
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The uiStyle.
+     */
+    @java.lang.Override
+    public java.lang.String getUiStyle() {
+      java.lang.Object ref = uiStyle_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uiStyle_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The bytes for uiStyle.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUiStyleBytes() {
+      java.lang.Object ref = uiStyle_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uiStyle_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UI_PALETTES_FIELD_NUMBER = 20;
+    private static final class UiPalettesDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  identity.v1.Identity.internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> uiPalettes_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetUiPalettes() {
+      if (uiPalettes_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            UiPalettesDefaultEntryHolder.defaultEntry);
+      }
+      return uiPalettes_;
+    }
+    public int getUiPalettesCount() {
+      return internalGetUiPalettes().getMap().size();
+    }
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public boolean containsUiPalettes(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetUiPalettes().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getUiPalettesMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getUiPalettes() {
+      return getUiPalettesMap();
+    }
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getUiPalettesMap() {
+      return internalGetUiPalettes().getMap();
+    }
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getUiPalettesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUiPalettes().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * Palette per style; a style left out keeps its stored palette.
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public java.lang.String getUiPalettesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUiPalettes().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uiStyle_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, uiStyle_);
+      }
+      com.google.protobuf.GeneratedMessage
+        .serializeStringMapTo(
+          output,
+          internalGetUiPalettes(),
+          UiPalettesDefaultEntryHolder.defaultEntry,
+          20);
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uiStyle_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, uiStyle_);
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetUiPalettes().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        uiPalettes__ = UiPalettesDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(20, uiPalettes__);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.SetUIStyleRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.SetUIStyleRequest other = (identity.v1.Identity.SetUIStyleRequest) obj;
+
+      if (!getUiStyle()
+          .equals(other.getUiStyle())) return false;
+      if (!internalGetUiPalettes().equals(
+          other.internalGetUiPalettes())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UI_STYLE_FIELD_NUMBER;
+      hash = (53 * hash) + getUiStyle().hashCode();
+      if (!internalGetUiPalettes().getMap().isEmpty()) {
+        hash = (37 * hash) + UI_PALETTES_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetUiPalettes().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.SetUIStyleRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.SetUIStyleRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetUIStyleRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.SetUIStyleRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.SetUIStyleRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.SetUIStyleRequest)
+        identity.v1.Identity.SetUIStyleRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_SetUIStyleRequest_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 20:
+            return internalGetUiPalettes();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 20:
+            return internalGetMutableUiPalettes();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_SetUIStyleRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.SetUIStyleRequest.class, identity.v1.Identity.SetUIStyleRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.SetUIStyleRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        uiStyle_ = "";
+        internalGetMutableUiPalettes().clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_SetUIStyleRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetUIStyleRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.SetUIStyleRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetUIStyleRequest build() {
+        identity.v1.Identity.SetUIStyleRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetUIStyleRequest buildPartial() {
+        identity.v1.Identity.SetUIStyleRequest result = new identity.v1.Identity.SetUIStyleRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.SetUIStyleRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.uiStyle_ = uiStyle_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.uiPalettes_ = internalGetUiPalettes();
+          result.uiPalettes_.makeImmutable();
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.SetUIStyleRequest) {
+          return mergeFrom((identity.v1.Identity.SetUIStyleRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.SetUIStyleRequest other) {
+        if (other == identity.v1.Identity.SetUIStyleRequest.getDefaultInstance()) return this;
+        if (!other.getUiStyle().isEmpty()) {
+          uiStyle_ = other.uiStyle_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        internalGetMutableUiPalettes().mergeFrom(
+            other.internalGetUiPalettes());
+        bitField0_ |= 0x00000002;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                uiStyle_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+                uiPalettes__ = input.readMessage(
+                    UiPalettesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableUiPalettes().getMutableMap().put(
+                    uiPalettes__.getKey(), uiPalettes__.getValue());
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object uiStyle_ = "";
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return The uiStyle.
+       */
+      public java.lang.String getUiStyle() {
+        java.lang.Object ref = uiStyle_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uiStyle_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return The bytes for uiStyle.
+       */
+      public com.google.protobuf.ByteString
+          getUiStyleBytes() {
+        java.lang.Object ref = uiStyle_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uiStyle_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @param value The uiStyle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUiStyle(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        uiStyle_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUiStyle() {
+        uiStyle_ = getDefaultInstance().getUiStyle();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @param value The bytes for uiStyle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUiStyleBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        uiStyle_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> uiPalettes_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetUiPalettes() {
+        if (uiPalettes_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              UiPalettesDefaultEntryHolder.defaultEntry);
+        }
+        return uiPalettes_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetMutableUiPalettes() {
+        if (uiPalettes_ == null) {
+          uiPalettes_ = com.google.protobuf.MapField.newMapField(
+              UiPalettesDefaultEntryHolder.defaultEntry);
+        }
+        if (!uiPalettes_.isMutable()) {
+          uiPalettes_ = uiPalettes_.copy();
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return uiPalettes_;
+      }
+      public int getUiPalettesCount() {
+        return internalGetUiPalettes().getMap().size();
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public boolean containsUiPalettes(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetUiPalettes().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getUiPalettesMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getUiPalettes() {
+        return getUiPalettesMap();
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, java.lang.String> getUiPalettesMap() {
+        return internalGetUiPalettes().getMap();
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+java.lang.String getUiPalettesOrDefault(
+          java.lang.String key,
+          /* nullable */
+java.lang.String defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetUiPalettes().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public java.lang.String getUiPalettesOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetUiPalettes().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearUiPalettes() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        internalGetMutableUiPalettes().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder removeUiPalettes(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableUiPalettes().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+          getMutableUiPalettes() {
+        bitField0_ |= 0x00000002;
+        return internalGetMutableUiPalettes().getMutableMap();
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder putUiPalettes(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableUiPalettes().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <pre>
+       * Palette per style; a style left out keeps its stored palette.
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder putAllUiPalettes(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableUiPalettes().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.SetUIStyleRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.SetUIStyleRequest)
+    private static final identity.v1.Identity.SetUIStyleRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.SetUIStyleRequest();
+    }
+
+    public static identity.v1.Identity.SetUIStyleRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetUIStyleRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SetUIStyleRequest>() {
+      @java.lang.Override
+      public SetUIStyleRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetUIStyleRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetUIStyleRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.SetUIStyleRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetUIStyleResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.SetUIStyleResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The uiStyle.
+     */
+    java.lang.String getUiStyle();
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The bytes for uiStyle.
+     */
+    com.google.protobuf.ByteString
+        getUiStyleBytes();
+
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    int getUiPalettesCount();
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    boolean containsUiPalettes(
+        java.lang.String key);
+    /**
+     * Use {@link #getUiPalettesMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getUiPalettes();
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getUiPalettesMap();
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    /* nullable */
+java.lang.String getUiPalettesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    java.lang.String getUiPalettesOrThrow(
+        java.lang.String key);
+  }
+  /**
+   * Protobuf type {@code identity.v1.SetUIStyleResponse}
+   */
+  public static final class SetUIStyleResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.SetUIStyleResponse)
+      SetUIStyleResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        SetUIStyleResponse.class.getName());
+    }
+    // Use SetUIStyleResponse.newBuilder() to construct.
+    private SetUIStyleResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private SetUIStyleResponse() {
+      uiStyle_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_SetUIStyleResponse_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 20:
+          return internalGetUiPalettes();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_SetUIStyleResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.SetUIStyleResponse.class, identity.v1.Identity.SetUIStyleResponse.Builder.class);
+    }
+
+    public static final int UI_STYLE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object uiStyle_ = "";
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The uiStyle.
+     */
+    @java.lang.Override
+    public java.lang.String getUiStyle() {
+      java.lang.Object ref = uiStyle_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uiStyle_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+     * @return The bytes for uiStyle.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUiStyleBytes() {
+      java.lang.Object ref = uiStyle_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uiStyle_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UI_PALETTES_FIELD_NUMBER = 20;
+    private static final class UiPalettesDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  identity.v1.Identity.internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> uiPalettes_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetUiPalettes() {
+      if (uiPalettes_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            UiPalettesDefaultEntryHolder.defaultEntry);
+      }
+      return uiPalettes_;
+    }
+    public int getUiPalettesCount() {
+      return internalGetUiPalettes().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public boolean containsUiPalettes(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetUiPalettes().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getUiPalettesMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getUiPalettes() {
+      return getUiPalettesMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getUiPalettesMap() {
+      return internalGetUiPalettes().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getUiPalettesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUiPalettes().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+     */
+    @java.lang.Override
+    public java.lang.String getUiPalettesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUiPalettes().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uiStyle_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, uiStyle_);
+      }
+      com.google.protobuf.GeneratedMessage
+        .serializeStringMapTo(
+          output,
+          internalGetUiPalettes(),
+          UiPalettesDefaultEntryHolder.defaultEntry,
+          20);
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uiStyle_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, uiStyle_);
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetUiPalettes().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        uiPalettes__ = UiPalettesDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(20, uiPalettes__);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.SetUIStyleResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.SetUIStyleResponse other = (identity.v1.Identity.SetUIStyleResponse) obj;
+
+      if (!getUiStyle()
+          .equals(other.getUiStyle())) return false;
+      if (!internalGetUiPalettes().equals(
+          other.internalGetUiPalettes())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UI_STYLE_FIELD_NUMBER;
+      hash = (53 * hash) + getUiStyle().hashCode();
+      if (!internalGetUiPalettes().getMap().isEmpty()) {
+        hash = (37 * hash) + UI_PALETTES_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetUiPalettes().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.SetUIStyleResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.SetUIStyleResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetUIStyleResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.SetUIStyleResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.SetUIStyleResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.SetUIStyleResponse)
+        identity.v1.Identity.SetUIStyleResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_SetUIStyleResponse_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 20:
+            return internalGetUiPalettes();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 20:
+            return internalGetMutableUiPalettes();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_SetUIStyleResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.SetUIStyleResponse.class, identity.v1.Identity.SetUIStyleResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.SetUIStyleResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        uiStyle_ = "";
+        internalGetMutableUiPalettes().clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_SetUIStyleResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetUIStyleResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.SetUIStyleResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetUIStyleResponse build() {
+        identity.v1.Identity.SetUIStyleResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetUIStyleResponse buildPartial() {
+        identity.v1.Identity.SetUIStyleResponse result = new identity.v1.Identity.SetUIStyleResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.SetUIStyleResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.uiStyle_ = uiStyle_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.uiPalettes_ = internalGetUiPalettes();
+          result.uiPalettes_.makeImmutable();
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.SetUIStyleResponse) {
+          return mergeFrom((identity.v1.Identity.SetUIStyleResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.SetUIStyleResponse other) {
+        if (other == identity.v1.Identity.SetUIStyleResponse.getDefaultInstance()) return this;
+        if (!other.getUiStyle().isEmpty()) {
+          uiStyle_ = other.uiStyle_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        internalGetMutableUiPalettes().mergeFrom(
+            other.internalGetUiPalettes());
+        bitField0_ |= 0x00000002;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                uiStyle_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+                uiPalettes__ = input.readMessage(
+                    UiPalettesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableUiPalettes().getMutableMap().put(
+                    uiPalettes__.getKey(), uiPalettes__.getValue());
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object uiStyle_ = "";
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return The uiStyle.
+       */
+      public java.lang.String getUiStyle() {
+        java.lang.Object ref = uiStyle_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uiStyle_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return The bytes for uiStyle.
+       */
+      public com.google.protobuf.ByteString
+          getUiStyleBytes() {
+        java.lang.Object ref = uiStyle_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uiStyle_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @param value The uiStyle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUiStyle(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        uiStyle_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUiStyle() {
+        uiStyle_ = getDefaultInstance().getUiStyle();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ui_style = 10 [json_name = "uiStyle"];</code>
+       * @param value The bytes for uiStyle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUiStyleBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        uiStyle_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> uiPalettes_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetUiPalettes() {
+        if (uiPalettes_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              UiPalettesDefaultEntryHolder.defaultEntry);
+        }
+        return uiPalettes_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetMutableUiPalettes() {
+        if (uiPalettes_ == null) {
+          uiPalettes_ = com.google.protobuf.MapField.newMapField(
+              UiPalettesDefaultEntryHolder.defaultEntry);
+        }
+        if (!uiPalettes_.isMutable()) {
+          uiPalettes_ = uiPalettes_.copy();
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return uiPalettes_;
+      }
+      public int getUiPalettesCount() {
+        return internalGetUiPalettes().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public boolean containsUiPalettes(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetUiPalettes().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getUiPalettesMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getUiPalettes() {
+        return getUiPalettesMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, java.lang.String> getUiPalettesMap() {
+        return internalGetUiPalettes().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+java.lang.String getUiPalettesOrDefault(
+          java.lang.String key,
+          /* nullable */
+java.lang.String defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetUiPalettes().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      @java.lang.Override
+      public java.lang.String getUiPalettesOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetUiPalettes().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearUiPalettes() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        internalGetMutableUiPalettes().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder removeUiPalettes(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableUiPalettes().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+          getMutableUiPalettes() {
+        bitField0_ |= 0x00000002;
+        return internalGetMutableUiPalettes().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder putUiPalettes(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableUiPalettes().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ui_palettes = 20 [json_name = "uiPalettes"];</code>
+       */
+      public Builder putAllUiPalettes(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableUiPalettes().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.SetUIStyleResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.SetUIStyleResponse)
+    private static final identity.v1.Identity.SetUIStyleResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.SetUIStyleResponse();
+    }
+
+    public static identity.v1.Identity.SetUIStyleResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetUIStyleResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SetUIStyleResponse>() {
+      @java.lang.Override
+      public SetUIStyleResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetUIStyleResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetUIStyleResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.SetUIStyleResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_IntrospectRequest_descriptor;
   private static final 
@@ -61146,6 +64134,41 @@ public final class Identity {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_ResetUserMFAResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetUIStyleRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetUIStyleRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetUIStyleResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetUIStyleResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_SetUIStyleRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_SetUIStyleRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_SetUIStyleResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_SetUIStyleResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -61347,104 +64370,123 @@ public final class Identity {
       "ARequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\032\n\010enf" +
       "orced\030\024 \001(\010R\010enforced\"\030\n\026EnforceUserMFAR" +
       "esponse\".\n\023ResetUserMFARequest\022\027\n\007user_i" +
-      "d\030\n \001(\tR\006userId\"\026\n\024ResetUserMFAResponse*" +
-      "t\n\nUserStatus\022\033\n\027USER_STATUS_UNSPECIFIED" +
-      "\020\000\022\027\n\023USER_STATUS_PENDING\020\n\022\026\n\022USER_STAT" +
-      "US_ACTIVE\020\024\022\030\n\024USER_STATUS_DISABLED\020\036*_\n" +
-      "\nClientType\022\033\n\027CLIENT_TYPE_UNSPECIFIED\020\000" +
-      "\022\026\n\022CLIENT_TYPE_PUBLIC\020\n\022\034\n\030CLIENT_TYPE_" +
-      "CONFIDENTIAL\020\0242\374\033\n\017IdentityService\022M\n\nIn" +
-      "trospect\022\036.identity.v1.IntrospectRequest" +
-      "\032\037.identity.v1.IntrospectResponse\022\\\n\017Che" +
-      "ckPermission\022#.identity.v1.CheckPermissi" +
-      "onRequest\032$.identity.v1.CheckPermissionR" +
-      "esponse\022P\n\013RevokeToken\022\037.identity.v1.Rev" +
-      "okeTokenRequest\032 .identity.v1.RevokeToke" +
-      "nResponse\022D\n\007GetUser\022\033.identity.v1.GetUs" +
-      "erRequest\032\034.identity.v1.GetUserResponse\022" +
-      "J\n\tListUsers\022\035.identity.v1.ListUsersRequ" +
-      "est\032\036.identity.v1.ListUsersResponse\022M\n\nC" +
-      "reateUser\022\036.identity.v1.CreateUserReques" +
-      "t\032\037.identity.v1.CreateUserResponse\022\\\n\017Se" +
-      "tUserDisabled\022#.identity.v1.SetUserDisab" +
-      "ledRequest\032$.identity.v1.SetUserDisabled" +
-      "Response\022\\\n\017SetUserPassword\022#.identity.v" +
-      "1.SetUserPasswordRequest\032$.identity.v1.S" +
-      "etUserPasswordResponse\022b\n\021SendPasswordRe" +
-      "set\022%.identity.v1.SendPasswordResetReque" +
-      "st\032&.identity.v1.SendPasswordResetRespon" +
-      "se\022M\n\nUpdateUser\022\036.identity.v1.UpdateUse" +
-      "rRequest\032\037.identity.v1.UpdateUserRespons" +
-      "e\022V\n\rSetUserAvatar\022!.identity.v1.SetUser" +
-      "AvatarRequest\032\".identity.v1.SetUserAvata" +
-      "rResponse\022P\n\013SendWelcome\022\037.identity.v1.S" +
-      "endWelcomeRequest\032 .identity.v1.SendWelc" +
-      "omeResponse\022S\n\014GetUserStats\022 .identity.v" +
-      "1.GetUserStatsRequest\032!.identity.v1.GetU" +
-      "serStatsResponse\022>\n\005GetMe\022\031.identity.v1." +
-      "GetMeRequest\032\032.identity.v1.GetMeResponse" +
-      "\022G\n\010UpdateMe\022\034.identity.v1.UpdateMeReque" +
-      "st\032\035.identity.v1.UpdateMeResponse\022P\n\013Set" +
-      "MyAvatar\022\037.identity.v1.SetMyAvatarReques" +
-      "t\032 .identity.v1.SetMyAvatarResponse\022b\n\021G" +
-      "etMyUserSettings\022%.identity.v1.GetMyUser" +
-      "SettingsRequest\032&.identity.v1.GetMyUserS" +
-      "ettingsResponse\022b\n\021PutMyUserSettings\022%.i" +
-      "dentity.v1.PutMyUserSettingsRequest\032&.id" +
-      "entity.v1.PutMyUserSettingsResponse\022M\n\nC" +
-      "reateRole\022\036.identity.v1.CreateRoleReques" +
-      "t\032\037.identity.v1.CreateRoleResponse\022e\n\022Se" +
-      "tRolePermissions\022&.identity.v1.SetRolePe" +
-      "rmissionsRequest\032\'.identity.v1.SetRolePe" +
-      "rmissionsResponse\022J\n\tListRoles\022\035.identit" +
-      "y.v1.ListRolesRequest\032\036.identity.v1.List" +
-      "RolesResponse\022M\n\nUpdateRole\022\036.identity.v" +
-      "1.UpdateRoleRequest\032\037.identity.v1.Update" +
-      "RoleResponse\022M\n\nDeleteRole\022\036.identity.v1" +
-      ".DeleteRoleRequest\032\037.identity.v1.DeleteR" +
-      "oleResponse\022\\\n\017ListPermissions\022#.identit" +
-      "y.v1.ListPermissionsRequest\032$.identity.v" +
-      "1.ListPermissionsResponse\022_\n\020CreatePermi" +
-      "ssion\022$.identity.v1.CreatePermissionRequ" +
-      "est\032%.identity.v1.CreatePermissionRespon" +
-      "se\022_\n\020UpdatePermission\022$.identity.v1.Upd" +
-      "atePermissionRequest\032%.identity.v1.Updat" +
-      "ePermissionResponse\022_\n\020DeletePermission\022" +
-      "$.identity.v1.DeletePermissionRequest\032%." +
-      "identity.v1.DeletePermissionResponse\022M\n\n" +
-      "AssignRole\022\036.identity.v1.AssignRoleReque" +
-      "st\032\037.identity.v1.AssignRoleResponse\022M\n\nR" +
-      "evokeRole\022\036.identity.v1.RevokeRoleReques" +
-      "t\032\037.identity.v1.RevokeRoleResponse\022S\n\014Cr" +
-      "eateClient\022 .identity.v1.CreateClientReq" +
-      "uest\032!.identity.v1.CreateClientResponse\022" +
-      "S\n\014UpdateClient\022 .identity.v1.UpdateClie" +
-      "ntRequest\032!.identity.v1.UpdateClientResp" +
-      "onse\022b\n\021SetClientDisabled\022%.identity.v1." +
-      "SetClientDisabledRequest\032&.identity.v1.S" +
-      "etClientDisabledResponse\022S\n\014DeleteClient" +
-      "\022 .identity.v1.DeleteClientRequest\032!.ide" +
-      "ntity.v1.DeleteClientResponse\022e\n\022RotateC" +
-      "lientSecret\022&.identity.v1.RotateClientSe" +
-      "cretRequest\032\'.identity.v1.RotateClientSe" +
-      "cretResponse\022P\n\013ListClients\022\037.identity.v" +
-      "1.ListClientsRequest\032 .identity.v1.ListC" +
-      "lientsResponse\022b\n\021SetExchangePolicy\022%.id" +
-      "entity.v1.SetExchangePolicyRequest\032&.ide" +
-      "ntity.v1.SetExchangePolicyResponse\022k\n\024Li" +
-      "stExchangePolicies\022(.identity.v1.ListExc" +
-      "hangePoliciesRequest\032).identity.v1.ListE" +
-      "xchangePoliciesResponse\022M\n\nGetUserMFA\022\036." +
-      "identity.v1.GetUserMFARequest\032\037.identity" +
-      ".v1.GetUserMFAResponse\022M\n\nSetUserMFA\022\036.i" +
-      "dentity.v1.SetUserMFARequest\032\037.identity." +
-      "v1.SetUserMFAResponse\022Y\n\016EnforceUserMFA\022" +
-      "\".identity.v1.EnforceUserMFARequest\032#.id" +
-      "entity.v1.EnforceUserMFAResponse\022S\n\014Rese" +
-      "tUserMFA\022 .identity.v1.ResetUserMFAReque" +
-      "st\032!.identity.v1.ResetUserMFAResponseB3Z" +
-      "1github.com/huponx/protogen/identity/v1;" +
-      "identityv1b\006proto3"
+      "d\030\n \001(\tR\006userId\"\026\n\024ResetUserMFAResponse\"" +
+      "\023\n\021GetUIStyleRequest\"\300\001\n\022GetUIStyleRespo" +
+      "nse\022\031\n\010ui_style\030\n \001(\tR\007uiStyle\022P\n\013ui_pal" +
+      "ettes\030\024 \003(\0132/.identity.v1.GetUIStyleResp" +
+      "onse.UiPalettesEntryR\nuiPalettes\032=\n\017UiPa" +
+      "lettesEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002" +
+      " \001(\tR\005value:\0028\001\"\276\001\n\021SetUIStyleRequest\022\031\n" +
+      "\010ui_style\030\n \001(\tR\007uiStyle\022O\n\013ui_palettes\030" +
+      "\024 \003(\0132..identity.v1.SetUIStyleRequest.Ui" +
+      "PalettesEntryR\nuiPalettes\032=\n\017UiPalettesE" +
+      "ntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005v" +
+      "alue:\0028\001\"\300\001\n\022SetUIStyleResponse\022\031\n\010ui_st" +
+      "yle\030\n \001(\tR\007uiStyle\022P\n\013ui_palettes\030\024 \003(\0132" +
+      "/.identity.v1.SetUIStyleResponse.UiPalet" +
+      "tesEntryR\nuiPalettes\032=\n\017UiPalettesEntry\022" +
+      "\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:" +
+      "\0028\001*t\n\nUserStatus\022\033\n\027USER_STATUS_UNSPECI" +
+      "FIED\020\000\022\027\n\023USER_STATUS_PENDING\020\n\022\026\n\022USER_" +
+      "STATUS_ACTIVE\020\024\022\030\n\024USER_STATUS_DISABLED\020" +
+      "\036*_\n\nClientType\022\033\n\027CLIENT_TYPE_UNSPECIFI" +
+      "ED\020\000\022\026\n\022CLIENT_TYPE_PUBLIC\020\n\022\034\n\030CLIENT_T" +
+      "YPE_CONFIDENTIAL\020\0242\232\035\n\017IdentityService\022M" +
+      "\n\nIntrospect\022\036.identity.v1.IntrospectReq" +
+      "uest\032\037.identity.v1.IntrospectResponse\022\\\n" +
+      "\017CheckPermission\022#.identity.v1.CheckPerm" +
+      "issionRequest\032$.identity.v1.CheckPermiss" +
+      "ionResponse\022P\n\013RevokeToken\022\037.identity.v1" +
+      ".RevokeTokenRequest\032 .identity.v1.Revoke" +
+      "TokenResponse\022D\n\007GetUser\022\033.identity.v1.G" +
+      "etUserRequest\032\034.identity.v1.GetUserRespo" +
+      "nse\022J\n\tListUsers\022\035.identity.v1.ListUsers" +
+      "Request\032\036.identity.v1.ListUsersResponse\022" +
+      "M\n\nCreateUser\022\036.identity.v1.CreateUserRe" +
+      "quest\032\037.identity.v1.CreateUserResponse\022\\" +
+      "\n\017SetUserDisabled\022#.identity.v1.SetUserD" +
+      "isabledRequest\032$.identity.v1.SetUserDisa" +
+      "bledResponse\022\\\n\017SetUserPassword\022#.identi" +
+      "ty.v1.SetUserPasswordRequest\032$.identity." +
+      "v1.SetUserPasswordResponse\022b\n\021SendPasswo" +
+      "rdReset\022%.identity.v1.SendPasswordResetR" +
+      "equest\032&.identity.v1.SendPasswordResetRe" +
+      "sponse\022M\n\nUpdateUser\022\036.identity.v1.Updat" +
+      "eUserRequest\032\037.identity.v1.UpdateUserRes" +
+      "ponse\022V\n\rSetUserAvatar\022!.identity.v1.Set" +
+      "UserAvatarRequest\032\".identity.v1.SetUserA" +
+      "vatarResponse\022P\n\013SendWelcome\022\037.identity." +
+      "v1.SendWelcomeRequest\032 .identity.v1.Send" +
+      "WelcomeResponse\022S\n\014GetUserStats\022 .identi" +
+      "ty.v1.GetUserStatsRequest\032!.identity.v1." +
+      "GetUserStatsResponse\022>\n\005GetMe\022\031.identity" +
+      ".v1.GetMeRequest\032\032.identity.v1.GetMeResp" +
+      "onse\022G\n\010UpdateMe\022\034.identity.v1.UpdateMeR" +
+      "equest\032\035.identity.v1.UpdateMeResponse\022P\n" +
+      "\013SetMyAvatar\022\037.identity.v1.SetMyAvatarRe" +
+      "quest\032 .identity.v1.SetMyAvatarResponse\022" +
+      "b\n\021GetMyUserSettings\022%.identity.v1.GetMy" +
+      "UserSettingsRequest\032&.identity.v1.GetMyU" +
+      "serSettingsResponse\022b\n\021PutMyUserSettings" +
+      "\022%.identity.v1.PutMyUserSettingsRequest\032" +
+      "&.identity.v1.PutMyUserSettingsResponse\022" +
+      "M\n\nCreateRole\022\036.identity.v1.CreateRoleRe" +
+      "quest\032\037.identity.v1.CreateRoleResponse\022e" +
+      "\n\022SetRolePermissions\022&.identity.v1.SetRo" +
+      "lePermissionsRequest\032\'.identity.v1.SetRo" +
+      "lePermissionsResponse\022J\n\tListRoles\022\035.ide" +
+      "ntity.v1.ListRolesRequest\032\036.identity.v1." +
+      "ListRolesResponse\022M\n\nUpdateRole\022\036.identi" +
+      "ty.v1.UpdateRoleRequest\032\037.identity.v1.Up" +
+      "dateRoleResponse\022M\n\nDeleteRole\022\036.identit" +
+      "y.v1.DeleteRoleRequest\032\037.identity.v1.Del" +
+      "eteRoleResponse\022\\\n\017ListPermissions\022#.ide" +
+      "ntity.v1.ListPermissionsRequest\032$.identi" +
+      "ty.v1.ListPermissionsResponse\022_\n\020CreateP" +
+      "ermission\022$.identity.v1.CreatePermission" +
+      "Request\032%.identity.v1.CreatePermissionRe" +
+      "sponse\022_\n\020UpdatePermission\022$.identity.v1" +
+      ".UpdatePermissionRequest\032%.identity.v1.U" +
+      "pdatePermissionResponse\022_\n\020DeletePermiss" +
+      "ion\022$.identity.v1.DeletePermissionReques" +
+      "t\032%.identity.v1.DeletePermissionResponse" +
+      "\022M\n\nAssignRole\022\036.identity.v1.AssignRoleR" +
+      "equest\032\037.identity.v1.AssignRoleResponse\022" +
+      "M\n\nRevokeRole\022\036.identity.v1.RevokeRoleRe" +
+      "quest\032\037.identity.v1.RevokeRoleResponse\022S" +
+      "\n\014CreateClient\022 .identity.v1.CreateClien" +
+      "tRequest\032!.identity.v1.CreateClientRespo" +
+      "nse\022S\n\014UpdateClient\022 .identity.v1.Update" +
+      "ClientRequest\032!.identity.v1.UpdateClient" +
+      "Response\022b\n\021SetClientDisabled\022%.identity" +
+      ".v1.SetClientDisabledRequest\032&.identity." +
+      "v1.SetClientDisabledResponse\022S\n\014DeleteCl" +
+      "ient\022 .identity.v1.DeleteClientRequest\032!" +
+      ".identity.v1.DeleteClientResponse\022e\n\022Rot" +
+      "ateClientSecret\022&.identity.v1.RotateClie" +
+      "ntSecretRequest\032\'.identity.v1.RotateClie" +
+      "ntSecretResponse\022P\n\013ListClients\022\037.identi" +
+      "ty.v1.ListClientsRequest\032 .identity.v1.L" +
+      "istClientsResponse\022b\n\021SetExchangePolicy\022" +
+      "%.identity.v1.SetExchangePolicyRequest\032&" +
+      ".identity.v1.SetExchangePolicyResponse\022k" +
+      "\n\024ListExchangePolicies\022(.identity.v1.Lis" +
+      "tExchangePoliciesRequest\032).identity.v1.L" +
+      "istExchangePoliciesResponse\022M\n\nGetUserMF" +
+      "A\022\036.identity.v1.GetUserMFARequest\032\037.iden" +
+      "tity.v1.GetUserMFAResponse\022M\n\nSetUserMFA" +
+      "\022\036.identity.v1.SetUserMFARequest\032\037.ident" +
+      "ity.v1.SetUserMFAResponse\022Y\n\016EnforceUser" +
+      "MFA\022\".identity.v1.EnforceUserMFARequest\032" +
+      "#.identity.v1.EnforceUserMFAResponse\022S\n\014" +
+      "ResetUserMFA\022 .identity.v1.ResetUserMFAR" +
+      "equest\032!.identity.v1.ResetUserMFARespons" +
+      "e\022M\n\nGetUIStyle\022\036.identity.v1.GetUIStyle" +
+      "Request\032\037.identity.v1.GetUIStyleResponse" +
+      "\022M\n\nSetUIStyle\022\036.identity.v1.SetUIStyleR" +
+      "equest\032\037.identity.v1.SetUIStyleResponseB" +
+      "3Z1github.com/huponx/protogen/identity/v" +
+      "1;identityv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -61972,6 +65014,48 @@ public final class Identity {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFAResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_identity_v1_GetUIStyleRequest_descriptor =
+      getDescriptor().getMessageTypes().get(87);
+    internal_static_identity_v1_GetUIStyleRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetUIStyleRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_GetUIStyleResponse_descriptor =
+      getDescriptor().getMessageTypes().get(88);
+    internal_static_identity_v1_GetUIStyleResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetUIStyleResponse_descriptor,
+        new java.lang.String[] { "UiStyle", "UiPalettes", });
+    internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_descriptor =
+      internal_static_identity_v1_GetUIStyleResponse_descriptor.getNestedTypes().get(0);
+    internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_identity_v1_SetUIStyleRequest_descriptor =
+      getDescriptor().getMessageTypes().get(89);
+    internal_static_identity_v1_SetUIStyleRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_SetUIStyleRequest_descriptor,
+        new java.lang.String[] { "UiStyle", "UiPalettes", });
+    internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_descriptor =
+      internal_static_identity_v1_SetUIStyleRequest_descriptor.getNestedTypes().get(0);
+    internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_identity_v1_SetUIStyleResponse_descriptor =
+      getDescriptor().getMessageTypes().get(90);
+    internal_static_identity_v1_SetUIStyleResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_SetUIStyleResponse_descriptor,
+        new java.lang.String[] { "UiStyle", "UiPalettes", });
+    internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_descriptor =
+      internal_static_identity_v1_SetUIStyleResponse_descriptor.getNestedTypes().get(0);
+    internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     descriptor.resolveAllFeaturesImmutable();
   }
 

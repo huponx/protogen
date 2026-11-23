@@ -4791,6 +4791,201 @@ func (*ResetUserMFAResponse) Descriptor() ([]byte, []int) {
 	return file_identity_v1_identity_proto_rawDescGZIP(), []int{86}
 }
 
+type GetUIStyleRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUIStyleRequest) Reset() {
+	*x = GetUIStyleRequest{}
+	mi := &file_identity_v1_identity_proto_msgTypes[87]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUIStyleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUIStyleRequest) ProtoMessage() {}
+
+func (x *GetUIStyleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_identity_proto_msgTypes[87]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUIStyleRequest.ProtoReflect.Descriptor instead.
+func (*GetUIStyleRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_identity_proto_rawDescGZIP(), []int{87}
+}
+
+type GetUIStyleResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// saas (the default), glass or mono.
+	UiStyle string `protobuf:"bytes,10,opt,name=ui_style,json=uiStyle,proto3" json:"ui_style,omitempty"`
+	// Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+	UiPalettes    map[string]string `protobuf:"bytes,20,rep,name=ui_palettes,json=uiPalettes,proto3" json:"ui_palettes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUIStyleResponse) Reset() {
+	*x = GetUIStyleResponse{}
+	mi := &file_identity_v1_identity_proto_msgTypes[88]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUIStyleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUIStyleResponse) ProtoMessage() {}
+
+func (x *GetUIStyleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_identity_proto_msgTypes[88]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUIStyleResponse.ProtoReflect.Descriptor instead.
+func (*GetUIStyleResponse) Descriptor() ([]byte, []int) {
+	return file_identity_v1_identity_proto_rawDescGZIP(), []int{88}
+}
+
+func (x *GetUIStyleResponse) GetUiStyle() string {
+	if x != nil {
+		return x.UiStyle
+	}
+	return ""
+}
+
+func (x *GetUIStyleResponse) GetUiPalettes() map[string]string {
+	if x != nil {
+		return x.UiPalettes
+	}
+	return nil
+}
+
+type SetUIStyleRequest struct {
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	UiStyle string                 `protobuf:"bytes,10,opt,name=ui_style,json=uiStyle,proto3" json:"ui_style,omitempty"`
+	// Palette per style; a style left out keeps its stored palette.
+	UiPalettes    map[string]string `protobuf:"bytes,20,rep,name=ui_palettes,json=uiPalettes,proto3" json:"ui_palettes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetUIStyleRequest) Reset() {
+	*x = SetUIStyleRequest{}
+	mi := &file_identity_v1_identity_proto_msgTypes[89]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetUIStyleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetUIStyleRequest) ProtoMessage() {}
+
+func (x *SetUIStyleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_identity_proto_msgTypes[89]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetUIStyleRequest.ProtoReflect.Descriptor instead.
+func (*SetUIStyleRequest) Descriptor() ([]byte, []int) {
+	return file_identity_v1_identity_proto_rawDescGZIP(), []int{89}
+}
+
+func (x *SetUIStyleRequest) GetUiStyle() string {
+	if x != nil {
+		return x.UiStyle
+	}
+	return ""
+}
+
+func (x *SetUIStyleRequest) GetUiPalettes() map[string]string {
+	if x != nil {
+		return x.UiPalettes
+	}
+	return nil
+}
+
+type SetUIStyleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UiStyle       string                 `protobuf:"bytes,10,opt,name=ui_style,json=uiStyle,proto3" json:"ui_style,omitempty"`
+	UiPalettes    map[string]string      `protobuf:"bytes,20,rep,name=ui_palettes,json=uiPalettes,proto3" json:"ui_palettes,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetUIStyleResponse) Reset() {
+	*x = SetUIStyleResponse{}
+	mi := &file_identity_v1_identity_proto_msgTypes[90]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetUIStyleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetUIStyleResponse) ProtoMessage() {}
+
+func (x *SetUIStyleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_identity_v1_identity_proto_msgTypes[90]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetUIStyleResponse.ProtoReflect.Descriptor instead.
+func (*SetUIStyleResponse) Descriptor() ([]byte, []int) {
+	return file_identity_v1_identity_proto_rawDescGZIP(), []int{90}
+}
+
+func (x *SetUIStyleResponse) GetUiStyle() string {
+	if x != nil {
+		return x.UiStyle
+	}
+	return ""
+}
+
+func (x *SetUIStyleResponse) GetUiPalettes() map[string]string {
+	if x != nil {
+		return x.UiPalettes
+	}
+	return nil
+}
+
 var File_identity_v1_identity_proto protoreflect.FileDescriptor
 
 const file_identity_v1_identity_proto_rawDesc = "" +
@@ -5158,7 +5353,32 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\x13ResetUserMFARequest\x12\x17\n" +
 	"\auser_id\x18\n" +
 	" \x01(\tR\x06userId\"\x16\n" +
-	"\x14ResetUserMFAResponse*t\n" +
+	"\x14ResetUserMFAResponse\"\x13\n" +
+	"\x11GetUIStyleRequest\"\xc0\x01\n" +
+	"\x12GetUIStyleResponse\x12\x19\n" +
+	"\bui_style\x18\n" +
+	" \x01(\tR\auiStyle\x12P\n" +
+	"\vui_palettes\x18\x14 \x03(\v2/.identity.v1.GetUIStyleResponse.UiPalettesEntryR\n" +
+	"uiPalettes\x1a=\n" +
+	"\x0fUiPalettesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xbe\x01\n" +
+	"\x11SetUIStyleRequest\x12\x19\n" +
+	"\bui_style\x18\n" +
+	" \x01(\tR\auiStyle\x12O\n" +
+	"\vui_palettes\x18\x14 \x03(\v2..identity.v1.SetUIStyleRequest.UiPalettesEntryR\n" +
+	"uiPalettes\x1a=\n" +
+	"\x0fUiPalettesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xc0\x01\n" +
+	"\x12SetUIStyleResponse\x12\x19\n" +
+	"\bui_style\x18\n" +
+	" \x01(\tR\auiStyle\x12P\n" +
+	"\vui_palettes\x18\x14 \x03(\v2/.identity.v1.SetUIStyleResponse.UiPalettesEntryR\n" +
+	"uiPalettes\x1a=\n" +
+	"\x0fUiPalettesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01*t\n" +
 	"\n" +
 	"UserStatus\x12\x1b\n" +
 	"\x17USER_STATUS_UNSPECIFIED\x10\x00\x12\x17\n" +
@@ -5171,7 +5391,7 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\x17CLIENT_TYPE_UNSPECIFIED\x10\x00\x12\x16\n" +
 	"\x12CLIENT_TYPE_PUBLIC\x10\n" +
 	"\x12\x1c\n" +
-	"\x18CLIENT_TYPE_CONFIDENTIAL\x10\x142\xfc\x1b\n" +
+	"\x18CLIENT_TYPE_CONFIDENTIAL\x10\x142\x9a\x1d\n" +
 	"\x0fIdentityService\x12M\n" +
 	"\n" +
 	"Introspect\x12\x1e.identity.v1.IntrospectRequest\x1a\x1f.identity.v1.IntrospectResponse\x12\\\n" +
@@ -5223,7 +5443,11 @@ const file_identity_v1_identity_proto_rawDesc = "" +
 	"\n" +
 	"SetUserMFA\x12\x1e.identity.v1.SetUserMFARequest\x1a\x1f.identity.v1.SetUserMFAResponse\x12Y\n" +
 	"\x0eEnforceUserMFA\x12\".identity.v1.EnforceUserMFARequest\x1a#.identity.v1.EnforceUserMFAResponse\x12S\n" +
-	"\fResetUserMFA\x12 .identity.v1.ResetUserMFARequest\x1a!.identity.v1.ResetUserMFAResponseB\xa3\x01\n" +
+	"\fResetUserMFA\x12 .identity.v1.ResetUserMFARequest\x1a!.identity.v1.ResetUserMFAResponse\x12M\n" +
+	"\n" +
+	"GetUIStyle\x12\x1e.identity.v1.GetUIStyleRequest\x1a\x1f.identity.v1.GetUIStyleResponse\x12M\n" +
+	"\n" +
+	"SetUIStyle\x12\x1e.identity.v1.SetUIStyleRequest\x1a\x1f.identity.v1.SetUIStyleResponseB\xa3\x01\n" +
 	"\x0fcom.identity.v1B\rIdentityProtoP\x01Z4github.com/huponx/protogen/go/identity/v1;identityv1\xa2\x02\x03IXX\xaa\x02\vIdentity.V1\xca\x02\vIdentity\\V1\xe2\x02\x17Identity\\V1\\GPBMetadata\xea\x02\fIdentity::V1b\x06proto3"
 
 var (
@@ -5239,7 +5463,7 @@ func file_identity_v1_identity_proto_rawDescGZIP() []byte {
 }
 
 var file_identity_v1_identity_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_identity_v1_identity_proto_msgTypes = make([]protoimpl.MessageInfo, 87)
+var file_identity_v1_identity_proto_msgTypes = make([]protoimpl.MessageInfo, 94)
 var file_identity_v1_identity_proto_goTypes = []any{
 	(UserStatus)(0),                      // 0: identity.v1.UserStatus
 	(ClientType)(0),                      // 1: identity.v1.ClientType
@@ -5330,6 +5554,13 @@ var file_identity_v1_identity_proto_goTypes = []any{
 	(*EnforceUserMFAResponse)(nil),       // 86: identity.v1.EnforceUserMFAResponse
 	(*ResetUserMFARequest)(nil),          // 87: identity.v1.ResetUserMFARequest
 	(*ResetUserMFAResponse)(nil),         // 88: identity.v1.ResetUserMFAResponse
+	(*GetUIStyleRequest)(nil),            // 89: identity.v1.GetUIStyleRequest
+	(*GetUIStyleResponse)(nil),           // 90: identity.v1.GetUIStyleResponse
+	(*SetUIStyleRequest)(nil),            // 91: identity.v1.SetUIStyleRequest
+	(*SetUIStyleResponse)(nil),           // 92: identity.v1.SetUIStyleResponse
+	nil,                                  // 93: identity.v1.GetUIStyleResponse.UiPalettesEntry
+	nil,                                  // 94: identity.v1.SetUIStyleRequest.UiPalettesEntry
+	nil,                                  // 95: identity.v1.SetUIStyleResponse.UiPalettesEntry
 }
 var file_identity_v1_identity_proto_depIdxs = []int32{
 	0,  // 0: identity.v1.User.status:type_name -> identity.v1.UserStatus
@@ -5358,93 +5589,100 @@ var file_identity_v1_identity_proto_depIdxs = []int32{
 	63, // 23: identity.v1.ListClientsResponse.clients:type_name -> identity.v1.Client
 	76, // 24: identity.v1.SetExchangePolicyRequest.policy:type_name -> identity.v1.ExchangePolicy
 	76, // 25: identity.v1.ListExchangePoliciesResponse.policies:type_name -> identity.v1.ExchangePolicy
-	2,  // 26: identity.v1.IdentityService.Introspect:input_type -> identity.v1.IntrospectRequest
-	4,  // 27: identity.v1.IdentityService.CheckPermission:input_type -> identity.v1.CheckPermissionRequest
-	6,  // 28: identity.v1.IdentityService.RevokeToken:input_type -> identity.v1.RevokeTokenRequest
-	11, // 29: identity.v1.IdentityService.GetUser:input_type -> identity.v1.GetUserRequest
-	13, // 30: identity.v1.IdentityService.ListUsers:input_type -> identity.v1.ListUsersRequest
-	15, // 31: identity.v1.IdentityService.CreateUser:input_type -> identity.v1.CreateUserRequest
-	17, // 32: identity.v1.IdentityService.SetUserDisabled:input_type -> identity.v1.SetUserDisabledRequest
-	19, // 33: identity.v1.IdentityService.SetUserPassword:input_type -> identity.v1.SetUserPasswordRequest
-	21, // 34: identity.v1.IdentityService.SendPasswordReset:input_type -> identity.v1.SendPasswordResetRequest
-	23, // 35: identity.v1.IdentityService.UpdateUser:input_type -> identity.v1.UpdateUserRequest
-	25, // 36: identity.v1.IdentityService.SetUserAvatar:input_type -> identity.v1.SetUserAvatarRequest
-	27, // 37: identity.v1.IdentityService.SendWelcome:input_type -> identity.v1.SendWelcomeRequest
-	9,  // 38: identity.v1.IdentityService.GetUserStats:input_type -> identity.v1.GetUserStatsRequest
-	29, // 39: identity.v1.IdentityService.GetMe:input_type -> identity.v1.GetMeRequest
-	31, // 40: identity.v1.IdentityService.UpdateMe:input_type -> identity.v1.UpdateMeRequest
-	33, // 41: identity.v1.IdentityService.SetMyAvatar:input_type -> identity.v1.SetMyAvatarRequest
-	35, // 42: identity.v1.IdentityService.GetMyUserSettings:input_type -> identity.v1.GetMyUserSettingsRequest
-	37, // 43: identity.v1.IdentityService.PutMyUserSettings:input_type -> identity.v1.PutMyUserSettingsRequest
-	40, // 44: identity.v1.IdentityService.CreateRole:input_type -> identity.v1.CreateRoleRequest
-	42, // 45: identity.v1.IdentityService.SetRolePermissions:input_type -> identity.v1.SetRolePermissionsRequest
-	48, // 46: identity.v1.IdentityService.ListRoles:input_type -> identity.v1.ListRolesRequest
-	44, // 47: identity.v1.IdentityService.UpdateRole:input_type -> identity.v1.UpdateRoleRequest
-	46, // 48: identity.v1.IdentityService.DeleteRole:input_type -> identity.v1.DeleteRoleRequest
-	51, // 49: identity.v1.IdentityService.ListPermissions:input_type -> identity.v1.ListPermissionsRequest
-	53, // 50: identity.v1.IdentityService.CreatePermission:input_type -> identity.v1.CreatePermissionRequest
-	55, // 51: identity.v1.IdentityService.UpdatePermission:input_type -> identity.v1.UpdatePermissionRequest
-	57, // 52: identity.v1.IdentityService.DeletePermission:input_type -> identity.v1.DeletePermissionRequest
-	59, // 53: identity.v1.IdentityService.AssignRole:input_type -> identity.v1.AssignRoleRequest
-	61, // 54: identity.v1.IdentityService.RevokeRole:input_type -> identity.v1.RevokeRoleRequest
-	64, // 55: identity.v1.IdentityService.CreateClient:input_type -> identity.v1.CreateClientRequest
-	68, // 56: identity.v1.IdentityService.UpdateClient:input_type -> identity.v1.UpdateClientRequest
-	70, // 57: identity.v1.IdentityService.SetClientDisabled:input_type -> identity.v1.SetClientDisabledRequest
-	72, // 58: identity.v1.IdentityService.DeleteClient:input_type -> identity.v1.DeleteClientRequest
-	66, // 59: identity.v1.IdentityService.RotateClientSecret:input_type -> identity.v1.RotateClientSecretRequest
-	74, // 60: identity.v1.IdentityService.ListClients:input_type -> identity.v1.ListClientsRequest
-	77, // 61: identity.v1.IdentityService.SetExchangePolicy:input_type -> identity.v1.SetExchangePolicyRequest
-	79, // 62: identity.v1.IdentityService.ListExchangePolicies:input_type -> identity.v1.ListExchangePoliciesRequest
-	81, // 63: identity.v1.IdentityService.GetUserMFA:input_type -> identity.v1.GetUserMFARequest
-	83, // 64: identity.v1.IdentityService.SetUserMFA:input_type -> identity.v1.SetUserMFARequest
-	85, // 65: identity.v1.IdentityService.EnforceUserMFA:input_type -> identity.v1.EnforceUserMFARequest
-	87, // 66: identity.v1.IdentityService.ResetUserMFA:input_type -> identity.v1.ResetUserMFARequest
-	3,  // 67: identity.v1.IdentityService.Introspect:output_type -> identity.v1.IntrospectResponse
-	5,  // 68: identity.v1.IdentityService.CheckPermission:output_type -> identity.v1.CheckPermissionResponse
-	7,  // 69: identity.v1.IdentityService.RevokeToken:output_type -> identity.v1.RevokeTokenResponse
-	12, // 70: identity.v1.IdentityService.GetUser:output_type -> identity.v1.GetUserResponse
-	14, // 71: identity.v1.IdentityService.ListUsers:output_type -> identity.v1.ListUsersResponse
-	16, // 72: identity.v1.IdentityService.CreateUser:output_type -> identity.v1.CreateUserResponse
-	18, // 73: identity.v1.IdentityService.SetUserDisabled:output_type -> identity.v1.SetUserDisabledResponse
-	20, // 74: identity.v1.IdentityService.SetUserPassword:output_type -> identity.v1.SetUserPasswordResponse
-	22, // 75: identity.v1.IdentityService.SendPasswordReset:output_type -> identity.v1.SendPasswordResetResponse
-	24, // 76: identity.v1.IdentityService.UpdateUser:output_type -> identity.v1.UpdateUserResponse
-	26, // 77: identity.v1.IdentityService.SetUserAvatar:output_type -> identity.v1.SetUserAvatarResponse
-	28, // 78: identity.v1.IdentityService.SendWelcome:output_type -> identity.v1.SendWelcomeResponse
-	10, // 79: identity.v1.IdentityService.GetUserStats:output_type -> identity.v1.GetUserStatsResponse
-	30, // 80: identity.v1.IdentityService.GetMe:output_type -> identity.v1.GetMeResponse
-	32, // 81: identity.v1.IdentityService.UpdateMe:output_type -> identity.v1.UpdateMeResponse
-	34, // 82: identity.v1.IdentityService.SetMyAvatar:output_type -> identity.v1.SetMyAvatarResponse
-	36, // 83: identity.v1.IdentityService.GetMyUserSettings:output_type -> identity.v1.GetMyUserSettingsResponse
-	38, // 84: identity.v1.IdentityService.PutMyUserSettings:output_type -> identity.v1.PutMyUserSettingsResponse
-	41, // 85: identity.v1.IdentityService.CreateRole:output_type -> identity.v1.CreateRoleResponse
-	43, // 86: identity.v1.IdentityService.SetRolePermissions:output_type -> identity.v1.SetRolePermissionsResponse
-	49, // 87: identity.v1.IdentityService.ListRoles:output_type -> identity.v1.ListRolesResponse
-	45, // 88: identity.v1.IdentityService.UpdateRole:output_type -> identity.v1.UpdateRoleResponse
-	47, // 89: identity.v1.IdentityService.DeleteRole:output_type -> identity.v1.DeleteRoleResponse
-	52, // 90: identity.v1.IdentityService.ListPermissions:output_type -> identity.v1.ListPermissionsResponse
-	54, // 91: identity.v1.IdentityService.CreatePermission:output_type -> identity.v1.CreatePermissionResponse
-	56, // 92: identity.v1.IdentityService.UpdatePermission:output_type -> identity.v1.UpdatePermissionResponse
-	58, // 93: identity.v1.IdentityService.DeletePermission:output_type -> identity.v1.DeletePermissionResponse
-	60, // 94: identity.v1.IdentityService.AssignRole:output_type -> identity.v1.AssignRoleResponse
-	62, // 95: identity.v1.IdentityService.RevokeRole:output_type -> identity.v1.RevokeRoleResponse
-	65, // 96: identity.v1.IdentityService.CreateClient:output_type -> identity.v1.CreateClientResponse
-	69, // 97: identity.v1.IdentityService.UpdateClient:output_type -> identity.v1.UpdateClientResponse
-	71, // 98: identity.v1.IdentityService.SetClientDisabled:output_type -> identity.v1.SetClientDisabledResponse
-	73, // 99: identity.v1.IdentityService.DeleteClient:output_type -> identity.v1.DeleteClientResponse
-	67, // 100: identity.v1.IdentityService.RotateClientSecret:output_type -> identity.v1.RotateClientSecretResponse
-	75, // 101: identity.v1.IdentityService.ListClients:output_type -> identity.v1.ListClientsResponse
-	78, // 102: identity.v1.IdentityService.SetExchangePolicy:output_type -> identity.v1.SetExchangePolicyResponse
-	80, // 103: identity.v1.IdentityService.ListExchangePolicies:output_type -> identity.v1.ListExchangePoliciesResponse
-	82, // 104: identity.v1.IdentityService.GetUserMFA:output_type -> identity.v1.GetUserMFAResponse
-	84, // 105: identity.v1.IdentityService.SetUserMFA:output_type -> identity.v1.SetUserMFAResponse
-	86, // 106: identity.v1.IdentityService.EnforceUserMFA:output_type -> identity.v1.EnforceUserMFAResponse
-	88, // 107: identity.v1.IdentityService.ResetUserMFA:output_type -> identity.v1.ResetUserMFAResponse
-	67, // [67:108] is the sub-list for method output_type
-	26, // [26:67] is the sub-list for method input_type
-	26, // [26:26] is the sub-list for extension type_name
-	26, // [26:26] is the sub-list for extension extendee
-	0,  // [0:26] is the sub-list for field type_name
+	93, // 26: identity.v1.GetUIStyleResponse.ui_palettes:type_name -> identity.v1.GetUIStyleResponse.UiPalettesEntry
+	94, // 27: identity.v1.SetUIStyleRequest.ui_palettes:type_name -> identity.v1.SetUIStyleRequest.UiPalettesEntry
+	95, // 28: identity.v1.SetUIStyleResponse.ui_palettes:type_name -> identity.v1.SetUIStyleResponse.UiPalettesEntry
+	2,  // 29: identity.v1.IdentityService.Introspect:input_type -> identity.v1.IntrospectRequest
+	4,  // 30: identity.v1.IdentityService.CheckPermission:input_type -> identity.v1.CheckPermissionRequest
+	6,  // 31: identity.v1.IdentityService.RevokeToken:input_type -> identity.v1.RevokeTokenRequest
+	11, // 32: identity.v1.IdentityService.GetUser:input_type -> identity.v1.GetUserRequest
+	13, // 33: identity.v1.IdentityService.ListUsers:input_type -> identity.v1.ListUsersRequest
+	15, // 34: identity.v1.IdentityService.CreateUser:input_type -> identity.v1.CreateUserRequest
+	17, // 35: identity.v1.IdentityService.SetUserDisabled:input_type -> identity.v1.SetUserDisabledRequest
+	19, // 36: identity.v1.IdentityService.SetUserPassword:input_type -> identity.v1.SetUserPasswordRequest
+	21, // 37: identity.v1.IdentityService.SendPasswordReset:input_type -> identity.v1.SendPasswordResetRequest
+	23, // 38: identity.v1.IdentityService.UpdateUser:input_type -> identity.v1.UpdateUserRequest
+	25, // 39: identity.v1.IdentityService.SetUserAvatar:input_type -> identity.v1.SetUserAvatarRequest
+	27, // 40: identity.v1.IdentityService.SendWelcome:input_type -> identity.v1.SendWelcomeRequest
+	9,  // 41: identity.v1.IdentityService.GetUserStats:input_type -> identity.v1.GetUserStatsRequest
+	29, // 42: identity.v1.IdentityService.GetMe:input_type -> identity.v1.GetMeRequest
+	31, // 43: identity.v1.IdentityService.UpdateMe:input_type -> identity.v1.UpdateMeRequest
+	33, // 44: identity.v1.IdentityService.SetMyAvatar:input_type -> identity.v1.SetMyAvatarRequest
+	35, // 45: identity.v1.IdentityService.GetMyUserSettings:input_type -> identity.v1.GetMyUserSettingsRequest
+	37, // 46: identity.v1.IdentityService.PutMyUserSettings:input_type -> identity.v1.PutMyUserSettingsRequest
+	40, // 47: identity.v1.IdentityService.CreateRole:input_type -> identity.v1.CreateRoleRequest
+	42, // 48: identity.v1.IdentityService.SetRolePermissions:input_type -> identity.v1.SetRolePermissionsRequest
+	48, // 49: identity.v1.IdentityService.ListRoles:input_type -> identity.v1.ListRolesRequest
+	44, // 50: identity.v1.IdentityService.UpdateRole:input_type -> identity.v1.UpdateRoleRequest
+	46, // 51: identity.v1.IdentityService.DeleteRole:input_type -> identity.v1.DeleteRoleRequest
+	51, // 52: identity.v1.IdentityService.ListPermissions:input_type -> identity.v1.ListPermissionsRequest
+	53, // 53: identity.v1.IdentityService.CreatePermission:input_type -> identity.v1.CreatePermissionRequest
+	55, // 54: identity.v1.IdentityService.UpdatePermission:input_type -> identity.v1.UpdatePermissionRequest
+	57, // 55: identity.v1.IdentityService.DeletePermission:input_type -> identity.v1.DeletePermissionRequest
+	59, // 56: identity.v1.IdentityService.AssignRole:input_type -> identity.v1.AssignRoleRequest
+	61, // 57: identity.v1.IdentityService.RevokeRole:input_type -> identity.v1.RevokeRoleRequest
+	64, // 58: identity.v1.IdentityService.CreateClient:input_type -> identity.v1.CreateClientRequest
+	68, // 59: identity.v1.IdentityService.UpdateClient:input_type -> identity.v1.UpdateClientRequest
+	70, // 60: identity.v1.IdentityService.SetClientDisabled:input_type -> identity.v1.SetClientDisabledRequest
+	72, // 61: identity.v1.IdentityService.DeleteClient:input_type -> identity.v1.DeleteClientRequest
+	66, // 62: identity.v1.IdentityService.RotateClientSecret:input_type -> identity.v1.RotateClientSecretRequest
+	74, // 63: identity.v1.IdentityService.ListClients:input_type -> identity.v1.ListClientsRequest
+	77, // 64: identity.v1.IdentityService.SetExchangePolicy:input_type -> identity.v1.SetExchangePolicyRequest
+	79, // 65: identity.v1.IdentityService.ListExchangePolicies:input_type -> identity.v1.ListExchangePoliciesRequest
+	81, // 66: identity.v1.IdentityService.GetUserMFA:input_type -> identity.v1.GetUserMFARequest
+	83, // 67: identity.v1.IdentityService.SetUserMFA:input_type -> identity.v1.SetUserMFARequest
+	85, // 68: identity.v1.IdentityService.EnforceUserMFA:input_type -> identity.v1.EnforceUserMFARequest
+	87, // 69: identity.v1.IdentityService.ResetUserMFA:input_type -> identity.v1.ResetUserMFARequest
+	89, // 70: identity.v1.IdentityService.GetUIStyle:input_type -> identity.v1.GetUIStyleRequest
+	91, // 71: identity.v1.IdentityService.SetUIStyle:input_type -> identity.v1.SetUIStyleRequest
+	3,  // 72: identity.v1.IdentityService.Introspect:output_type -> identity.v1.IntrospectResponse
+	5,  // 73: identity.v1.IdentityService.CheckPermission:output_type -> identity.v1.CheckPermissionResponse
+	7,  // 74: identity.v1.IdentityService.RevokeToken:output_type -> identity.v1.RevokeTokenResponse
+	12, // 75: identity.v1.IdentityService.GetUser:output_type -> identity.v1.GetUserResponse
+	14, // 76: identity.v1.IdentityService.ListUsers:output_type -> identity.v1.ListUsersResponse
+	16, // 77: identity.v1.IdentityService.CreateUser:output_type -> identity.v1.CreateUserResponse
+	18, // 78: identity.v1.IdentityService.SetUserDisabled:output_type -> identity.v1.SetUserDisabledResponse
+	20, // 79: identity.v1.IdentityService.SetUserPassword:output_type -> identity.v1.SetUserPasswordResponse
+	22, // 80: identity.v1.IdentityService.SendPasswordReset:output_type -> identity.v1.SendPasswordResetResponse
+	24, // 81: identity.v1.IdentityService.UpdateUser:output_type -> identity.v1.UpdateUserResponse
+	26, // 82: identity.v1.IdentityService.SetUserAvatar:output_type -> identity.v1.SetUserAvatarResponse
+	28, // 83: identity.v1.IdentityService.SendWelcome:output_type -> identity.v1.SendWelcomeResponse
+	10, // 84: identity.v1.IdentityService.GetUserStats:output_type -> identity.v1.GetUserStatsResponse
+	30, // 85: identity.v1.IdentityService.GetMe:output_type -> identity.v1.GetMeResponse
+	32, // 86: identity.v1.IdentityService.UpdateMe:output_type -> identity.v1.UpdateMeResponse
+	34, // 87: identity.v1.IdentityService.SetMyAvatar:output_type -> identity.v1.SetMyAvatarResponse
+	36, // 88: identity.v1.IdentityService.GetMyUserSettings:output_type -> identity.v1.GetMyUserSettingsResponse
+	38, // 89: identity.v1.IdentityService.PutMyUserSettings:output_type -> identity.v1.PutMyUserSettingsResponse
+	41, // 90: identity.v1.IdentityService.CreateRole:output_type -> identity.v1.CreateRoleResponse
+	43, // 91: identity.v1.IdentityService.SetRolePermissions:output_type -> identity.v1.SetRolePermissionsResponse
+	49, // 92: identity.v1.IdentityService.ListRoles:output_type -> identity.v1.ListRolesResponse
+	45, // 93: identity.v1.IdentityService.UpdateRole:output_type -> identity.v1.UpdateRoleResponse
+	47, // 94: identity.v1.IdentityService.DeleteRole:output_type -> identity.v1.DeleteRoleResponse
+	52, // 95: identity.v1.IdentityService.ListPermissions:output_type -> identity.v1.ListPermissionsResponse
+	54, // 96: identity.v1.IdentityService.CreatePermission:output_type -> identity.v1.CreatePermissionResponse
+	56, // 97: identity.v1.IdentityService.UpdatePermission:output_type -> identity.v1.UpdatePermissionResponse
+	58, // 98: identity.v1.IdentityService.DeletePermission:output_type -> identity.v1.DeletePermissionResponse
+	60, // 99: identity.v1.IdentityService.AssignRole:output_type -> identity.v1.AssignRoleResponse
+	62, // 100: identity.v1.IdentityService.RevokeRole:output_type -> identity.v1.RevokeRoleResponse
+	65, // 101: identity.v1.IdentityService.CreateClient:output_type -> identity.v1.CreateClientResponse
+	69, // 102: identity.v1.IdentityService.UpdateClient:output_type -> identity.v1.UpdateClientResponse
+	71, // 103: identity.v1.IdentityService.SetClientDisabled:output_type -> identity.v1.SetClientDisabledResponse
+	73, // 104: identity.v1.IdentityService.DeleteClient:output_type -> identity.v1.DeleteClientResponse
+	67, // 105: identity.v1.IdentityService.RotateClientSecret:output_type -> identity.v1.RotateClientSecretResponse
+	75, // 106: identity.v1.IdentityService.ListClients:output_type -> identity.v1.ListClientsResponse
+	78, // 107: identity.v1.IdentityService.SetExchangePolicy:output_type -> identity.v1.SetExchangePolicyResponse
+	80, // 108: identity.v1.IdentityService.ListExchangePolicies:output_type -> identity.v1.ListExchangePoliciesResponse
+	82, // 109: identity.v1.IdentityService.GetUserMFA:output_type -> identity.v1.GetUserMFAResponse
+	84, // 110: identity.v1.IdentityService.SetUserMFA:output_type -> identity.v1.SetUserMFAResponse
+	86, // 111: identity.v1.IdentityService.EnforceUserMFA:output_type -> identity.v1.EnforceUserMFAResponse
+	88, // 112: identity.v1.IdentityService.ResetUserMFA:output_type -> identity.v1.ResetUserMFAResponse
+	90, // 113: identity.v1.IdentityService.GetUIStyle:output_type -> identity.v1.GetUIStyleResponse
+	92, // 114: identity.v1.IdentityService.SetUIStyle:output_type -> identity.v1.SetUIStyleResponse
+	72, // [72:115] is the sub-list for method output_type
+	29, // [29:72] is the sub-list for method input_type
+	29, // [29:29] is the sub-list for extension type_name
+	29, // [29:29] is the sub-list for extension extendee
+	0,  // [0:29] is the sub-list for field type_name
 }
 
 func init() { file_identity_v1_identity_proto_init() }
@@ -5458,7 +5696,7 @@ func file_identity_v1_identity_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_identity_v1_identity_proto_rawDesc), len(file_identity_v1_identity_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   87,
+			NumMessages:   94,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

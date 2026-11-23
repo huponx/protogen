@@ -1141,6 +1141,56 @@ pub mod identity_service_client {
                 .insert(GrpcMethod::new("identity.v1.IdentityService", "ResetUserMFA"));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn get_ui_style(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetUiStyleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetUiStyleResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/GetUIStyle",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("identity.v1.IdentityService", "GetUIStyle"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn set_ui_style(
+            &mut self,
+            request: impl tonic::IntoRequest<super::SetUiStyleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SetUiStyleResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/SetUIStyle",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("identity.v1.IdentityService", "SetUIStyle"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -1429,6 +1479,20 @@ pub mod identity_service_server {
             request: tonic::Request<super::ResetUserMfaRequest>,
         ) -> std::result::Result<
             tonic::Response<super::ResetUserMfaResponse>,
+            tonic::Status,
+        >;
+        async fn get_ui_style(
+            &self,
+            request: tonic::Request<super::GetUiStyleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetUiStyleResponse>,
+            tonic::Status,
+        >;
+        async fn set_ui_style(
+            &self,
+            request: tonic::Request<super::SetUiStyleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SetUiStyleResponse>,
             tonic::Status,
         >;
     }
@@ -3371,6 +3435,96 @@ pub mod identity_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ResetUserMFASvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/GetUIStyle" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetUIStyleSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::GetUiStyleRequest>
+                    for GetUIStyleSvc<T> {
+                        type Response = super::GetUiStyleResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetUiStyleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::get_ui_style(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetUIStyleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/SetUIStyle" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetUIStyleSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::SetUiStyleRequest>
+                    for SetUIStyleSvc<T> {
+                        type Response = super::SetUiStyleResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetUiStyleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::set_ui_style(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetUIStyleSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

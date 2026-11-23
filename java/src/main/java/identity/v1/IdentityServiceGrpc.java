@@ -1291,6 +1291,68 @@ public final class IdentityServiceGrpc {
     return getResetUserMFAMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetUIStyleRequest,
+      identity.v1.Identity.GetUIStyleResponse> getGetUIStyleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetUIStyle",
+      requestType = identity.v1.Identity.GetUIStyleRequest.class,
+      responseType = identity.v1.Identity.GetUIStyleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.GetUIStyleRequest,
+      identity.v1.Identity.GetUIStyleResponse> getGetUIStyleMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.GetUIStyleRequest, identity.v1.Identity.GetUIStyleResponse> getGetUIStyleMethod;
+    if ((getGetUIStyleMethod = IdentityServiceGrpc.getGetUIStyleMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getGetUIStyleMethod = IdentityServiceGrpc.getGetUIStyleMethod) == null) {
+          IdentityServiceGrpc.getGetUIStyleMethod = getGetUIStyleMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.GetUIStyleRequest, identity.v1.Identity.GetUIStyleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetUIStyle"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetUIStyleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetUIStyleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("GetUIStyle"))
+              .build();
+        }
+      }
+    }
+    return getGetUIStyleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.SetUIStyleRequest,
+      identity.v1.Identity.SetUIStyleResponse> getSetUIStyleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetUIStyle",
+      requestType = identity.v1.Identity.SetUIStyleRequest.class,
+      responseType = identity.v1.Identity.SetUIStyleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.SetUIStyleRequest,
+      identity.v1.Identity.SetUIStyleResponse> getSetUIStyleMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.SetUIStyleRequest, identity.v1.Identity.SetUIStyleResponse> getSetUIStyleMethod;
+    if ((getSetUIStyleMethod = IdentityServiceGrpc.getSetUIStyleMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getSetUIStyleMethod = IdentityServiceGrpc.getSetUIStyleMethod) == null) {
+          IdentityServiceGrpc.getSetUIStyleMethod = getSetUIStyleMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.SetUIStyleRequest, identity.v1.Identity.SetUIStyleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetUIStyle"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetUIStyleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetUIStyleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("SetUIStyle"))
+              .build();
+        }
+      }
+    }
+    return getSetUIStyleMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -1687,6 +1749,25 @@ public final class IdentityServiceGrpc {
     default void resetUserMFA(identity.v1.Identity.ResetUserMFARequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.ResetUserMFAResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getResetUserMFAMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+     * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+     * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+     * </pre>
+     */
+    default void getUIStyle(identity.v1.Identity.GetUIStyleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetUIStyleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUIStyleMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void setUIStyle(identity.v1.Identity.SetUIStyleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetUIStyleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetUIStyleMethod(), responseObserver);
     }
   }
 
@@ -2112,6 +2193,27 @@ public final class IdentityServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getResetUserMFAMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+     * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+     * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+     * </pre>
+     */
+    public void getUIStyle(identity.v1.Identity.GetUIStyleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetUIStyleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetUIStyleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void setUIStyle(identity.v1.Identity.SetUIStyleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetUIStyleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetUIStyleMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -2478,6 +2580,25 @@ public final class IdentityServiceGrpc {
     public identity.v1.Identity.ResetUserMFAResponse resetUserMFA(identity.v1.Identity.ResetUserMFARequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getResetUserMFAMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+     * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+     * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+     * </pre>
+     */
+    public identity.v1.Identity.GetUIStyleResponse getUIStyle(identity.v1.Identity.GetUIStyleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetUIStyleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.SetUIStyleResponse setUIStyle(identity.v1.Identity.SetUIStyleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetUIStyleMethod(), getCallOptions(), request);
     }
   }
 
@@ -2887,6 +3008,27 @@ public final class IdentityServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getResetUserMFAMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+     * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+     * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.GetUIStyleResponse> getUIStyle(
+        identity.v1.Identity.GetUIStyleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetUIStyleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.SetUIStyleResponse> setUIStyle(
+        identity.v1.Identity.SetUIStyleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetUIStyleMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_INTROSPECT = 0;
@@ -2930,6 +3072,8 @@ public final class IdentityServiceGrpc {
   private static final int METHODID_SET_USER_MFA = 38;
   private static final int METHODID_ENFORCE_USER_MFA = 39;
   private static final int METHODID_RESET_USER_MFA = 40;
+  private static final int METHODID_GET_UISTYLE = 41;
+  private static final int METHODID_SET_UISTYLE = 42;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -3111,6 +3255,14 @@ public final class IdentityServiceGrpc {
         case METHODID_RESET_USER_MFA:
           serviceImpl.resetUserMFA((identity.v1.Identity.ResetUserMFARequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.ResetUserMFAResponse>) responseObserver);
+          break;
+        case METHODID_GET_UISTYLE:
+          serviceImpl.getUIStyle((identity.v1.Identity.GetUIStyleRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.GetUIStyleResponse>) responseObserver);
+          break;
+        case METHODID_SET_UISTYLE:
+          serviceImpl.setUIStyle((identity.v1.Identity.SetUIStyleRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.SetUIStyleResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -3417,6 +3569,20 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.ResetUserMFARequest,
               identity.v1.Identity.ResetUserMFAResponse>(
                 service, METHODID_RESET_USER_MFA)))
+        .addMethod(
+          getGetUIStyleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.GetUIStyleRequest,
+              identity.v1.Identity.GetUIStyleResponse>(
+                service, METHODID_GET_UISTYLE)))
+        .addMethod(
+          getSetUIStyleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.SetUIStyleRequest,
+              identity.v1.Identity.SetUIStyleResponse>(
+                service, METHODID_SET_UISTYLE)))
         .build();
   }
 
@@ -3506,6 +3672,8 @@ public final class IdentityServiceGrpc {
               .addMethod(getSetUserMFAMethod())
               .addMethod(getEnforceUserMFAMethod())
               .addMethod(getResetUserMFAMethod())
+              .addMethod(getGetUIStyleMethod())
+              .addMethod(getSetUIStyleMethod())
               .build();
         }
       }
