@@ -60,6 +60,8 @@ const (
 	IdentityService_SetUserMFA_FullMethodName           = "/identity.v1.IdentityService/SetUserMFA"
 	IdentityService_EnforceUserMFA_FullMethodName       = "/identity.v1.IdentityService/EnforceUserMFA"
 	IdentityService_ResetUserMFA_FullMethodName         = "/identity.v1.IdentityService/ResetUserMFA"
+	IdentityService_GetUIStyle_FullMethodName           = "/identity.v1.IdentityService/GetUIStyle"
+	IdentityService_SetUIStyle_FullMethodName           = "/identity.v1.IdentityService/SetUIStyle"
 )
 
 // IdentityServiceClient is the client API for IdentityService service.
@@ -135,6 +137,11 @@ type IdentityServiceClient interface {
 	SetUserMFA(ctx context.Context, in *SetUserMFARequest, opts ...grpc.CallOption) (*SetUserMFAResponse, error)
 	EnforceUserMFA(ctx context.Context, in *EnforceUserMFARequest, opts ...grpc.CallOption) (*EnforceUserMFAResponse, error)
 	ResetUserMFA(ctx context.Context, in *ResetUserMFARequest, opts ...grpc.CallOption) (*ResetUserMFAResponse, error)
+	// The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+	// GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+	// /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+	GetUIStyle(ctx context.Context, in *GetUIStyleRequest, opts ...grpc.CallOption) (*GetUIStyleResponse, error)
+	SetUIStyle(ctx context.Context, in *SetUIStyleRequest, opts ...grpc.CallOption) (*SetUIStyleResponse, error)
 }
 
 type identityServiceClient struct {
@@ -555,6 +562,26 @@ func (c *identityServiceClient) ResetUserMFA(ctx context.Context, in *ResetUserM
 	return out, nil
 }
 
+func (c *identityServiceClient) GetUIStyle(ctx context.Context, in *GetUIStyleRequest, opts ...grpc.CallOption) (*GetUIStyleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUIStyleResponse)
+	err := c.cc.Invoke(ctx, IdentityService_GetUIStyle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) SetUIStyle(ctx context.Context, in *SetUIStyleRequest, opts ...grpc.CallOption) (*SetUIStyleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetUIStyleResponse)
+	err := c.cc.Invoke(ctx, IdentityService_SetUIStyle_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentityServiceServer is the server API for IdentityService service.
 // All implementations must embed UnimplementedIdentityServiceServer
 // for forward compatibility.
@@ -628,6 +655,11 @@ type IdentityServiceServer interface {
 	SetUserMFA(context.Context, *SetUserMFARequest) (*SetUserMFAResponse, error)
 	EnforceUserMFA(context.Context, *EnforceUserMFARequest) (*EnforceUserMFAResponse, error)
 	ResetUserMFA(context.Context, *ResetUserMFARequest) (*ResetUserMFAResponse, error)
+	// The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+	// GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+	// /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+	GetUIStyle(context.Context, *GetUIStyleRequest) (*GetUIStyleResponse, error)
+	SetUIStyle(context.Context, *SetUIStyleRequest) (*SetUIStyleResponse, error)
 	mustEmbedUnimplementedIdentityServiceServer()
 }
 
@@ -760,6 +792,12 @@ func (UnimplementedIdentityServiceServer) EnforceUserMFA(context.Context, *Enfor
 }
 func (UnimplementedIdentityServiceServer) ResetUserMFA(context.Context, *ResetUserMFARequest) (*ResetUserMFAResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetUserMFA not implemented")
+}
+func (UnimplementedIdentityServiceServer) GetUIStyle(context.Context, *GetUIStyleRequest) (*GetUIStyleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUIStyle not implemented")
+}
+func (UnimplementedIdentityServiceServer) SetUIStyle(context.Context, *SetUIStyleRequest) (*SetUIStyleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUIStyle not implemented")
 }
 func (UnimplementedIdentityServiceServer) mustEmbedUnimplementedIdentityServiceServer() {}
 func (UnimplementedIdentityServiceServer) testEmbeddedByValue()                         {}
@@ -1520,6 +1558,42 @@ func _IdentityService_ResetUserMFA_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _IdentityService_GetUIStyle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUIStyleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).GetUIStyle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_GetUIStyle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).GetUIStyle(ctx, req.(*GetUIStyleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_SetUIStyle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUIStyleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).SetUIStyle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_SetUIStyle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).SetUIStyle(ctx, req.(*SetUIStyleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // IdentityService_ServiceDesc is the grpc.ServiceDesc for IdentityService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1690,6 +1764,14 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ResetUserMFA",
 			Handler:    _IdentityService_ResetUserMFA_Handler,
+		},
+		{
+			MethodName: "GetUIStyle",
+			Handler:    _IdentityService_GetUIStyle_Handler,
+		},
+		{
+			MethodName: "SetUIStyle",
+			Handler:    _IdentityService_SetUIStyle_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

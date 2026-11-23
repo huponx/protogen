@@ -417,6 +417,26 @@ object IdentityServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(40)))
       .build()
   
+  val METHOD_GET_UISTYLE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.GetUIStyleRequest, com.huponx.protogen.identity.v1.GetUIStyleResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "GetUIStyle"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetUIStyleRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetUIStyleResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(41)))
+      .build()
+  
+  val METHOD_SET_UISTYLE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.SetUIStyleRequest, com.huponx.protogen.identity.v1.SetUIStyleResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "SetUIStyle"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetUIStyleRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetUIStyleResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(42)))
+      .build()
+  
   val SERVICE: _root_.io.grpc.ServiceDescriptor =
     _root_.io.grpc.ServiceDescriptor.newBuilder("identity.v1.IdentityService")
       .setSchemaDescriptor(new _root_.scalapb.grpc.ConcreteProtoFileDescriptorSupplier(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor))
@@ -461,6 +481,8 @@ object IdentityServiceGrpc {
       .addMethod(METHOD_SET_USER_MFA)
       .addMethod(METHOD_ENFORCE_USER_MFA)
       .addMethod(METHOD_RESET_USER_MFA)
+      .addMethod(METHOD_GET_UISTYLE)
+      .addMethod(METHOD_SET_UISTYLE)
       .build()
   
   /** IdentityService is the internal administration API of identity. The OAuth 2.0 and OpenID
@@ -551,6 +573,12 @@ object IdentityServiceGrpc {
     def setUserMFA(request: com.huponx.protogen.identity.v1.SetUserMFARequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetUserMFAResponse]
     def enforceUserMFA(request: com.huponx.protogen.identity.v1.EnforceUserMFARequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.EnforceUserMFAResponse]
     def resetUserMFA(request: com.huponx.protogen.identity.v1.ResetUserMFARequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ResetUserMFAResponse]
+    /** The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+      * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+      * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+      */
+    def getUIStyle(request: com.huponx.protogen.identity.v1.GetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.GetUIStyleResponse]
+    def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetUIStyleResponse]
   }
   
   object IdentityService extends _root_.scalapb.grpc.ServiceCompanion[IdentityService] {
@@ -805,6 +833,18 @@ object IdentityServiceGrpc {
           serviceImpl.resetUserMFA(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
+      .addMethod(
+        METHOD_GET_UISTYLE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.GetUIStyleRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.GetUIStyleResponse]) => {
+          serviceImpl.getUIStyle(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_SET_UISTYLE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.SetUIStyleRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.SetUIStyleResponse]) => {
+          serviceImpl.setUIStyle(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
       .build()
   }
   
@@ -896,6 +936,12 @@ object IdentityServiceGrpc {
     def setUserMFA(request: com.huponx.protogen.identity.v1.SetUserMFARequest): com.huponx.protogen.identity.v1.SetUserMFAResponse
     def enforceUserMFA(request: com.huponx.protogen.identity.v1.EnforceUserMFARequest): com.huponx.protogen.identity.v1.EnforceUserMFAResponse
     def resetUserMFA(request: com.huponx.protogen.identity.v1.ResetUserMFARequest): com.huponx.protogen.identity.v1.ResetUserMFAResponse
+    /** The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+      * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+      * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+      */
+    def getUIStyle(request: com.huponx.protogen.identity.v1.GetUIStyleRequest): com.huponx.protogen.identity.v1.GetUIStyleResponse
+    def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): com.huponx.protogen.identity.v1.SetUIStyleResponse
   }
   
   class IdentityServiceBlockingStub(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions = _root_.io.grpc.CallOptions.DEFAULT) extends _root_.io.grpc.stub.AbstractStub[IdentityServiceBlockingStub](channel, options) with IdentityServiceBlockingClient {
@@ -1102,6 +1148,18 @@ object IdentityServiceGrpc {
     
     override def resetUserMFA(request: com.huponx.protogen.identity.v1.ResetUserMFARequest): com.huponx.protogen.identity.v1.ResetUserMFAResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_RESET_USER_MFA, options, request)
+    }
+    
+    /** The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+      * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+      * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+      */
+    override def getUIStyle(request: com.huponx.protogen.identity.v1.GetUIStyleRequest): com.huponx.protogen.identity.v1.GetUIStyleResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_UISTYLE, options, request)
+    }
+    
+    override def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): com.huponx.protogen.identity.v1.SetUIStyleResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SET_UISTYLE, options, request)
     }
     
     override def build(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions): IdentityServiceBlockingStub = new IdentityServiceBlockingStub(channel, options)
@@ -1311,6 +1369,18 @@ object IdentityServiceGrpc {
     
     override def resetUserMFA(request: com.huponx.protogen.identity.v1.ResetUserMFARequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ResetUserMFAResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_RESET_USER_MFA, options, request)
+    }
+    
+    /** The look of the web apps (admin, dictionary, sign in), one value for the whole system.
+      * GetUIStyle: any signed-in user (no permission); the sign in pages read it through the public
+      * /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
+      */
+    override def getUIStyle(request: com.huponx.protogen.identity.v1.GetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.GetUIStyleResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_UISTYLE, options, request)
+    }
+    
+    override def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetUIStyleResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SET_UISTYLE, options, request)
     }
     
     override def build(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions): IdentityServiceStub = new IdentityServiceStub(channel, options)

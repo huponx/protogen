@@ -795,6 +795,39 @@ pub struct ResetUserMfaRequest {
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ResetUserMfaResponse {
 }
+// ---- system settings ----
+
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetUiStyleRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetUiStyleResponse {
+    /// saas (the default), glass or mono.
+    #[prost(string, tag="10")]
+    pub ui_style: ::prost::alloc::string::String,
+    /// Palette of each style: {"saas":"aurora","glass":"ocean","mono":"aurora"}.
+    #[prost(map="string, string", tag="20")]
+    pub ui_palettes: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetUiStyleRequest {
+    #[prost(string, tag="10")]
+    pub ui_style: ::prost::alloc::string::String,
+    /// Palette per style; a style left out keeps its stored palette.
+    #[prost(map="string, string", tag="20")]
+    pub ui_palettes: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetUiStyleResponse {
+    #[prost(string, tag="10")]
+    pub ui_style: ::prost::alloc::string::String,
+    #[prost(map="string, string", tag="20")]
+    pub ui_palettes: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+}
 // ---- users ----
 
 /// UserStatus is derived: DISABLED when the account is disabled, PENDING until the user has set
