@@ -489,6 +489,60 @@ pub mod identity_service_client {
                 .insert(GrpcMethod::new("identity.v1.IdentityService", "SetMyAvatar"));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn get_my_user_settings(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetMyUserSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetMyUserSettingsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/GetMyUserSettings",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "GetMyUserSettings"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn put_my_user_settings(
+            &mut self,
+            request: impl tonic::IntoRequest<super::PutMyUserSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PutMyUserSettingsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/PutMyUserSettings",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "PutMyUserSettings"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn create_role(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateRoleRequest>,
@@ -1200,6 +1254,20 @@ pub mod identity_service_server {
             request: tonic::Request<super::SetMyAvatarRequest>,
         ) -> std::result::Result<
             tonic::Response<super::SetMyAvatarResponse>,
+            tonic::Status,
+        >;
+        async fn get_my_user_settings(
+            &self,
+            request: tonic::Request<super::GetMyUserSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetMyUserSettingsResponse>,
+            tonic::Status,
+        >;
+        async fn put_my_user_settings(
+            &self,
+            request: tonic::Request<super::PutMyUserSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PutMyUserSettingsResponse>,
             tonic::Status,
         >;
         async fn create_role(
@@ -2150,6 +2218,104 @@ pub mod identity_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SetMyAvatarSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/GetMyUserSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMyUserSettingsSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::GetMyUserSettingsRequest>
+                    for GetMyUserSettingsSvc<T> {
+                        type Response = super::GetMyUserSettingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMyUserSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::get_my_user_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMyUserSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/PutMyUserSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct PutMyUserSettingsSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::PutMyUserSettingsRequest>
+                    for PutMyUserSettingsSvc<T> {
+                        type Response = super::PutMyUserSettingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PutMyUserSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::put_my_user_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PutMyUserSettingsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

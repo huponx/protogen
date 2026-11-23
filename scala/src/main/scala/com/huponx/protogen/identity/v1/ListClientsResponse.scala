@@ -121,8 +121,8 @@ object ListClientsResponse extends scalapb.GeneratedMessageCompanion[com.huponx.
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(69)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(69)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(73)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(73)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
