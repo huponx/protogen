@@ -56,8 +56,6 @@ pub struct RevokeTokenRequest {
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct RevokeTokenResponse {
 }
-// ---- users ----
-
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct User {
@@ -79,15 +77,63 @@ pub struct User {
     pub mfa_enforced: bool,
     #[prost(int64, tag="90")]
     pub created_at: i64,
+    #[prost(enumeration="UserStatus", tag="100")]
+    pub status: i32,
+    /// light, dark or system; empty until the user chose one.
+    #[prost(string, tag="140")]
+    pub theme: ::prost::alloc::string::String,
+    #[prost(bool, tag="110")]
+    pub has_avatar: bool,
+    /// The picture as a data URI ("data:image/webp;base64,..."). Only GetUser fills it, lists do not.
+    #[prost(string, tag="120")]
+    pub avatar: ::prost::alloc::string::String,
+    /// Unix seconds of the last completed sign in; 0 when the user never signed in (or did before this was tracked).
+    #[prost(int64, tag="130")]
+    pub last_login_at: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetUserStatsRequest {
+}
+/// Counts over all users.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetUserStatsResponse {
+    #[prost(int64, tag="10")]
+    pub total: i64,
+    #[prost(int64, tag="20")]
+    pub active: i64,
+    /// Created, the password is not set yet.
+    #[prost(int64, tag="30")]
+    pub pending: i64,
+    #[prost(int64, tag="40")]
+    pub disabled: i64,
+    #[prost(int64, tag="50")]
+    pub mfa_enabled: i64,
+    #[prost(int64, tag="60")]
+    pub mfa_enforced: i64,
+    #[prost(int64, tag="70")]
+    pub with_avatar: i64,
+    /// Signed in during the last 30 days.
+    #[prost(int64, tag="80")]
+    pub signed_in_30d: i64,
+    /// Never signed in (or only before sign ins were tracked).
+    #[prost(int64, tag="90")]
+    pub never_signed_in: i64,
+    /// Created since the start of this month (UTC).
+    #[prost(int64, tag="100")]
+    pub created_this_month: i64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetUserRequest {
-    /// One of the two.
+    /// One of id, user_id (same as id, the name of the path parameter of the gateway) and email.
     #[prost(string, tag="10")]
     pub id: ::prost::alloc::string::String,
     #[prost(string, tag="20")]
     pub email: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub user_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -107,6 +153,15 @@ pub struct ListUsersRequest {
     /// The next_page_token of the previous page. Users are ordered by email.
     #[prost(string, tag="30")]
     pub page_token: ::prost::alloc::string::String,
+    /// Users whose name contains this text (case insensitive).
+    #[prost(string, tag="40")]
+    pub name: ::prost::alloc::string::String,
+    /// Only users with this status; UNSPECIFIED means any.
+    #[prost(enumeration="UserStatus", tag="50")]
+    pub status: i32,
+    /// Only users who have this role.
+    #[prost(string, tag="60")]
+    pub role: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -131,6 +186,9 @@ pub struct CreateUserRequest {
     pub password: ::prost::alloc::string::String,
     #[prost(string, repeated, tag="50")]
     pub roles: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Send the welcome mail with the link to set the password (only when password is empty).
+    #[prost(bool, tag="60")]
+    pub send_welcome: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -172,6 +230,89 @@ pub struct SendPasswordResetRequest {
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SendPasswordResetResponse {
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateUserRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+    /// Empty keeps the current locale.
+    #[prost(string, tag="30")]
+    pub locale: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateUserResponse {
+    #[prost(message, optional, tag="10")]
+    pub user: ::core::option::Option<User>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetUserAvatarRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+    /// The encoded image (png, jpeg or webp, at most 64 KiB, at most 512x512). Empty removes the picture.
+    #[prost(bytes="vec", tag="20")]
+    pub image: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="30")]
+    pub mime_type: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SetUserAvatarResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SendWelcomeRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SendWelcomeResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetMeRequest {
+}
+/// GetMeResponse carries the picture as a data URI, like GetUser.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetMeResponse {
+    #[prost(message, optional, tag="10")]
+    pub user: ::core::option::Option<User>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateMeRequest {
+    #[prost(string, tag="10")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub locale: ::prost::alloc::string::String,
+    /// light, dark or system; empty keeps the current value.
+    #[prost(string, tag="30")]
+    pub theme: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateMeResponse {
+    #[prost(message, optional, tag="10")]
+    pub user: ::core::option::Option<User>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetMyAvatarRequest {
+    /// As SetUserAvatarRequest: empty removes the picture.
+    #[prost(bytes="vec", tag="10")]
+    pub image: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag="20")]
+    pub mime_type: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SetMyAvatarResponse {
+}
 // ---- roles ----
 
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -184,6 +325,9 @@ pub struct Role {
     /// Permissions are colon separated segments ("identity:user:read"); "*" is a wildcard (alone: everything, trailing: one or more segments, elsewhere: one segment).
     #[prost(string, repeated, tag="30")]
     pub permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// How many users and clients hold the role (filled by ListRoles and the role responses); a role that is held cannot be deleted.
+    #[prost(int64, tag="40")]
+    pub assigned_count: i64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -211,15 +355,139 @@ pub struct SetRolePermissionsResponse {
     #[prost(message, optional, tag="10")]
     pub role: ::core::option::Option<Role>,
 }
+/// Replaces the description and the permissions of a role.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateRoleRequest {
+    #[prost(string, tag="10")]
+    pub role: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="30")]
+    pub permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateRoleResponse {
+    #[prost(message, optional, tag="10")]
+    pub role: ::core::option::Option<Role>,
+}
+/// Fails with FAILED_PRECONDITION while a user or a client holds the role.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteRoleRequest {
+    #[prost(string, tag="10")]
+    pub role: ::prost::alloc::string::String,
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeleteRoleResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListRolesRequest {
+    /// Roles whose name or description contains this text, or that hold a permission containing it (case
+    /// insensitive). Empty lists every role.
+    #[prost(string, tag="10")]
+    pub query: ::prost::alloc::string::String,
+    /// Default 50, at most 200.
+    #[prost(int32, tag="20")]
+    pub page_size: i32,
+    /// The next_page_token of the previous page. Roles are ordered by name.
+    #[prost(string, tag="30")]
+    pub page_token: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListRolesResponse {
     #[prost(message, repeated, tag="10")]
     pub roles: ::prost::alloc::vec::Vec<Role>,
+    /// Empty on the last page.
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// How many roles match the query (all pages).
+    #[prost(int64, tag="30")]
+    pub total: i64,
+}
+// ---- permission catalog ----
+
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Permission {
+    /// Colon separated segments ("identity:user:read"); "*" is a wildcard (see Role.permissions).
+    #[prost(string, tag="10")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub description: ::prost::alloc::string::String,
+    /// How many roles hold it.
+    #[prost(int64, tag="30")]
+    pub role_count: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListPermissionsRequest {
+    /// Permissions whose name or description contains this text (case insensitive). Empty lists every one.
+    #[prost(string, tag="10")]
+    pub query: ::prost::alloc::string::String,
+    /// Default 50, at most 200.
+    #[prost(int32, tag="20")]
+    pub page_size: i32,
+    /// The next_page_token of the previous page. Permissions are ordered by name.
+    #[prost(string, tag="30")]
+    pub page_token: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListPermissionsResponse {
+    #[prost(message, repeated, tag="10")]
+    pub permissions: ::prost::alloc::vec::Vec<Permission>,
+    /// Empty on the last page.
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// How many permissions match the query (all pages).
+    #[prost(int64, tag="30")]
+    pub total: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreatePermissionRequest {
+    #[prost(message, optional, tag="10")]
+    pub permission: ::core::option::Option<Permission>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreatePermissionResponse {
+    #[prost(message, optional, tag="10")]
+    pub permission: ::core::option::Option<Permission>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdatePermissionRequest {
+    /// The name of the permission (the path parameter of the gateway is `permission`).
+    #[prost(string, tag="10")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub permission: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub description: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdatePermissionResponse {
+    #[prost(message, optional, tag="10")]
+    pub permission: ::core::option::Option<Permission>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeletePermissionRequest {
+    #[prost(string, tag="10")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub permission: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeletePermissionResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -274,6 +542,9 @@ pub struct Client {
     pub resource: ::prost::alloc::string::String,
     #[prost(string, repeated, tag="100")]
     pub roles: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// A disabled client can neither start a sign in nor get tokens.
+    #[prost(bool, tag="110")]
+    pub disabled: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -303,15 +574,86 @@ pub struct RotateClientSecretResponse {
     #[prost(string, tag="10")]
     pub client_secret: ::prost::alloc::string::String,
 }
+/// Replaces everything but client_id and the type (the type is fixed once the client exists).
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateClientRequest {
+    #[prost(string, tag="10")]
+    pub client_id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="30")]
+    pub redirect_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="40")]
+    pub post_logout_redirect_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag="50")]
+    pub backchannel_logout_uri: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="60")]
+    pub allowed_grants: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="70")]
+    pub allowed_scopes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag="80")]
+    pub resource: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="90")]
+    pub roles: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateClientResponse {
+    #[prost(message, optional, tag="10")]
+    pub client: ::core::option::Option<Client>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetClientDisabledRequest {
+    #[prost(string, tag="10")]
+    pub client_id: ::prost::alloc::string::String,
+    #[prost(bool, tag="20")]
+    pub disabled: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetClientDisabledResponse {
+    #[prost(message, optional, tag="10")]
+    pub client: ::core::option::Option<Client>,
+}
+/// Only a disabled client can be deleted (FAILED_PRECONDITION otherwise), and never the client of the
+/// calling token. Its roles and exchange policies go with it.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteClientRequest {
+    #[prost(string, tag="10")]
+    pub client_id: ::prost::alloc::string::String,
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeleteClientResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListClientsRequest {
+    /// Clients whose id, name or type contains this text, or that have a grant or a role containing it (case
+    /// insensitive). Empty lists every client.
+    #[prost(string, tag="10")]
+    pub query: ::prost::alloc::string::String,
+    /// Only clients of this type; unspecified lists both. Combined with query by AND.
+    #[prost(enumeration="ClientType", tag="20")]
+    pub r#type: i32,
+    /// Default 50, at most 200.
+    #[prost(int32, tag="30")]
+    pub page_size: i32,
+    /// The next_page_token of the previous page. Clients are ordered by client_id.
+    #[prost(string, tag="40")]
+    pub page_token: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListClientsResponse {
     #[prost(message, repeated, tag="10")]
     pub clients: ::prost::alloc::vec::Vec<Client>,
+    /// Empty on the last page.
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
 }
 // ---- token exchange ----
 
@@ -345,14 +687,30 @@ pub struct SetExchangePolicyResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListExchangePoliciesRequest {
+    /// Only the policies of this client (exact).
     #[prost(string, tag="10")]
     pub client_id: ::prost::alloc::string::String,
+    /// Policies whose client_id, audience or max_scope contains this text (case insensitive).
+    #[prost(string, tag="20")]
+    pub query: ::prost::alloc::string::String,
+    /// Policies whose audience contains this text (case insensitive). All filters are combined with AND.
+    #[prost(string, tag="30")]
+    pub audience: ::prost::alloc::string::String,
+    /// Default 50, at most 200.
+    #[prost(int32, tag="40")]
+    pub page_size: i32,
+    /// The next_page_token of the previous page. Policies are ordered by client_id, then audience.
+    #[prost(string, tag="50")]
+    pub page_token: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListExchangePoliciesResponse {
     #[prost(message, repeated, tag="10")]
     pub policies: ::prost::alloc::vec::Vec<ExchangePolicy>,
+    /// Empty on the last page.
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
 }
 // ---- MFA ----
 
@@ -409,6 +767,42 @@ pub struct ResetUserMfaRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ResetUserMfaResponse {
+}
+// ---- users ----
+
+/// UserStatus is derived: DISABLED when the account is disabled, PENDING until the user has set
+/// a password (a new user must do it through the welcome mail), ACTIVE otherwise.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum UserStatus {
+    Unspecified = 0,
+    Pending = 10,
+    Active = 20,
+    Disabled = 30,
+}
+impl UserStatus {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            UserStatus::Unspecified => "USER_STATUS_UNSPECIFIED",
+            UserStatus::Pending => "USER_STATUS_PENDING",
+            UserStatus::Active => "USER_STATUS_ACTIVE",
+            UserStatus::Disabled => "USER_STATUS_DISABLED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "USER_STATUS_UNSPECIFIED" => Some(Self::Unspecified),
+            "USER_STATUS_PENDING" => Some(Self::Pending),
+            "USER_STATUS_ACTIVE" => Some(Self::Active),
+            "USER_STATUS_DISABLED" => Some(Self::Disabled),
+            _ => None,
+        }
+    }
 }
 // ---- clients ----
 

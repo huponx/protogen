@@ -5,14 +5,46 @@
 
 package com.huponx.protogen.identity.v1
 
+/** @param query
+  *   Roles whose name or description contains this text, or that hold a permission containing it (case
+  *   insensitive). Empty lists every role.
+  * @param pageSize
+  *   Default 50, at most 200.
+  * @param pageToken
+  *   The next_page_token of the previous page. Roles are ordered by name.
+  */
 @SerialVersionUID(0L)
 final case class ListRolesRequest(
+    query: _root_.scala.Predef.String = "",
+    pageSize: _root_.scala.Int = 0,
+    pageToken: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListRolesRequest] {
     @transient
     private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
     private[this] def __computeSerializedSize(): _root_.scala.Int = {
       var __size = 0
+      
+      {
+        val __value = query
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(10, __value)
+        }
+      };
+      
+      {
+        val __value = pageSize
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(20, __value)
+        }
+      };
+      
+      {
+        val __value = pageToken
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -26,12 +58,55 @@ final case class ListRolesRequest(
       
     }
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      {
+        val __v = query
+        if (!__v.isEmpty) {
+          _output__.writeString(10, __v)
+        }
+      };
+      {
+        val __v = pageSize
+        if (__v != 0) {
+          _output__.writeInt32(20, __v)
+        }
+      };
+      {
+        val __v = pageToken
+        if (!__v.isEmpty) {
+          _output__.writeString(30, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
+    def withQuery(__v: _root_.scala.Predef.String): ListRolesRequest = copy(query = __v)
+    def withPageSize(__v: _root_.scala.Int): ListRolesRequest = copy(pageSize = __v)
+    def withPageToken(__v: _root_.scala.Predef.String): ListRolesRequest = copy(pageToken = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
-    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 10 => {
+          val __t = query
+          if (__t != "") __t else null
+        }
+        case 20 => {
+          val __t = pageSize
+          if (__t != 0) __t else null
+        }
+        case 30 => {
+          val __t = pageToken
+          if (__t != "") __t else null
+        }
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 10 => _root_.scalapb.descriptors.PString(query)
+        case 20 => _root_.scalapb.descriptors.PInt(pageSize)
+        case 30 => _root_.scalapb.descriptors.PString(pageToken)
+      }
+    }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
     def companion: com.huponx.protogen.identity.v1.ListRolesRequest.type = com.huponx.protogen.identity.v1.ListRolesRequest
     // @@protoc_insertion_point(GeneratedMessage[identity.v1.ListRolesRequest])
@@ -40,12 +115,21 @@ final case class ListRolesRequest(
 object ListRolesRequest extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ListRolesRequest] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ListRolesRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.ListRolesRequest = {
+    var __query: _root_.scala.Predef.String = ""
+    var __pageSize: _root_.scala.Int = 0
+    var __pageToken: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
       val _tag__ = _input__.readTag()
       _tag__ match {
         case 0 => _done__ = true
+        case 82 =>
+          __query = _input__.readStringRequireUtf8()
+        case 160 =>
+          __pageSize = _input__.readInt32()
+        case 242 =>
+          __pageToken = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -54,6 +138,9 @@ object ListRolesRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pro
       }
     }
     com.huponx.protogen.identity.v1.ListRolesRequest(
+        query = __query,
+        pageSize = __pageSize,
+        pageToken = __pageToken,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -61,20 +148,38 @@ object ListRolesRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pro
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.identity.v1.ListRolesRequest(
+        query = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        pageSize = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        pageToken = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(24)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(24)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(42)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(42)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.ListRolesRequest(
+    query = "",
+    pageSize = 0,
+    pageToken = ""
   )
   implicit class ListRolesRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.ListRolesRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.ListRolesRequest](_l) {
+    def query: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.query)((c_, f_) => c_.copy(query = f_))
+    def pageSize: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.pageSize)((c_, f_) => c_.copy(pageSize = f_))
+    def pageToken: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.pageToken)((c_, f_) => c_.copy(pageToken = f_))
   }
+  final val QUERY_FIELD_NUMBER = 10
+  final val PAGE_SIZE_FIELD_NUMBER = 20
+  final val PAGE_TOKEN_FIELD_NUMBER = 30
   def of(
+    query: _root_.scala.Predef.String,
+    pageSize: _root_.scala.Int,
+    pageToken: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.identity.v1.ListRolesRequest = _root_.com.huponx.protogen.identity.v1.ListRolesRequest(
+    query,
+    pageSize,
+    pageToken
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.ListRolesRequest])
 }
