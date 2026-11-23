@@ -49,6 +49,6 @@ object ClientType extends _root_.scalapb.GeneratedEnumCompanion[ClientType] {
     case 20 => CLIENT_TYPE_CONFIDENTIAL
     case __other => Unrecognized(__other)
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = IdentityProto.javaDescriptor.getEnumTypes().get(0)
-  def scalaDescriptor: _root_.scalapb.descriptors.EnumDescriptor = IdentityProto.scalaDescriptor.enums(0)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = IdentityProto.javaDescriptor.getEnumTypes().get(1)
+  def scalaDescriptor: _root_.scalapb.descriptors.EnumDescriptor = IdentityProto.scalaDescriptor.enums(1)
 }

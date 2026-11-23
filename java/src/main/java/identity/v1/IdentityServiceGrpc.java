@@ -299,6 +299,223 @@ public final class IdentityServiceGrpc {
     return getSendPasswordResetMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.UpdateUserRequest,
+      identity.v1.Identity.UpdateUserResponse> getUpdateUserMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateUser",
+      requestType = identity.v1.Identity.UpdateUserRequest.class,
+      responseType = identity.v1.Identity.UpdateUserResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.UpdateUserRequest,
+      identity.v1.Identity.UpdateUserResponse> getUpdateUserMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.UpdateUserRequest, identity.v1.Identity.UpdateUserResponse> getUpdateUserMethod;
+    if ((getUpdateUserMethod = IdentityServiceGrpc.getUpdateUserMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getUpdateUserMethod = IdentityServiceGrpc.getUpdateUserMethod) == null) {
+          IdentityServiceGrpc.getUpdateUserMethod = getUpdateUserMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.UpdateUserRequest, identity.v1.Identity.UpdateUserResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateUser"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateUserRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateUserResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("UpdateUser"))
+              .build();
+        }
+      }
+    }
+    return getUpdateUserMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.SetUserAvatarRequest,
+      identity.v1.Identity.SetUserAvatarResponse> getSetUserAvatarMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetUserAvatar",
+      requestType = identity.v1.Identity.SetUserAvatarRequest.class,
+      responseType = identity.v1.Identity.SetUserAvatarResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.SetUserAvatarRequest,
+      identity.v1.Identity.SetUserAvatarResponse> getSetUserAvatarMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.SetUserAvatarRequest, identity.v1.Identity.SetUserAvatarResponse> getSetUserAvatarMethod;
+    if ((getSetUserAvatarMethod = IdentityServiceGrpc.getSetUserAvatarMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getSetUserAvatarMethod = IdentityServiceGrpc.getSetUserAvatarMethod) == null) {
+          IdentityServiceGrpc.getSetUserAvatarMethod = getSetUserAvatarMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.SetUserAvatarRequest, identity.v1.Identity.SetUserAvatarResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetUserAvatar"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetUserAvatarRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetUserAvatarResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("SetUserAvatar"))
+              .build();
+        }
+      }
+    }
+    return getSetUserAvatarMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.SendWelcomeRequest,
+      identity.v1.Identity.SendWelcomeResponse> getSendWelcomeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendWelcome",
+      requestType = identity.v1.Identity.SendWelcomeRequest.class,
+      responseType = identity.v1.Identity.SendWelcomeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.SendWelcomeRequest,
+      identity.v1.Identity.SendWelcomeResponse> getSendWelcomeMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.SendWelcomeRequest, identity.v1.Identity.SendWelcomeResponse> getSendWelcomeMethod;
+    if ((getSendWelcomeMethod = IdentityServiceGrpc.getSendWelcomeMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getSendWelcomeMethod = IdentityServiceGrpc.getSendWelcomeMethod) == null) {
+          IdentityServiceGrpc.getSendWelcomeMethod = getSendWelcomeMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.SendWelcomeRequest, identity.v1.Identity.SendWelcomeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SendWelcome"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SendWelcomeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SendWelcomeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("SendWelcome"))
+              .build();
+        }
+      }
+    }
+    return getSendWelcomeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetUserStatsRequest,
+      identity.v1.Identity.GetUserStatsResponse> getGetUserStatsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetUserStats",
+      requestType = identity.v1.Identity.GetUserStatsRequest.class,
+      responseType = identity.v1.Identity.GetUserStatsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.GetUserStatsRequest,
+      identity.v1.Identity.GetUserStatsResponse> getGetUserStatsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.GetUserStatsRequest, identity.v1.Identity.GetUserStatsResponse> getGetUserStatsMethod;
+    if ((getGetUserStatsMethod = IdentityServiceGrpc.getGetUserStatsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getGetUserStatsMethod = IdentityServiceGrpc.getGetUserStatsMethod) == null) {
+          IdentityServiceGrpc.getGetUserStatsMethod = getGetUserStatsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.GetUserStatsRequest, identity.v1.Identity.GetUserStatsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetUserStats"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetUserStatsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetUserStatsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("GetUserStats"))
+              .build();
+        }
+      }
+    }
+    return getGetUserStatsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetMeRequest,
+      identity.v1.Identity.GetMeResponse> getGetMeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetMe",
+      requestType = identity.v1.Identity.GetMeRequest.class,
+      responseType = identity.v1.Identity.GetMeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.GetMeRequest,
+      identity.v1.Identity.GetMeResponse> getGetMeMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.GetMeRequest, identity.v1.Identity.GetMeResponse> getGetMeMethod;
+    if ((getGetMeMethod = IdentityServiceGrpc.getGetMeMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getGetMeMethod = IdentityServiceGrpc.getGetMeMethod) == null) {
+          IdentityServiceGrpc.getGetMeMethod = getGetMeMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.GetMeRequest, identity.v1.Identity.GetMeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetMe"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetMeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetMeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("GetMe"))
+              .build();
+        }
+      }
+    }
+    return getGetMeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.UpdateMeRequest,
+      identity.v1.Identity.UpdateMeResponse> getUpdateMeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateMe",
+      requestType = identity.v1.Identity.UpdateMeRequest.class,
+      responseType = identity.v1.Identity.UpdateMeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.UpdateMeRequest,
+      identity.v1.Identity.UpdateMeResponse> getUpdateMeMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.UpdateMeRequest, identity.v1.Identity.UpdateMeResponse> getUpdateMeMethod;
+    if ((getUpdateMeMethod = IdentityServiceGrpc.getUpdateMeMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getUpdateMeMethod = IdentityServiceGrpc.getUpdateMeMethod) == null) {
+          IdentityServiceGrpc.getUpdateMeMethod = getUpdateMeMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.UpdateMeRequest, identity.v1.Identity.UpdateMeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateMe"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateMeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateMeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("UpdateMe"))
+              .build();
+        }
+      }
+    }
+    return getUpdateMeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.SetMyAvatarRequest,
+      identity.v1.Identity.SetMyAvatarResponse> getSetMyAvatarMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetMyAvatar",
+      requestType = identity.v1.Identity.SetMyAvatarRequest.class,
+      responseType = identity.v1.Identity.SetMyAvatarResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.SetMyAvatarRequest,
+      identity.v1.Identity.SetMyAvatarResponse> getSetMyAvatarMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.SetMyAvatarRequest, identity.v1.Identity.SetMyAvatarResponse> getSetMyAvatarMethod;
+    if ((getSetMyAvatarMethod = IdentityServiceGrpc.getSetMyAvatarMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getSetMyAvatarMethod = IdentityServiceGrpc.getSetMyAvatarMethod) == null) {
+          IdentityServiceGrpc.getSetMyAvatarMethod = getSetMyAvatarMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.SetMyAvatarRequest, identity.v1.Identity.SetMyAvatarResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetMyAvatar"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetMyAvatarRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetMyAvatarResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("SetMyAvatar"))
+              .build();
+        }
+      }
+    }
+    return getSetMyAvatarMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.CreateRoleRequest,
       identity.v1.Identity.CreateRoleResponse> getCreateRoleMethod;
 
@@ -392,6 +609,192 @@ public final class IdentityServiceGrpc {
     return getListRolesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.UpdateRoleRequest,
+      identity.v1.Identity.UpdateRoleResponse> getUpdateRoleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateRole",
+      requestType = identity.v1.Identity.UpdateRoleRequest.class,
+      responseType = identity.v1.Identity.UpdateRoleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.UpdateRoleRequest,
+      identity.v1.Identity.UpdateRoleResponse> getUpdateRoleMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.UpdateRoleRequest, identity.v1.Identity.UpdateRoleResponse> getUpdateRoleMethod;
+    if ((getUpdateRoleMethod = IdentityServiceGrpc.getUpdateRoleMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getUpdateRoleMethod = IdentityServiceGrpc.getUpdateRoleMethod) == null) {
+          IdentityServiceGrpc.getUpdateRoleMethod = getUpdateRoleMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.UpdateRoleRequest, identity.v1.Identity.UpdateRoleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateRole"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateRoleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateRoleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("UpdateRole"))
+              .build();
+        }
+      }
+    }
+    return getUpdateRoleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DeleteRoleRequest,
+      identity.v1.Identity.DeleteRoleResponse> getDeleteRoleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteRole",
+      requestType = identity.v1.Identity.DeleteRoleRequest.class,
+      responseType = identity.v1.Identity.DeleteRoleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.DeleteRoleRequest,
+      identity.v1.Identity.DeleteRoleResponse> getDeleteRoleMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.DeleteRoleRequest, identity.v1.Identity.DeleteRoleResponse> getDeleteRoleMethod;
+    if ((getDeleteRoleMethod = IdentityServiceGrpc.getDeleteRoleMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getDeleteRoleMethod = IdentityServiceGrpc.getDeleteRoleMethod) == null) {
+          IdentityServiceGrpc.getDeleteRoleMethod = getDeleteRoleMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.DeleteRoleRequest, identity.v1.Identity.DeleteRoleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteRole"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteRoleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteRoleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("DeleteRole"))
+              .build();
+        }
+      }
+    }
+    return getDeleteRoleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.ListPermissionsRequest,
+      identity.v1.Identity.ListPermissionsResponse> getListPermissionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListPermissions",
+      requestType = identity.v1.Identity.ListPermissionsRequest.class,
+      responseType = identity.v1.Identity.ListPermissionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.ListPermissionsRequest,
+      identity.v1.Identity.ListPermissionsResponse> getListPermissionsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.ListPermissionsRequest, identity.v1.Identity.ListPermissionsResponse> getListPermissionsMethod;
+    if ((getListPermissionsMethod = IdentityServiceGrpc.getListPermissionsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getListPermissionsMethod = IdentityServiceGrpc.getListPermissionsMethod) == null) {
+          IdentityServiceGrpc.getListPermissionsMethod = getListPermissionsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.ListPermissionsRequest, identity.v1.Identity.ListPermissionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListPermissions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListPermissionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListPermissionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("ListPermissions"))
+              .build();
+        }
+      }
+    }
+    return getListPermissionsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.CreatePermissionRequest,
+      identity.v1.Identity.CreatePermissionResponse> getCreatePermissionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CreatePermission",
+      requestType = identity.v1.Identity.CreatePermissionRequest.class,
+      responseType = identity.v1.Identity.CreatePermissionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.CreatePermissionRequest,
+      identity.v1.Identity.CreatePermissionResponse> getCreatePermissionMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.CreatePermissionRequest, identity.v1.Identity.CreatePermissionResponse> getCreatePermissionMethod;
+    if ((getCreatePermissionMethod = IdentityServiceGrpc.getCreatePermissionMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getCreatePermissionMethod = IdentityServiceGrpc.getCreatePermissionMethod) == null) {
+          IdentityServiceGrpc.getCreatePermissionMethod = getCreatePermissionMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.CreatePermissionRequest, identity.v1.Identity.CreatePermissionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreatePermission"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.CreatePermissionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.CreatePermissionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("CreatePermission"))
+              .build();
+        }
+      }
+    }
+    return getCreatePermissionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.UpdatePermissionRequest,
+      identity.v1.Identity.UpdatePermissionResponse> getUpdatePermissionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdatePermission",
+      requestType = identity.v1.Identity.UpdatePermissionRequest.class,
+      responseType = identity.v1.Identity.UpdatePermissionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.UpdatePermissionRequest,
+      identity.v1.Identity.UpdatePermissionResponse> getUpdatePermissionMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.UpdatePermissionRequest, identity.v1.Identity.UpdatePermissionResponse> getUpdatePermissionMethod;
+    if ((getUpdatePermissionMethod = IdentityServiceGrpc.getUpdatePermissionMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getUpdatePermissionMethod = IdentityServiceGrpc.getUpdatePermissionMethod) == null) {
+          IdentityServiceGrpc.getUpdatePermissionMethod = getUpdatePermissionMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.UpdatePermissionRequest, identity.v1.Identity.UpdatePermissionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdatePermission"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdatePermissionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdatePermissionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("UpdatePermission"))
+              .build();
+        }
+      }
+    }
+    return getUpdatePermissionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DeletePermissionRequest,
+      identity.v1.Identity.DeletePermissionResponse> getDeletePermissionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeletePermission",
+      requestType = identity.v1.Identity.DeletePermissionRequest.class,
+      responseType = identity.v1.Identity.DeletePermissionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.DeletePermissionRequest,
+      identity.v1.Identity.DeletePermissionResponse> getDeletePermissionMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.DeletePermissionRequest, identity.v1.Identity.DeletePermissionResponse> getDeletePermissionMethod;
+    if ((getDeletePermissionMethod = IdentityServiceGrpc.getDeletePermissionMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getDeletePermissionMethod = IdentityServiceGrpc.getDeletePermissionMethod) == null) {
+          IdentityServiceGrpc.getDeletePermissionMethod = getDeletePermissionMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.DeletePermissionRequest, identity.v1.Identity.DeletePermissionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeletePermission"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeletePermissionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeletePermissionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("DeletePermission"))
+              .build();
+        }
+      }
+    }
+    return getDeletePermissionMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.AssignRoleRequest,
       identity.v1.Identity.AssignRoleResponse> getAssignRoleMethod;
 
@@ -483,6 +886,99 @@ public final class IdentityServiceGrpc {
       }
     }
     return getCreateClientMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.UpdateClientRequest,
+      identity.v1.Identity.UpdateClientResponse> getUpdateClientMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateClient",
+      requestType = identity.v1.Identity.UpdateClientRequest.class,
+      responseType = identity.v1.Identity.UpdateClientResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.UpdateClientRequest,
+      identity.v1.Identity.UpdateClientResponse> getUpdateClientMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.UpdateClientRequest, identity.v1.Identity.UpdateClientResponse> getUpdateClientMethod;
+    if ((getUpdateClientMethod = IdentityServiceGrpc.getUpdateClientMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getUpdateClientMethod = IdentityServiceGrpc.getUpdateClientMethod) == null) {
+          IdentityServiceGrpc.getUpdateClientMethod = getUpdateClientMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.UpdateClientRequest, identity.v1.Identity.UpdateClientResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateClient"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateClientRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.UpdateClientResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("UpdateClient"))
+              .build();
+        }
+      }
+    }
+    return getUpdateClientMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.SetClientDisabledRequest,
+      identity.v1.Identity.SetClientDisabledResponse> getSetClientDisabledMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetClientDisabled",
+      requestType = identity.v1.Identity.SetClientDisabledRequest.class,
+      responseType = identity.v1.Identity.SetClientDisabledResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.SetClientDisabledRequest,
+      identity.v1.Identity.SetClientDisabledResponse> getSetClientDisabledMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.SetClientDisabledRequest, identity.v1.Identity.SetClientDisabledResponse> getSetClientDisabledMethod;
+    if ((getSetClientDisabledMethod = IdentityServiceGrpc.getSetClientDisabledMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getSetClientDisabledMethod = IdentityServiceGrpc.getSetClientDisabledMethod) == null) {
+          IdentityServiceGrpc.getSetClientDisabledMethod = getSetClientDisabledMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.SetClientDisabledRequest, identity.v1.Identity.SetClientDisabledResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetClientDisabled"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetClientDisabledRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.SetClientDisabledResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("SetClientDisabled"))
+              .build();
+        }
+      }
+    }
+    return getSetClientDisabledMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DeleteClientRequest,
+      identity.v1.Identity.DeleteClientResponse> getDeleteClientMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteClient",
+      requestType = identity.v1.Identity.DeleteClientRequest.class,
+      responseType = identity.v1.Identity.DeleteClientResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.DeleteClientRequest,
+      identity.v1.Identity.DeleteClientResponse> getDeleteClientMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.DeleteClientRequest, identity.v1.Identity.DeleteClientResponse> getDeleteClientMethod;
+    if ((getDeleteClientMethod = IdentityServiceGrpc.getDeleteClientMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getDeleteClientMethod = IdentityServiceGrpc.getDeleteClientMethod) == null) {
+          IdentityServiceGrpc.getDeleteClientMethod = getDeleteClientMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.DeleteClientRequest, identity.v1.Identity.DeleteClientResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteClient"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteClientRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteClientResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("DeleteClient"))
+              .build();
+        }
+      }
+    }
+    return getDeleteClientMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.RotateClientSecretRequest,
@@ -863,6 +1359,73 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
+     * </pre>
+     */
+    default void updateUser(identity.v1.Identity.UpdateUserRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateUserResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateUserMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void setUserAvatar(identity.v1.Identity.SetUserAvatarRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserAvatarResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetUserAvatarMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
+     * user who has no password yet (status PENDING).
+     * </pre>
+     */
+    default void sendWelcome(identity.v1.Identity.SendWelcomeRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SendWelcomeResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSendWelcomeMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Counts of users by status, MFA and activity.
+     * </pre>
+     */
+    default void getUserStats(identity.v1.Identity.GetUserStatsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetUserStatsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUserStatsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The signed-in user's own profile. Any user with a user token may call them (no permission):
+     * the user is the subject of the token, never a field of the request, so nobody can reach
+     * another user through them. Service tokens are refused.
+     * </pre>
+     */
+    default void getMe(identity.v1.Identity.GetMeRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetMeResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMeMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpdateMe changes the own name and locale; an empty field keeps the current value.
+     * </pre>
+     */
+    default void updateMe(identity.v1.Identity.UpdateMeRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateMeResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateMeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void setMyAvatar(identity.v1.Identity.SetMyAvatarRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetMyAvatarMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -887,6 +1450,57 @@ public final class IdentityServiceGrpc {
 
     /**
      */
+    default void updateRole(identity.v1.Identity.UpdateRoleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateRoleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateRoleMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void deleteRole(identity.v1.Identity.DeleteRoleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteRoleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteRoleMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The catalog of permissions roles can be given (wildcards are entries too).
+     * </pre>
+     */
+    default void listPermissions(identity.v1.Identity.ListPermissionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListPermissionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListPermissionsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void createPermission(identity.v1.Identity.CreatePermissionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.CreatePermissionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreatePermissionMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpdatePermission changes the description; the name is the key.
+     * </pre>
+     */
+    default void updatePermission(identity.v1.Identity.UpdatePermissionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdatePermissionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdatePermissionMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DeletePermission fails while a role holds the permission.
+     * </pre>
+     */
+    default void deletePermission(identity.v1.Identity.DeletePermissionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeletePermissionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeletePermissionMethod(), responseObserver);
+    }
+
+    /**
+     */
     default void assignRole(identity.v1.Identity.AssignRoleRequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.AssignRoleResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAssignRoleMethod(), responseObserver);
@@ -907,6 +1521,27 @@ public final class IdentityServiceGrpc {
     default void createClient(identity.v1.Identity.CreateClientRequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.CreateClientResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateClientMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void updateClient(identity.v1.Identity.UpdateClientRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateClientResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateClientMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void setClientDisabled(identity.v1.Identity.SetClientDisabledRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetClientDisabledResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetClientDisabledMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void deleteClient(identity.v1.Identity.DeleteClientRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteClientResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteClientMethod(), responseObserver);
     }
 
     /**
@@ -1096,6 +1731,80 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
+     * </pre>
+     */
+    public void updateUser(identity.v1.Identity.UpdateUserRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateUserResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateUserMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void setUserAvatar(identity.v1.Identity.SetUserAvatarRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserAvatarResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetUserAvatarMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
+     * user who has no password yet (status PENDING).
+     * </pre>
+     */
+    public void sendWelcome(identity.v1.Identity.SendWelcomeRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SendWelcomeResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSendWelcomeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Counts of users by status, MFA and activity.
+     * </pre>
+     */
+    public void getUserStats(identity.v1.Identity.GetUserStatsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetUserStatsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetUserStatsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The signed-in user's own profile. Any user with a user token may call them (no permission):
+     * the user is the subject of the token, never a field of the request, so nobody can reach
+     * another user through them. Service tokens are refused.
+     * </pre>
+     */
+    public void getMe(identity.v1.Identity.GetMeRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetMeResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetMeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpdateMe changes the own name and locale; an empty field keeps the current value.
+     * </pre>
+     */
+    public void updateMe(identity.v1.Identity.UpdateMeRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateMeResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateMeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void setMyAvatar(identity.v1.Identity.SetMyAvatarRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetMyAvatarMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -1123,6 +1832,63 @@ public final class IdentityServiceGrpc {
 
     /**
      */
+    public void updateRole(identity.v1.Identity.UpdateRoleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateRoleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateRoleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void deleteRole(identity.v1.Identity.DeleteRoleRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteRoleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteRoleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The catalog of permissions roles can be given (wildcards are entries too).
+     * </pre>
+     */
+    public void listPermissions(identity.v1.Identity.ListPermissionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListPermissionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListPermissionsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void createPermission(identity.v1.Identity.CreatePermissionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.CreatePermissionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCreatePermissionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpdatePermission changes the description; the name is the key.
+     * </pre>
+     */
+    public void updatePermission(identity.v1.Identity.UpdatePermissionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdatePermissionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdatePermissionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DeletePermission fails while a role holds the permission.
+     * </pre>
+     */
+    public void deletePermission(identity.v1.Identity.DeletePermissionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeletePermissionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeletePermissionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void assignRole(identity.v1.Identity.AssignRoleRequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.AssignRoleResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -1146,6 +1912,30 @@ public final class IdentityServiceGrpc {
         io.grpc.stub.StreamObserver<identity.v1.Identity.CreateClientResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCreateClientMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void updateClient(identity.v1.Identity.UpdateClientRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateClientResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateClientMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void setClientDisabled(identity.v1.Identity.SetClientDisabledRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.SetClientDisabledResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetClientDisabledMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void deleteClient(identity.v1.Identity.DeleteClientRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteClientResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteClientMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -1318,6 +2108,73 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
+     * </pre>
+     */
+    public identity.v1.Identity.UpdateUserResponse updateUser(identity.v1.Identity.UpdateUserRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateUserMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.SetUserAvatarResponse setUserAvatar(identity.v1.Identity.SetUserAvatarRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetUserAvatarMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
+     * user who has no password yet (status PENDING).
+     * </pre>
+     */
+    public identity.v1.Identity.SendWelcomeResponse sendWelcome(identity.v1.Identity.SendWelcomeRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSendWelcomeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Counts of users by status, MFA and activity.
+     * </pre>
+     */
+    public identity.v1.Identity.GetUserStatsResponse getUserStats(identity.v1.Identity.GetUserStatsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetUserStatsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * The signed-in user's own profile. Any user with a user token may call them (no permission):
+     * the user is the subject of the token, never a field of the request, so nobody can reach
+     * another user through them. Service tokens are refused.
+     * </pre>
+     */
+    public identity.v1.Identity.GetMeResponse getMe(identity.v1.Identity.GetMeRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetMeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UpdateMe changes the own name and locale; an empty field keeps the current value.
+     * </pre>
+     */
+    public identity.v1.Identity.UpdateMeResponse updateMe(identity.v1.Identity.UpdateMeRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateMeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.SetMyAvatarResponse setMyAvatar(identity.v1.Identity.SetMyAvatarRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetMyAvatarMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -1342,6 +2199,57 @@ public final class IdentityServiceGrpc {
 
     /**
      */
+    public identity.v1.Identity.UpdateRoleResponse updateRole(identity.v1.Identity.UpdateRoleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateRoleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.DeleteRoleResponse deleteRole(identity.v1.Identity.DeleteRoleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteRoleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * The catalog of permissions roles can be given (wildcards are entries too).
+     * </pre>
+     */
+    public identity.v1.Identity.ListPermissionsResponse listPermissions(identity.v1.Identity.ListPermissionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListPermissionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.CreatePermissionResponse createPermission(identity.v1.Identity.CreatePermissionRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCreatePermissionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UpdatePermission changes the description; the name is the key.
+     * </pre>
+     */
+    public identity.v1.Identity.UpdatePermissionResponse updatePermission(identity.v1.Identity.UpdatePermissionRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdatePermissionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * DeletePermission fails while a role holds the permission.
+     * </pre>
+     */
+    public identity.v1.Identity.DeletePermissionResponse deletePermission(identity.v1.Identity.DeletePermissionRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeletePermissionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public identity.v1.Identity.AssignRoleResponse assignRole(identity.v1.Identity.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getAssignRoleMethod(), getCallOptions(), request);
@@ -1362,6 +2270,27 @@ public final class IdentityServiceGrpc {
     public identity.v1.Identity.CreateClientResponse createClient(identity.v1.Identity.CreateClientRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreateClientMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.UpdateClientResponse updateClient(identity.v1.Identity.UpdateClientRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateClientMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.SetClientDisabledResponse setClientDisabled(identity.v1.Identity.SetClientDisabledRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetClientDisabledMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.DeleteClientResponse deleteClient(identity.v1.Identity.DeleteClientRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteClientMethod(), getCallOptions(), request);
     }
 
     /**
@@ -1535,6 +2464,80 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.UpdateUserResponse> updateUser(
+        identity.v1.Identity.UpdateUserRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateUserMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.SetUserAvatarResponse> setUserAvatar(
+        identity.v1.Identity.SetUserAvatarRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetUserAvatarMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
+     * user who has no password yet (status PENDING).
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.SendWelcomeResponse> sendWelcome(
+        identity.v1.Identity.SendWelcomeRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSendWelcomeMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Counts of users by status, MFA and activity.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.GetUserStatsResponse> getUserStats(
+        identity.v1.Identity.GetUserStatsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetUserStatsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * The signed-in user's own profile. Any user with a user token may call them (no permission):
+     * the user is the subject of the token, never a field of the request, so nobody can reach
+     * another user through them. Service tokens are refused.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.GetMeResponse> getMe(
+        identity.v1.Identity.GetMeRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetMeMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * UpdateMe changes the own name and locale; an empty field keeps the current value.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.UpdateMeResponse> updateMe(
+        identity.v1.Identity.UpdateMeRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateMeMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.SetMyAvatarResponse> setMyAvatar(
+        identity.v1.Identity.SetMyAvatarRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetMyAvatarMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -1562,6 +2565,63 @@ public final class IdentityServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.UpdateRoleResponse> updateRole(
+        identity.v1.Identity.UpdateRoleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateRoleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.DeleteRoleResponse> deleteRole(
+        identity.v1.Identity.DeleteRoleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteRoleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * The catalog of permissions roles can be given (wildcards are entries too).
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.ListPermissionsResponse> listPermissions(
+        identity.v1.Identity.ListPermissionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListPermissionsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.CreatePermissionResponse> createPermission(
+        identity.v1.Identity.CreatePermissionRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCreatePermissionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * UpdatePermission changes the description; the name is the key.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.UpdatePermissionResponse> updatePermission(
+        identity.v1.Identity.UpdatePermissionRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdatePermissionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * DeletePermission fails while a role holds the permission.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.DeletePermissionResponse> deletePermission(
+        identity.v1.Identity.DeletePermissionRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeletePermissionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.AssignRoleResponse> assignRole(
         identity.v1.Identity.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -1585,6 +2645,30 @@ public final class IdentityServiceGrpc {
         identity.v1.Identity.CreateClientRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCreateClientMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.UpdateClientResponse> updateClient(
+        identity.v1.Identity.UpdateClientRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateClientMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.SetClientDisabledResponse> setClientDisabled(
+        identity.v1.Identity.SetClientDisabledRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetClientDisabledMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.DeleteClientResponse> deleteClient(
+        identity.v1.Identity.DeleteClientRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteClientMethod(), getCallOptions()), request);
     }
 
     /**
@@ -1668,20 +2752,36 @@ public final class IdentityServiceGrpc {
   private static final int METHODID_SET_USER_DISABLED = 6;
   private static final int METHODID_SET_USER_PASSWORD = 7;
   private static final int METHODID_SEND_PASSWORD_RESET = 8;
-  private static final int METHODID_CREATE_ROLE = 9;
-  private static final int METHODID_SET_ROLE_PERMISSIONS = 10;
-  private static final int METHODID_LIST_ROLES = 11;
-  private static final int METHODID_ASSIGN_ROLE = 12;
-  private static final int METHODID_REVOKE_ROLE = 13;
-  private static final int METHODID_CREATE_CLIENT = 14;
-  private static final int METHODID_ROTATE_CLIENT_SECRET = 15;
-  private static final int METHODID_LIST_CLIENTS = 16;
-  private static final int METHODID_SET_EXCHANGE_POLICY = 17;
-  private static final int METHODID_LIST_EXCHANGE_POLICIES = 18;
-  private static final int METHODID_GET_USER_MFA = 19;
-  private static final int METHODID_SET_USER_MFA = 20;
-  private static final int METHODID_ENFORCE_USER_MFA = 21;
-  private static final int METHODID_RESET_USER_MFA = 22;
+  private static final int METHODID_UPDATE_USER = 9;
+  private static final int METHODID_SET_USER_AVATAR = 10;
+  private static final int METHODID_SEND_WELCOME = 11;
+  private static final int METHODID_GET_USER_STATS = 12;
+  private static final int METHODID_GET_ME = 13;
+  private static final int METHODID_UPDATE_ME = 14;
+  private static final int METHODID_SET_MY_AVATAR = 15;
+  private static final int METHODID_CREATE_ROLE = 16;
+  private static final int METHODID_SET_ROLE_PERMISSIONS = 17;
+  private static final int METHODID_LIST_ROLES = 18;
+  private static final int METHODID_UPDATE_ROLE = 19;
+  private static final int METHODID_DELETE_ROLE = 20;
+  private static final int METHODID_LIST_PERMISSIONS = 21;
+  private static final int METHODID_CREATE_PERMISSION = 22;
+  private static final int METHODID_UPDATE_PERMISSION = 23;
+  private static final int METHODID_DELETE_PERMISSION = 24;
+  private static final int METHODID_ASSIGN_ROLE = 25;
+  private static final int METHODID_REVOKE_ROLE = 26;
+  private static final int METHODID_CREATE_CLIENT = 27;
+  private static final int METHODID_UPDATE_CLIENT = 28;
+  private static final int METHODID_SET_CLIENT_DISABLED = 29;
+  private static final int METHODID_DELETE_CLIENT = 30;
+  private static final int METHODID_ROTATE_CLIENT_SECRET = 31;
+  private static final int METHODID_LIST_CLIENTS = 32;
+  private static final int METHODID_SET_EXCHANGE_POLICY = 33;
+  private static final int METHODID_LIST_EXCHANGE_POLICIES = 34;
+  private static final int METHODID_GET_USER_MFA = 35;
+  private static final int METHODID_SET_USER_MFA = 36;
+  private static final int METHODID_ENFORCE_USER_MFA = 37;
+  private static final int METHODID_RESET_USER_MFA = 38;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1736,6 +2836,34 @@ public final class IdentityServiceGrpc {
           serviceImpl.sendPasswordReset((identity.v1.Identity.SendPasswordResetRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.SendPasswordResetResponse>) responseObserver);
           break;
+        case METHODID_UPDATE_USER:
+          serviceImpl.updateUser((identity.v1.Identity.UpdateUserRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateUserResponse>) responseObserver);
+          break;
+        case METHODID_SET_USER_AVATAR:
+          serviceImpl.setUserAvatar((identity.v1.Identity.SetUserAvatarRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserAvatarResponse>) responseObserver);
+          break;
+        case METHODID_SEND_WELCOME:
+          serviceImpl.sendWelcome((identity.v1.Identity.SendWelcomeRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.SendWelcomeResponse>) responseObserver);
+          break;
+        case METHODID_GET_USER_STATS:
+          serviceImpl.getUserStats((identity.v1.Identity.GetUserStatsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.GetUserStatsResponse>) responseObserver);
+          break;
+        case METHODID_GET_ME:
+          serviceImpl.getMe((identity.v1.Identity.GetMeRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.GetMeResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_ME:
+          serviceImpl.updateMe((identity.v1.Identity.UpdateMeRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateMeResponse>) responseObserver);
+          break;
+        case METHODID_SET_MY_AVATAR:
+          serviceImpl.setMyAvatar((identity.v1.Identity.SetMyAvatarRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse>) responseObserver);
+          break;
         case METHODID_CREATE_ROLE:
           serviceImpl.createRole((identity.v1.Identity.CreateRoleRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.CreateRoleResponse>) responseObserver);
@@ -1748,6 +2876,30 @@ public final class IdentityServiceGrpc {
           serviceImpl.listRoles((identity.v1.Identity.ListRolesRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.ListRolesResponse>) responseObserver);
           break;
+        case METHODID_UPDATE_ROLE:
+          serviceImpl.updateRole((identity.v1.Identity.UpdateRoleRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateRoleResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ROLE:
+          serviceImpl.deleteRole((identity.v1.Identity.DeleteRoleRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteRoleResponse>) responseObserver);
+          break;
+        case METHODID_LIST_PERMISSIONS:
+          serviceImpl.listPermissions((identity.v1.Identity.ListPermissionsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.ListPermissionsResponse>) responseObserver);
+          break;
+        case METHODID_CREATE_PERMISSION:
+          serviceImpl.createPermission((identity.v1.Identity.CreatePermissionRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.CreatePermissionResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_PERMISSION:
+          serviceImpl.updatePermission((identity.v1.Identity.UpdatePermissionRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.UpdatePermissionResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_PERMISSION:
+          serviceImpl.deletePermission((identity.v1.Identity.DeletePermissionRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.DeletePermissionResponse>) responseObserver);
+          break;
         case METHODID_ASSIGN_ROLE:
           serviceImpl.assignRole((identity.v1.Identity.AssignRoleRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.AssignRoleResponse>) responseObserver);
@@ -1759,6 +2911,18 @@ public final class IdentityServiceGrpc {
         case METHODID_CREATE_CLIENT:
           serviceImpl.createClient((identity.v1.Identity.CreateClientRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.CreateClientResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_CLIENT:
+          serviceImpl.updateClient((identity.v1.Identity.UpdateClientRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.UpdateClientResponse>) responseObserver);
+          break;
+        case METHODID_SET_CLIENT_DISABLED:
+          serviceImpl.setClientDisabled((identity.v1.Identity.SetClientDisabledRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.SetClientDisabledResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_CLIENT:
+          serviceImpl.deleteClient((identity.v1.Identity.DeleteClientRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteClientResponse>) responseObserver);
           break;
         case METHODID_ROTATE_CLIENT_SECRET:
           serviceImpl.rotateClientSecret((identity.v1.Identity.RotateClientSecretRequest) request,
@@ -1874,6 +3038,55 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.SendPasswordResetResponse>(
                 service, METHODID_SEND_PASSWORD_RESET)))
         .addMethod(
+          getUpdateUserMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.UpdateUserRequest,
+              identity.v1.Identity.UpdateUserResponse>(
+                service, METHODID_UPDATE_USER)))
+        .addMethod(
+          getSetUserAvatarMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.SetUserAvatarRequest,
+              identity.v1.Identity.SetUserAvatarResponse>(
+                service, METHODID_SET_USER_AVATAR)))
+        .addMethod(
+          getSendWelcomeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.SendWelcomeRequest,
+              identity.v1.Identity.SendWelcomeResponse>(
+                service, METHODID_SEND_WELCOME)))
+        .addMethod(
+          getGetUserStatsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.GetUserStatsRequest,
+              identity.v1.Identity.GetUserStatsResponse>(
+                service, METHODID_GET_USER_STATS)))
+        .addMethod(
+          getGetMeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.GetMeRequest,
+              identity.v1.Identity.GetMeResponse>(
+                service, METHODID_GET_ME)))
+        .addMethod(
+          getUpdateMeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.UpdateMeRequest,
+              identity.v1.Identity.UpdateMeResponse>(
+                service, METHODID_UPDATE_ME)))
+        .addMethod(
+          getSetMyAvatarMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.SetMyAvatarRequest,
+              identity.v1.Identity.SetMyAvatarResponse>(
+                service, METHODID_SET_MY_AVATAR)))
+        .addMethod(
           getCreateRoleMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -1895,6 +3108,48 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.ListRolesResponse>(
                 service, METHODID_LIST_ROLES)))
         .addMethod(
+          getUpdateRoleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.UpdateRoleRequest,
+              identity.v1.Identity.UpdateRoleResponse>(
+                service, METHODID_UPDATE_ROLE)))
+        .addMethod(
+          getDeleteRoleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.DeleteRoleRequest,
+              identity.v1.Identity.DeleteRoleResponse>(
+                service, METHODID_DELETE_ROLE)))
+        .addMethod(
+          getListPermissionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.ListPermissionsRequest,
+              identity.v1.Identity.ListPermissionsResponse>(
+                service, METHODID_LIST_PERMISSIONS)))
+        .addMethod(
+          getCreatePermissionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.CreatePermissionRequest,
+              identity.v1.Identity.CreatePermissionResponse>(
+                service, METHODID_CREATE_PERMISSION)))
+        .addMethod(
+          getUpdatePermissionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.UpdatePermissionRequest,
+              identity.v1.Identity.UpdatePermissionResponse>(
+                service, METHODID_UPDATE_PERMISSION)))
+        .addMethod(
+          getDeletePermissionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.DeletePermissionRequest,
+              identity.v1.Identity.DeletePermissionResponse>(
+                service, METHODID_DELETE_PERMISSION)))
+        .addMethod(
           getAssignRoleMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -1915,6 +3170,27 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.CreateClientRequest,
               identity.v1.Identity.CreateClientResponse>(
                 service, METHODID_CREATE_CLIENT)))
+        .addMethod(
+          getUpdateClientMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.UpdateClientRequest,
+              identity.v1.Identity.UpdateClientResponse>(
+                service, METHODID_UPDATE_CLIENT)))
+        .addMethod(
+          getSetClientDisabledMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.SetClientDisabledRequest,
+              identity.v1.Identity.SetClientDisabledResponse>(
+                service, METHODID_SET_CLIENT_DISABLED)))
+        .addMethod(
+          getDeleteClientMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.DeleteClientRequest,
+              identity.v1.Identity.DeleteClientResponse>(
+                service, METHODID_DELETE_CLIENT)))
         .addMethod(
           getRotateClientSecretMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -2028,12 +3304,28 @@ public final class IdentityServiceGrpc {
               .addMethod(getSetUserDisabledMethod())
               .addMethod(getSetUserPasswordMethod())
               .addMethod(getSendPasswordResetMethod())
+              .addMethod(getUpdateUserMethod())
+              .addMethod(getSetUserAvatarMethod())
+              .addMethod(getSendWelcomeMethod())
+              .addMethod(getGetUserStatsMethod())
+              .addMethod(getGetMeMethod())
+              .addMethod(getUpdateMeMethod())
+              .addMethod(getSetMyAvatarMethod())
               .addMethod(getCreateRoleMethod())
               .addMethod(getSetRolePermissionsMethod())
               .addMethod(getListRolesMethod())
+              .addMethod(getUpdateRoleMethod())
+              .addMethod(getDeleteRoleMethod())
+              .addMethod(getListPermissionsMethod())
+              .addMethod(getCreatePermissionMethod())
+              .addMethod(getUpdatePermissionMethod())
+              .addMethod(getDeletePermissionMethod())
               .addMethod(getAssignRoleMethod())
               .addMethod(getRevokeRoleMethod())
               .addMethod(getCreateClientMethod())
+              .addMethod(getUpdateClientMethod())
+              .addMethod(getSetClientDisabledMethod())
+              .addMethod(getDeleteClientMethod())
               .addMethod(getRotateClientSecretMethod())
               .addMethod(getListClientsMethod())
               .addMethod(getSetExchangePolicyMethod())

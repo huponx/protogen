@@ -28,12 +28,28 @@ const (
 	IdentityService_SetUserDisabled_FullMethodName      = "/identity.v1.IdentityService/SetUserDisabled"
 	IdentityService_SetUserPassword_FullMethodName      = "/identity.v1.IdentityService/SetUserPassword"
 	IdentityService_SendPasswordReset_FullMethodName    = "/identity.v1.IdentityService/SendPasswordReset"
+	IdentityService_UpdateUser_FullMethodName           = "/identity.v1.IdentityService/UpdateUser"
+	IdentityService_SetUserAvatar_FullMethodName        = "/identity.v1.IdentityService/SetUserAvatar"
+	IdentityService_SendWelcome_FullMethodName          = "/identity.v1.IdentityService/SendWelcome"
+	IdentityService_GetUserStats_FullMethodName         = "/identity.v1.IdentityService/GetUserStats"
+	IdentityService_GetMe_FullMethodName                = "/identity.v1.IdentityService/GetMe"
+	IdentityService_UpdateMe_FullMethodName             = "/identity.v1.IdentityService/UpdateMe"
+	IdentityService_SetMyAvatar_FullMethodName          = "/identity.v1.IdentityService/SetMyAvatar"
 	IdentityService_CreateRole_FullMethodName           = "/identity.v1.IdentityService/CreateRole"
 	IdentityService_SetRolePermissions_FullMethodName   = "/identity.v1.IdentityService/SetRolePermissions"
 	IdentityService_ListRoles_FullMethodName            = "/identity.v1.IdentityService/ListRoles"
+	IdentityService_UpdateRole_FullMethodName           = "/identity.v1.IdentityService/UpdateRole"
+	IdentityService_DeleteRole_FullMethodName           = "/identity.v1.IdentityService/DeleteRole"
+	IdentityService_ListPermissions_FullMethodName      = "/identity.v1.IdentityService/ListPermissions"
+	IdentityService_CreatePermission_FullMethodName     = "/identity.v1.IdentityService/CreatePermission"
+	IdentityService_UpdatePermission_FullMethodName     = "/identity.v1.IdentityService/UpdatePermission"
+	IdentityService_DeletePermission_FullMethodName     = "/identity.v1.IdentityService/DeletePermission"
 	IdentityService_AssignRole_FullMethodName           = "/identity.v1.IdentityService/AssignRole"
 	IdentityService_RevokeRole_FullMethodName           = "/identity.v1.IdentityService/RevokeRole"
 	IdentityService_CreateClient_FullMethodName         = "/identity.v1.IdentityService/CreateClient"
+	IdentityService_UpdateClient_FullMethodName         = "/identity.v1.IdentityService/UpdateClient"
+	IdentityService_SetClientDisabled_FullMethodName    = "/identity.v1.IdentityService/SetClientDisabled"
+	IdentityService_DeleteClient_FullMethodName         = "/identity.v1.IdentityService/DeleteClient"
 	IdentityService_RotateClientSecret_FullMethodName   = "/identity.v1.IdentityService/RotateClientSecret"
 	IdentityService_ListClients_FullMethodName          = "/identity.v1.IdentityService/ListClients"
 	IdentityService_SetExchangePolicy_FullMethodName    = "/identity.v1.IdentityService/SetExchangePolicy"
@@ -65,14 +81,41 @@ type IdentityServiceClient interface {
 	SetUserDisabled(ctx context.Context, in *SetUserDisabledRequest, opts ...grpc.CallOption) (*SetUserDisabledResponse, error)
 	SetUserPassword(ctx context.Context, in *SetUserPasswordRequest, opts ...grpc.CallOption) (*SetUserPasswordResponse, error)
 	SendPasswordReset(ctx context.Context, in *SendPasswordResetRequest, opts ...grpc.CallOption) (*SendPasswordResetResponse, error)
+	// UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
+	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
+	SetUserAvatar(ctx context.Context, in *SetUserAvatarRequest, opts ...grpc.CallOption) (*SetUserAvatarResponse, error)
+	// SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
+	// user who has no password yet (status PENDING).
+	SendWelcome(ctx context.Context, in *SendWelcomeRequest, opts ...grpc.CallOption) (*SendWelcomeResponse, error)
+	// Counts of users by status, MFA and activity.
+	GetUserStats(ctx context.Context, in *GetUserStatsRequest, opts ...grpc.CallOption) (*GetUserStatsResponse, error)
+	// The signed-in user's own profile. Any user with a user token may call them (no permission):
+	// the user is the subject of the token, never a field of the request, so nobody can reach
+	// another user through them. Service tokens are refused.
+	GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error)
+	// UpdateMe changes the own name and locale; an empty field keeps the current value.
+	UpdateMe(ctx context.Context, in *UpdateMeRequest, opts ...grpc.CallOption) (*UpdateMeResponse, error)
+	SetMyAvatar(ctx context.Context, in *SetMyAvatarRequest, opts ...grpc.CallOption) (*SetMyAvatarResponse, error)
 	// Roles. Permission: identity:role:read for List, identity:role:write for the others.
 	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 	SetRolePermissions(ctx context.Context, in *SetRolePermissionsRequest, opts ...grpc.CallOption) (*SetRolePermissionsResponse, error)
 	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
+	// The catalog of permissions roles can be given (wildcards are entries too).
+	ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error)
+	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
+	// UpdatePermission changes the description; the name is the key.
+	UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error)
+	// DeletePermission fails while a role holds the permission.
+	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error)
 	AssignRole(ctx context.Context, in *AssignRoleRequest, opts ...grpc.CallOption) (*AssignRoleResponse, error)
 	RevokeRole(ctx context.Context, in *RevokeRoleRequest, opts ...grpc.CallOption) (*RevokeRoleResponse, error)
 	// Clients. Permission: identity:client:read for List, identity:client:write for the others.
 	CreateClient(ctx context.Context, in *CreateClientRequest, opts ...grpc.CallOption) (*CreateClientResponse, error)
+	UpdateClient(ctx context.Context, in *UpdateClientRequest, opts ...grpc.CallOption) (*UpdateClientResponse, error)
+	SetClientDisabled(ctx context.Context, in *SetClientDisabledRequest, opts ...grpc.CallOption) (*SetClientDisabledResponse, error)
+	DeleteClient(ctx context.Context, in *DeleteClientRequest, opts ...grpc.CallOption) (*DeleteClientResponse, error)
 	RotateClientSecret(ctx context.Context, in *RotateClientSecretRequest, opts ...grpc.CallOption) (*RotateClientSecretResponse, error)
 	ListClients(ctx context.Context, in *ListClientsRequest, opts ...grpc.CallOption) (*ListClientsResponse, error)
 	// Token exchange policies (deny by default). Permission: identity:exchange:read for List,
@@ -184,6 +227,76 @@ func (c *identityServiceClient) SendPasswordReset(ctx context.Context, in *SendP
 	return out, nil
 }
 
+func (c *identityServiceClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateUserResponse)
+	err := c.cc.Invoke(ctx, IdentityService_UpdateUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) SetUserAvatar(ctx context.Context, in *SetUserAvatarRequest, opts ...grpc.CallOption) (*SetUserAvatarResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetUserAvatarResponse)
+	err := c.cc.Invoke(ctx, IdentityService_SetUserAvatar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) SendWelcome(ctx context.Context, in *SendWelcomeRequest, opts ...grpc.CallOption) (*SendWelcomeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SendWelcomeResponse)
+	err := c.cc.Invoke(ctx, IdentityService_SendWelcome_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) GetUserStats(ctx context.Context, in *GetUserStatsRequest, opts ...grpc.CallOption) (*GetUserStatsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserStatsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_GetUserStats_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMeResponse)
+	err := c.cc.Invoke(ctx, IdentityService_GetMe_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) UpdateMe(ctx context.Context, in *UpdateMeRequest, opts ...grpc.CallOption) (*UpdateMeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateMeResponse)
+	err := c.cc.Invoke(ctx, IdentityService_UpdateMe_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) SetMyAvatar(ctx context.Context, in *SetMyAvatarRequest, opts ...grpc.CallOption) (*SetMyAvatarResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetMyAvatarResponse)
+	err := c.cc.Invoke(ctx, IdentityService_SetMyAvatar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *identityServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateRoleResponse)
@@ -214,6 +327,66 @@ func (c *identityServiceClient) ListRoles(ctx context.Context, in *ListRolesRequ
 	return out, nil
 }
 
+func (c *identityServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateRoleResponse)
+	err := c.cc.Invoke(ctx, IdentityService_UpdateRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteRoleResponse)
+	err := c.cc.Invoke(ctx, IdentityService_DeleteRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListPermissionsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ListPermissions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatePermissionResponse)
+	err := c.cc.Invoke(ctx, IdentityService_CreatePermission_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdatePermissionResponse)
+	err := c.cc.Invoke(ctx, IdentityService_UpdatePermission_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeletePermissionResponse)
+	err := c.cc.Invoke(ctx, IdentityService_DeletePermission_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *identityServiceClient) AssignRole(ctx context.Context, in *AssignRoleRequest, opts ...grpc.CallOption) (*AssignRoleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AssignRoleResponse)
@@ -238,6 +411,36 @@ func (c *identityServiceClient) CreateClient(ctx context.Context, in *CreateClie
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateClientResponse)
 	err := c.cc.Invoke(ctx, IdentityService_CreateClient_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) UpdateClient(ctx context.Context, in *UpdateClientRequest, opts ...grpc.CallOption) (*UpdateClientResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateClientResponse)
+	err := c.cc.Invoke(ctx, IdentityService_UpdateClient_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) SetClientDisabled(ctx context.Context, in *SetClientDisabledRequest, opts ...grpc.CallOption) (*SetClientDisabledResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetClientDisabledResponse)
+	err := c.cc.Invoke(ctx, IdentityService_SetClientDisabled_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) DeleteClient(ctx context.Context, in *DeleteClientRequest, opts ...grpc.CallOption) (*DeleteClientResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteClientResponse)
+	err := c.cc.Invoke(ctx, IdentityService_DeleteClient_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -345,14 +548,41 @@ type IdentityServiceServer interface {
 	SetUserDisabled(context.Context, *SetUserDisabledRequest) (*SetUserDisabledResponse, error)
 	SetUserPassword(context.Context, *SetUserPasswordRequest) (*SetUserPasswordResponse, error)
 	SendPasswordReset(context.Context, *SendPasswordResetRequest) (*SendPasswordResetResponse, error)
+	// UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
+	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
+	SetUserAvatar(context.Context, *SetUserAvatarRequest) (*SetUserAvatarResponse, error)
+	// SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
+	// user who has no password yet (status PENDING).
+	SendWelcome(context.Context, *SendWelcomeRequest) (*SendWelcomeResponse, error)
+	// Counts of users by status, MFA and activity.
+	GetUserStats(context.Context, *GetUserStatsRequest) (*GetUserStatsResponse, error)
+	// The signed-in user's own profile. Any user with a user token may call them (no permission):
+	// the user is the subject of the token, never a field of the request, so nobody can reach
+	// another user through them. Service tokens are refused.
+	GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error)
+	// UpdateMe changes the own name and locale; an empty field keeps the current value.
+	UpdateMe(context.Context, *UpdateMeRequest) (*UpdateMeResponse, error)
+	SetMyAvatar(context.Context, *SetMyAvatarRequest) (*SetMyAvatarResponse, error)
 	// Roles. Permission: identity:role:read for List, identity:role:write for the others.
 	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
 	SetRolePermissions(context.Context, *SetRolePermissionsRequest) (*SetRolePermissionsResponse, error)
 	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
+	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
+	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
+	// The catalog of permissions roles can be given (wildcards are entries too).
+	ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error)
+	CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error)
+	// UpdatePermission changes the description; the name is the key.
+	UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error)
+	// DeletePermission fails while a role holds the permission.
+	DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error)
 	AssignRole(context.Context, *AssignRoleRequest) (*AssignRoleResponse, error)
 	RevokeRole(context.Context, *RevokeRoleRequest) (*RevokeRoleResponse, error)
 	// Clients. Permission: identity:client:read for List, identity:client:write for the others.
 	CreateClient(context.Context, *CreateClientRequest) (*CreateClientResponse, error)
+	UpdateClient(context.Context, *UpdateClientRequest) (*UpdateClientResponse, error)
+	SetClientDisabled(context.Context, *SetClientDisabledRequest) (*SetClientDisabledResponse, error)
+	DeleteClient(context.Context, *DeleteClientRequest) (*DeleteClientResponse, error)
 	RotateClientSecret(context.Context, *RotateClientSecretRequest) (*RotateClientSecretResponse, error)
 	ListClients(context.Context, *ListClientsRequest) (*ListClientsResponse, error)
 	// Token exchange policies (deny by default). Permission: identity:exchange:read for List,
@@ -401,6 +631,27 @@ func (UnimplementedIdentityServiceServer) SetUserPassword(context.Context, *SetU
 func (UnimplementedIdentityServiceServer) SendPasswordReset(context.Context, *SendPasswordResetRequest) (*SendPasswordResetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendPasswordReset not implemented")
 }
+func (UnimplementedIdentityServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+}
+func (UnimplementedIdentityServiceServer) SetUserAvatar(context.Context, *SetUserAvatarRequest) (*SetUserAvatarResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserAvatar not implemented")
+}
+func (UnimplementedIdentityServiceServer) SendWelcome(context.Context, *SendWelcomeRequest) (*SendWelcomeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendWelcome not implemented")
+}
+func (UnimplementedIdentityServiceServer) GetUserStats(context.Context, *GetUserStatsRequest) (*GetUserStatsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserStats not implemented")
+}
+func (UnimplementedIdentityServiceServer) GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMe not implemented")
+}
+func (UnimplementedIdentityServiceServer) UpdateMe(context.Context, *UpdateMeRequest) (*UpdateMeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMe not implemented")
+}
+func (UnimplementedIdentityServiceServer) SetMyAvatar(context.Context, *SetMyAvatarRequest) (*SetMyAvatarResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetMyAvatar not implemented")
+}
 func (UnimplementedIdentityServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
@@ -410,6 +661,24 @@ func (UnimplementedIdentityServiceServer) SetRolePermissions(context.Context, *S
 func (UnimplementedIdentityServiceServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
+func (UnimplementedIdentityServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedIdentityServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedIdentityServiceServer) ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPermissions not implemented")
+}
+func (UnimplementedIdentityServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
+}
+func (UnimplementedIdentityServiceServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePermission not implemented")
+}
+func (UnimplementedIdentityServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePermission not implemented")
+}
 func (UnimplementedIdentityServiceServer) AssignRole(context.Context, *AssignRoleRequest) (*AssignRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignRole not implemented")
 }
@@ -418,6 +687,15 @@ func (UnimplementedIdentityServiceServer) RevokeRole(context.Context, *RevokeRol
 }
 func (UnimplementedIdentityServiceServer) CreateClient(context.Context, *CreateClientRequest) (*CreateClientResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateClient not implemented")
+}
+func (UnimplementedIdentityServiceServer) UpdateClient(context.Context, *UpdateClientRequest) (*UpdateClientResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateClient not implemented")
+}
+func (UnimplementedIdentityServiceServer) SetClientDisabled(context.Context, *SetClientDisabledRequest) (*SetClientDisabledResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetClientDisabled not implemented")
+}
+func (UnimplementedIdentityServiceServer) DeleteClient(context.Context, *DeleteClientRequest) (*DeleteClientResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteClient not implemented")
 }
 func (UnimplementedIdentityServiceServer) RotateClientSecret(context.Context, *RotateClientSecretRequest) (*RotateClientSecretResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RotateClientSecret not implemented")
@@ -626,6 +904,132 @@ func _IdentityService_SendPasswordReset_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _IdentityService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).UpdateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_UpdateUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).UpdateUser(ctx, req.(*UpdateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_SetUserAvatar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserAvatarRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).SetUserAvatar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_SetUserAvatar_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).SetUserAvatar(ctx, req.(*SetUserAvatarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_SendWelcome_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendWelcomeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).SendWelcome(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_SendWelcome_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).SendWelcome(ctx, req.(*SendWelcomeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_GetUserStats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserStatsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).GetUserStats(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_GetUserStats_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).GetUserStats(ctx, req.(*GetUserStatsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_GetMe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).GetMe(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_GetMe_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).GetMe(ctx, req.(*GetMeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_UpdateMe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).UpdateMe(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_UpdateMe_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).UpdateMe(ctx, req.(*UpdateMeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_SetMyAvatar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetMyAvatarRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).SetMyAvatar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_SetMyAvatar_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).SetMyAvatar(ctx, req.(*SetMyAvatarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _IdentityService_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRoleRequest)
 	if err := dec(in); err != nil {
@@ -680,6 +1084,114 @@ func _IdentityService_ListRoles_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _IdentityService_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_UpdateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_DeleteRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).DeleteRole(ctx, req.(*DeleteRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ListPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPermissionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ListPermissions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ListPermissions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ListPermissions(ctx, req.(*ListPermissionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).CreatePermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_CreatePermission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_UpdatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).UpdatePermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_UpdatePermission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).UpdatePermission(ctx, req.(*UpdatePermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).DeletePermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_DeletePermission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _IdentityService_AssignRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AssignRoleRequest)
 	if err := dec(in); err != nil {
@@ -730,6 +1242,60 @@ func _IdentityService_CreateClient_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).CreateClient(ctx, req.(*CreateClientRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_UpdateClient_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateClientRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).UpdateClient(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_UpdateClient_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).UpdateClient(ctx, req.(*UpdateClientRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_SetClientDisabled_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetClientDisabledRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).SetClientDisabled(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_SetClientDisabled_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).SetClientDisabled(ctx, req.(*SetClientDisabledRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_DeleteClient_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteClientRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).DeleteClient(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_DeleteClient_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).DeleteClient(ctx, req.(*DeleteClientRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -922,6 +1488,34 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _IdentityService_SendPasswordReset_Handler,
 		},
 		{
+			MethodName: "UpdateUser",
+			Handler:    _IdentityService_UpdateUser_Handler,
+		},
+		{
+			MethodName: "SetUserAvatar",
+			Handler:    _IdentityService_SetUserAvatar_Handler,
+		},
+		{
+			MethodName: "SendWelcome",
+			Handler:    _IdentityService_SendWelcome_Handler,
+		},
+		{
+			MethodName: "GetUserStats",
+			Handler:    _IdentityService_GetUserStats_Handler,
+		},
+		{
+			MethodName: "GetMe",
+			Handler:    _IdentityService_GetMe_Handler,
+		},
+		{
+			MethodName: "UpdateMe",
+			Handler:    _IdentityService_UpdateMe_Handler,
+		},
+		{
+			MethodName: "SetMyAvatar",
+			Handler:    _IdentityService_SetMyAvatar_Handler,
+		},
+		{
 			MethodName: "CreateRole",
 			Handler:    _IdentityService_CreateRole_Handler,
 		},
@@ -934,6 +1528,30 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _IdentityService_ListRoles_Handler,
 		},
 		{
+			MethodName: "UpdateRole",
+			Handler:    _IdentityService_UpdateRole_Handler,
+		},
+		{
+			MethodName: "DeleteRole",
+			Handler:    _IdentityService_DeleteRole_Handler,
+		},
+		{
+			MethodName: "ListPermissions",
+			Handler:    _IdentityService_ListPermissions_Handler,
+		},
+		{
+			MethodName: "CreatePermission",
+			Handler:    _IdentityService_CreatePermission_Handler,
+		},
+		{
+			MethodName: "UpdatePermission",
+			Handler:    _IdentityService_UpdatePermission_Handler,
+		},
+		{
+			MethodName: "DeletePermission",
+			Handler:    _IdentityService_DeletePermission_Handler,
+		},
+		{
 			MethodName: "AssignRole",
 			Handler:    _IdentityService_AssignRole_Handler,
 		},
@@ -944,6 +1562,18 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateClient",
 			Handler:    _IdentityService_CreateClient_Handler,
+		},
+		{
+			MethodName: "UpdateClient",
+			Handler:    _IdentityService_UpdateClient_Handler,
+		},
+		{
+			MethodName: "SetClientDisabled",
+			Handler:    _IdentityService_SetClientDisabled_Handler,
+		},
+		{
+			MethodName: "DeleteClient",
+			Handler:    _IdentityService_DeleteClient_Handler,
 		},
 		{
 			MethodName: "RotateClientSecret",
