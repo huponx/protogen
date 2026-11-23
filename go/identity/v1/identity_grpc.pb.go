@@ -35,6 +35,8 @@ const (
 	IdentityService_GetMe_FullMethodName                = "/identity.v1.IdentityService/GetMe"
 	IdentityService_UpdateMe_FullMethodName             = "/identity.v1.IdentityService/UpdateMe"
 	IdentityService_SetMyAvatar_FullMethodName          = "/identity.v1.IdentityService/SetMyAvatar"
+	IdentityService_GetMyUserSettings_FullMethodName    = "/identity.v1.IdentityService/GetMyUserSettings"
+	IdentityService_PutMyUserSettings_FullMethodName    = "/identity.v1.IdentityService/PutMyUserSettings"
 	IdentityService_CreateRole_FullMethodName           = "/identity.v1.IdentityService/CreateRole"
 	IdentityService_SetRolePermissions_FullMethodName   = "/identity.v1.IdentityService/SetRolePermissions"
 	IdentityService_ListRoles_FullMethodName            = "/identity.v1.IdentityService/ListRoles"
@@ -96,6 +98,12 @@ type IdentityServiceClient interface {
 	// UpdateMe changes the own name and locale; an empty field keeps the current value.
 	UpdateMe(ctx context.Context, in *UpdateMeRequest, opts ...grpc.CallOption) (*UpdateMeResponse, error)
 	SetMyAvatar(ctx context.Context, in *SetMyAvatarRequest, opts ...grpc.CallOption) (*SetMyAvatarResponse, error)
+	// The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
+	// identity stores without looking inside; the application validates what it writes. Same rules as
+	// the other "me" methods (user token, no permission). Called by the application on behalf of the
+	// user (token exchange), not by the browser.
+	GetMyUserSettings(ctx context.Context, in *GetMyUserSettingsRequest, opts ...grpc.CallOption) (*GetMyUserSettingsResponse, error)
+	PutMyUserSettings(ctx context.Context, in *PutMyUserSettingsRequest, opts ...grpc.CallOption) (*PutMyUserSettingsResponse, error)
 	// Roles. Permission: identity:role:read for List, identity:role:write for the others.
 	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 	SetRolePermissions(ctx context.Context, in *SetRolePermissionsRequest, opts ...grpc.CallOption) (*SetRolePermissionsResponse, error)
@@ -291,6 +299,26 @@ func (c *identityServiceClient) SetMyAvatar(ctx context.Context, in *SetMyAvatar
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SetMyAvatarResponse)
 	err := c.cc.Invoke(ctx, IdentityService_SetMyAvatar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) GetMyUserSettings(ctx context.Context, in *GetMyUserSettingsRequest, opts ...grpc.CallOption) (*GetMyUserSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMyUserSettingsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_GetMyUserSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) PutMyUserSettings(ctx context.Context, in *PutMyUserSettingsRequest, opts ...grpc.CallOption) (*PutMyUserSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PutMyUserSettingsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_PutMyUserSettings_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -563,6 +591,12 @@ type IdentityServiceServer interface {
 	// UpdateMe changes the own name and locale; an empty field keeps the current value.
 	UpdateMe(context.Context, *UpdateMeRequest) (*UpdateMeResponse, error)
 	SetMyAvatar(context.Context, *SetMyAvatarRequest) (*SetMyAvatarResponse, error)
+	// The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
+	// identity stores without looking inside; the application validates what it writes. Same rules as
+	// the other "me" methods (user token, no permission). Called by the application on behalf of the
+	// user (token exchange), not by the browser.
+	GetMyUserSettings(context.Context, *GetMyUserSettingsRequest) (*GetMyUserSettingsResponse, error)
+	PutMyUserSettings(context.Context, *PutMyUserSettingsRequest) (*PutMyUserSettingsResponse, error)
 	// Roles. Permission: identity:role:read for List, identity:role:write for the others.
 	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
 	SetRolePermissions(context.Context, *SetRolePermissionsRequest) (*SetRolePermissionsResponse, error)
@@ -651,6 +685,12 @@ func (UnimplementedIdentityServiceServer) UpdateMe(context.Context, *UpdateMeReq
 }
 func (UnimplementedIdentityServiceServer) SetMyAvatar(context.Context, *SetMyAvatarRequest) (*SetMyAvatarResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetMyAvatar not implemented")
+}
+func (UnimplementedIdentityServiceServer) GetMyUserSettings(context.Context, *GetMyUserSettingsRequest) (*GetMyUserSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMyUserSettings not implemented")
+}
+func (UnimplementedIdentityServiceServer) PutMyUserSettings(context.Context, *PutMyUserSettingsRequest) (*PutMyUserSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PutMyUserSettings not implemented")
 }
 func (UnimplementedIdentityServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
@@ -1026,6 +1066,42 @@ func _IdentityService_SetMyAvatar_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).SetMyAvatar(ctx, req.(*SetMyAvatarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_GetMyUserSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMyUserSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).GetMyUserSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_GetMyUserSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).GetMyUserSettings(ctx, req.(*GetMyUserSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_PutMyUserSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PutMyUserSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).PutMyUserSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_PutMyUserSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).PutMyUserSettings(ctx, req.(*PutMyUserSettingsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1514,6 +1590,14 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetMyAvatar",
 			Handler:    _IdentityService_SetMyAvatar_Handler,
+		},
+		{
+			MethodName: "GetMyUserSettings",
+			Handler:    _IdentityService_GetMyUserSettings_Handler,
+		},
+		{
+			MethodName: "PutMyUserSettings",
+			Handler:    _IdentityService_PutMyUserSettings_Handler,
 		},
 		{
 			MethodName: "CreateRole",

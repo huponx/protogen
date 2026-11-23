@@ -516,6 +516,68 @@ public final class IdentityServiceGrpc {
     return getSetMyAvatarMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetMyUserSettingsRequest,
+      identity.v1.Identity.GetMyUserSettingsResponse> getGetMyUserSettingsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetMyUserSettings",
+      requestType = identity.v1.Identity.GetMyUserSettingsRequest.class,
+      responseType = identity.v1.Identity.GetMyUserSettingsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.GetMyUserSettingsRequest,
+      identity.v1.Identity.GetMyUserSettingsResponse> getGetMyUserSettingsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.GetMyUserSettingsRequest, identity.v1.Identity.GetMyUserSettingsResponse> getGetMyUserSettingsMethod;
+    if ((getGetMyUserSettingsMethod = IdentityServiceGrpc.getGetMyUserSettingsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getGetMyUserSettingsMethod = IdentityServiceGrpc.getGetMyUserSettingsMethod) == null) {
+          IdentityServiceGrpc.getGetMyUserSettingsMethod = getGetMyUserSettingsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.GetMyUserSettingsRequest, identity.v1.Identity.GetMyUserSettingsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetMyUserSettings"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetMyUserSettingsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetMyUserSettingsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("GetMyUserSettings"))
+              .build();
+        }
+      }
+    }
+    return getGetMyUserSettingsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.PutMyUserSettingsRequest,
+      identity.v1.Identity.PutMyUserSettingsResponse> getPutMyUserSettingsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "PutMyUserSettings",
+      requestType = identity.v1.Identity.PutMyUserSettingsRequest.class,
+      responseType = identity.v1.Identity.PutMyUserSettingsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.PutMyUserSettingsRequest,
+      identity.v1.Identity.PutMyUserSettingsResponse> getPutMyUserSettingsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.PutMyUserSettingsRequest, identity.v1.Identity.PutMyUserSettingsResponse> getPutMyUserSettingsMethod;
+    if ((getPutMyUserSettingsMethod = IdentityServiceGrpc.getPutMyUserSettingsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getPutMyUserSettingsMethod = IdentityServiceGrpc.getPutMyUserSettingsMethod) == null) {
+          IdentityServiceGrpc.getPutMyUserSettingsMethod = getPutMyUserSettingsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.PutMyUserSettingsRequest, identity.v1.Identity.PutMyUserSettingsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "PutMyUserSettings"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.PutMyUserSettingsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.PutMyUserSettingsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("PutMyUserSettings"))
+              .build();
+        }
+      }
+    }
+    return getPutMyUserSettingsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.CreateRoleRequest,
       identity.v1.Identity.CreateRoleResponse> getCreateRoleMethod;
 
@@ -1426,6 +1488,26 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
+     * identity stores without looking inside; the application validates what it writes. Same rules as
+     * the other "me" methods (user token, no permission). Called by the application on behalf of the
+     * user (token exchange), not by the browser.
+     * </pre>
+     */
+    default void getMyUserSettings(identity.v1.Identity.GetMyUserSettingsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetMyUserSettingsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMyUserSettingsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void putMyUserSettings(identity.v1.Identity.PutMyUserSettingsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.PutMyUserSettingsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPutMyUserSettingsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -1805,6 +1887,28 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
+     * identity stores without looking inside; the application validates what it writes. Same rules as
+     * the other "me" methods (user token, no permission). Called by the application on behalf of the
+     * user (token exchange), not by the browser.
+     * </pre>
+     */
+    public void getMyUserSettings(identity.v1.Identity.GetMyUserSettingsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetMyUserSettingsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetMyUserSettingsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void putMyUserSettings(identity.v1.Identity.PutMyUserSettingsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.PutMyUserSettingsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getPutMyUserSettingsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -2175,6 +2279,26 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
+     * identity stores without looking inside; the application validates what it writes. Same rules as
+     * the other "me" methods (user token, no permission). Called by the application on behalf of the
+     * user (token exchange), not by the browser.
+     * </pre>
+     */
+    public identity.v1.Identity.GetMyUserSettingsResponse getMyUserSettings(identity.v1.Identity.GetMyUserSettingsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetMyUserSettingsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.PutMyUserSettingsResponse putMyUserSettings(identity.v1.Identity.PutMyUserSettingsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getPutMyUserSettingsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -2538,6 +2662,28 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
+     * identity stores without looking inside; the application validates what it writes. Same rules as
+     * the other "me" methods (user token, no permission). Called by the application on behalf of the
+     * user (token exchange), not by the browser.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.GetMyUserSettingsResponse> getMyUserSettings(
+        identity.v1.Identity.GetMyUserSettingsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetMyUserSettingsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.PutMyUserSettingsResponse> putMyUserSettings(
+        identity.v1.Identity.PutMyUserSettingsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getPutMyUserSettingsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Roles. Permission: identity:role:read for List, identity:role:write for the others.
      * </pre>
      */
@@ -2759,29 +2905,31 @@ public final class IdentityServiceGrpc {
   private static final int METHODID_GET_ME = 13;
   private static final int METHODID_UPDATE_ME = 14;
   private static final int METHODID_SET_MY_AVATAR = 15;
-  private static final int METHODID_CREATE_ROLE = 16;
-  private static final int METHODID_SET_ROLE_PERMISSIONS = 17;
-  private static final int METHODID_LIST_ROLES = 18;
-  private static final int METHODID_UPDATE_ROLE = 19;
-  private static final int METHODID_DELETE_ROLE = 20;
-  private static final int METHODID_LIST_PERMISSIONS = 21;
-  private static final int METHODID_CREATE_PERMISSION = 22;
-  private static final int METHODID_UPDATE_PERMISSION = 23;
-  private static final int METHODID_DELETE_PERMISSION = 24;
-  private static final int METHODID_ASSIGN_ROLE = 25;
-  private static final int METHODID_REVOKE_ROLE = 26;
-  private static final int METHODID_CREATE_CLIENT = 27;
-  private static final int METHODID_UPDATE_CLIENT = 28;
-  private static final int METHODID_SET_CLIENT_DISABLED = 29;
-  private static final int METHODID_DELETE_CLIENT = 30;
-  private static final int METHODID_ROTATE_CLIENT_SECRET = 31;
-  private static final int METHODID_LIST_CLIENTS = 32;
-  private static final int METHODID_SET_EXCHANGE_POLICY = 33;
-  private static final int METHODID_LIST_EXCHANGE_POLICIES = 34;
-  private static final int METHODID_GET_USER_MFA = 35;
-  private static final int METHODID_SET_USER_MFA = 36;
-  private static final int METHODID_ENFORCE_USER_MFA = 37;
-  private static final int METHODID_RESET_USER_MFA = 38;
+  private static final int METHODID_GET_MY_USER_SETTINGS = 16;
+  private static final int METHODID_PUT_MY_USER_SETTINGS = 17;
+  private static final int METHODID_CREATE_ROLE = 18;
+  private static final int METHODID_SET_ROLE_PERMISSIONS = 19;
+  private static final int METHODID_LIST_ROLES = 20;
+  private static final int METHODID_UPDATE_ROLE = 21;
+  private static final int METHODID_DELETE_ROLE = 22;
+  private static final int METHODID_LIST_PERMISSIONS = 23;
+  private static final int METHODID_CREATE_PERMISSION = 24;
+  private static final int METHODID_UPDATE_PERMISSION = 25;
+  private static final int METHODID_DELETE_PERMISSION = 26;
+  private static final int METHODID_ASSIGN_ROLE = 27;
+  private static final int METHODID_REVOKE_ROLE = 28;
+  private static final int METHODID_CREATE_CLIENT = 29;
+  private static final int METHODID_UPDATE_CLIENT = 30;
+  private static final int METHODID_SET_CLIENT_DISABLED = 31;
+  private static final int METHODID_DELETE_CLIENT = 32;
+  private static final int METHODID_ROTATE_CLIENT_SECRET = 33;
+  private static final int METHODID_LIST_CLIENTS = 34;
+  private static final int METHODID_SET_EXCHANGE_POLICY = 35;
+  private static final int METHODID_LIST_EXCHANGE_POLICIES = 36;
+  private static final int METHODID_GET_USER_MFA = 37;
+  private static final int METHODID_SET_USER_MFA = 38;
+  private static final int METHODID_ENFORCE_USER_MFA = 39;
+  private static final int METHODID_RESET_USER_MFA = 40;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -2863,6 +3011,14 @@ public final class IdentityServiceGrpc {
         case METHODID_SET_MY_AVATAR:
           serviceImpl.setMyAvatar((identity.v1.Identity.SetMyAvatarRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse>) responseObserver);
+          break;
+        case METHODID_GET_MY_USER_SETTINGS:
+          serviceImpl.getMyUserSettings((identity.v1.Identity.GetMyUserSettingsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.GetMyUserSettingsResponse>) responseObserver);
+          break;
+        case METHODID_PUT_MY_USER_SETTINGS:
+          serviceImpl.putMyUserSettings((identity.v1.Identity.PutMyUserSettingsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.PutMyUserSettingsResponse>) responseObserver);
           break;
         case METHODID_CREATE_ROLE:
           serviceImpl.createRole((identity.v1.Identity.CreateRoleRequest) request,
@@ -3086,6 +3242,20 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.SetMyAvatarRequest,
               identity.v1.Identity.SetMyAvatarResponse>(
                 service, METHODID_SET_MY_AVATAR)))
+        .addMethod(
+          getGetMyUserSettingsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.GetMyUserSettingsRequest,
+              identity.v1.Identity.GetMyUserSettingsResponse>(
+                service, METHODID_GET_MY_USER_SETTINGS)))
+        .addMethod(
+          getPutMyUserSettingsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.PutMyUserSettingsRequest,
+              identity.v1.Identity.PutMyUserSettingsResponse>(
+                service, METHODID_PUT_MY_USER_SETTINGS)))
         .addMethod(
           getCreateRoleMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -3311,6 +3481,8 @@ public final class IdentityServiceGrpc {
               .addMethod(getGetMeMethod())
               .addMethod(getUpdateMeMethod())
               .addMethod(getSetMyAvatarMethod())
+              .addMethod(getGetMyUserSettingsMethod())
+              .addMethod(getPutMyUserSettingsMethod())
               .addMethod(getCreateRoleMethod())
               .addMethod(getSetRolePermissionsMethod())
               .addMethod(getListRolesMethod())

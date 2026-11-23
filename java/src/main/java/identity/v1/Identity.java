@@ -23118,6 +23118,2147 @@ public final class Identity {
 
   }
 
+  public interface GetMyUserSettingsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetMyUserSettingsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+     * </pre>
+     *
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The app.
+     */
+    java.lang.String getApp();
+    /**
+     * <pre>
+     * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+     * </pre>
+     *
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The bytes for app.
+     */
+    com.google.protobuf.ByteString
+        getAppBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetMyUserSettingsRequest}
+   */
+  public static final class GetMyUserSettingsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetMyUserSettingsRequest)
+      GetMyUserSettingsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetMyUserSettingsRequest.class.getName());
+    }
+    // Use GetMyUserSettingsRequest.newBuilder() to construct.
+    private GetMyUserSettingsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetMyUserSettingsRequest() {
+      app_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetMyUserSettingsRequest.class, identity.v1.Identity.GetMyUserSettingsRequest.Builder.class);
+    }
+
+    public static final int APP_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object app_ = "";
+    /**
+     * <pre>
+     * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+     * </pre>
+     *
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The app.
+     */
+    @java.lang.Override
+    public java.lang.String getApp() {
+      java.lang.Object ref = app_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        app_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+     * </pre>
+     *
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The bytes for app.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAppBytes() {
+      java.lang.Object ref = app_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        app_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(app_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, app_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(app_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, app_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetMyUserSettingsRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetMyUserSettingsRequest other = (identity.v1.Identity.GetMyUserSettingsRequest) obj;
+
+      if (!getApp()
+          .equals(other.getApp())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + APP_FIELD_NUMBER;
+      hash = (53 * hash) + getApp().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetMyUserSettingsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetMyUserSettingsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetMyUserSettingsRequest)
+        identity.v1.Identity.GetMyUserSettingsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetMyUserSettingsRequest.class, identity.v1.Identity.GetMyUserSettingsRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetMyUserSettingsRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        app_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyUserSettingsRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.GetMyUserSettingsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyUserSettingsRequest build() {
+        identity.v1.Identity.GetMyUserSettingsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyUserSettingsRequest buildPartial() {
+        identity.v1.Identity.GetMyUserSettingsRequest result = new identity.v1.Identity.GetMyUserSettingsRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.GetMyUserSettingsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.app_ = app_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetMyUserSettingsRequest) {
+          return mergeFrom((identity.v1.Identity.GetMyUserSettingsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetMyUserSettingsRequest other) {
+        if (other == identity.v1.Identity.GetMyUserSettingsRequest.getDefaultInstance()) return this;
+        if (!other.getApp().isEmpty()) {
+          app_ = other.app_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                app_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object app_ = "";
+      /**
+       * <pre>
+       * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+       * </pre>
+       *
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @return The app.
+       */
+      public java.lang.String getApp() {
+        java.lang.Object ref = app_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          app_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+       * </pre>
+       *
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @return The bytes for app.
+       */
+      public com.google.protobuf.ByteString
+          getAppBytes() {
+        java.lang.Object ref = app_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          app_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+       * </pre>
+       *
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @param value The app to set.
+       * @return This builder for chaining.
+       */
+      public Builder setApp(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        app_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+       * </pre>
+       *
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearApp() {
+        app_ = getDefaultInstance().getApp();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+       * </pre>
+       *
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @param value The bytes for app to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAppBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        app_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetMyUserSettingsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetMyUserSettingsRequest)
+    private static final identity.v1.Identity.GetMyUserSettingsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetMyUserSettingsRequest();
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetMyUserSettingsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetMyUserSettingsRequest>() {
+      @java.lang.Override
+      public GetMyUserSettingsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetMyUserSettingsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetMyUserSettingsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetMyUserSettingsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetMyUserSettingsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetMyUserSettingsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * A JSON object; "{}" when the user has stored nothing for the application.
+     * </pre>
+     *
+     * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+     * @return The settingsJson.
+     */
+    java.lang.String getSettingsJson();
+    /**
+     * <pre>
+     * A JSON object; "{}" when the user has stored nothing for the application.
+     * </pre>
+     *
+     * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+     * @return The bytes for settingsJson.
+     */
+    com.google.protobuf.ByteString
+        getSettingsJsonBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetMyUserSettingsResponse}
+   */
+  public static final class GetMyUserSettingsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetMyUserSettingsResponse)
+      GetMyUserSettingsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetMyUserSettingsResponse.class.getName());
+    }
+    // Use GetMyUserSettingsResponse.newBuilder() to construct.
+    private GetMyUserSettingsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetMyUserSettingsResponse() {
+      settingsJson_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetMyUserSettingsResponse.class, identity.v1.Identity.GetMyUserSettingsResponse.Builder.class);
+    }
+
+    public static final int SETTINGS_JSON_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object settingsJson_ = "";
+    /**
+     * <pre>
+     * A JSON object; "{}" when the user has stored nothing for the application.
+     * </pre>
+     *
+     * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+     * @return The settingsJson.
+     */
+    @java.lang.Override
+    public java.lang.String getSettingsJson() {
+      java.lang.Object ref = settingsJson_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        settingsJson_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * A JSON object; "{}" when the user has stored nothing for the application.
+     * </pre>
+     *
+     * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+     * @return The bytes for settingsJson.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSettingsJsonBytes() {
+      java.lang.Object ref = settingsJson_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        settingsJson_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(settingsJson_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, settingsJson_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(settingsJson_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, settingsJson_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetMyUserSettingsResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetMyUserSettingsResponse other = (identity.v1.Identity.GetMyUserSettingsResponse) obj;
+
+      if (!getSettingsJson()
+          .equals(other.getSettingsJson())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SETTINGS_JSON_FIELD_NUMBER;
+      hash = (53 * hash) + getSettingsJson().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyUserSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetMyUserSettingsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetMyUserSettingsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetMyUserSettingsResponse)
+        identity.v1.Identity.GetMyUserSettingsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetMyUserSettingsResponse.class, identity.v1.Identity.GetMyUserSettingsResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetMyUserSettingsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        settingsJson_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyUserSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyUserSettingsResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.GetMyUserSettingsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyUserSettingsResponse build() {
+        identity.v1.Identity.GetMyUserSettingsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyUserSettingsResponse buildPartial() {
+        identity.v1.Identity.GetMyUserSettingsResponse result = new identity.v1.Identity.GetMyUserSettingsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.GetMyUserSettingsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.settingsJson_ = settingsJson_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetMyUserSettingsResponse) {
+          return mergeFrom((identity.v1.Identity.GetMyUserSettingsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetMyUserSettingsResponse other) {
+        if (other == identity.v1.Identity.GetMyUserSettingsResponse.getDefaultInstance()) return this;
+        if (!other.getSettingsJson().isEmpty()) {
+          settingsJson_ = other.settingsJson_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                settingsJson_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object settingsJson_ = "";
+      /**
+       * <pre>
+       * A JSON object; "{}" when the user has stored nothing for the application.
+       * </pre>
+       *
+       * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+       * @return The settingsJson.
+       */
+      public java.lang.String getSettingsJson() {
+        java.lang.Object ref = settingsJson_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          settingsJson_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A JSON object; "{}" when the user has stored nothing for the application.
+       * </pre>
+       *
+       * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+       * @return The bytes for settingsJson.
+       */
+      public com.google.protobuf.ByteString
+          getSettingsJsonBytes() {
+        java.lang.Object ref = settingsJson_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          settingsJson_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A JSON object; "{}" when the user has stored nothing for the application.
+       * </pre>
+       *
+       * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+       * @param value The settingsJson to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSettingsJson(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        settingsJson_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A JSON object; "{}" when the user has stored nothing for the application.
+       * </pre>
+       *
+       * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSettingsJson() {
+        settingsJson_ = getDefaultInstance().getSettingsJson();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A JSON object; "{}" when the user has stored nothing for the application.
+       * </pre>
+       *
+       * <code>string settings_json = 10 [json_name = "settingsJson"];</code>
+       * @param value The bytes for settingsJson to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSettingsJsonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        settingsJson_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetMyUserSettingsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetMyUserSettingsResponse)
+    private static final identity.v1.Identity.GetMyUserSettingsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetMyUserSettingsResponse();
+    }
+
+    public static identity.v1.Identity.GetMyUserSettingsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetMyUserSettingsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetMyUserSettingsResponse>() {
+      @java.lang.Override
+      public GetMyUserSettingsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetMyUserSettingsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetMyUserSettingsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetMyUserSettingsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PutMyUserSettingsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.PutMyUserSettingsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The app.
+     */
+    java.lang.String getApp();
+    /**
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The bytes for app.
+     */
+    com.google.protobuf.ByteString
+        getAppBytes();
+
+    /**
+     * <pre>
+     * A JSON object of at most 16 KiB; it replaces what was stored.
+     * </pre>
+     *
+     * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+     * @return The settingsJson.
+     */
+    java.lang.String getSettingsJson();
+    /**
+     * <pre>
+     * A JSON object of at most 16 KiB; it replaces what was stored.
+     * </pre>
+     *
+     * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+     * @return The bytes for settingsJson.
+     */
+    com.google.protobuf.ByteString
+        getSettingsJsonBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.PutMyUserSettingsRequest}
+   */
+  public static final class PutMyUserSettingsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.PutMyUserSettingsRequest)
+      PutMyUserSettingsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        PutMyUserSettingsRequest.class.getName());
+    }
+    // Use PutMyUserSettingsRequest.newBuilder() to construct.
+    private PutMyUserSettingsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private PutMyUserSettingsRequest() {
+      app_ = "";
+      settingsJson_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.PutMyUserSettingsRequest.class, identity.v1.Identity.PutMyUserSettingsRequest.Builder.class);
+    }
+
+    public static final int APP_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object app_ = "";
+    /**
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The app.
+     */
+    @java.lang.Override
+    public java.lang.String getApp() {
+      java.lang.Object ref = app_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        app_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string app = 10 [json_name = "app"];</code>
+     * @return The bytes for app.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAppBytes() {
+      java.lang.Object ref = app_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        app_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SETTINGS_JSON_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object settingsJson_ = "";
+    /**
+     * <pre>
+     * A JSON object of at most 16 KiB; it replaces what was stored.
+     * </pre>
+     *
+     * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+     * @return The settingsJson.
+     */
+    @java.lang.Override
+    public java.lang.String getSettingsJson() {
+      java.lang.Object ref = settingsJson_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        settingsJson_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * A JSON object of at most 16 KiB; it replaces what was stored.
+     * </pre>
+     *
+     * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+     * @return The bytes for settingsJson.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSettingsJsonBytes() {
+      java.lang.Object ref = settingsJson_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        settingsJson_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(app_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, app_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(settingsJson_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, settingsJson_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(app_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, app_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(settingsJson_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, settingsJson_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.PutMyUserSettingsRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.PutMyUserSettingsRequest other = (identity.v1.Identity.PutMyUserSettingsRequest) obj;
+
+      if (!getApp()
+          .equals(other.getApp())) return false;
+      if (!getSettingsJson()
+          .equals(other.getSettingsJson())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + APP_FIELD_NUMBER;
+      hash = (53 * hash) + getApp().hashCode();
+      hash = (37 * hash) + SETTINGS_JSON_FIELD_NUMBER;
+      hash = (53 * hash) + getSettingsJson().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.PutMyUserSettingsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.PutMyUserSettingsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.PutMyUserSettingsRequest)
+        identity.v1.Identity.PutMyUserSettingsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.PutMyUserSettingsRequest.class, identity.v1.Identity.PutMyUserSettingsRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.PutMyUserSettingsRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        app_ = "";
+        settingsJson_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.PutMyUserSettingsRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.PutMyUserSettingsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.PutMyUserSettingsRequest build() {
+        identity.v1.Identity.PutMyUserSettingsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.PutMyUserSettingsRequest buildPartial() {
+        identity.v1.Identity.PutMyUserSettingsRequest result = new identity.v1.Identity.PutMyUserSettingsRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.PutMyUserSettingsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.app_ = app_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.settingsJson_ = settingsJson_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.PutMyUserSettingsRequest) {
+          return mergeFrom((identity.v1.Identity.PutMyUserSettingsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.PutMyUserSettingsRequest other) {
+        if (other == identity.v1.Identity.PutMyUserSettingsRequest.getDefaultInstance()) return this;
+        if (!other.getApp().isEmpty()) {
+          app_ = other.app_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getSettingsJson().isEmpty()) {
+          settingsJson_ = other.settingsJson_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                app_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                settingsJson_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object app_ = "";
+      /**
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @return The app.
+       */
+      public java.lang.String getApp() {
+        java.lang.Object ref = app_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          app_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @return The bytes for app.
+       */
+      public com.google.protobuf.ByteString
+          getAppBytes() {
+        java.lang.Object ref = app_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          app_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @param value The app to set.
+       * @return This builder for chaining.
+       */
+      public Builder setApp(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        app_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearApp() {
+        app_ = getDefaultInstance().getApp();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string app = 10 [json_name = "app"];</code>
+       * @param value The bytes for app to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAppBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        app_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object settingsJson_ = "";
+      /**
+       * <pre>
+       * A JSON object of at most 16 KiB; it replaces what was stored.
+       * </pre>
+       *
+       * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+       * @return The settingsJson.
+       */
+      public java.lang.String getSettingsJson() {
+        java.lang.Object ref = settingsJson_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          settingsJson_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A JSON object of at most 16 KiB; it replaces what was stored.
+       * </pre>
+       *
+       * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+       * @return The bytes for settingsJson.
+       */
+      public com.google.protobuf.ByteString
+          getSettingsJsonBytes() {
+        java.lang.Object ref = settingsJson_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          settingsJson_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A JSON object of at most 16 KiB; it replaces what was stored.
+       * </pre>
+       *
+       * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+       * @param value The settingsJson to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSettingsJson(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        settingsJson_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A JSON object of at most 16 KiB; it replaces what was stored.
+       * </pre>
+       *
+       * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSettingsJson() {
+        settingsJson_ = getDefaultInstance().getSettingsJson();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A JSON object of at most 16 KiB; it replaces what was stored.
+       * </pre>
+       *
+       * <code>string settings_json = 20 [json_name = "settingsJson"];</code>
+       * @param value The bytes for settingsJson to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSettingsJsonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        settingsJson_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.PutMyUserSettingsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.PutMyUserSettingsRequest)
+    private static final identity.v1.Identity.PutMyUserSettingsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.PutMyUserSettingsRequest();
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PutMyUserSettingsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<PutMyUserSettingsRequest>() {
+      @java.lang.Override
+      public PutMyUserSettingsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<PutMyUserSettingsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PutMyUserSettingsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.PutMyUserSettingsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PutMyUserSettingsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.PutMyUserSettingsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.PutMyUserSettingsResponse}
+   */
+  public static final class PutMyUserSettingsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.PutMyUserSettingsResponse)
+      PutMyUserSettingsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        PutMyUserSettingsResponse.class.getName());
+    }
+    // Use PutMyUserSettingsResponse.newBuilder() to construct.
+    private PutMyUserSettingsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private PutMyUserSettingsResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.PutMyUserSettingsResponse.class, identity.v1.Identity.PutMyUserSettingsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.PutMyUserSettingsResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.PutMyUserSettingsResponse other = (identity.v1.Identity.PutMyUserSettingsResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.PutMyUserSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.PutMyUserSettingsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.PutMyUserSettingsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.PutMyUserSettingsResponse)
+        identity.v1.Identity.PutMyUserSettingsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.PutMyUserSettingsResponse.class, identity.v1.Identity.PutMyUserSettingsResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.PutMyUserSettingsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_PutMyUserSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.PutMyUserSettingsResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.PutMyUserSettingsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.PutMyUserSettingsResponse build() {
+        identity.v1.Identity.PutMyUserSettingsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.PutMyUserSettingsResponse buildPartial() {
+        identity.v1.Identity.PutMyUserSettingsResponse result = new identity.v1.Identity.PutMyUserSettingsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.PutMyUserSettingsResponse) {
+          return mergeFrom((identity.v1.Identity.PutMyUserSettingsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.PutMyUserSettingsResponse other) {
+        if (other == identity.v1.Identity.PutMyUserSettingsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.PutMyUserSettingsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.PutMyUserSettingsResponse)
+    private static final identity.v1.Identity.PutMyUserSettingsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.PutMyUserSettingsResponse();
+    }
+
+    public static identity.v1.Identity.PutMyUserSettingsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PutMyUserSettingsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<PutMyUserSettingsResponse>() {
+      @java.lang.Override
+      public PutMyUserSettingsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<PutMyUserSettingsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PutMyUserSettingsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.PutMyUserSettingsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface RoleOrBuilder extends
       // @@protoc_insertion_point(interface_extends:identity.v1.Role)
       com.google.protobuf.MessageOrBuilder {
@@ -58736,6 +60877,26 @@ public final class Identity {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_SetMyAvatarResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetMyUserSettingsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetMyUserSettingsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetMyUserSettingsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetMyUserSettingsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_PutMyUserSettingsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_PutMyUserSettingsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_PutMyUserSettingsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_PutMyUserSettingsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_Role_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -59066,213 +61227,224 @@ public final class Identity {
       "nse\022%\n\004user\030\n \001(\0132\021.identity.v1.UserR\004us" +
       "er\"G\n\022SetMyAvatarRequest\022\024\n\005image\030\n \001(\014R" +
       "\005image\022\033\n\tmime_type\030\024 \001(\tR\010mimeType\"\025\n\023S" +
-      "etMyAvatarResponse\"\205\001\n\004Role\022\022\n\004name\030\n \001(" +
-      "\tR\004name\022 \n\013description\030\024 \001(\tR\013descriptio" +
-      "n\022 \n\013permissions\030\036 \003(\tR\013permissions\022%\n\016a" +
-      "ssigned_count\030( \001(\003R\rassignedCount\":\n\021Cr" +
-      "eateRoleRequest\022%\n\004role\030\n \001(\0132\021.identity" +
-      ".v1.RoleR\004role\";\n\022CreateRoleResponse\022%\n\004" +
-      "role\030\n \001(\0132\021.identity.v1.RoleR\004role\"Q\n\031S" +
-      "etRolePermissionsRequest\022\022\n\004role\030\n \001(\tR\004" +
-      "role\022 \n\013permissions\030\024 \003(\tR\013permissions\"C" +
-      "\n\032SetRolePermissionsResponse\022%\n\004role\030\n \001" +
-      "(\0132\021.identity.v1.RoleR\004role\"k\n\021UpdateRol" +
-      "eRequest\022\022\n\004role\030\n \001(\tR\004role\022 \n\013descript" +
-      "ion\030\024 \001(\tR\013description\022 \n\013permissions\030\036 " +
-      "\003(\tR\013permissions\";\n\022UpdateRoleResponse\022%" +
-      "\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004role\"\'\n" +
-      "\021DeleteRoleRequest\022\022\n\004role\030\n \001(\tR\004role\"\024" +
-      "\n\022DeleteRoleResponse\"d\n\020ListRolesRequest" +
-      "\022\024\n\005query\030\n \001(\tR\005query\022\033\n\tpage_size\030\024 \001(" +
-      "\005R\010pageSize\022\035\n\npage_token\030\036 \001(\tR\tpageTok" +
-      "en\"z\n\021ListRolesResponse\022\'\n\005roles\030\n \003(\0132\021" +
-      ".identity.v1.RoleR\005roles\022&\n\017next_page_to" +
-      "ken\030\024 \001(\tR\rnextPageToken\022\024\n\005total\030\036 \001(\003R" +
-      "\005total\"a\n\nPermission\022\022\n\004name\030\n \001(\tR\004name" +
-      "\022 \n\013description\030\024 \001(\tR\013description\022\035\n\nro" +
-      "le_count\030\036 \001(\003R\troleCount\"j\n\026ListPermiss" +
-      "ionsRequest\022\024\n\005query\030\n \001(\tR\005query\022\033\n\tpag" +
-      "e_size\030\024 \001(\005R\010pageSize\022\035\n\npage_token\030\036 \001" +
-      "(\tR\tpageToken\"\222\001\n\027ListPermissionsRespons" +
-      "e\0229\n\013permissions\030\n \003(\0132\027.identity.v1.Per" +
-      "missionR\013permissions\022&\n\017next_page_token\030" +
-      "\024 \001(\tR\rnextPageToken\022\024\n\005total\030\036 \001(\003R\005tot" +
-      "al\"R\n\027CreatePermissionRequest\0227\n\npermiss" +
-      "ion\030\n \001(\0132\027.identity.v1.PermissionR\nperm" +
-      "ission\"S\n\030CreatePermissionResponse\0227\n\npe" +
-      "rmission\030\n \001(\0132\027.identity.v1.PermissionR" +
-      "\npermission\"o\n\027UpdatePermissionRequest\022\022" +
-      "\n\004name\030\n \001(\tR\004name\022\036\n\npermission\030\024 \001(\tR\n" +
-      "permission\022 \n\013description\030\036 \001(\tR\013descrip" +
-      "tion\"S\n\030UpdatePermissionResponse\0227\n\nperm" +
-      "ission\030\n \001(\0132\027.identity.v1.PermissionR\np" +
-      "ermission\"M\n\027DeletePermissionRequest\022\022\n\004" +
-      "name\030\n \001(\tR\004name\022\036\n\npermission\030\024 \001(\tR\npe" +
-      "rmission\"\032\n\030DeletePermissionResponse\"]\n\021" +
-      "AssignRoleRequest\022\027\n\007user_id\030\n \001(\tR\006user" +
-      "Id\022\033\n\tclient_id\030\024 \001(\tR\010clientId\022\022\n\004role\030" +
-      "\036 \001(\tR\004role\"\024\n\022AssignRoleResponse\"]\n\021Rev" +
-      "okeRoleRequest\022\027\n\007user_id\030\n \001(\tR\006userId\022" +
-      "\033\n\tclient_id\030\024 \001(\tR\010clientId\022\022\n\004role\030\036 \001" +
-      "(\tR\004role\"\024\n\022RevokeRoleResponse\"\230\003\n\006Clien" +
-      "t\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\022\n\004name\030\024" +
-      " \001(\tR\004name\022+\n\004type\030\036 \001(\0162\027.identity.v1.C" +
-      "lientTypeR\004type\022#\n\rredirect_uris\030( \003(\tR\014" +
-      "redirectUris\0229\n\031post_logout_redirect_uri" +
-      "s\0302 \003(\tR\026postLogoutRedirectUris\0224\n\026backc" +
-      "hannel_logout_uri\030< \001(\tR\024backchannelLogo" +
-      "utUri\022%\n\016allowed_grants\030F \003(\tR\rallowedGr" +
-      "ants\022%\n\016allowed_scopes\030P \003(\tR\rallowedSco" +
-      "pes\022\032\n\010resource\030Z \001(\tR\010resource\022\024\n\005roles" +
-      "\030d \003(\tR\005roles\022\032\n\010disabled\030n \001(\010R\010disable" +
-      "d\"B\n\023CreateClientRequest\022+\n\006client\030\n \001(\013" +
-      "2\023.identity.v1.ClientR\006client\"h\n\024CreateC" +
-      "lientResponse\022+\n\006client\030\n \001(\0132\023.identity" +
-      ".v1.ClientR\006client\022#\n\rclient_secret\030\024 \001(" +
-      "\tR\014clientSecret\"8\n\031RotateClientSecretReq" +
-      "uest\022\033\n\tclient_id\030\n \001(\tR\010clientId\"A\n\032Rot" +
-      "ateClientSecretResponse\022#\n\rclient_secret" +
-      "\030\n \001(\tR\014clientSecret\"\334\002\n\023UpdateClientReq" +
-      "uest\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\022\n\004nam" +
-      "e\030\024 \001(\tR\004name\022#\n\rredirect_uris\030\036 \003(\tR\014re" +
-      "directUris\0229\n\031post_logout_redirect_uris\030" +
-      "( \003(\tR\026postLogoutRedirectUris\0224\n\026backcha" +
-      "nnel_logout_uri\0302 \001(\tR\024backchannelLogout" +
-      "Uri\022%\n\016allowed_grants\030< \003(\tR\rallowedGran" +
-      "ts\022%\n\016allowed_scopes\030F \003(\tR\rallowedScope" +
-      "s\022\032\n\010resource\030P \001(\tR\010resource\022\024\n\005roles\030Z" +
-      " \003(\tR\005roles\"C\n\024UpdateClientResponse\022+\n\006c" +
-      "lient\030\n \001(\0132\023.identity.v1.ClientR\006client" +
-      "\"S\n\030SetClientDisabledRequest\022\033\n\tclient_i" +
-      "d\030\n \001(\tR\010clientId\022\032\n\010disabled\030\024 \001(\010R\010dis" +
-      "abled\"H\n\031SetClientDisabledResponse\022+\n\006cl" +
-      "ient\030\n \001(\0132\023.identity.v1.ClientR\006client\"" +
-      "2\n\023DeleteClientRequest\022\033\n\tclient_id\030\n \001(" +
-      "\tR\010clientId\"\026\n\024DeleteClientResponse\"\223\001\n\022" +
-      "ListClientsRequest\022\024\n\005query\030\n \001(\tR\005query" +
-      "\022+\n\004type\030\024 \001(\0162\027.identity.v1.ClientTypeR" +
-      "\004type\022\033\n\tpage_size\030\036 \001(\005R\010pageSize\022\035\n\npa" +
-      "ge_token\030( \001(\tR\tpageToken\"l\n\023ListClients" +
-      "Response\022-\n\007clients\030\n \003(\0132\023.identity.v1." +
-      "ClientR\007clients\022&\n\017next_page_token\030\024 \001(\t" +
-      "R\rnextPageToken\"\216\001\n\016ExchangePolicy\022\033\n\tcl" +
-      "ient_id\030\n \001(\tR\010clientId\022\032\n\010audience\030\024 \001(" +
-      "\tR\010audience\022\033\n\tmax_scope\030\036 \001(\tR\010maxScope" +
-      "\022&\n\017max_chain_depth\030( \001(\005R\rmaxChainDepth" +
-      "\"g\n\030SetExchangePolicyRequest\0223\n\006policy\030\n" +
-      " \001(\0132\033.identity.v1.ExchangePolicyR\006polic" +
-      "y\022\026\n\006delete\030\024 \001(\010R\006delete\"\033\n\031SetExchange" +
-      "PolicyResponse\"\250\001\n\033ListExchangePoliciesR" +
-      "equest\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\024\n\005q" +
-      "uery\030\024 \001(\tR\005query\022\032\n\010audience\030\036 \001(\tR\010aud" +
-      "ience\022\033\n\tpage_size\030( \001(\005R\010pageSize\022\035\n\npa" +
-      "ge_token\0302 \001(\tR\tpageToken\"\177\n\034ListExchang" +
-      "ePoliciesResponse\0227\n\010policies\030\n \003(\0132\033.id" +
-      "entity.v1.ExchangePolicyR\010policies\022&\n\017ne" +
-      "xt_page_token\030\024 \001(\tR\rnextPageToken\",\n\021Ge" +
-      "tUserMFARequest\022\027\n\007user_id\030\n \001(\tR\006userId" +
-      "\"\216\001\n\022GetUserMFAResponse\022\030\n\007enabled\030\n \001(\010" +
-      "R\007enabled\022\032\n\010enforced\030\024 \001(\010R\010enforced\022\022\n" +
-      "\004mode\030\036 \001(\tR\004mode\022.\n\023recovery_codes_left" +
-      "\030( \001(\005R\021recoveryCodesLeft\"F\n\021SetUserMFAR" +
-      "equest\022\027\n\007user_id\030\n \001(\tR\006userId\022\030\n\007enabl" +
-      "ed\030\024 \001(\010R\007enabled\"\024\n\022SetUserMFAResponse\"" +
-      "L\n\025EnforceUserMFARequest\022\027\n\007user_id\030\n \001(" +
-      "\tR\006userId\022\032\n\010enforced\030\024 \001(\010R\010enforced\"\030\n" +
-      "\026EnforceUserMFAResponse\".\n\023ResetUserMFAR" +
-      "equest\022\027\n\007user_id\030\n \001(\tR\006userId\"\026\n\024Reset" +
-      "UserMFAResponse*t\n\nUserStatus\022\033\n\027USER_ST" +
-      "ATUS_UNSPECIFIED\020\000\022\027\n\023USER_STATUS_PENDIN" +
-      "G\020\n\022\026\n\022USER_STATUS_ACTIVE\020\024\022\030\n\024USER_STAT" +
-      "US_DISABLED\020\036*_\n\nClientType\022\033\n\027CLIENT_TY" +
-      "PE_UNSPECIFIED\020\000\022\026\n\022CLIENT_TYPE_PUBLIC\020\n" +
-      "\022\034\n\030CLIENT_TYPE_CONFIDENTIAL\020\0242\264\032\n\017Ident" +
-      "ityService\022M\n\nIntrospect\022\036.identity.v1.I" +
-      "ntrospectRequest\032\037.identity.v1.Introspec" +
-      "tResponse\022\\\n\017CheckPermission\022#.identity." +
-      "v1.CheckPermissionRequest\032$.identity.v1." +
-      "CheckPermissionResponse\022P\n\013RevokeToken\022\037" +
-      ".identity.v1.RevokeTokenRequest\032 .identi" +
-      "ty.v1.RevokeTokenResponse\022D\n\007GetUser\022\033.i" +
-      "dentity.v1.GetUserRequest\032\034.identity.v1." +
-      "GetUserResponse\022J\n\tListUsers\022\035.identity." +
-      "v1.ListUsersRequest\032\036.identity.v1.ListUs" +
-      "ersResponse\022M\n\nCreateUser\022\036.identity.v1." +
-      "CreateUserRequest\032\037.identity.v1.CreateUs" +
-      "erResponse\022\\\n\017SetUserDisabled\022#.identity" +
-      ".v1.SetUserDisabledRequest\032$.identity.v1" +
-      ".SetUserDisabledResponse\022\\\n\017SetUserPassw" +
-      "ord\022#.identity.v1.SetUserPasswordRequest" +
-      "\032$.identity.v1.SetUserPasswordResponse\022b" +
-      "\n\021SendPasswordReset\022%.identity.v1.SendPa" +
-      "sswordResetRequest\032&.identity.v1.SendPas" +
-      "swordResetResponse\022M\n\nUpdateUser\022\036.ident" +
-      "ity.v1.UpdateUserRequest\032\037.identity.v1.U" +
-      "pdateUserResponse\022V\n\rSetUserAvatar\022!.ide" +
-      "ntity.v1.SetUserAvatarRequest\032\".identity" +
-      ".v1.SetUserAvatarResponse\022P\n\013SendWelcome" +
-      "\022\037.identity.v1.SendWelcomeRequest\032 .iden" +
-      "tity.v1.SendWelcomeResponse\022S\n\014GetUserSt" +
-      "ats\022 .identity.v1.GetUserStatsRequest\032!." +
-      "identity.v1.GetUserStatsResponse\022>\n\005GetM" +
-      "e\022\031.identity.v1.GetMeRequest\032\032.identity." +
-      "v1.GetMeResponse\022G\n\010UpdateMe\022\034.identity." +
-      "v1.UpdateMeRequest\032\035.identity.v1.UpdateM" +
-      "eResponse\022P\n\013SetMyAvatar\022\037.identity.v1.S" +
-      "etMyAvatarRequest\032 .identity.v1.SetMyAva" +
-      "tarResponse\022M\n\nCreateRole\022\036.identity.v1." +
-      "CreateRoleRequest\032\037.identity.v1.CreateRo" +
-      "leResponse\022e\n\022SetRolePermissions\022&.ident" +
-      "ity.v1.SetRolePermissionsRequest\032\'.ident" +
-      "ity.v1.SetRolePermissionsResponse\022J\n\tLis" +
-      "tRoles\022\035.identity.v1.ListRolesRequest\032\036." +
-      "identity.v1.ListRolesResponse\022M\n\nUpdateR" +
-      "ole\022\036.identity.v1.UpdateRoleRequest\032\037.id" +
-      "entity.v1.UpdateRoleResponse\022M\n\nDeleteRo" +
-      "le\022\036.identity.v1.DeleteRoleRequest\032\037.ide" +
-      "ntity.v1.DeleteRoleResponse\022\\\n\017ListPermi" +
-      "ssions\022#.identity.v1.ListPermissionsRequ" +
-      "est\032$.identity.v1.ListPermissionsRespons" +
-      "e\022_\n\020CreatePermission\022$.identity.v1.Crea" +
-      "tePermissionRequest\032%.identity.v1.Create" +
-      "PermissionResponse\022_\n\020UpdatePermission\022$" +
-      ".identity.v1.UpdatePermissionRequest\032%.i" +
-      "dentity.v1.UpdatePermissionResponse\022_\n\020D" +
-      "eletePermission\022$.identity.v1.DeletePerm" +
-      "issionRequest\032%.identity.v1.DeletePermis" +
-      "sionResponse\022M\n\nAssignRole\022\036.identity.v1" +
-      ".AssignRoleRequest\032\037.identity.v1.AssignR" +
-      "oleResponse\022M\n\nRevokeRole\022\036.identity.v1." +
-      "RevokeRoleRequest\032\037.identity.v1.RevokeRo" +
-      "leResponse\022S\n\014CreateClient\022 .identity.v1" +
-      ".CreateClientRequest\032!.identity.v1.Creat" +
-      "eClientResponse\022S\n\014UpdateClient\022 .identi" +
-      "ty.v1.UpdateClientRequest\032!.identity.v1." +
-      "UpdateClientResponse\022b\n\021SetClientDisable" +
-      "d\022%.identity.v1.SetClientDisabledRequest" +
-      "\032&.identity.v1.SetClientDisabledResponse" +
-      "\022S\n\014DeleteClient\022 .identity.v1.DeleteCli" +
-      "entRequest\032!.identity.v1.DeleteClientRes" +
-      "ponse\022e\n\022RotateClientSecret\022&.identity.v" +
-      "1.RotateClientSecretRequest\032\'.identity.v" +
-      "1.RotateClientSecretResponse\022P\n\013ListClie" +
-      "nts\022\037.identity.v1.ListClientsRequest\032 .i" +
-      "dentity.v1.ListClientsResponse\022b\n\021SetExc" +
-      "hangePolicy\022%.identity.v1.SetExchangePol" +
-      "icyRequest\032&.identity.v1.SetExchangePoli" +
-      "cyResponse\022k\n\024ListExchangePolicies\022(.ide" +
-      "ntity.v1.ListExchangePoliciesRequest\032).i" +
-      "dentity.v1.ListExchangePoliciesResponse\022" +
-      "M\n\nGetUserMFA\022\036.identity.v1.GetUserMFARe" +
-      "quest\032\037.identity.v1.GetUserMFAResponse\022M" +
-      "\n\nSetUserMFA\022\036.identity.v1.SetUserMFAReq" +
-      "uest\032\037.identity.v1.SetUserMFAResponse\022Y\n" +
-      "\016EnforceUserMFA\022\".identity.v1.EnforceUse" +
-      "rMFARequest\032#.identity.v1.EnforceUserMFA" +
-      "Response\022S\n\014ResetUserMFA\022 .identity.v1.R" +
-      "esetUserMFARequest\032!.identity.v1.ResetUs" +
-      "erMFAResponseB3Z1github.com/huponx/proto" +
-      "gen/identity/v1;identityv1b\006proto3"
+      "etMyAvatarResponse\",\n\030GetMyUserSettingsR" +
+      "equest\022\020\n\003app\030\n \001(\tR\003app\"@\n\031GetMyUserSet" +
+      "tingsResponse\022#\n\rsettings_json\030\n \001(\tR\014se" +
+      "ttingsJson\"Q\n\030PutMyUserSettingsRequest\022\020" +
+      "\n\003app\030\n \001(\tR\003app\022#\n\rsettings_json\030\024 \001(\tR" +
+      "\014settingsJson\"\033\n\031PutMyUserSettingsRespon" +
+      "se\"\205\001\n\004Role\022\022\n\004name\030\n \001(\tR\004name\022 \n\013descr" +
+      "iption\030\024 \001(\tR\013description\022 \n\013permissions" +
+      "\030\036 \003(\tR\013permissions\022%\n\016assigned_count\030( " +
+      "\001(\003R\rassignedCount\":\n\021CreateRoleRequest\022" +
+      "%\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004role\";" +
+      "\n\022CreateRoleResponse\022%\n\004role\030\n \001(\0132\021.ide" +
+      "ntity.v1.RoleR\004role\"Q\n\031SetRolePermission" +
+      "sRequest\022\022\n\004role\030\n \001(\tR\004role\022 \n\013permissi" +
+      "ons\030\024 \003(\tR\013permissions\"C\n\032SetRolePermiss" +
+      "ionsResponse\022%\n\004role\030\n \001(\0132\021.identity.v1" +
+      ".RoleR\004role\"k\n\021UpdateRoleRequest\022\022\n\004role" +
+      "\030\n \001(\tR\004role\022 \n\013description\030\024 \001(\tR\013descr" +
+      "iption\022 \n\013permissions\030\036 \003(\tR\013permissions" +
+      "\";\n\022UpdateRoleResponse\022%\n\004role\030\n \001(\0132\021.i" +
+      "dentity.v1.RoleR\004role\"\'\n\021DeleteRoleReque" +
+      "st\022\022\n\004role\030\n \001(\tR\004role\"\024\n\022DeleteRoleResp" +
+      "onse\"d\n\020ListRolesRequest\022\024\n\005query\030\n \001(\tR" +
+      "\005query\022\033\n\tpage_size\030\024 \001(\005R\010pageSize\022\035\n\np" +
+      "age_token\030\036 \001(\tR\tpageToken\"z\n\021ListRolesR" +
+      "esponse\022\'\n\005roles\030\n \003(\0132\021.identity.v1.Rol" +
+      "eR\005roles\022&\n\017next_page_token\030\024 \001(\tR\rnextP" +
+      "ageToken\022\024\n\005total\030\036 \001(\003R\005total\"a\n\nPermis" +
+      "sion\022\022\n\004name\030\n \001(\tR\004name\022 \n\013description\030" +
+      "\024 \001(\tR\013description\022\035\n\nrole_count\030\036 \001(\003R\t" +
+      "roleCount\"j\n\026ListPermissionsRequest\022\024\n\005q" +
+      "uery\030\n \001(\tR\005query\022\033\n\tpage_size\030\024 \001(\005R\010pa" +
+      "geSize\022\035\n\npage_token\030\036 \001(\tR\tpageToken\"\222\001" +
+      "\n\027ListPermissionsResponse\0229\n\013permissions" +
+      "\030\n \003(\0132\027.identity.v1.PermissionR\013permiss" +
+      "ions\022&\n\017next_page_token\030\024 \001(\tR\rnextPageT" +
+      "oken\022\024\n\005total\030\036 \001(\003R\005total\"R\n\027CreatePerm" +
+      "issionRequest\0227\n\npermission\030\n \001(\0132\027.iden" +
+      "tity.v1.PermissionR\npermission\"S\n\030Create" +
+      "PermissionResponse\0227\n\npermission\030\n \001(\0132\027" +
+      ".identity.v1.PermissionR\npermission\"o\n\027U" +
+      "pdatePermissionRequest\022\022\n\004name\030\n \001(\tR\004na" +
+      "me\022\036\n\npermission\030\024 \001(\tR\npermission\022 \n\013de" +
+      "scription\030\036 \001(\tR\013description\"S\n\030UpdatePe" +
+      "rmissionResponse\0227\n\npermission\030\n \001(\0132\027.i" +
+      "dentity.v1.PermissionR\npermission\"M\n\027Del" +
+      "etePermissionRequest\022\022\n\004name\030\n \001(\tR\004name" +
+      "\022\036\n\npermission\030\024 \001(\tR\npermission\"\032\n\030Dele" +
+      "tePermissionResponse\"]\n\021AssignRoleReques" +
+      "t\022\027\n\007user_id\030\n \001(\tR\006userId\022\033\n\tclient_id\030" +
+      "\024 \001(\tR\010clientId\022\022\n\004role\030\036 \001(\tR\004role\"\024\n\022A" +
+      "ssignRoleResponse\"]\n\021RevokeRoleRequest\022\027" +
+      "\n\007user_id\030\n \001(\tR\006userId\022\033\n\tclient_id\030\024 \001" +
+      "(\tR\010clientId\022\022\n\004role\030\036 \001(\tR\004role\"\024\n\022Revo" +
+      "keRoleResponse\"\230\003\n\006Client\022\033\n\tclient_id\030\n" +
+      " \001(\tR\010clientId\022\022\n\004name\030\024 \001(\tR\004name\022+\n\004ty" +
+      "pe\030\036 \001(\0162\027.identity.v1.ClientTypeR\004type\022" +
+      "#\n\rredirect_uris\030( \003(\tR\014redirectUris\0229\n\031" +
+      "post_logout_redirect_uris\0302 \003(\tR\026postLog" +
+      "outRedirectUris\0224\n\026backchannel_logout_ur" +
+      "i\030< \001(\tR\024backchannelLogoutUri\022%\n\016allowed" +
+      "_grants\030F \003(\tR\rallowedGrants\022%\n\016allowed_" +
+      "scopes\030P \003(\tR\rallowedScopes\022\032\n\010resource\030" +
+      "Z \001(\tR\010resource\022\024\n\005roles\030d \003(\tR\005roles\022\032\n" +
+      "\010disabled\030n \001(\010R\010disabled\"B\n\023CreateClien" +
+      "tRequest\022+\n\006client\030\n \001(\0132\023.identity.v1.C" +
+      "lientR\006client\"h\n\024CreateClientResponse\022+\n" +
+      "\006client\030\n \001(\0132\023.identity.v1.ClientR\006clie" +
+      "nt\022#\n\rclient_secret\030\024 \001(\tR\014clientSecret\"" +
+      "8\n\031RotateClientSecretRequest\022\033\n\tclient_i" +
+      "d\030\n \001(\tR\010clientId\"A\n\032RotateClientSecretR" +
+      "esponse\022#\n\rclient_secret\030\n \001(\tR\014clientSe" +
+      "cret\"\334\002\n\023UpdateClientRequest\022\033\n\tclient_i" +
+      "d\030\n \001(\tR\010clientId\022\022\n\004name\030\024 \001(\tR\004name\022#\n" +
+      "\rredirect_uris\030\036 \003(\tR\014redirectUris\0229\n\031po" +
+      "st_logout_redirect_uris\030( \003(\tR\026postLogou" +
+      "tRedirectUris\0224\n\026backchannel_logout_uri\030" +
+      "2 \001(\tR\024backchannelLogoutUri\022%\n\016allowed_g" +
+      "rants\030< \003(\tR\rallowedGrants\022%\n\016allowed_sc" +
+      "opes\030F \003(\tR\rallowedScopes\022\032\n\010resource\030P " +
+      "\001(\tR\010resource\022\024\n\005roles\030Z \003(\tR\005roles\"C\n\024U" +
+      "pdateClientResponse\022+\n\006client\030\n \001(\0132\023.id" +
+      "entity.v1.ClientR\006client\"S\n\030SetClientDis" +
+      "abledRequest\022\033\n\tclient_id\030\n \001(\tR\010clientI" +
+      "d\022\032\n\010disabled\030\024 \001(\010R\010disabled\"H\n\031SetClie" +
+      "ntDisabledResponse\022+\n\006client\030\n \001(\0132\023.ide" +
+      "ntity.v1.ClientR\006client\"2\n\023DeleteClientR" +
+      "equest\022\033\n\tclient_id\030\n \001(\tR\010clientId\"\026\n\024D" +
+      "eleteClientResponse\"\223\001\n\022ListClientsReque" +
+      "st\022\024\n\005query\030\n \001(\tR\005query\022+\n\004type\030\024 \001(\0162\027" +
+      ".identity.v1.ClientTypeR\004type\022\033\n\tpage_si" +
+      "ze\030\036 \001(\005R\010pageSize\022\035\n\npage_token\030( \001(\tR\t" +
+      "pageToken\"l\n\023ListClientsResponse\022-\n\007clie" +
+      "nts\030\n \003(\0132\023.identity.v1.ClientR\007clients\022" +
+      "&\n\017next_page_token\030\024 \001(\tR\rnextPageToken\"" +
+      "\216\001\n\016ExchangePolicy\022\033\n\tclient_id\030\n \001(\tR\010c" +
+      "lientId\022\032\n\010audience\030\024 \001(\tR\010audience\022\033\n\tm" +
+      "ax_scope\030\036 \001(\tR\010maxScope\022&\n\017max_chain_de" +
+      "pth\030( \001(\005R\rmaxChainDepth\"g\n\030SetExchangeP" +
+      "olicyRequest\0223\n\006policy\030\n \001(\0132\033.identity." +
+      "v1.ExchangePolicyR\006policy\022\026\n\006delete\030\024 \001(" +
+      "\010R\006delete\"\033\n\031SetExchangePolicyResponse\"\250" +
+      "\001\n\033ListExchangePoliciesRequest\022\033\n\tclient" +
+      "_id\030\n \001(\tR\010clientId\022\024\n\005query\030\024 \001(\tR\005quer" +
+      "y\022\032\n\010audience\030\036 \001(\tR\010audience\022\033\n\tpage_si" +
+      "ze\030( \001(\005R\010pageSize\022\035\n\npage_token\0302 \001(\tR\t" +
+      "pageToken\"\177\n\034ListExchangePoliciesRespons" +
+      "e\0227\n\010policies\030\n \003(\0132\033.identity.v1.Exchan" +
+      "gePolicyR\010policies\022&\n\017next_page_token\030\024 " +
+      "\001(\tR\rnextPageToken\",\n\021GetUserMFARequest\022" +
+      "\027\n\007user_id\030\n \001(\tR\006userId\"\216\001\n\022GetUserMFAR" +
+      "esponse\022\030\n\007enabled\030\n \001(\010R\007enabled\022\032\n\010enf" +
+      "orced\030\024 \001(\010R\010enforced\022\022\n\004mode\030\036 \001(\tR\004mod" +
+      "e\022.\n\023recovery_codes_left\030( \001(\005R\021recovery" +
+      "CodesLeft\"F\n\021SetUserMFARequest\022\027\n\007user_i" +
+      "d\030\n \001(\tR\006userId\022\030\n\007enabled\030\024 \001(\010R\007enable" +
+      "d\"\024\n\022SetUserMFAResponse\"L\n\025EnforceUserMF" +
+      "ARequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\032\n\010enf" +
+      "orced\030\024 \001(\010R\010enforced\"\030\n\026EnforceUserMFAR" +
+      "esponse\".\n\023ResetUserMFARequest\022\027\n\007user_i" +
+      "d\030\n \001(\tR\006userId\"\026\n\024ResetUserMFAResponse*" +
+      "t\n\nUserStatus\022\033\n\027USER_STATUS_UNSPECIFIED" +
+      "\020\000\022\027\n\023USER_STATUS_PENDING\020\n\022\026\n\022USER_STAT" +
+      "US_ACTIVE\020\024\022\030\n\024USER_STATUS_DISABLED\020\036*_\n" +
+      "\nClientType\022\033\n\027CLIENT_TYPE_UNSPECIFIED\020\000" +
+      "\022\026\n\022CLIENT_TYPE_PUBLIC\020\n\022\034\n\030CLIENT_TYPE_" +
+      "CONFIDENTIAL\020\0242\374\033\n\017IdentityService\022M\n\nIn" +
+      "trospect\022\036.identity.v1.IntrospectRequest" +
+      "\032\037.identity.v1.IntrospectResponse\022\\\n\017Che" +
+      "ckPermission\022#.identity.v1.CheckPermissi" +
+      "onRequest\032$.identity.v1.CheckPermissionR" +
+      "esponse\022P\n\013RevokeToken\022\037.identity.v1.Rev" +
+      "okeTokenRequest\032 .identity.v1.RevokeToke" +
+      "nResponse\022D\n\007GetUser\022\033.identity.v1.GetUs" +
+      "erRequest\032\034.identity.v1.GetUserResponse\022" +
+      "J\n\tListUsers\022\035.identity.v1.ListUsersRequ" +
+      "est\032\036.identity.v1.ListUsersResponse\022M\n\nC" +
+      "reateUser\022\036.identity.v1.CreateUserReques" +
+      "t\032\037.identity.v1.CreateUserResponse\022\\\n\017Se" +
+      "tUserDisabled\022#.identity.v1.SetUserDisab" +
+      "ledRequest\032$.identity.v1.SetUserDisabled" +
+      "Response\022\\\n\017SetUserPassword\022#.identity.v" +
+      "1.SetUserPasswordRequest\032$.identity.v1.S" +
+      "etUserPasswordResponse\022b\n\021SendPasswordRe" +
+      "set\022%.identity.v1.SendPasswordResetReque" +
+      "st\032&.identity.v1.SendPasswordResetRespon" +
+      "se\022M\n\nUpdateUser\022\036.identity.v1.UpdateUse" +
+      "rRequest\032\037.identity.v1.UpdateUserRespons" +
+      "e\022V\n\rSetUserAvatar\022!.identity.v1.SetUser" +
+      "AvatarRequest\032\".identity.v1.SetUserAvata" +
+      "rResponse\022P\n\013SendWelcome\022\037.identity.v1.S" +
+      "endWelcomeRequest\032 .identity.v1.SendWelc" +
+      "omeResponse\022S\n\014GetUserStats\022 .identity.v" +
+      "1.GetUserStatsRequest\032!.identity.v1.GetU" +
+      "serStatsResponse\022>\n\005GetMe\022\031.identity.v1." +
+      "GetMeRequest\032\032.identity.v1.GetMeResponse" +
+      "\022G\n\010UpdateMe\022\034.identity.v1.UpdateMeReque" +
+      "st\032\035.identity.v1.UpdateMeResponse\022P\n\013Set" +
+      "MyAvatar\022\037.identity.v1.SetMyAvatarReques" +
+      "t\032 .identity.v1.SetMyAvatarResponse\022b\n\021G" +
+      "etMyUserSettings\022%.identity.v1.GetMyUser" +
+      "SettingsRequest\032&.identity.v1.GetMyUserS" +
+      "ettingsResponse\022b\n\021PutMyUserSettings\022%.i" +
+      "dentity.v1.PutMyUserSettingsRequest\032&.id" +
+      "entity.v1.PutMyUserSettingsResponse\022M\n\nC" +
+      "reateRole\022\036.identity.v1.CreateRoleReques" +
+      "t\032\037.identity.v1.CreateRoleResponse\022e\n\022Se" +
+      "tRolePermissions\022&.identity.v1.SetRolePe" +
+      "rmissionsRequest\032\'.identity.v1.SetRolePe" +
+      "rmissionsResponse\022J\n\tListRoles\022\035.identit" +
+      "y.v1.ListRolesRequest\032\036.identity.v1.List" +
+      "RolesResponse\022M\n\nUpdateRole\022\036.identity.v" +
+      "1.UpdateRoleRequest\032\037.identity.v1.Update" +
+      "RoleResponse\022M\n\nDeleteRole\022\036.identity.v1" +
+      ".DeleteRoleRequest\032\037.identity.v1.DeleteR" +
+      "oleResponse\022\\\n\017ListPermissions\022#.identit" +
+      "y.v1.ListPermissionsRequest\032$.identity.v" +
+      "1.ListPermissionsResponse\022_\n\020CreatePermi" +
+      "ssion\022$.identity.v1.CreatePermissionRequ" +
+      "est\032%.identity.v1.CreatePermissionRespon" +
+      "se\022_\n\020UpdatePermission\022$.identity.v1.Upd" +
+      "atePermissionRequest\032%.identity.v1.Updat" +
+      "ePermissionResponse\022_\n\020DeletePermission\022" +
+      "$.identity.v1.DeletePermissionRequest\032%." +
+      "identity.v1.DeletePermissionResponse\022M\n\n" +
+      "AssignRole\022\036.identity.v1.AssignRoleReque" +
+      "st\032\037.identity.v1.AssignRoleResponse\022M\n\nR" +
+      "evokeRole\022\036.identity.v1.RevokeRoleReques" +
+      "t\032\037.identity.v1.RevokeRoleResponse\022S\n\014Cr" +
+      "eateClient\022 .identity.v1.CreateClientReq" +
+      "uest\032!.identity.v1.CreateClientResponse\022" +
+      "S\n\014UpdateClient\022 .identity.v1.UpdateClie" +
+      "ntRequest\032!.identity.v1.UpdateClientResp" +
+      "onse\022b\n\021SetClientDisabled\022%.identity.v1." +
+      "SetClientDisabledRequest\032&.identity.v1.S" +
+      "etClientDisabledResponse\022S\n\014DeleteClient" +
+      "\022 .identity.v1.DeleteClientRequest\032!.ide" +
+      "ntity.v1.DeleteClientResponse\022e\n\022RotateC" +
+      "lientSecret\022&.identity.v1.RotateClientSe" +
+      "cretRequest\032\'.identity.v1.RotateClientSe" +
+      "cretResponse\022P\n\013ListClients\022\037.identity.v" +
+      "1.ListClientsRequest\032 .identity.v1.ListC" +
+      "lientsResponse\022b\n\021SetExchangePolicy\022%.id" +
+      "entity.v1.SetExchangePolicyRequest\032&.ide" +
+      "ntity.v1.SetExchangePolicyResponse\022k\n\024Li" +
+      "stExchangePolicies\022(.identity.v1.ListExc" +
+      "hangePoliciesRequest\032).identity.v1.ListE" +
+      "xchangePoliciesResponse\022M\n\nGetUserMFA\022\036." +
+      "identity.v1.GetUserMFARequest\032\037.identity" +
+      ".v1.GetUserMFAResponse\022M\n\nSetUserMFA\022\036.i" +
+      "dentity.v1.SetUserMFARequest\032\037.identity." +
+      "v1.SetUserMFAResponse\022Y\n\016EnforceUserMFA\022" +
+      "\".identity.v1.EnforceUserMFARequest\032#.id" +
+      "entity.v1.EnforceUserMFAResponse\022S\n\014Rese" +
+      "tUserMFA\022 .identity.v1.ResetUserMFAReque" +
+      "st\032!.identity.v1.ResetUserMFAResponseB3Z" +
+      "1github.com/huponx/protogen/identity/v1;" +
+      "identityv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -59476,302 +61648,326 @@ public final class Identity {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetMyAvatarResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_identity_v1_Role_descriptor =
+    internal_static_identity_v1_GetMyUserSettingsRequest_descriptor =
       getDescriptor().getMessageTypes().get(33);
+    internal_static_identity_v1_GetMyUserSettingsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetMyUserSettingsRequest_descriptor,
+        new java.lang.String[] { "App", });
+    internal_static_identity_v1_GetMyUserSettingsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(34);
+    internal_static_identity_v1_GetMyUserSettingsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetMyUserSettingsResponse_descriptor,
+        new java.lang.String[] { "SettingsJson", });
+    internal_static_identity_v1_PutMyUserSettingsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(35);
+    internal_static_identity_v1_PutMyUserSettingsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_PutMyUserSettingsRequest_descriptor,
+        new java.lang.String[] { "App", "SettingsJson", });
+    internal_static_identity_v1_PutMyUserSettingsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(36);
+    internal_static_identity_v1_PutMyUserSettingsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_PutMyUserSettingsResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_Role_descriptor =
+      getDescriptor().getMessageTypes().get(37);
     internal_static_identity_v1_Role_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Role_descriptor,
         new java.lang.String[] { "Name", "Description", "Permissions", "AssignedCount", });
     internal_static_identity_v1_CreateRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_identity_v1_CreateRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateRoleRequest_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_CreateRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_identity_v1_CreateRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateRoleResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_SetRolePermissionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_identity_v1_SetRolePermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetRolePermissionsRequest_descriptor,
         new java.lang.String[] { "Role", "Permissions", });
     internal_static_identity_v1_SetRolePermissionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_identity_v1_SetRolePermissionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetRolePermissionsResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_UpdateRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_identity_v1_UpdateRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateRoleRequest_descriptor,
         new java.lang.String[] { "Role", "Description", "Permissions", });
     internal_static_identity_v1_UpdateRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_identity_v1_UpdateRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateRoleResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_DeleteRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_identity_v1_DeleteRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteRoleRequest_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_DeleteRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_identity_v1_DeleteRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListRolesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_identity_v1_ListRolesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListRolesRequest_descriptor,
         new java.lang.String[] { "Query", "PageSize", "PageToken", });
     internal_static_identity_v1_ListRolesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_identity_v1_ListRolesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListRolesResponse_descriptor,
         new java.lang.String[] { "Roles", "NextPageToken", "Total", });
     internal_static_identity_v1_Permission_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_identity_v1_Permission_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Permission_descriptor,
         new java.lang.String[] { "Name", "Description", "RoleCount", });
     internal_static_identity_v1_ListPermissionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_identity_v1_ListPermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListPermissionsRequest_descriptor,
         new java.lang.String[] { "Query", "PageSize", "PageToken", });
     internal_static_identity_v1_ListPermissionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_identity_v1_ListPermissionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListPermissionsResponse_descriptor,
         new java.lang.String[] { "Permissions", "NextPageToken", "Total", });
     internal_static_identity_v1_CreatePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_identity_v1_CreatePermissionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreatePermissionRequest_descriptor,
         new java.lang.String[] { "Permission", });
     internal_static_identity_v1_CreatePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_identity_v1_CreatePermissionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreatePermissionResponse_descriptor,
         new java.lang.String[] { "Permission", });
     internal_static_identity_v1_UpdatePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_identity_v1_UpdatePermissionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdatePermissionRequest_descriptor,
         new java.lang.String[] { "Name", "Permission", "Description", });
     internal_static_identity_v1_UpdatePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_identity_v1_UpdatePermissionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdatePermissionResponse_descriptor,
         new java.lang.String[] { "Permission", });
     internal_static_identity_v1_DeletePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_identity_v1_DeletePermissionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeletePermissionRequest_descriptor,
         new java.lang.String[] { "Name", "Permission", });
     internal_static_identity_v1_DeletePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_identity_v1_DeletePermissionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeletePermissionResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_AssignRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_identity_v1_AssignRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_AssignRoleRequest_descriptor,
         new java.lang.String[] { "UserId", "ClientId", "Role", });
     internal_static_identity_v1_AssignRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_identity_v1_AssignRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_AssignRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_RevokeRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_identity_v1_RevokeRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RevokeRoleRequest_descriptor,
         new java.lang.String[] { "UserId", "ClientId", "Role", });
     internal_static_identity_v1_RevokeRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_identity_v1_RevokeRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RevokeRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_Client_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_identity_v1_Client_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Client_descriptor,
         new java.lang.String[] { "ClientId", "Name", "Type", "RedirectUris", "PostLogoutRedirectUris", "BackchannelLogoutUri", "AllowedGrants", "AllowedScopes", "Resource", "Roles", "Disabled", });
     internal_static_identity_v1_CreateClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(62);
     internal_static_identity_v1_CreateClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateClientRequest_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_CreateClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(59);
+      getDescriptor().getMessageTypes().get(63);
     internal_static_identity_v1_CreateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateClientResponse_descriptor,
         new java.lang.String[] { "Client", "ClientSecret", });
     internal_static_identity_v1_RotateClientSecretRequest_descriptor =
-      getDescriptor().getMessageTypes().get(60);
+      getDescriptor().getMessageTypes().get(64);
     internal_static_identity_v1_RotateClientSecretRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RotateClientSecretRequest_descriptor,
         new java.lang.String[] { "ClientId", });
     internal_static_identity_v1_RotateClientSecretResponse_descriptor =
-      getDescriptor().getMessageTypes().get(61);
+      getDescriptor().getMessageTypes().get(65);
     internal_static_identity_v1_RotateClientSecretResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RotateClientSecretResponse_descriptor,
         new java.lang.String[] { "ClientSecret", });
     internal_static_identity_v1_UpdateClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(62);
+      getDescriptor().getMessageTypes().get(66);
     internal_static_identity_v1_UpdateClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateClientRequest_descriptor,
         new java.lang.String[] { "ClientId", "Name", "RedirectUris", "PostLogoutRedirectUris", "BackchannelLogoutUri", "AllowedGrants", "AllowedScopes", "Resource", "Roles", });
     internal_static_identity_v1_UpdateClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(63);
+      getDescriptor().getMessageTypes().get(67);
     internal_static_identity_v1_UpdateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateClientResponse_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_SetClientDisabledRequest_descriptor =
-      getDescriptor().getMessageTypes().get(64);
+      getDescriptor().getMessageTypes().get(68);
     internal_static_identity_v1_SetClientDisabledRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetClientDisabledRequest_descriptor,
         new java.lang.String[] { "ClientId", "Disabled", });
     internal_static_identity_v1_SetClientDisabledResponse_descriptor =
-      getDescriptor().getMessageTypes().get(65);
+      getDescriptor().getMessageTypes().get(69);
     internal_static_identity_v1_SetClientDisabledResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetClientDisabledResponse_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_DeleteClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(66);
+      getDescriptor().getMessageTypes().get(70);
     internal_static_identity_v1_DeleteClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteClientRequest_descriptor,
         new java.lang.String[] { "ClientId", });
     internal_static_identity_v1_DeleteClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(67);
+      getDescriptor().getMessageTypes().get(71);
     internal_static_identity_v1_DeleteClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteClientResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListClientsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(68);
+      getDescriptor().getMessageTypes().get(72);
     internal_static_identity_v1_ListClientsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListClientsRequest_descriptor,
         new java.lang.String[] { "Query", "Type", "PageSize", "PageToken", });
     internal_static_identity_v1_ListClientsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(69);
+      getDescriptor().getMessageTypes().get(73);
     internal_static_identity_v1_ListClientsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListClientsResponse_descriptor,
         new java.lang.String[] { "Clients", "NextPageToken", });
     internal_static_identity_v1_ExchangePolicy_descriptor =
-      getDescriptor().getMessageTypes().get(70);
+      getDescriptor().getMessageTypes().get(74);
     internal_static_identity_v1_ExchangePolicy_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ExchangePolicy_descriptor,
         new java.lang.String[] { "ClientId", "Audience", "MaxScope", "MaxChainDepth", });
     internal_static_identity_v1_SetExchangePolicyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(71);
+      getDescriptor().getMessageTypes().get(75);
     internal_static_identity_v1_SetExchangePolicyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetExchangePolicyRequest_descriptor,
         new java.lang.String[] { "Policy", "Delete", });
     internal_static_identity_v1_SetExchangePolicyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(72);
+      getDescriptor().getMessageTypes().get(76);
     internal_static_identity_v1_SetExchangePolicyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetExchangePolicyResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListExchangePoliciesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(73);
+      getDescriptor().getMessageTypes().get(77);
     internal_static_identity_v1_ListExchangePoliciesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListExchangePoliciesRequest_descriptor,
         new java.lang.String[] { "ClientId", "Query", "Audience", "PageSize", "PageToken", });
     internal_static_identity_v1_ListExchangePoliciesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(74);
+      getDescriptor().getMessageTypes().get(78);
     internal_static_identity_v1_ListExchangePoliciesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListExchangePoliciesResponse_descriptor,
         new java.lang.String[] { "Policies", "NextPageToken", });
     internal_static_identity_v1_GetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(75);
+      getDescriptor().getMessageTypes().get(79);
     internal_static_identity_v1_GetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_GetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(76);
+      getDescriptor().getMessageTypes().get(80);
     internal_static_identity_v1_GetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserMFAResponse_descriptor,
         new java.lang.String[] { "Enabled", "Enforced", "Mode", "RecoveryCodesLeft", });
     internal_static_identity_v1_SetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(77);
+      getDescriptor().getMessageTypes().get(81);
     internal_static_identity_v1_SetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", "Enabled", });
     internal_static_identity_v1_SetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(78);
+      getDescriptor().getMessageTypes().get(82);
     internal_static_identity_v1_SetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_EnforceUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(79);
+      getDescriptor().getMessageTypes().get(83);
     internal_static_identity_v1_EnforceUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_EnforceUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", "Enforced", });
     internal_static_identity_v1_EnforceUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(80);
+      getDescriptor().getMessageTypes().get(84);
     internal_static_identity_v1_EnforceUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_EnforceUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ResetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(81);
+      getDescriptor().getMessageTypes().get(85);
     internal_static_identity_v1_ResetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_ResetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(82);
+      getDescriptor().getMessageTypes().get(86);
     internal_static_identity_v1_ResetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFAResponse_descriptor,

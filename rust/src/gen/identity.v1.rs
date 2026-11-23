@@ -313,6 +313,33 @@ pub struct SetMyAvatarRequest {
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SetMyAvatarResponse {
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetMyUserSettingsRequest {
+    /// Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
+    #[prost(string, tag="10")]
+    pub app: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetMyUserSettingsResponse {
+    /// A JSON object; "{}" when the user has stored nothing for the application.
+    #[prost(string, tag="10")]
+    pub settings_json: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PutMyUserSettingsRequest {
+    #[prost(string, tag="10")]
+    pub app: ::prost::alloc::string::String,
+    /// A JSON object of at most 16 KiB; it replaces what was stored.
+    #[prost(string, tag="20")]
+    pub settings_json: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct PutMyUserSettingsResponse {
+}
 // ---- roles ----
 
 #[allow(clippy::derive_partial_eq_without_eq)]
