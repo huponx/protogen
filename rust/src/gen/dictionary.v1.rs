@@ -113,6 +113,10 @@ pub struct ListSavedWordsRequest {
     /// The next_page_token of the previous page.
     #[prost(string, tag="20")]
     pub page_token: ::prost::alloc::string::String,
+    /// Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+    /// Empty = all words. At most 100 characters. The totals of the response ignore it.
+    #[prost(string, tag="30")]
+    pub query: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -293,6 +297,10 @@ pub struct UserSettings {
     /// export came on. Cleared by the client when it goes off.
     #[prost(bool, tag="70")]
     pub remove_acknowledged: bool,
+    /// Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+    /// keep their identity, so importing a deck again updates them (the deck name must stay the same).
+    #[prost(bool, tag="80")]
+    pub fresh_deck: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]

@@ -697,7 +697,10 @@ type ListSavedWordsRequest struct {
 	// Default 50, at most 200.
 	PageSize int32 `protobuf:"varint,10,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	// The next_page_token of the previous page.
-	PageToken     string `protobuf:"bytes,20,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	PageToken string `protobuf:"bytes,20,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	// Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+	// Empty = all words. At most 100 characters. The totals of the response ignore it.
+	Query         string `protobuf:"bytes,30,opt,name=query,proto3" json:"query,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -742,6 +745,13 @@ func (x *ListSavedWordsRequest) GetPageSize() int32 {
 func (x *ListSavedWordsRequest) GetPageToken() string {
 	if x != nil {
 		return x.PageToken
+	}
+	return ""
+}
+
+func (x *ListSavedWordsRequest) GetQuery() string {
+	if x != nil {
+		return x.Query
 	}
 	return ""
 }
@@ -1627,8 +1637,11 @@ type UserSettings struct {
 	// The user answered what to do with the exported words that were still in the list when remove after
 	// export came on. Cleared by the client when it goes off.
 	RemoveAcknowledged bool `protobuf:"varint,70,opt,name=remove_acknowledged,json=removeAcknowledged,proto3" json:"remove_acknowledged,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	// Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+	// keep their identity, so importing a deck again updates them (the deck name must stay the same).
+	FreshDeck     bool `protobuf:"varint,80,opt,name=fresh_deck,json=freshDeck,proto3" json:"fresh_deck,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserSettings) Reset() {
@@ -1706,6 +1719,13 @@ func (x *UserSettings) GetRemoveAfterExport() bool {
 func (x *UserSettings) GetRemoveAcknowledged() bool {
 	if x != nil {
 		return x.RemoveAcknowledged
+	}
+	return false
+}
+
+func (x *UserSettings) GetFreshDeck() bool {
+	if x != nil {
+		return x.FreshDeck
 	}
 	return false
 }
@@ -2123,12 +2143,13 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x10SaveWordResponse\x12\x1f\n" +
 	"\vsaved_count\x18\n" +
 	" \x01(\x05R\n" +
-	"savedCount\"S\n" +
+	"savedCount\"i\n" +
 	"\x15ListSavedWordsRequest\x12\x1b\n" +
 	"\tpage_size\x18\n" +
 	" \x01(\x05R\bpageSize\x12\x1d\n" +
 	"\n" +
-	"page_token\x18\x14 \x01(\tR\tpageToken\"\xa3\x01\n" +
+	"page_token\x18\x14 \x01(\tR\tpageToken\x12\x14\n" +
+	"\x05query\x18\x1e \x01(\tR\x05query\"\xa3\x01\n" +
 	"\x16ListSavedWordsResponse\x12.\n" +
 	"\x05words\x18\n" +
 	" \x03(\v2\x18.dictionary.v1.SavedWordR\x05words\x12&\n" +
@@ -2194,7 +2215,7 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x0fenglish_enabled\x18( \x01(\bR\x0eenglishEnabled\x12,\n" +
 	"\x12english_vi_enabled\x182 \x01(\bR\x10englishViEnabled\x12.\n" +
 	"\x13remove_after_export\x18< \x01(\bR\x11removeAfterExport\x128\n" +
-	"\x18exported_retention_hours\x18F \x01(\x05R\x16exportedRetentionHours\"\xd7\x02\n" +
+	"\x18exported_retention_hours\x18F \x01(\x05R\x16exportedRetentionHours\"\xf6\x02\n" +
 	"\fUserSettings\x12'\n" +
 	"\x0fenglish_enabled\x18\n" +
 	" \x01(\bR\x0eenglishEnabled\x12,\n" +
@@ -2203,7 +2224,9 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\tdeck_name\x18( \x01(\tR\bdeckName\x12(\n" +
 	"\x10max_lookup_words\x182 \x01(\x05R\x0emaxLookupWords\x12.\n" +
 	"\x13remove_after_export\x18< \x01(\bR\x11removeAfterExport\x12/\n" +
-	"\x13remove_acknowledged\x18F \x01(\bR\x12removeAcknowledged\"\x14\n" +
+	"\x13remove_acknowledged\x18F \x01(\bR\x12removeAcknowledged\x12\x1d\n" +
+	"\n" +
+	"fresh_deck\x18P \x01(\bR\tfreshDeck\"\x14\n" +
 	"\x12GetSettingsRequest\"J\n" +
 	"\x13GetSettingsResponse\x123\n" +
 	"\bsettings\x18\n" +
