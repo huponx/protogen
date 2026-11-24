@@ -8666,6 +8666,28 @@ public final class DictionaryOuterClass {
      */
     com.google.protobuf.ByteString
         getPageTokenBytes();
+
+    /**
+     * <pre>
+     * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+     * Empty = all words. At most 100 characters. The totals of the response ignore it.
+     * </pre>
+     *
+     * <code>string query = 30 [json_name = "query"];</code>
+     * @return The query.
+     */
+    java.lang.String getQuery();
+    /**
+     * <pre>
+     * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+     * Empty = all words. At most 100 characters. The totals of the response ignore it.
+     * </pre>
+     *
+     * <code>string query = 30 [json_name = "query"];</code>
+     * @return The bytes for query.
+     */
+    com.google.protobuf.ByteString
+        getQueryBytes();
   }
   /**
    * Protobuf type {@code dictionary.v1.ListSavedWordsRequest}
@@ -8690,6 +8712,7 @@ public final class DictionaryOuterClass {
     }
     private ListSavedWordsRequest() {
       pageToken_ = "";
+      query_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -8767,6 +8790,55 @@ public final class DictionaryOuterClass {
       }
     }
 
+    public static final int QUERY_FIELD_NUMBER = 30;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object query_ = "";
+    /**
+     * <pre>
+     * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+     * Empty = all words. At most 100 characters. The totals of the response ignore it.
+     * </pre>
+     *
+     * <code>string query = 30 [json_name = "query"];</code>
+     * @return The query.
+     */
+    @java.lang.Override
+    public java.lang.String getQuery() {
+      java.lang.Object ref = query_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        query_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+     * Empty = all words. At most 100 characters. The totals of the response ignore it.
+     * </pre>
+     *
+     * <code>string query = 30 [json_name = "query"];</code>
+     * @return The bytes for query.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getQueryBytes() {
+      java.lang.Object ref = query_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        query_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8787,6 +8859,9 @@ public final class DictionaryOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(pageToken_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 20, pageToken_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(query_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 30, query_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -8802,6 +8877,9 @@ public final class DictionaryOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(pageToken_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(20, pageToken_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(query_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(30, query_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -8822,6 +8900,8 @@ public final class DictionaryOuterClass {
           != other.getPageSize()) return false;
       if (!getPageToken()
           .equals(other.getPageToken())) return false;
+      if (!getQuery()
+          .equals(other.getQuery())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -8837,6 +8917,8 @@ public final class DictionaryOuterClass {
       hash = (53 * hash) + getPageSize();
       hash = (37 * hash) + PAGE_TOKEN_FIELD_NUMBER;
       hash = (53 * hash) + getPageToken().hashCode();
+      hash = (37 * hash) + QUERY_FIELD_NUMBER;
+      hash = (53 * hash) + getQuery().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8970,6 +9052,7 @@ public final class DictionaryOuterClass {
         bitField0_ = 0;
         pageSize_ = 0;
         pageToken_ = "";
+        query_ = "";
         return this;
       }
 
@@ -9009,6 +9092,9 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.pageToken_ = pageToken_;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.query_ = query_;
+        }
       }
 
       @java.lang.Override
@@ -9029,6 +9115,11 @@ public final class DictionaryOuterClass {
         if (!other.getPageToken().isEmpty()) {
           pageToken_ = other.pageToken_;
           bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getQuery().isEmpty()) {
+          query_ = other.query_;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -9067,6 +9158,11 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 162
+              case 242: {
+                query_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 242
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -9216,6 +9312,103 @@ public final class DictionaryOuterClass {
         checkByteStringIsUtf8(value);
         pageToken_ = value;
         bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object query_ = "";
+      /**
+       * <pre>
+       * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+       * Empty = all words. At most 100 characters. The totals of the response ignore it.
+       * </pre>
+       *
+       * <code>string query = 30 [json_name = "query"];</code>
+       * @return The query.
+       */
+      public java.lang.String getQuery() {
+        java.lang.Object ref = query_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          query_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+       * Empty = all words. At most 100 characters. The totals of the response ignore it.
+       * </pre>
+       *
+       * <code>string query = 30 [json_name = "query"];</code>
+       * @return The bytes for query.
+       */
+      public com.google.protobuf.ByteString
+          getQueryBytes() {
+        java.lang.Object ref = query_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          query_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+       * Empty = all words. At most 100 characters. The totals of the response ignore it.
+       * </pre>
+       *
+       * <code>string query = 30 [json_name = "query"];</code>
+       * @param value The query to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQuery(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        query_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+       * Empty = all words. At most 100 characters. The totals of the response ignore it.
+       * </pre>
+       *
+       * <code>string query = 30 [json_name = "query"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearQuery() {
+        query_ = getDefaultInstance().getQuery();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only the words that contain this text (case-insensitive, matched on the word, not on the card).
+       * Empty = all words. At most 100 characters. The totals of the response ignore it.
+       * </pre>
+       *
+       * <code>string query = 30 [json_name = "query"];</code>
+       * @param value The bytes for query to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQueryBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        query_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -19619,6 +19812,17 @@ public final class DictionaryOuterClass {
      * @return The removeAcknowledged.
      */
     boolean getRemoveAcknowledged();
+
+    /**
+     * <pre>
+     * Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+     * keep their identity, so importing a deck again updates them (the deck name must stay the same).
+     * </pre>
+     *
+     * <code>bool fresh_deck = 80 [json_name = "freshDeck"];</code>
+     * @return The freshDeck.
+     */
+    boolean getFreshDeck();
   }
   /**
    * <pre>
@@ -19804,6 +20008,22 @@ public final class DictionaryOuterClass {
       return removeAcknowledged_;
     }
 
+    public static final int FRESH_DECK_FIELD_NUMBER = 80;
+    private boolean freshDeck_ = false;
+    /**
+     * <pre>
+     * Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+     * keep their identity, so importing a deck again updates them (the deck name must stay the same).
+     * </pre>
+     *
+     * <code>bool fresh_deck = 80 [json_name = "freshDeck"];</code>
+     * @return The freshDeck.
+     */
+    @java.lang.Override
+    public boolean getFreshDeck() {
+      return freshDeck_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -19838,6 +20058,9 @@ public final class DictionaryOuterClass {
       }
       if (removeAcknowledged_ != false) {
         output.writeBool(70, removeAcknowledged_);
+      }
+      if (freshDeck_ != false) {
+        output.writeBool(80, freshDeck_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -19875,6 +20098,10 @@ public final class DictionaryOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(70, removeAcknowledged_);
       }
+      if (freshDeck_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(80, freshDeck_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -19903,6 +20130,8 @@ public final class DictionaryOuterClass {
           != other.getRemoveAfterExport()) return false;
       if (getRemoveAcknowledged()
           != other.getRemoveAcknowledged()) return false;
+      if (getFreshDeck()
+          != other.getFreshDeck()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -19932,6 +20161,9 @@ public final class DictionaryOuterClass {
       hash = (37 * hash) + REMOVE_ACKNOWLEDGED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getRemoveAcknowledged());
+      hash = (37 * hash) + FRESH_DECK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFreshDeck());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -20074,6 +20306,7 @@ public final class DictionaryOuterClass {
         maxLookupWords_ = 0;
         removeAfterExport_ = false;
         removeAcknowledged_ = false;
+        freshDeck_ = false;
         return this;
       }
 
@@ -20128,6 +20361,9 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000040) != 0)) {
           result.removeAcknowledged_ = removeAcknowledged_;
         }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.freshDeck_ = freshDeck_;
+        }
       }
 
       @java.lang.Override
@@ -20164,6 +20400,9 @@ public final class DictionaryOuterClass {
         }
         if (other.getRemoveAcknowledged() != false) {
           setRemoveAcknowledged(other.getRemoveAcknowledged());
+        }
+        if (other.getFreshDeck() != false) {
+          setFreshDeck(other.getFreshDeck());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -20226,6 +20465,11 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000040;
                 break;
               } // case 560
+              case 640: {
+                freshDeck_ = input.readBool();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 640
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -20603,6 +20847,53 @@ public final class DictionaryOuterClass {
       public Builder clearRemoveAcknowledged() {
         bitField0_ = (bitField0_ & ~0x00000040);
         removeAcknowledged_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean freshDeck_ ;
+      /**
+       * <pre>
+       * Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+       * keep their identity, so importing a deck again updates them (the deck name must stay the same).
+       * </pre>
+       *
+       * <code>bool fresh_deck = 80 [json_name = "freshDeck"];</code>
+       * @return The freshDeck.
+       */
+      @java.lang.Override
+      public boolean getFreshDeck() {
+        return freshDeck_;
+      }
+      /**
+       * <pre>
+       * Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+       * keep their identity, so importing a deck again updates them (the deck name must stay the same).
+       * </pre>
+       *
+       * <code>bool fresh_deck = 80 [json_name = "freshDeck"];</code>
+       * @param value The freshDeck to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFreshDeck(boolean value) {
+
+        freshDeck_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
+       * keep their identity, so importing a deck again updates them (the deck name must stay the same).
+       * </pre>
+       *
+       * <code>bool fresh_deck = 80 [json_name = "freshDeck"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFreshDeck() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        freshDeck_ = false;
         onChanged();
         return this;
       }
@@ -25400,110 +25691,111 @@ public final class DictionaryOuterClass {
       "\004word\022\030\n\007content\030\024 \001(\tR\007content\022\031\n\010audio" +
       "_uk\030\036 \001(\tR\007audioUk\022\031\n\010audio_us\030( \001(\tR\007au" +
       "dioUs\"3\n\020SaveWordResponse\022\037\n\013saved_count" +
-      "\030\n \001(\005R\nsavedCount\"S\n\025ListSavedWordsRequ" +
+      "\030\n \001(\005R\nsavedCount\"i\n\025ListSavedWordsRequ" +
       "est\022\033\n\tpage_size\030\n \001(\005R\010pageSize\022\035\n\npage" +
-      "_token\030\024 \001(\tR\tpageToken\"\243\001\n\026ListSavedWor" +
-      "dsResponse\022.\n\005words\030\n \003(\0132\030.dictionary.v" +
-      "1.SavedWordR\005words\022&\n\017next_page_token\030\024 " +
-      "\001(\tR\rnextPageToken\022\024\n\005total\030\036 \001(\005R\005total" +
-      "\022\033\n\tnew_total\030( \001(\005R\010newTotal\",\n\026DeleteS" +
-      "avedWordRequest\022\022\n\004word\030\n \001(\tR\004word\"\031\n\027D" +
-      "eleteSavedWordResponse\"b\n\021ExportAnkiRequ" +
-      "est\022\033\n\tdeck_name\030\n \001(\tR\010deckName\0220\n\005scop" +
-      "e\030\024 \001(\0162\032.dictionary.v1.ExportScopeR\005sco" +
-      "pe\"c\n\022ExportAnkiResponse\022\032\n\010filename\030\n \001" +
-      "(\tR\010filename\022\022\n\004data\030\024 \001(\014R\004data\022\035\n\nword" +
-      "_count\030\036 \001(\005R\twordCount\"f\n\025CreateDeckLin" +
-      "kRequest\022\033\n\tdeck_name\030\n \001(\tR\010deckName\0220\n" +
-      "\005scope\030\024 \001(\0162\032.dictionary.v1.ExportScope" +
-      "R\005scope\"\034\n\032RemoveExportedWordsRequest\"7\n" +
-      "\033RemoveExportedWordsResponse\022\030\n\007removed\030" +
-      "\n \001(\005R\007removed\"\210\001\n\026CreateDeckLinkRespons" +
-      "e\022\024\n\005token\030\n \001(\tR\005token\022\032\n\010filename\030\024 \001(" +
-      "\tR\010filename\022\035\n\nword_count\030\036 \001(\005R\twordCou" +
-      "nt\022\035\n\nexpires_at\030( \001(\tR\texpiresAt\"+\n\023Dow" +
-      "nloadDeckRequest\022\024\n\005token\030\n \001(\tR\005token\"F" +
-      "\n\024DownloadDeckResponse\022\032\n\010filename\030\n \001(\t" +
-      "R\010filename\022\022\n\004data\030\024 \001(\014R\004data\"K\n\022Upload" +
-      "ImageRequest\022!\n\014content_type\030\n \001(\tR\013cont" +
-      "entType\022\022\n\004data\030\024 \001(\014R\004data\"%\n\023UploadIma" +
-      "geResponse\022\016\n\002id\030\n \001(\tR\002id\"!\n\017GetImageRe" +
-      "quest\022\016\n\002id\030\n \001(\tR\002id\"I\n\020GetImageRespons" +
-      "e\022!\n\014content_type\030\n \001(\tR\013contentType\022\022\n\004" +
-      "data\030\024 \001(\014R\004data\"\313\002\n\010Settings\022&\n\017max_sav" +
-      "ed_words\030\n \001(\005R\rmaxSavedWords\022*\n\021allow_e" +
-      "xport_deck\030\024 \001(\010R\017allowExportDeck\022*\n\021all" +
-      "ow_export_link\030\036 \001(\010R\017allowExportLink\022\'\n" +
-      "\017english_enabled\030( \001(\010R\016englishEnabled\022," +
-      "\n\022english_vi_enabled\0302 \001(\010R\020englishViEna" +
-      "bled\022.\n\023remove_after_export\030< \001(\010R\021remov" +
-      "eAfterExport\0228\n\030exported_retention_hours" +
-      "\030F \001(\005R\026exportedRetentionHours\"\327\002\n\014UserS" +
-      "ettings\022\'\n\017english_enabled\030\n \001(\010R\016englis" +
-      "hEnabled\022,\n\022english_vi_enabled\030\024 \001(\010R\020en" +
-      "glishViEnabled\022H\n\022default_dictionary\030\036 \001" +
-      "(\0162\031.dictionary.v1.DictionaryR\021defaultDi" +
-      "ctionary\022\033\n\tdeck_name\030( \001(\tR\010deckName\022(\n" +
-      "\020max_lookup_words\0302 \001(\005R\016maxLookupWords\022" +
-      ".\n\023remove_after_export\030< \001(\010R\021removeAfte" +
-      "rExport\022/\n\023remove_acknowledged\030F \001(\010R\022re" +
-      "moveAcknowledged\"\024\n\022GetSettingsRequest\"J" +
-      "\n\023GetSettingsResponse\0223\n\010settings\030\n \001(\0132" +
-      "\027.dictionary.v1.SettingsR\010settings\"L\n\025Up" +
-      "dateSettingsRequest\0223\n\010settings\030\n \001(\0132\027." +
-      "dictionary.v1.SettingsR\010settings\"M\n\026Upda" +
-      "teSettingsResponse\0223\n\010settings\030\n \001(\0132\027.d" +
-      "ictionary.v1.SettingsR\010settings\"\026\n\024GetMy" +
-      "SettingsRequest\"y\n\025GetMySettingsResponse" +
-      "\022/\n\004user\030\n \001(\0132\033.dictionary.v1.UserSetti" +
-      "ngsR\004user\022/\n\006system\030\024 \001(\0132\027.dictionary.v" +
-      "1.SettingsR\006system\"J\n\027UpdateMySettingsRe" +
-      "quest\022/\n\004user\030\n \001(\0132\033.dictionary.v1.User" +
-      "SettingsR\004user\"|\n\030UpdateMySettingsRespon" +
-      "se\022/\n\004user\030\n \001(\0132\033.dictionary.v1.UserSet" +
-      "tingsR\004user\022/\n\006system\030\024 \001(\0132\027.dictionary" +
-      ".v1.SettingsR\006system*c\n\nDictionary\022\032\n\026DI" +
-      "CTIONARY_UNSPECIFIED\020\000\022\026\n\022DICTIONARY_ENG" +
-      "LISH\020\n\022!\n\035DICTIONARY_ENGLISH_VIETNAMESE\020" +
-      "\024*W\n\013ExportScope\022\034\n\030EXPORT_SCOPE_UNSPECI" +
-      "FIED\020\000\022\024\n\020EXPORT_SCOPE_NEW\020\n\022\024\n\020EXPORT_S" +
-      "COPE_ALL\020\0242\334\n\n\021DictionaryService\022Q\n\nLook" +
-      "upWord\022 .dictionary.v1.LookupWordRequest" +
-      "\032!.dictionary.v1.LookupWordResponse\022T\n\013L" +
-      "ookupWords\022!.dictionary.v1.LookupWordsRe" +
-      "quest\032\".dictionary.v1.LookupWordsRespons" +
-      "e\022K\n\010SaveWord\022\036.dictionary.v1.SaveWordRe" +
-      "quest\032\037.dictionary.v1.SaveWordResponse\022]" +
-      "\n\016ListSavedWords\022$.dictionary.v1.ListSav" +
-      "edWordsRequest\032%.dictionary.v1.ListSaved" +
-      "WordsResponse\022`\n\017DeleteSavedWord\022%.dicti" +
-      "onary.v1.DeleteSavedWordRequest\032&.dictio" +
-      "nary.v1.DeleteSavedWordResponse\022Q\n\nExpor" +
-      "tAnki\022 .dictionary.v1.ExportAnkiRequest\032" +
-      "!.dictionary.v1.ExportAnkiResponse\022]\n\016Cr" +
-      "eateDeckLink\022$.dictionary.v1.CreateDeckL" +
-      "inkRequest\032%.dictionary.v1.CreateDeckLin" +
-      "kResponse\022W\n\014DownloadDeck\022\".dictionary.v" +
-      "1.DownloadDeckRequest\032#.dictionary.v1.Do" +
-      "wnloadDeckResponse\022l\n\023RemoveExportedWord" +
-      "s\022).dictionary.v1.RemoveExportedWordsReq" +
-      "uest\032*.dictionary.v1.RemoveExportedWords" +
-      "Response\022T\n\013UploadImage\022!.dictionary.v1." +
-      "UploadImageRequest\032\".dictionary.v1.Uploa" +
-      "dImageResponse\022K\n\010GetImage\022\036.dictionary." +
-      "v1.GetImageRequest\032\037.dictionary.v1.GetIm" +
-      "ageResponse\022T\n\013GetSettings\022!.dictionary." +
-      "v1.GetSettingsRequest\032\".dictionary.v1.Ge" +
-      "tSettingsResponse\022]\n\016UpdateSettings\022$.di" +
-      "ctionary.v1.UpdateSettingsRequest\032%.dict" +
-      "ionary.v1.UpdateSettingsResponse\022Z\n\rGetM" +
-      "ySettings\022#.dictionary.v1.GetMySettingsR" +
-      "equest\032$.dictionary.v1.GetMySettingsResp" +
-      "onse\022c\n\020UpdateMySettings\022&.dictionary.v1" +
-      ".UpdateMySettingsRequest\032\'.dictionary.v1" +
-      ".UpdateMySettingsResponseB7Z5github.com/" +
-      "huponx/protogen/dictionary/v1;dictionary" +
-      "v1b\006proto3"
+      "_token\030\024 \001(\tR\tpageToken\022\024\n\005query\030\036 \001(\tR\005" +
+      "query\"\243\001\n\026ListSavedWordsResponse\022.\n\005word" +
+      "s\030\n \003(\0132\030.dictionary.v1.SavedWordR\005words" +
+      "\022&\n\017next_page_token\030\024 \001(\tR\rnextPageToken" +
+      "\022\024\n\005total\030\036 \001(\005R\005total\022\033\n\tnew_total\030( \001(" +
+      "\005R\010newTotal\",\n\026DeleteSavedWordRequest\022\022\n" +
+      "\004word\030\n \001(\tR\004word\"\031\n\027DeleteSavedWordResp" +
+      "onse\"b\n\021ExportAnkiRequest\022\033\n\tdeck_name\030\n" +
+      " \001(\tR\010deckName\0220\n\005scope\030\024 \001(\0162\032.dictiona" +
+      "ry.v1.ExportScopeR\005scope\"c\n\022ExportAnkiRe" +
+      "sponse\022\032\n\010filename\030\n \001(\tR\010filename\022\022\n\004da" +
+      "ta\030\024 \001(\014R\004data\022\035\n\nword_count\030\036 \001(\005R\tword" +
+      "Count\"f\n\025CreateDeckLinkRequest\022\033\n\tdeck_n" +
+      "ame\030\n \001(\tR\010deckName\0220\n\005scope\030\024 \001(\0162\032.dic" +
+      "tionary.v1.ExportScopeR\005scope\"\034\n\032RemoveE" +
+      "xportedWordsRequest\"7\n\033RemoveExportedWor" +
+      "dsResponse\022\030\n\007removed\030\n \001(\005R\007removed\"\210\001\n" +
+      "\026CreateDeckLinkResponse\022\024\n\005token\030\n \001(\tR\005" +
+      "token\022\032\n\010filename\030\024 \001(\tR\010filename\022\035\n\nwor" +
+      "d_count\030\036 \001(\005R\twordCount\022\035\n\nexpires_at\030(" +
+      " \001(\tR\texpiresAt\"+\n\023DownloadDeckRequest\022\024" +
+      "\n\005token\030\n \001(\tR\005token\"F\n\024DownloadDeckResp" +
+      "onse\022\032\n\010filename\030\n \001(\tR\010filename\022\022\n\004data" +
+      "\030\024 \001(\014R\004data\"K\n\022UploadImageRequest\022!\n\014co" +
+      "ntent_type\030\n \001(\tR\013contentType\022\022\n\004data\030\024 " +
+      "\001(\014R\004data\"%\n\023UploadImageResponse\022\016\n\002id\030\n" +
+      " \001(\tR\002id\"!\n\017GetImageRequest\022\016\n\002id\030\n \001(\tR" +
+      "\002id\"I\n\020GetImageResponse\022!\n\014content_type\030" +
+      "\n \001(\tR\013contentType\022\022\n\004data\030\024 \001(\014R\004data\"\313" +
+      "\002\n\010Settings\022&\n\017max_saved_words\030\n \001(\005R\rma" +
+      "xSavedWords\022*\n\021allow_export_deck\030\024 \001(\010R\017" +
+      "allowExportDeck\022*\n\021allow_export_link\030\036 \001" +
+      "(\010R\017allowExportLink\022\'\n\017english_enabled\030(" +
+      " \001(\010R\016englishEnabled\022,\n\022english_vi_enabl" +
+      "ed\0302 \001(\010R\020englishViEnabled\022.\n\023remove_aft" +
+      "er_export\030< \001(\010R\021removeAfterExport\0228\n\030ex" +
+      "ported_retention_hours\030F \001(\005R\026exportedRe" +
+      "tentionHours\"\366\002\n\014UserSettings\022\'\n\017english" +
+      "_enabled\030\n \001(\010R\016englishEnabled\022,\n\022englis" +
+      "h_vi_enabled\030\024 \001(\010R\020englishViEnabled\022H\n\022" +
+      "default_dictionary\030\036 \001(\0162\031.dictionary.v1" +
+      ".DictionaryR\021defaultDictionary\022\033\n\tdeck_n" +
+      "ame\030( \001(\tR\010deckName\022(\n\020max_lookup_words\030" +
+      "2 \001(\005R\016maxLookupWords\022.\n\023remove_after_ex" +
+      "port\030< \001(\010R\021removeAfterExport\022/\n\023remove_" +
+      "acknowledged\030F \001(\010R\022removeAcknowledged\022\035" +
+      "\n\nfresh_deck\030P \001(\010R\tfreshDeck\"\024\n\022GetSett" +
+      "ingsRequest\"J\n\023GetSettingsResponse\0223\n\010se" +
+      "ttings\030\n \001(\0132\027.dictionary.v1.SettingsR\010s" +
+      "ettings\"L\n\025UpdateSettingsRequest\0223\n\010sett" +
+      "ings\030\n \001(\0132\027.dictionary.v1.SettingsR\010set" +
+      "tings\"M\n\026UpdateSettingsResponse\0223\n\010setti" +
+      "ngs\030\n \001(\0132\027.dictionary.v1.SettingsR\010sett" +
+      "ings\"\026\n\024GetMySettingsRequest\"y\n\025GetMySet" +
+      "tingsResponse\022/\n\004user\030\n \001(\0132\033.dictionary" +
+      ".v1.UserSettingsR\004user\022/\n\006system\030\024 \001(\0132\027" +
+      ".dictionary.v1.SettingsR\006system\"J\n\027Updat" +
+      "eMySettingsRequest\022/\n\004user\030\n \001(\0132\033.dicti" +
+      "onary.v1.UserSettingsR\004user\"|\n\030UpdateMyS" +
+      "ettingsResponse\022/\n\004user\030\n \001(\0132\033.dictiona" +
+      "ry.v1.UserSettingsR\004user\022/\n\006system\030\024 \001(\013" +
+      "2\027.dictionary.v1.SettingsR\006system*c\n\nDic" +
+      "tionary\022\032\n\026DICTIONARY_UNSPECIFIED\020\000\022\026\n\022D" +
+      "ICTIONARY_ENGLISH\020\n\022!\n\035DICTIONARY_ENGLIS" +
+      "H_VIETNAMESE\020\024*W\n\013ExportScope\022\034\n\030EXPORT_" +
+      "SCOPE_UNSPECIFIED\020\000\022\024\n\020EXPORT_SCOPE_NEW\020" +
+      "\n\022\024\n\020EXPORT_SCOPE_ALL\020\0242\334\n\n\021DictionarySe" +
+      "rvice\022Q\n\nLookupWord\022 .dictionary.v1.Look" +
+      "upWordRequest\032!.dictionary.v1.LookupWord" +
+      "Response\022T\n\013LookupWords\022!.dictionary.v1." +
+      "LookupWordsRequest\032\".dictionary.v1.Looku" +
+      "pWordsResponse\022K\n\010SaveWord\022\036.dictionary." +
+      "v1.SaveWordRequest\032\037.dictionary.v1.SaveW" +
+      "ordResponse\022]\n\016ListSavedWords\022$.dictiona" +
+      "ry.v1.ListSavedWordsRequest\032%.dictionary" +
+      ".v1.ListSavedWordsResponse\022`\n\017DeleteSave" +
+      "dWord\022%.dictionary.v1.DeleteSavedWordReq" +
+      "uest\032&.dictionary.v1.DeleteSavedWordResp" +
+      "onse\022Q\n\nExportAnki\022 .dictionary.v1.Expor" +
+      "tAnkiRequest\032!.dictionary.v1.ExportAnkiR" +
+      "esponse\022]\n\016CreateDeckLink\022$.dictionary.v" +
+      "1.CreateDeckLinkRequest\032%.dictionary.v1." +
+      "CreateDeckLinkResponse\022W\n\014DownloadDeck\022\"" +
+      ".dictionary.v1.DownloadDeckRequest\032#.dic" +
+      "tionary.v1.DownloadDeckResponse\022l\n\023Remov" +
+      "eExportedWords\022).dictionary.v1.RemoveExp" +
+      "ortedWordsRequest\032*.dictionary.v1.Remove" +
+      "ExportedWordsResponse\022T\n\013UploadImage\022!.d" +
+      "ictionary.v1.UploadImageRequest\032\".dictio" +
+      "nary.v1.UploadImageResponse\022K\n\010GetImage\022" +
+      "\036.dictionary.v1.GetImageRequest\032\037.dictio" +
+      "nary.v1.GetImageResponse\022T\n\013GetSettings\022" +
+      "!.dictionary.v1.GetSettingsRequest\032\".dic" +
+      "tionary.v1.GetSettingsResponse\022]\n\016Update" +
+      "Settings\022$.dictionary.v1.UpdateSettingsR" +
+      "equest\032%.dictionary.v1.UpdateSettingsRes" +
+      "ponse\022Z\n\rGetMySettings\022#.dictionary.v1.G" +
+      "etMySettingsRequest\032$.dictionary.v1.GetM" +
+      "ySettingsResponse\022c\n\020UpdateMySettings\022&." +
+      "dictionary.v1.UpdateMySettingsRequest\032\'." +
+      "dictionary.v1.UpdateMySettingsResponseB7" +
+      "Z5github.com/huponx/protogen/dictionary/" +
+      "v1;dictionaryv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -25568,7 +25860,7 @@ public final class DictionaryOuterClass {
     internal_static_dictionary_v1_ListSavedWordsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_ListSavedWordsRequest_descriptor,
-        new java.lang.String[] { "PageSize", "PageToken", });
+        new java.lang.String[] { "PageSize", "PageToken", "Query", });
     internal_static_dictionary_v1_ListSavedWordsResponse_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_dictionary_v1_ListSavedWordsResponse_fieldAccessorTable = new
@@ -25670,7 +25962,7 @@ public final class DictionaryOuterClass {
     internal_static_dictionary_v1_UserSettings_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_UserSettings_descriptor,
-        new java.lang.String[] { "EnglishEnabled", "EnglishViEnabled", "DefaultDictionary", "DeckName", "MaxLookupWords", "RemoveAfterExport", "RemoveAcknowledged", });
+        new java.lang.String[] { "EnglishEnabled", "EnglishViEnabled", "DefaultDictionary", "DeckName", "MaxLookupWords", "RemoveAfterExport", "RemoveAcknowledged", "FreshDeck", });
     internal_static_dictionary_v1_GetSettingsRequest_descriptor =
       getDescriptor().getMessageTypes().get(27);
     internal_static_dictionary_v1_GetSettingsRequest_fieldAccessorTable = new
