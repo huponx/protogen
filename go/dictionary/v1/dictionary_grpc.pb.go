@@ -19,18 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	DictionaryService_LookupWord_FullMethodName       = "/dictionary.v1.DictionaryService/LookupWord"
-	DictionaryService_LookupWords_FullMethodName      = "/dictionary.v1.DictionaryService/LookupWords"
-	DictionaryService_SaveWord_FullMethodName         = "/dictionary.v1.DictionaryService/SaveWord"
-	DictionaryService_ListSavedWords_FullMethodName   = "/dictionary.v1.DictionaryService/ListSavedWords"
-	DictionaryService_DeleteSavedWord_FullMethodName  = "/dictionary.v1.DictionaryService/DeleteSavedWord"
-	DictionaryService_ExportAnki_FullMethodName       = "/dictionary.v1.DictionaryService/ExportAnki"
-	DictionaryService_CreateDeckLink_FullMethodName   = "/dictionary.v1.DictionaryService/CreateDeckLink"
-	DictionaryService_DownloadDeck_FullMethodName     = "/dictionary.v1.DictionaryService/DownloadDeck"
-	DictionaryService_GetSettings_FullMethodName      = "/dictionary.v1.DictionaryService/GetSettings"
-	DictionaryService_UpdateSettings_FullMethodName   = "/dictionary.v1.DictionaryService/UpdateSettings"
-	DictionaryService_GetMySettings_FullMethodName    = "/dictionary.v1.DictionaryService/GetMySettings"
-	DictionaryService_UpdateMySettings_FullMethodName = "/dictionary.v1.DictionaryService/UpdateMySettings"
+	DictionaryService_LookupWord_FullMethodName          = "/dictionary.v1.DictionaryService/LookupWord"
+	DictionaryService_LookupWords_FullMethodName         = "/dictionary.v1.DictionaryService/LookupWords"
+	DictionaryService_SaveWord_FullMethodName            = "/dictionary.v1.DictionaryService/SaveWord"
+	DictionaryService_ListSavedWords_FullMethodName      = "/dictionary.v1.DictionaryService/ListSavedWords"
+	DictionaryService_DeleteSavedWord_FullMethodName     = "/dictionary.v1.DictionaryService/DeleteSavedWord"
+	DictionaryService_ExportAnki_FullMethodName          = "/dictionary.v1.DictionaryService/ExportAnki"
+	DictionaryService_CreateDeckLink_FullMethodName      = "/dictionary.v1.DictionaryService/CreateDeckLink"
+	DictionaryService_DownloadDeck_FullMethodName        = "/dictionary.v1.DictionaryService/DownloadDeck"
+	DictionaryService_RemoveExportedWords_FullMethodName = "/dictionary.v1.DictionaryService/RemoveExportedWords"
+	DictionaryService_UploadImage_FullMethodName         = "/dictionary.v1.DictionaryService/UploadImage"
+	DictionaryService_GetImage_FullMethodName            = "/dictionary.v1.DictionaryService/GetImage"
+	DictionaryService_GetSettings_FullMethodName         = "/dictionary.v1.DictionaryService/GetSettings"
+	DictionaryService_UpdateSettings_FullMethodName      = "/dictionary.v1.DictionaryService/UpdateSettings"
+	DictionaryService_GetMySettings_FullMethodName       = "/dictionary.v1.DictionaryService/GetMySettings"
+	DictionaryService_UpdateMySettings_FullMethodName    = "/dictionary.v1.DictionaryService/UpdateMySettings"
 )
 
 // DictionaryServiceClient is the client API for DictionaryService service.
@@ -46,16 +49,17 @@ type DictionaryServiceClient interface {
 	// LookupWords returns the entries of several words (at most 20). Words without an entry are
 	// listed in not_found instead of failing the call. Permission: dictionary:word:read.
 	LookupWords(ctx context.Context, in *LookupWordsRequest, opts ...grpc.CallOption) (*LookupWordsResponse, error)
-	// SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-	// (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+	// SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+	// RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
 	SaveWord(ctx context.Context, in *SaveWordRequest, opts ...grpc.CallOption) (*SaveWordResponse, error)
-	// ListSavedWords lists the pending (not yet exported) words, newest first.
-	// Permission: dictionary:word:read.
+	// ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+	// kept (remove after export is off). Permission: dictionary:word:read.
 	ListSavedWords(ctx context.Context, in *ListSavedWordsRequest, opts ...grpc.CallOption) (*ListSavedWordsResponse, error)
-	// DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+	// DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
 	DeleteSavedWord(ctx context.Context, in *DeleteSavedWordRequest, opts ...grpc.CallOption) (*DeleteSavedWordResponse, error)
-	// ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-	// starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+	// ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+	// them exported. When remove after export is in effect (system AND user) they also leave the list.
+	// Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
 	// Permission: dictionary:word:write.
 	ExportAnki(ctx context.Context, in *ExportAnkiRequest, opts ...grpc.CallOption) (*ExportAnkiResponse, error)
 	// CreateDeckLink does what ExportAnki does (builds the deck, marks the words exported) but keeps
@@ -67,6 +71,18 @@ type DictionaryServiceClient interface {
 	// gateway for the anonymous download request, so it takes a service token (client credentials)
 	// and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
 	DownloadDeck(ctx context.Context, in *DownloadDeckRequest, opts ...grpc.CallOption) (*DownloadDeckResponse, error)
+	// RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+	// when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+	RemoveExportedWords(ctx context.Context, in *RemoveExportedWordsRequest, opts ...grpc.CallOption) (*RemoveExportedWordsResponse, error)
+	// UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+	// (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+	// the card content refers to as dictimg:<id>. The same image of the same user gets the same id. Fails with
+	// INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+	// FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+	UploadImage(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageResponse, error)
+	// GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+	// Permission: dictionary:word:read.
+	GetImage(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*GetImageResponse, error)
 	// GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
 	GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error)
 	// UpdateSettings changes them (all fields are written; only the ones that differ are stored). Fails with
@@ -170,6 +186,36 @@ func (c *dictionaryServiceClient) DownloadDeck(ctx context.Context, in *Download
 	return out, nil
 }
 
+func (c *dictionaryServiceClient) RemoveExportedWords(ctx context.Context, in *RemoveExportedWordsRequest, opts ...grpc.CallOption) (*RemoveExportedWordsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveExportedWordsResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_RemoveExportedWords_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) UploadImage(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UploadImageResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_UploadImage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) GetImage(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*GetImageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetImageResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_GetImage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dictionaryServiceClient) GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetSettingsResponse)
@@ -223,16 +269,17 @@ type DictionaryServiceServer interface {
 	// LookupWords returns the entries of several words (at most 20). Words without an entry are
 	// listed in not_found instead of failing the call. Permission: dictionary:word:read.
 	LookupWords(context.Context, *LookupWordsRequest) (*LookupWordsResponse, error)
-	// SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-	// (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+	// SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+	// RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
 	SaveWord(context.Context, *SaveWordRequest) (*SaveWordResponse, error)
-	// ListSavedWords lists the pending (not yet exported) words, newest first.
-	// Permission: dictionary:word:read.
+	// ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+	// kept (remove after export is off). Permission: dictionary:word:read.
 	ListSavedWords(context.Context, *ListSavedWordsRequest) (*ListSavedWordsResponse, error)
-	// DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+	// DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
 	DeleteSavedWord(context.Context, *DeleteSavedWordRequest) (*DeleteSavedWordResponse, error)
-	// ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-	// starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+	// ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+	// them exported. When remove after export is in effect (system AND user) they also leave the list.
+	// Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
 	// Permission: dictionary:word:write.
 	ExportAnki(context.Context, *ExportAnkiRequest) (*ExportAnkiResponse, error)
 	// CreateDeckLink does what ExportAnki does (builds the deck, marks the words exported) but keeps
@@ -244,6 +291,18 @@ type DictionaryServiceServer interface {
 	// gateway for the anonymous download request, so it takes a service token (client credentials)
 	// and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
 	DownloadDeck(context.Context, *DownloadDeckRequest) (*DownloadDeckResponse, error)
+	// RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+	// when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+	RemoveExportedWords(context.Context, *RemoveExportedWordsRequest) (*RemoveExportedWordsResponse, error)
+	// UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+	// (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+	// the card content refers to as dictimg:<id>. The same image of the same user gets the same id. Fails with
+	// INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+	// FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+	UploadImage(context.Context, *UploadImageRequest) (*UploadImageResponse, error)
+	// GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+	// Permission: dictionary:word:read.
+	GetImage(context.Context, *GetImageRequest) (*GetImageResponse, error)
 	// GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
 	GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error)
 	// UpdateSettings changes them (all fields are written; only the ones that differ are stored). Fails with
@@ -290,6 +349,15 @@ func (UnimplementedDictionaryServiceServer) CreateDeckLink(context.Context, *Cre
 }
 func (UnimplementedDictionaryServiceServer) DownloadDeck(context.Context, *DownloadDeckRequest) (*DownloadDeckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownloadDeck not implemented")
+}
+func (UnimplementedDictionaryServiceServer) RemoveExportedWords(context.Context, *RemoveExportedWordsRequest) (*RemoveExportedWordsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveExportedWords not implemented")
+}
+func (UnimplementedDictionaryServiceServer) UploadImage(context.Context, *UploadImageRequest) (*UploadImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UploadImage not implemented")
+}
+func (UnimplementedDictionaryServiceServer) GetImage(context.Context, *GetImageRequest) (*GetImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetImage not implemented")
 }
 func (UnimplementedDictionaryServiceServer) GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSettings not implemented")
@@ -468,6 +536,60 @@ func _DictionaryService_DownloadDeck_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DictionaryService_RemoveExportedWords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveExportedWordsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).RemoveExportedWords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_RemoveExportedWords_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).RemoveExportedWords(ctx, req.(*RemoveExportedWordsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_UploadImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UploadImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).UploadImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_UploadImage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).UploadImage(ctx, req.(*UploadImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_GetImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).GetImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_GetImage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).GetImage(ctx, req.(*GetImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DictionaryService_GetSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSettingsRequest)
 	if err := dec(in); err != nil {
@@ -578,6 +700,18 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DownloadDeck",
 			Handler:    _DictionaryService_DownloadDeck_Handler,
+		},
+		{
+			MethodName: "RemoveExportedWords",
+			Handler:    _DictionaryService_RemoveExportedWords_Handler,
+		},
+		{
+			MethodName: "UploadImage",
+			Handler:    _DictionaryService_UploadImage_Handler,
+		},
+		{
+			MethodName: "GetImage",
+			Handler:    _DictionaryService_GetImage_Handler,
 		},
 		{
 			MethodName: "GetSettings",

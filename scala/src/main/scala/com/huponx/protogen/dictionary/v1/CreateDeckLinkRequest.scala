@@ -7,10 +7,13 @@ package com.huponx.protogen.dictionary.v1
 
 /** @param deckName
   *   Default "My Words".
+  * @param scope
+  *   Default: new words only.
   */
 @SerialVersionUID(0L)
 final case class CreateDeckLinkRequest(
     deckName: _root_.scala.Predef.String = "",
+    scope: com.huponx.protogen.dictionary.v1.ExportScope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CreateDeckLinkRequest] {
     @transient
@@ -22,6 +25,13 @@ final case class CreateDeckLinkRequest(
         val __value = deckName
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(10, __value)
+        }
+      };
+      
+      {
+        val __value = scope.value
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(20, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -43,9 +53,16 @@ final case class CreateDeckLinkRequest(
           _output__.writeString(10, __v)
         }
       };
+      {
+        val __v = scope.value
+        if (__v != 0) {
+          _output__.writeEnum(20, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withDeckName(__v: _root_.scala.Predef.String): CreateDeckLinkRequest = copy(deckName = __v)
+    def withScope(__v: com.huponx.protogen.dictionary.v1.ExportScope): CreateDeckLinkRequest = copy(scope = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -54,12 +71,17 @@ final case class CreateDeckLinkRequest(
           val __t = deckName
           if (__t != "") __t else null
         }
+        case 20 => {
+          val __t = scope.javaValueDescriptor
+          if (__t.getNumber() != 0) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(deckName)
+        case 20 => _root_.scalapb.descriptors.PEnum(scope.scalaValueDescriptor)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -71,6 +93,7 @@ object CreateDeckLinkRequest extends scalapb.GeneratedMessageCompanion[com.hupon
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest = {
     var __deckName: _root_.scala.Predef.String = ""
+    var __scope: com.huponx.protogen.dictionary.v1.ExportScope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -79,6 +102,8 @@ object CreateDeckLinkRequest extends scalapb.GeneratedMessageCompanion[com.hupon
         case 0 => _done__ = true
         case 82 =>
           __deckName = _input__.readStringRequireUtf8()
+        case 160 =>
+          __scope = com.huponx.protogen.dictionary.v1.ExportScope.fromValue(_input__.readEnum())
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -88,6 +113,7 @@ object CreateDeckLinkRequest extends scalapb.GeneratedMessageCompanion[com.hupon
     }
     com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest(
         deckName = __deckName,
+        scope = __scope,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -95,7 +121,8 @@ object CreateDeckLinkRequest extends scalapb.GeneratedMessageCompanion[com.hupon
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest(
-        deckName = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        deckName = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        scope = com.huponx.protogen.dictionary.v1.ExportScope.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED.scalaValueDescriptor).number)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -103,18 +130,27 @@ object CreateDeckLinkRequest extends scalapb.GeneratedMessageCompanion[com.hupon
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(15)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
+  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
+    (__fieldNumber: @_root_.scala.unchecked) match {
+      case 20 => com.huponx.protogen.dictionary.v1.ExportScope
+    }
+  }
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest(
-    deckName = ""
+    deckName = "",
+    scope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED
   )
   implicit class CreateDeckLinkRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest](_l) {
     def deckName: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.deckName)((c_, f_) => c_.copy(deckName = f_))
+    def scope: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ExportScope] = field(_.scope)((c_, f_) => c_.copy(scope = f_))
   }
   final val DECK_NAME_FIELD_NUMBER = 10
+  final val SCOPE_FIELD_NUMBER = 20
   def of(
-    deckName: _root_.scala.Predef.String
+    deckName: _root_.scala.Predef.String,
+    scope: com.huponx.protogen.dictionary.v1.ExportScope
   ): _root_.com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest = _root_.com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest(
-    deckName
+    deckName,
+    scope
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.CreateDeckLinkRequest])
 }

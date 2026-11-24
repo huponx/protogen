@@ -298,6 +298,88 @@ pub mod dictionary_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn remove_exported_words(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RemoveExportedWordsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RemoveExportedWordsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/dictionary.v1.DictionaryService/RemoveExportedWords",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "dictionary.v1.DictionaryService",
+                        "RemoveExportedWords",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn upload_image(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UploadImageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UploadImageResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/dictionary.v1.DictionaryService/UploadImage",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("dictionary.v1.DictionaryService", "UploadImage"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn get_image(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetImageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetImageResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/dictionary.v1.DictionaryService/GetImage",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("dictionary.v1.DictionaryService", "GetImage"));
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn get_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSettingsRequest>,
@@ -472,6 +554,27 @@ pub mod dictionary_service_server {
             request: tonic::Request<super::DownloadDeckRequest>,
         ) -> std::result::Result<
             tonic::Response<super::DownloadDeckResponse>,
+            tonic::Status,
+        >;
+        async fn remove_exported_words(
+            &self,
+            request: tonic::Request<super::RemoveExportedWordsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RemoveExportedWordsResponse>,
+            tonic::Status,
+        >;
+        async fn upload_image(
+            &self,
+            request: tonic::Request<super::UploadImageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UploadImageResponse>,
+            tonic::Status,
+        >;
+        async fn get_image(
+            &self,
+            request: tonic::Request<super::GetImageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetImageResponse>,
             tonic::Status,
         >;
         async fn get_settings(
@@ -929,6 +1032,146 @@ pub mod dictionary_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = DownloadDeckSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/dictionary.v1.DictionaryService/RemoveExportedWords" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveExportedWordsSvc<T: DictionaryService>(pub Arc<T>);
+                    impl<
+                        T: DictionaryService,
+                    > tonic::server::UnaryService<super::RemoveExportedWordsRequest>
+                    for RemoveExportedWordsSvc<T> {
+                        type Response = super::RemoveExportedWordsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemoveExportedWordsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DictionaryService>::remove_exported_words(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RemoveExportedWordsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/dictionary.v1.DictionaryService/UploadImage" => {
+                    #[allow(non_camel_case_types)]
+                    struct UploadImageSvc<T: DictionaryService>(pub Arc<T>);
+                    impl<
+                        T: DictionaryService,
+                    > tonic::server::UnaryService<super::UploadImageRequest>
+                    for UploadImageSvc<T> {
+                        type Response = super::UploadImageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UploadImageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DictionaryService>::upload_image(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UploadImageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/dictionary.v1.DictionaryService/GetImage" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetImageSvc<T: DictionaryService>(pub Arc<T>);
+                    impl<
+                        T: DictionaryService,
+                    > tonic::server::UnaryService<super::GetImageRequest>
+                    for GetImageSvc<T> {
+                        type Response = super::GetImageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetImageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DictionaryService>::get_image(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetImageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

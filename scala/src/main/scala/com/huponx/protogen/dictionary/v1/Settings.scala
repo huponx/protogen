@@ -15,6 +15,10 @@ package com.huponx.protogen.dictionary.v1
   *   Anki deck behind a link (CreateDeckLink).
   * @param englishEnabled
   *   The dictionaries that can be looked up.
+  * @param removeAfterExport
+  *   An export takes the words out of the list (a user can still turn it off for themself).
+  * @param exportedRetentionHours
+  *   Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
   */
 @SerialVersionUID(0L)
 final case class Settings(
@@ -23,6 +27,8 @@ final case class Settings(
     allowExportLink: _root_.scala.Boolean = false,
     englishEnabled: _root_.scala.Boolean = false,
     englishViEnabled: _root_.scala.Boolean = false,
+    removeAfterExport: _root_.scala.Boolean = false,
+    exportedRetentionHours: _root_.scala.Int = 0,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[Settings] {
     @transient
@@ -62,6 +68,20 @@ final case class Settings(
         val __value = englishViEnabled
         if (__value != false) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(50, __value)
+        }
+      };
+      
+      {
+        val __value = removeAfterExport
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(60, __value)
+        }
+      };
+      
+      {
+        val __value = exportedRetentionHours
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(70, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -107,6 +127,18 @@ final case class Settings(
           _output__.writeBool(50, __v)
         }
       };
+      {
+        val __v = removeAfterExport
+        if (__v != false) {
+          _output__.writeBool(60, __v)
+        }
+      };
+      {
+        val __v = exportedRetentionHours
+        if (__v != 0) {
+          _output__.writeInt32(70, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withMaxSavedWords(__v: _root_.scala.Int): Settings = copy(maxSavedWords = __v)
@@ -114,6 +146,8 @@ final case class Settings(
     def withAllowExportLink(__v: _root_.scala.Boolean): Settings = copy(allowExportLink = __v)
     def withEnglishEnabled(__v: _root_.scala.Boolean): Settings = copy(englishEnabled = __v)
     def withEnglishViEnabled(__v: _root_.scala.Boolean): Settings = copy(englishViEnabled = __v)
+    def withRemoveAfterExport(__v: _root_.scala.Boolean): Settings = copy(removeAfterExport = __v)
+    def withExportedRetentionHours(__v: _root_.scala.Int): Settings = copy(exportedRetentionHours = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -138,6 +172,14 @@ final case class Settings(
           val __t = englishViEnabled
           if (__t != false) __t else null
         }
+        case 60 => {
+          val __t = removeAfterExport
+          if (__t != false) __t else null
+        }
+        case 70 => {
+          val __t = exportedRetentionHours
+          if (__t != 0) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -148,6 +190,8 @@ final case class Settings(
         case 30 => _root_.scalapb.descriptors.PBoolean(allowExportLink)
         case 40 => _root_.scalapb.descriptors.PBoolean(englishEnabled)
         case 50 => _root_.scalapb.descriptors.PBoolean(englishViEnabled)
+        case 60 => _root_.scalapb.descriptors.PBoolean(removeAfterExport)
+        case 70 => _root_.scalapb.descriptors.PInt(exportedRetentionHours)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -163,6 +207,8 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     var __allowExportLink: _root_.scala.Boolean = false
     var __englishEnabled: _root_.scala.Boolean = false
     var __englishViEnabled: _root_.scala.Boolean = false
+    var __removeAfterExport: _root_.scala.Boolean = false
+    var __exportedRetentionHours: _root_.scala.Int = 0
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -179,6 +225,10 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
           __englishEnabled = _input__.readBool()
         case 400 =>
           __englishViEnabled = _input__.readBool()
+        case 480 =>
+          __removeAfterExport = _input__.readBool()
+        case 560 =>
+          __exportedRetentionHours = _input__.readInt32()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -192,6 +242,8 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         allowExportLink = __allowExportLink,
         englishEnabled = __englishEnabled,
         englishViEnabled = __englishViEnabled,
+        removeAfterExport = __removeAfterExport,
+        exportedRetentionHours = __exportedRetentionHours,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -203,12 +255,14 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         allowExportDeck = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         allowExportLink = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         englishEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        englishViEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        englishViEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        removeAfterExport = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        exportedRetentionHours = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Int]).getOrElse(0)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(19)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(19)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(25)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(25)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -217,7 +271,9 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     allowExportDeck = false,
     allowExportLink = false,
     englishEnabled = false,
-    englishViEnabled = false
+    englishViEnabled = false,
+    removeAfterExport = false,
+    exportedRetentionHours = 0
   )
   implicit class SettingsLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Settings]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.Settings](_l) {
     def maxSavedWords: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxSavedWords)((c_, f_) => c_.copy(maxSavedWords = f_))
@@ -225,24 +281,32 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     def allowExportLink: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.allowExportLink)((c_, f_) => c_.copy(allowExportLink = f_))
     def englishEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishEnabled)((c_, f_) => c_.copy(englishEnabled = f_))
     def englishViEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishViEnabled)((c_, f_) => c_.copy(englishViEnabled = f_))
+    def removeAfterExport: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.removeAfterExport)((c_, f_) => c_.copy(removeAfterExport = f_))
+    def exportedRetentionHours: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportedRetentionHours)((c_, f_) => c_.copy(exportedRetentionHours = f_))
   }
   final val MAX_SAVED_WORDS_FIELD_NUMBER = 10
   final val ALLOW_EXPORT_DECK_FIELD_NUMBER = 20
   final val ALLOW_EXPORT_LINK_FIELD_NUMBER = 30
   final val ENGLISH_ENABLED_FIELD_NUMBER = 40
   final val ENGLISH_VI_ENABLED_FIELD_NUMBER = 50
+  final val REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60
+  final val EXPORTED_RETENTION_HOURS_FIELD_NUMBER = 70
   def of(
     maxSavedWords: _root_.scala.Int,
     allowExportDeck: _root_.scala.Boolean,
     allowExportLink: _root_.scala.Boolean,
     englishEnabled: _root_.scala.Boolean,
-    englishViEnabled: _root_.scala.Boolean
+    englishViEnabled: _root_.scala.Boolean,
+    removeAfterExport: _root_.scala.Boolean,
+    exportedRetentionHours: _root_.scala.Int
   ): _root_.com.huponx.protogen.dictionary.v1.Settings = _root_.com.huponx.protogen.dictionary.v1.Settings(
     maxSavedWords,
     allowExportDeck,
     allowExportLink,
     englishEnabled,
-    englishViEnabled
+    englishViEnabled,
+    removeAfterExport,
+    exportedRetentionHours
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.Settings])
 }

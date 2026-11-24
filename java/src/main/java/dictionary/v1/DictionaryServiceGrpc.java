@@ -268,6 +268,99 @@ public final class DictionaryServiceGrpc {
     return getDownloadDeckMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest,
+      dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse> getRemoveExportedWordsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RemoveExportedWords",
+      requestType = dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.class,
+      responseType = dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest,
+      dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse> getRemoveExportedWordsMethod() {
+    io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest, dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse> getRemoveExportedWordsMethod;
+    if ((getRemoveExportedWordsMethod = DictionaryServiceGrpc.getRemoveExportedWordsMethod) == null) {
+      synchronized (DictionaryServiceGrpc.class) {
+        if ((getRemoveExportedWordsMethod = DictionaryServiceGrpc.getRemoveExportedWordsMethod) == null) {
+          DictionaryServiceGrpc.getRemoveExportedWordsMethod = getRemoveExportedWordsMethod =
+              io.grpc.MethodDescriptor.<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest, dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RemoveExportedWords"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DictionaryServiceMethodDescriptorSupplier("RemoveExportedWords"))
+              .build();
+        }
+      }
+    }
+    return getRemoveExportedWordsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.UploadImageRequest,
+      dictionary.v1.DictionaryOuterClass.UploadImageResponse> getUploadImageMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UploadImage",
+      requestType = dictionary.v1.DictionaryOuterClass.UploadImageRequest.class,
+      responseType = dictionary.v1.DictionaryOuterClass.UploadImageResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.UploadImageRequest,
+      dictionary.v1.DictionaryOuterClass.UploadImageResponse> getUploadImageMethod() {
+    io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.UploadImageRequest, dictionary.v1.DictionaryOuterClass.UploadImageResponse> getUploadImageMethod;
+    if ((getUploadImageMethod = DictionaryServiceGrpc.getUploadImageMethod) == null) {
+      synchronized (DictionaryServiceGrpc.class) {
+        if ((getUploadImageMethod = DictionaryServiceGrpc.getUploadImageMethod) == null) {
+          DictionaryServiceGrpc.getUploadImageMethod = getUploadImageMethod =
+              io.grpc.MethodDescriptor.<dictionary.v1.DictionaryOuterClass.UploadImageRequest, dictionary.v1.DictionaryOuterClass.UploadImageResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UploadImage"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  dictionary.v1.DictionaryOuterClass.UploadImageRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  dictionary.v1.DictionaryOuterClass.UploadImageResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DictionaryServiceMethodDescriptorSupplier("UploadImage"))
+              .build();
+        }
+      }
+    }
+    return getUploadImageMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.GetImageRequest,
+      dictionary.v1.DictionaryOuterClass.GetImageResponse> getGetImageMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetImage",
+      requestType = dictionary.v1.DictionaryOuterClass.GetImageRequest.class,
+      responseType = dictionary.v1.DictionaryOuterClass.GetImageResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.GetImageRequest,
+      dictionary.v1.DictionaryOuterClass.GetImageResponse> getGetImageMethod() {
+    io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.GetImageRequest, dictionary.v1.DictionaryOuterClass.GetImageResponse> getGetImageMethod;
+    if ((getGetImageMethod = DictionaryServiceGrpc.getGetImageMethod) == null) {
+      synchronized (DictionaryServiceGrpc.class) {
+        if ((getGetImageMethod = DictionaryServiceGrpc.getGetImageMethod) == null) {
+          DictionaryServiceGrpc.getGetImageMethod = getGetImageMethod =
+              io.grpc.MethodDescriptor.<dictionary.v1.DictionaryOuterClass.GetImageRequest, dictionary.v1.DictionaryOuterClass.GetImageResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetImage"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  dictionary.v1.DictionaryOuterClass.GetImageRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  dictionary.v1.DictionaryOuterClass.GetImageResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DictionaryServiceMethodDescriptorSupplier("GetImage"))
+              .build();
+        }
+      }
+    }
+    return getGetImageMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<dictionary.v1.DictionaryOuterClass.GetSettingsRequest,
       dictionary.v1.DictionaryOuterClass.GetSettingsResponse> getGetSettingsMethod;
 
@@ -468,8 +561,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-     * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+     * SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+     * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
      * </pre>
      */
     default void saveWord(dictionary.v1.DictionaryOuterClass.SaveWordRequest request,
@@ -479,8 +572,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ListSavedWords lists the pending (not yet exported) words, newest first.
-     * Permission: dictionary:word:read.
+     * ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+     * kept (remove after export is off). Permission: dictionary:word:read.
      * </pre>
      */
     default void listSavedWords(dictionary.v1.DictionaryOuterClass.ListSavedWordsRequest request,
@@ -490,7 +583,7 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+     * DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
      * </pre>
      */
     default void deleteSavedWord(dictionary.v1.DictionaryOuterClass.DeleteSavedWordRequest request,
@@ -500,8 +593,9 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-     * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+     * ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+     * them exported. When remove after export is in effect (system AND user) they also leave the list.
+     * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
      * Permission: dictionary:word:write.
      * </pre>
      */
@@ -533,6 +627,42 @@ public final class DictionaryServiceGrpc {
     default void downloadDeck(dictionary.v1.DictionaryOuterClass.DownloadDeckRequest request,
         io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.DownloadDeckResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDownloadDeckMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+     * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+     * </pre>
+     */
+    default void removeExportedWords(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest request,
+        io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRemoveExportedWordsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+     * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+     * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+     * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+     * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+     * </pre>
+     */
+    default void uploadImage(dictionary.v1.DictionaryOuterClass.UploadImageRequest request,
+        io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.UploadImageResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUploadImageMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+     * Permission: dictionary:word:read.
+     * </pre>
+     */
+    default void getImage(dictionary.v1.DictionaryOuterClass.GetImageRequest request,
+        io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.GetImageResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetImageMethod(), responseObserver);
     }
 
     /**
@@ -643,8 +773,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-     * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+     * SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+     * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
      * </pre>
      */
     public void saveWord(dictionary.v1.DictionaryOuterClass.SaveWordRequest request,
@@ -655,8 +785,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ListSavedWords lists the pending (not yet exported) words, newest first.
-     * Permission: dictionary:word:read.
+     * ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+     * kept (remove after export is off). Permission: dictionary:word:read.
      * </pre>
      */
     public void listSavedWords(dictionary.v1.DictionaryOuterClass.ListSavedWordsRequest request,
@@ -667,7 +797,7 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+     * DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
      * </pre>
      */
     public void deleteSavedWord(dictionary.v1.DictionaryOuterClass.DeleteSavedWordRequest request,
@@ -678,8 +808,9 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-     * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+     * ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+     * them exported. When remove after export is in effect (system AND user) they also leave the list.
+     * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
      * Permission: dictionary:word:write.
      * </pre>
      */
@@ -714,6 +845,45 @@ public final class DictionaryServiceGrpc {
         io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.DownloadDeckResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDownloadDeckMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+     * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+     * </pre>
+     */
+    public void removeExportedWords(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest request,
+        io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRemoveExportedWordsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+     * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+     * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+     * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+     * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+     * </pre>
+     */
+    public void uploadImage(dictionary.v1.DictionaryOuterClass.UploadImageRequest request,
+        io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.UploadImageResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUploadImageMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+     * Permission: dictionary:word:read.
+     * </pre>
+     */
+    public void getImage(dictionary.v1.DictionaryOuterClass.GetImageRequest request,
+        io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.GetImageResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetImageMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -810,8 +980,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-     * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+     * SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+     * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
      * </pre>
      */
     public dictionary.v1.DictionaryOuterClass.SaveWordResponse saveWord(dictionary.v1.DictionaryOuterClass.SaveWordRequest request) {
@@ -821,8 +991,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ListSavedWords lists the pending (not yet exported) words, newest first.
-     * Permission: dictionary:word:read.
+     * ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+     * kept (remove after export is off). Permission: dictionary:word:read.
      * </pre>
      */
     public dictionary.v1.DictionaryOuterClass.ListSavedWordsResponse listSavedWords(dictionary.v1.DictionaryOuterClass.ListSavedWordsRequest request) {
@@ -832,7 +1002,7 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+     * DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
      * </pre>
      */
     public dictionary.v1.DictionaryOuterClass.DeleteSavedWordResponse deleteSavedWord(dictionary.v1.DictionaryOuterClass.DeleteSavedWordRequest request) {
@@ -842,8 +1012,9 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-     * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+     * ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+     * them exported. When remove after export is in effect (system AND user) they also leave the list.
+     * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
      * Permission: dictionary:word:write.
      * </pre>
      */
@@ -875,6 +1046,42 @@ public final class DictionaryServiceGrpc {
     public dictionary.v1.DictionaryOuterClass.DownloadDeckResponse downloadDeck(dictionary.v1.DictionaryOuterClass.DownloadDeckRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDownloadDeckMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+     * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+     * </pre>
+     */
+    public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse removeExportedWords(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRemoveExportedWordsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+     * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+     * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+     * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+     * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+     * </pre>
+     */
+    public dictionary.v1.DictionaryOuterClass.UploadImageResponse uploadImage(dictionary.v1.DictionaryOuterClass.UploadImageRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUploadImageMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+     * Permission: dictionary:word:read.
+     * </pre>
+     */
+    public dictionary.v1.DictionaryOuterClass.GetImageResponse getImage(dictionary.v1.DictionaryOuterClass.GetImageRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetImageMethod(), getCallOptions(), request);
     }
 
     /**
@@ -969,8 +1176,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-     * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+     * SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+     * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<dictionary.v1.DictionaryOuterClass.SaveWordResponse> saveWord(
@@ -981,8 +1188,8 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ListSavedWords lists the pending (not yet exported) words, newest first.
-     * Permission: dictionary:word:read.
+     * ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+     * kept (remove after export is off). Permission: dictionary:word:read.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<dictionary.v1.DictionaryOuterClass.ListSavedWordsResponse> listSavedWords(
@@ -993,7 +1200,7 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+     * DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<dictionary.v1.DictionaryOuterClass.DeleteSavedWordResponse> deleteSavedWord(
@@ -1004,8 +1211,9 @@ public final class DictionaryServiceGrpc {
 
     /**
      * <pre>
-     * ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-     * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+     * ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+     * them exported. When remove after export is in effect (system AND user) they also leave the list.
+     * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
      * Permission: dictionary:word:write.
      * </pre>
      */
@@ -1040,6 +1248,45 @@ public final class DictionaryServiceGrpc {
         dictionary.v1.DictionaryOuterClass.DownloadDeckRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDownloadDeckMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+     * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse> removeExportedWords(
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRemoveExportedWordsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+     * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+     * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+     * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+     * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<dictionary.v1.DictionaryOuterClass.UploadImageResponse> uploadImage(
+        dictionary.v1.DictionaryOuterClass.UploadImageRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUploadImageMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+     * Permission: dictionary:word:read.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<dictionary.v1.DictionaryOuterClass.GetImageResponse> getImage(
+        dictionary.v1.DictionaryOuterClass.GetImageRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetImageMethod(), getCallOptions()), request);
     }
 
     /**
@@ -1100,10 +1347,13 @@ public final class DictionaryServiceGrpc {
   private static final int METHODID_EXPORT_ANKI = 5;
   private static final int METHODID_CREATE_DECK_LINK = 6;
   private static final int METHODID_DOWNLOAD_DECK = 7;
-  private static final int METHODID_GET_SETTINGS = 8;
-  private static final int METHODID_UPDATE_SETTINGS = 9;
-  private static final int METHODID_GET_MY_SETTINGS = 10;
-  private static final int METHODID_UPDATE_MY_SETTINGS = 11;
+  private static final int METHODID_REMOVE_EXPORTED_WORDS = 8;
+  private static final int METHODID_UPLOAD_IMAGE = 9;
+  private static final int METHODID_GET_IMAGE = 10;
+  private static final int METHODID_GET_SETTINGS = 11;
+  private static final int METHODID_UPDATE_SETTINGS = 12;
+  private static final int METHODID_GET_MY_SETTINGS = 13;
+  private static final int METHODID_UPDATE_MY_SETTINGS = 14;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1153,6 +1403,18 @@ public final class DictionaryServiceGrpc {
         case METHODID_DOWNLOAD_DECK:
           serviceImpl.downloadDeck((dictionary.v1.DictionaryOuterClass.DownloadDeckRequest) request,
               (io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.DownloadDeckResponse>) responseObserver);
+          break;
+        case METHODID_REMOVE_EXPORTED_WORDS:
+          serviceImpl.removeExportedWords((dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest) request,
+              (io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse>) responseObserver);
+          break;
+        case METHODID_UPLOAD_IMAGE:
+          serviceImpl.uploadImage((dictionary.v1.DictionaryOuterClass.UploadImageRequest) request,
+              (io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.UploadImageResponse>) responseObserver);
+          break;
+        case METHODID_GET_IMAGE:
+          serviceImpl.getImage((dictionary.v1.DictionaryOuterClass.GetImageRequest) request,
+              (io.grpc.stub.StreamObserver<dictionary.v1.DictionaryOuterClass.GetImageResponse>) responseObserver);
           break;
         case METHODID_GET_SETTINGS:
           serviceImpl.getSettings((dictionary.v1.DictionaryOuterClass.GetSettingsRequest) request,
@@ -1245,6 +1507,27 @@ public final class DictionaryServiceGrpc {
               dictionary.v1.DictionaryOuterClass.DownloadDeckResponse>(
                 service, METHODID_DOWNLOAD_DECK)))
         .addMethod(
+          getRemoveExportedWordsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest,
+              dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse>(
+                service, METHODID_REMOVE_EXPORTED_WORDS)))
+        .addMethod(
+          getUploadImageMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              dictionary.v1.DictionaryOuterClass.UploadImageRequest,
+              dictionary.v1.DictionaryOuterClass.UploadImageResponse>(
+                service, METHODID_UPLOAD_IMAGE)))
+        .addMethod(
+          getGetImageMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              dictionary.v1.DictionaryOuterClass.GetImageRequest,
+              dictionary.v1.DictionaryOuterClass.GetImageResponse>(
+                service, METHODID_GET_IMAGE)))
+        .addMethod(
           getGetSettingsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -1328,6 +1611,9 @@ public final class DictionaryServiceGrpc {
               .addMethod(getExportAnkiMethod())
               .addMethod(getCreateDeckLinkMethod())
               .addMethod(getDownloadDeckMethod())
+              .addMethod(getRemoveExportedWordsMethod())
+              .addMethod(getUploadImageMethod())
+              .addMethod(getGetImageMethod())
               .addMethod(getGetSettingsMethod())
               .addMethod(getUpdateSettingsMethod())
               .addMethod(getGetMySettingsMethod())
