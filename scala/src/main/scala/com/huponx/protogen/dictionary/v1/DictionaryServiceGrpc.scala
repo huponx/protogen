@@ -87,6 +87,36 @@ object DictionaryServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(7)))
       .build()
   
+  val METHOD_REMOVE_EXPORTED_WORDS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest, com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "RemoveExportedWords"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(8)))
+      .build()
+  
+  val METHOD_UPLOAD_IMAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UploadImageRequest, com.huponx.protogen.dictionary.v1.UploadImageResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "UploadImage"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadImageRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadImageResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(9)))
+      .build()
+  
+  val METHOD_GET_IMAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetImageRequest, com.huponx.protogen.dictionary.v1.GetImageResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "GetImage"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetImageRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetImageResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(10)))
+      .build()
+  
   val METHOD_GET_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetSettingsRequest, com.huponx.protogen.dictionary.v1.GetSettingsResponse] =
     _root_.io.grpc.MethodDescriptor.newBuilder()
       .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -94,7 +124,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(8)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(11)))
       .build()
   
   val METHOD_UPDATE_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateSettingsRequest, com.huponx.protogen.dictionary.v1.UpdateSettingsResponse] =
@@ -104,7 +134,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(9)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(12)))
       .build()
   
   val METHOD_GET_MY_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetMySettingsRequest, com.huponx.protogen.dictionary.v1.GetMySettingsResponse] =
@@ -114,7 +144,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMySettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMySettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(10)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
       .build()
   
   val METHOD_UPDATE_MY_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateMySettingsRequest, com.huponx.protogen.dictionary.v1.UpdateMySettingsResponse] =
@@ -124,7 +154,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateMySettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateMySettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(11)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
       .build()
   
   val SERVICE: _root_.io.grpc.ServiceDescriptor =
@@ -138,6 +168,9 @@ object DictionaryServiceGrpc {
       .addMethod(METHOD_EXPORT_ANKI)
       .addMethod(METHOD_CREATE_DECK_LINK)
       .addMethod(METHOD_DOWNLOAD_DECK)
+      .addMethod(METHOD_REMOVE_EXPORTED_WORDS)
+      .addMethod(METHOD_UPLOAD_IMAGE)
+      .addMethod(METHOD_GET_IMAGE)
       .addMethod(METHOD_GET_SETTINGS)
       .addMethod(METHOD_UPDATE_SETTINGS)
       .addMethod(METHOD_GET_MY_SETTINGS)
@@ -157,19 +190,20 @@ object DictionaryServiceGrpc {
       * listed in not_found instead of failing the call. Permission: dictionary:word:read.
       */
     def lookupWords(request: com.huponx.protogen.dictionary.v1.LookupWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.LookupWordsResponse]
-    /** SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-      * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+    /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+      * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
       */
     def saveWord(request: com.huponx.protogen.dictionary.v1.SaveWordRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SaveWordResponse]
-    /** ListSavedWords lists the pending (not yet exported) words, newest first.
-      * Permission: dictionary:word:read.
+    /** ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+      * kept (remove after export is off). Permission: dictionary:word:read.
       */
     def listSavedWords(request: com.huponx.protogen.dictionary.v1.ListSavedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListSavedWordsResponse]
-    /** DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+    /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse]
-    /** ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-      * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+    /** ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+      * them exported. When remove after export is in effect (system AND user) they also leave the list.
+      * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
       * Permission: dictionary:word:write.
       */
     def exportAnki(request: com.huponx.protogen.dictionary.v1.ExportAnkiRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ExportAnkiResponse]
@@ -184,6 +218,21 @@ object DictionaryServiceGrpc {
       * and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
       */
     def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DownloadDeckResponse]
+    /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+      * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+      */
+    def removeExportedWords(request: com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse]
+    /** UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+      * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+      * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+      * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+      * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+      */
+    def uploadImage(request: com.huponx.protogen.dictionary.v1.UploadImageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UploadImageResponse]
+    /** GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    def getImage(request: com.huponx.protogen.dictionary.v1.GetImageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetImageResponse]
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
       */
     def getSettings(request: com.huponx.protogen.dictionary.v1.GetSettingsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetSettingsResponse]
@@ -258,6 +307,24 @@ object DictionaryServiceGrpc {
             executionContext)
         }))
       .addMethod(
+        METHOD_REMOVE_EXPORTED_WORDS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse]) => {
+          serviceImpl.removeExportedWords(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_UPLOAD_IMAGE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.UploadImageRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.UploadImageResponse]) => {
+          serviceImpl.uploadImage(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_IMAGE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetImageRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetImageResponse]) => {
+          serviceImpl.getImage(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
         METHOD_GET_SETTINGS,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetSettingsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetSettingsResponse]) => {
           serviceImpl.getSettings(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
@@ -297,19 +364,20 @@ object DictionaryServiceGrpc {
       * listed in not_found instead of failing the call. Permission: dictionary:word:read.
       */
     def lookupWords(request: com.huponx.protogen.dictionary.v1.LookupWordsRequest): com.huponx.protogen.dictionary.v1.LookupWordsResponse
-    /** SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-      * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+    /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+      * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
       */
     def saveWord(request: com.huponx.protogen.dictionary.v1.SaveWordRequest): com.huponx.protogen.dictionary.v1.SaveWordResponse
-    /** ListSavedWords lists the pending (not yet exported) words, newest first.
-      * Permission: dictionary:word:read.
+    /** ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+      * kept (remove after export is off). Permission: dictionary:word:read.
       */
     def listSavedWords(request: com.huponx.protogen.dictionary.v1.ListSavedWordsRequest): com.huponx.protogen.dictionary.v1.ListSavedWordsResponse
-    /** DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+    /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse
-    /** ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-      * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+    /** ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+      * them exported. When remove after export is in effect (system AND user) they also leave the list.
+      * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
       * Permission: dictionary:word:write.
       */
     def exportAnki(request: com.huponx.protogen.dictionary.v1.ExportAnkiRequest): com.huponx.protogen.dictionary.v1.ExportAnkiResponse
@@ -324,6 +392,21 @@ object DictionaryServiceGrpc {
       * and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
       */
     def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): com.huponx.protogen.dictionary.v1.DownloadDeckResponse
+    /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+      * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+      */
+    def removeExportedWords(request: com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest): com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse
+    /** UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+      * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+      * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+      * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+      * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+      */
+    def uploadImage(request: com.huponx.protogen.dictionary.v1.UploadImageRequest): com.huponx.protogen.dictionary.v1.UploadImageResponse
+    /** GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    def getImage(request: com.huponx.protogen.dictionary.v1.GetImageRequest): com.huponx.protogen.dictionary.v1.GetImageResponse
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
       */
     def getSettings(request: com.huponx.protogen.dictionary.v1.GetSettingsRequest): com.huponx.protogen.dictionary.v1.GetSettingsResponse
@@ -357,28 +440,29 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LOOKUP_WORDS, options, request)
     }
     
-    /** SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-      * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+    /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+      * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
       */
     override def saveWord(request: com.huponx.protogen.dictionary.v1.SaveWordRequest): com.huponx.protogen.dictionary.v1.SaveWordResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SAVE_WORD, options, request)
     }
     
-    /** ListSavedWords lists the pending (not yet exported) words, newest first.
-      * Permission: dictionary:word:read.
+    /** ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+      * kept (remove after export is off). Permission: dictionary:word:read.
       */
     override def listSavedWords(request: com.huponx.protogen.dictionary.v1.ListSavedWordsRequest): com.huponx.protogen.dictionary.v1.ListSavedWordsResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LIST_SAVED_WORDS, options, request)
     }
     
-    /** DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+    /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     override def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_DELETE_SAVED_WORD, options, request)
     }
     
-    /** ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-      * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+    /** ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+      * them exported. When remove after export is in effect (system AND user) they also leave the list.
+      * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
       * Permission: dictionary:word:write.
       */
     override def exportAnki(request: com.huponx.protogen.dictionary.v1.ExportAnkiRequest): com.huponx.protogen.dictionary.v1.ExportAnkiResponse = {
@@ -400,6 +484,30 @@ object DictionaryServiceGrpc {
       */
     override def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): com.huponx.protogen.dictionary.v1.DownloadDeckResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_DOWNLOAD_DECK, options, request)
+    }
+    
+    /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+      * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+      */
+    override def removeExportedWords(request: com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest): com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_REMOVE_EXPORTED_WORDS, options, request)
+    }
+    
+    /** UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+      * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+      * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+      * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+      * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+      */
+    override def uploadImage(request: com.huponx.protogen.dictionary.v1.UploadImageRequest): com.huponx.protogen.dictionary.v1.UploadImageResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_UPLOAD_IMAGE, options, request)
+    }
+    
+    /** GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    override def getImage(request: com.huponx.protogen.dictionary.v1.GetImageRequest): com.huponx.protogen.dictionary.v1.GetImageResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_IMAGE, options, request)
     }
     
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
@@ -448,28 +556,29 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LOOKUP_WORDS, options, request)
     }
     
-    /** SaveWord adds a word to the user's pending list (an upsert). Fails with RESOURCE_EXHAUSTED
-      * (MAX_SAVED_WORDS_REACHED) when the pending list is full. Permission: dictionary:word:write.
+    /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
+      * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
       */
     override def saveWord(request: com.huponx.protogen.dictionary.v1.SaveWordRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SaveWordResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SAVE_WORD, options, request)
     }
     
-    /** ListSavedWords lists the pending (not yet exported) words, newest first.
-      * Permission: dictionary:word:read.
+    /** ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
+      * kept (remove after export is off). Permission: dictionary:word:read.
       */
     override def listSavedWords(request: com.huponx.protogen.dictionary.v1.ListSavedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListSavedWordsResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LIST_SAVED_WORDS, options, request)
     }
     
-    /** DeleteSavedWord removes a pending word. Permission: dictionary:word:write.
+    /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     override def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_DELETE_SAVED_WORD, options, request)
     }
     
-    /** ExportAnki builds an Anki deck (.apkg) from the pending words and marks them exported, which
-      * starts a new batch. Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when nothing is pending.
+    /** ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
+      * them exported. When remove after export is in effect (system AND user) they also leave the list.
+      * Fails with INVALID_ARGUMENT (NO_WORDS_TO_EXPORT) when there is nothing to export.
       * Permission: dictionary:word:write.
       */
     override def exportAnki(request: com.huponx.protogen.dictionary.v1.ExportAnkiRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ExportAnkiResponse] = {
@@ -491,6 +600,30 @@ object DictionaryServiceGrpc {
       */
     override def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DownloadDeckResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_DOWNLOAD_DECK, options, request)
+    }
+    
+    /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
+      * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
+      */
+    override def removeExportedWords(request: com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_REMOVE_EXPORTED_WORDS, options, request)
+    }
+    
+    /** UploadImage stores an image of a card (png, jpeg, gif or webp; never svg). The service shrinks it
+      * (longest side at most DICTIONARY_IMAGE_MAX_DIM), re-encodes it without metadata and returns the id that
+      * the card content refers to as dictimg:&lt;id&gt;. The same image of the same user gets the same id. Fails with
+      * INVALID_ARGUMENT (IMAGE_UNSUPPORTED, IMAGE_TOO_LARGE), RESOURCE_EXHAUSTED (IMAGE_QUOTA_EXCEEDED) or
+      * FAILED_PRECONDITION (IMAGES_DISABLED, no image directory). Permission: dictionary:word:write.
+      */
+    override def uploadImage(request: com.huponx.protogen.dictionary.v1.UploadImageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UploadImageResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_UPLOAD_IMAGE, options, request)
+    }
+    
+    /** GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    override def getImage(request: com.huponx.protogen.dictionary.v1.GetImageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetImageResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_IMAGE, options, request)
     }
     
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.

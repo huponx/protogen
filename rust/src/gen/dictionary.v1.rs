@@ -80,6 +80,10 @@ pub struct SavedWord {
     /// RFC 3339.
     #[prost(string, tag="50")]
     pub created_at: ::prost::alloc::string::String,
+    /// The word was packed in a deck. It is still in the list (remove after export is off) until the user
+    /// deletes it; saving it again makes it new.
+    #[prost(bool, tag="60")]
+    pub exported: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -118,9 +122,12 @@ pub struct ListSavedWordsResponse {
     /// Empty on the last page.
     #[prost(string, tag="20")]
     pub next_page_token: ::prost::alloc::string::String,
-    /// Pending words of the user (all pages).
+    /// Words in the list of the user (all pages), the exported ones too.
     #[prost(int32, tag="30")]
     pub total: i32,
+    /// How many of them are new (never exported).
+    #[prost(int32, tag="40")]
+    pub new_total: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -138,6 +145,9 @@ pub struct ExportAnkiRequest {
     /// Default "My Words".
     #[prost(string, tag="10")]
     pub deck_name: ::prost::alloc::string::String,
+    /// Default: new words only.
+    #[prost(enumeration="ExportScope", tag="20")]
+    pub scope: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -158,6 +168,20 @@ pub struct CreateDeckLinkRequest {
     /// Default "My Words".
     #[prost(string, tag="10")]
     pub deck_name: ::prost::alloc::string::String,
+    /// Default: new words only.
+    #[prost(enumeration="ExportScope", tag="20")]
+    pub scope: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RemoveExportedWordsRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RemoveExportedWordsResponse {
+    /// Words that left the list.
+    #[prost(int32, tag="10")]
+    pub removed: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -190,6 +214,36 @@ pub struct DownloadDeckResponse {
     #[prost(bytes="vec", tag="20")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UploadImageRequest {
+    /// MIME type the client claims; the service checks the bytes, not this.
+    #[prost(string, tag="10")]
+    pub content_type: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="20")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UploadImageResponse {
+    /// UUID; the card content refers to the image as dictimg:<id>.
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetImageRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetImageResponse {
+    #[prost(string, tag="10")]
+    pub content_type: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="20")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
 /// Settings of the whole system, edited by an administrator.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -208,6 +262,12 @@ pub struct Settings {
     pub english_enabled: bool,
     #[prost(bool, tag="50")]
     pub english_vi_enabled: bool,
+    /// An export takes the words out of the list (a user can still turn it off for themself).
+    #[prost(bool, tag="60")]
+    pub remove_after_export: bool,
+    /// Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+    #[prost(int32, tag="70")]
+    pub exported_retention_hours: i32,
 }
 /// Preferences of one user. They only narrow what Settings allows.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -226,6 +286,13 @@ pub struct UserSettings {
     /// Words per lookup the user wants to allow (1 to 20).
     #[prost(int32, tag="50")]
     pub max_lookup_words: i32,
+    /// An export takes the words out of the list. Only in effect when Settings allows it too.
+    #[prost(bool, tag="60")]
+    pub remove_after_export: bool,
+    /// The user answered what to do with the exported words that were still in the list when remove after
+    /// export came on. Cleared by the client when it goes off.
+    #[prost(bool, tag="70")]
+    pub remove_acknowledged: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -303,6 +370,39 @@ impl Dictionary {
             "DICTIONARY_UNSPECIFIED" => Some(Self::Unspecified),
             "DICTIONARY_ENGLISH" => Some(Self::English),
             "DICTIONARY_ENGLISH_VIETNAMESE" => Some(Self::EnglishVietnamese),
+            _ => None,
+        }
+    }
+}
+/// ExportScope selects the words an export packs.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum ExportScope {
+    /// Same as NEW.
+    Unspecified = 0,
+    /// The words that were never exported.
+    New = 10,
+    /// Every word of the list, the exported ones too.
+    All = 20,
+}
+impl ExportScope {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            ExportScope::Unspecified => "EXPORT_SCOPE_UNSPECIFIED",
+            ExportScope::New => "EXPORT_SCOPE_NEW",
+            ExportScope::All => "EXPORT_SCOPE_ALL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "EXPORT_SCOPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "EXPORT_SCOPE_NEW" => Some(Self::New),
+            "EXPORT_SCOPE_ALL" => Some(Self::All),
             _ => None,
         }
     }

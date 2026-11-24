@@ -171,6 +171,160 @@ public final class DictionaryOuterClass {
     // @@protoc_insertion_point(enum_scope:dictionary.v1.Dictionary)
   }
 
+  /**
+   * <pre>
+   * ExportScope selects the words an export packs.
+   * </pre>
+   *
+   * Protobuf enum {@code dictionary.v1.ExportScope}
+   */
+  public enum ExportScope
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Same as NEW.
+     * </pre>
+     *
+     * <code>EXPORT_SCOPE_UNSPECIFIED = 0;</code>
+     */
+    EXPORT_SCOPE_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * The words that were never exported.
+     * </pre>
+     *
+     * <code>EXPORT_SCOPE_NEW = 10;</code>
+     */
+    EXPORT_SCOPE_NEW(10),
+    /**
+     * <pre>
+     * Every word of the list, the exported ones too.
+     * </pre>
+     *
+     * <code>EXPORT_SCOPE_ALL = 20;</code>
+     */
+    EXPORT_SCOPE_ALL(20),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ExportScope.class.getName());
+    }
+    /**
+     * <pre>
+     * Same as NEW.
+     * </pre>
+     *
+     * <code>EXPORT_SCOPE_UNSPECIFIED = 0;</code>
+     */
+    public static final int EXPORT_SCOPE_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * The words that were never exported.
+     * </pre>
+     *
+     * <code>EXPORT_SCOPE_NEW = 10;</code>
+     */
+    public static final int EXPORT_SCOPE_NEW_VALUE = 10;
+    /**
+     * <pre>
+     * Every word of the list, the exported ones too.
+     * </pre>
+     *
+     * <code>EXPORT_SCOPE_ALL = 20;</code>
+     */
+    public static final int EXPORT_SCOPE_ALL_VALUE = 20;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static ExportScope valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static ExportScope forNumber(int value) {
+      switch (value) {
+        case 0: return EXPORT_SCOPE_UNSPECIFIED;
+        case 10: return EXPORT_SCOPE_NEW;
+        case 20: return EXPORT_SCOPE_ALL;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<ExportScope>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        ExportScope> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<ExportScope>() {
+            public ExportScope findValueByNumber(int number) {
+              return ExportScope.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final ExportScope[] VALUES = values();
+
+    public static ExportScope valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private ExportScope(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:dictionary.v1.ExportScope)
+  }
+
   public interface MeaningOrBuilder extends
       // @@protoc_insertion_point(interface_extends:dictionary.v1.Meaning)
       com.google.protobuf.MessageOrBuilder {
@@ -5871,6 +6025,17 @@ public final class DictionaryOuterClass {
      */
     com.google.protobuf.ByteString
         getCreatedAtBytes();
+
+    /**
+     * <pre>
+     * The word was packed in a deck. It is still in the list (remove after export is off) until the user
+     * deletes it; saving it again makes it new.
+     * </pre>
+     *
+     * <code>bool exported = 60 [json_name = "exported"];</code>
+     * @return The exported.
+     */
+    boolean getExported();
   }
   /**
    * Protobuf type {@code dictionary.v1.SavedWord}
@@ -6127,6 +6292,22 @@ public final class DictionaryOuterClass {
       }
     }
 
+    public static final int EXPORTED_FIELD_NUMBER = 60;
+    private boolean exported_ = false;
+    /**
+     * <pre>
+     * The word was packed in a deck. It is still in the list (remove after export is off) until the user
+     * deletes it; saving it again makes it new.
+     * </pre>
+     *
+     * <code>bool exported = 60 [json_name = "exported"];</code>
+     * @return The exported.
+     */
+    @java.lang.Override
+    public boolean getExported() {
+      return exported_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6156,6 +6337,9 @@ public final class DictionaryOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(createdAt_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 50, createdAt_);
       }
+      if (exported_ != false) {
+        output.writeBool(60, exported_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -6179,6 +6363,10 @@ public final class DictionaryOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(createdAt_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(50, createdAt_);
+      }
+      if (exported_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(60, exported_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -6205,6 +6393,8 @@ public final class DictionaryOuterClass {
           .equals(other.getAudioUs())) return false;
       if (!getCreatedAt()
           .equals(other.getCreatedAt())) return false;
+      if (getExported()
+          != other.getExported()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -6226,6 +6416,9 @@ public final class DictionaryOuterClass {
       hash = (53 * hash) + getAudioUs().hashCode();
       hash = (37 * hash) + CREATED_AT_FIELD_NUMBER;
       hash = (53 * hash) + getCreatedAt().hashCode();
+      hash = (37 * hash) + EXPORTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getExported());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6362,6 +6555,7 @@ public final class DictionaryOuterClass {
         audioUk_ = "";
         audioUs_ = "";
         createdAt_ = "";
+        exported_ = false;
         return this;
       }
 
@@ -6410,6 +6604,9 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000010) != 0)) {
           result.createdAt_ = createdAt_;
         }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.exported_ = exported_;
+        }
       }
 
       @java.lang.Override
@@ -6448,6 +6645,9 @@ public final class DictionaryOuterClass {
           createdAt_ = other.createdAt_;
           bitField0_ |= 0x00000010;
           onChanged();
+        }
+        if (other.getExported() != false) {
+          setExported(other.getExported());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -6500,6 +6700,11 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000010;
                 break;
               } // case 402
+              case 480: {
+                exported_ = input.readBool();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 480
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -6918,6 +7123,53 @@ public final class DictionaryOuterClass {
         checkByteStringIsUtf8(value);
         createdAt_ = value;
         bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+
+      private boolean exported_ ;
+      /**
+       * <pre>
+       * The word was packed in a deck. It is still in the list (remove after export is off) until the user
+       * deletes it; saving it again makes it new.
+       * </pre>
+       *
+       * <code>bool exported = 60 [json_name = "exported"];</code>
+       * @return The exported.
+       */
+      @java.lang.Override
+      public boolean getExported() {
+        return exported_;
+      }
+      /**
+       * <pre>
+       * The word was packed in a deck. It is still in the list (remove after export is off) until the user
+       * deletes it; saving it again makes it new.
+       * </pre>
+       *
+       * <code>bool exported = 60 [json_name = "exported"];</code>
+       * @param value The exported to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExported(boolean value) {
+
+        exported_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The word was packed in a deck. It is still in the list (remove after export is off) until the user
+       * deletes it; saving it again makes it new.
+       * </pre>
+       *
+       * <code>bool exported = 60 [json_name = "exported"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExported() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        exported_ = false;
         onChanged();
         return this;
       }
@@ -9069,13 +9321,23 @@ public final class DictionaryOuterClass {
 
     /**
      * <pre>
-     * Pending words of the user (all pages).
+     * Words in the list of the user (all pages), the exported ones too.
      * </pre>
      *
      * <code>int32 total = 30 [json_name = "total"];</code>
      * @return The total.
      */
     int getTotal();
+
+    /**
+     * <pre>
+     * How many of them are new (never exported).
+     * </pre>
+     *
+     * <code>int32 new_total = 40 [json_name = "newTotal"];</code>
+     * @return The newTotal.
+     */
+    int getNewTotal();
   }
   /**
    * Protobuf type {@code dictionary.v1.ListSavedWordsResponse}
@@ -9208,7 +9470,7 @@ public final class DictionaryOuterClass {
     private int total_ = 0;
     /**
      * <pre>
-     * Pending words of the user (all pages).
+     * Words in the list of the user (all pages), the exported ones too.
      * </pre>
      *
      * <code>int32 total = 30 [json_name = "total"];</code>
@@ -9217,6 +9479,21 @@ public final class DictionaryOuterClass {
     @java.lang.Override
     public int getTotal() {
       return total_;
+    }
+
+    public static final int NEW_TOTAL_FIELD_NUMBER = 40;
+    private int newTotal_ = 0;
+    /**
+     * <pre>
+     * How many of them are new (never exported).
+     * </pre>
+     *
+     * <code>int32 new_total = 40 [json_name = "newTotal"];</code>
+     * @return The newTotal.
+     */
+    @java.lang.Override
+    public int getNewTotal() {
+      return newTotal_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -9242,6 +9519,9 @@ public final class DictionaryOuterClass {
       if (total_ != 0) {
         output.writeInt32(30, total_);
       }
+      if (newTotal_ != 0) {
+        output.writeInt32(40, newTotal_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -9261,6 +9541,10 @@ public final class DictionaryOuterClass {
       if (total_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(30, total_);
+      }
+      if (newTotal_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(40, newTotal_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -9283,6 +9567,8 @@ public final class DictionaryOuterClass {
           .equals(other.getNextPageToken())) return false;
       if (getTotal()
           != other.getTotal()) return false;
+      if (getNewTotal()
+          != other.getNewTotal()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -9302,6 +9588,8 @@ public final class DictionaryOuterClass {
       hash = (53 * hash) + getNextPageToken().hashCode();
       hash = (37 * hash) + TOTAL_FIELD_NUMBER;
       hash = (53 * hash) + getTotal();
+      hash = (37 * hash) + NEW_TOTAL_FIELD_NUMBER;
+      hash = (53 * hash) + getNewTotal();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9442,6 +9730,7 @@ public final class DictionaryOuterClass {
         bitField0_ = (bitField0_ & ~0x00000001);
         nextPageToken_ = "";
         total_ = 0;
+        newTotal_ = 0;
         return this;
       }
 
@@ -9494,6 +9783,9 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.total_ = total_;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.newTotal_ = newTotal_;
+        }
       }
 
       @java.lang.Override
@@ -9541,6 +9833,9 @@ public final class DictionaryOuterClass {
         }
         if (other.getTotal() != 0) {
           setTotal(other.getTotal());
+        }
+        if (other.getNewTotal() != 0) {
+          setNewTotal(other.getNewTotal());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -9591,6 +9886,11 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 240
+              case 320: {
+                newTotal_ = input.readInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 320
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -9943,7 +10243,7 @@ public final class DictionaryOuterClass {
       private int total_ ;
       /**
        * <pre>
-       * Pending words of the user (all pages).
+       * Words in the list of the user (all pages), the exported ones too.
        * </pre>
        *
        * <code>int32 total = 30 [json_name = "total"];</code>
@@ -9955,7 +10255,7 @@ public final class DictionaryOuterClass {
       }
       /**
        * <pre>
-       * Pending words of the user (all pages).
+       * Words in the list of the user (all pages), the exported ones too.
        * </pre>
        *
        * <code>int32 total = 30 [json_name = "total"];</code>
@@ -9971,7 +10271,7 @@ public final class DictionaryOuterClass {
       }
       /**
        * <pre>
-       * Pending words of the user (all pages).
+       * Words in the list of the user (all pages), the exported ones too.
        * </pre>
        *
        * <code>int32 total = 30 [json_name = "total"];</code>
@@ -9980,6 +10280,50 @@ public final class DictionaryOuterClass {
       public Builder clearTotal() {
         bitField0_ = (bitField0_ & ~0x00000004);
         total_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int newTotal_ ;
+      /**
+       * <pre>
+       * How many of them are new (never exported).
+       * </pre>
+       *
+       * <code>int32 new_total = 40 [json_name = "newTotal"];</code>
+       * @return The newTotal.
+       */
+      @java.lang.Override
+      public int getNewTotal() {
+        return newTotal_;
+      }
+      /**
+       * <pre>
+       * How many of them are new (never exported).
+       * </pre>
+       *
+       * <code>int32 new_total = 40 [json_name = "newTotal"];</code>
+       * @param value The newTotal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewTotal(int value) {
+
+        newTotal_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * How many of them are new (never exported).
+       * </pre>
+       *
+       * <code>int32 new_total = 40 [json_name = "newTotal"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNewTotal() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        newTotal_ = 0;
         onChanged();
         return this;
       }
@@ -10923,6 +11267,25 @@ public final class DictionaryOuterClass {
      */
     com.google.protobuf.ByteString
         getDeckNameBytes();
+
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The enum numeric value on the wire for scope.
+     */
+    int getScopeValue();
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The scope.
+     */
+    dictionary.v1.DictionaryOuterClass.ExportScope getScope();
   }
   /**
    * Protobuf type {@code dictionary.v1.ExportAnkiRequest}
@@ -10947,6 +11310,7 @@ public final class DictionaryOuterClass {
     }
     private ExportAnkiRequest() {
       deckName_ = "";
+      scope_ = 0;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -11009,6 +11373,32 @@ public final class DictionaryOuterClass {
       }
     }
 
+    public static final int SCOPE_FIELD_NUMBER = 20;
+    private int scope_ = 0;
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The enum numeric value on the wire for scope.
+     */
+    @java.lang.Override public int getScopeValue() {
+      return scope_;
+    }
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The scope.
+     */
+    @java.lang.Override public dictionary.v1.DictionaryOuterClass.ExportScope getScope() {
+      dictionary.v1.DictionaryOuterClass.ExportScope result = dictionary.v1.DictionaryOuterClass.ExportScope.forNumber(scope_);
+      return result == null ? dictionary.v1.DictionaryOuterClass.ExportScope.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11026,6 +11416,9 @@ public final class DictionaryOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deckName_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 10, deckName_);
       }
+      if (scope_ != dictionary.v1.DictionaryOuterClass.ExportScope.EXPORT_SCOPE_UNSPECIFIED.getNumber()) {
+        output.writeEnum(20, scope_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -11037,6 +11430,10 @@ public final class DictionaryOuterClass {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deckName_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(10, deckName_);
+      }
+      if (scope_ != dictionary.v1.DictionaryOuterClass.ExportScope.EXPORT_SCOPE_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(20, scope_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -11055,6 +11452,7 @@ public final class DictionaryOuterClass {
 
       if (!getDeckName()
           .equals(other.getDeckName())) return false;
+      if (scope_ != other.scope_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -11068,6 +11466,8 @@ public final class DictionaryOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + DECK_NAME_FIELD_NUMBER;
       hash = (53 * hash) + getDeckName().hashCode();
+      hash = (37 * hash) + SCOPE_FIELD_NUMBER;
+      hash = (53 * hash) + scope_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11200,6 +11600,7 @@ public final class DictionaryOuterClass {
         super.clear();
         bitField0_ = 0;
         deckName_ = "";
+        scope_ = 0;
         return this;
       }
 
@@ -11236,6 +11637,9 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.deckName_ = deckName_;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.scope_ = scope_;
+        }
       }
 
       @java.lang.Override
@@ -11254,6 +11658,9 @@ public final class DictionaryOuterClass {
           deckName_ = other.deckName_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.scope_ != 0) {
+          setScopeValue(other.getScopeValue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -11286,6 +11693,11 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 82
+              case 160: {
+                scope_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -11391,6 +11803,79 @@ public final class DictionaryOuterClass {
         checkByteStringIsUtf8(value);
         deckName_ = value;
         bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private int scope_ = 0;
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @return The enum numeric value on the wire for scope.
+       */
+      @java.lang.Override public int getScopeValue() {
+        return scope_;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @param value The enum numeric value on the wire for scope to set.
+       * @return This builder for chaining.
+       */
+      public Builder setScopeValue(int value) {
+        scope_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @return The scope.
+       */
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.ExportScope getScope() {
+        dictionary.v1.DictionaryOuterClass.ExportScope result = dictionary.v1.DictionaryOuterClass.ExportScope.forNumber(scope_);
+        return result == null ? dictionary.v1.DictionaryOuterClass.ExportScope.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @param value The scope to set.
+       * @return This builder for chaining.
+       */
+      public Builder setScope(dictionary.v1.DictionaryOuterClass.ExportScope value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        scope_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearScope() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        scope_ = 0;
         onChanged();
         return this;
       }
@@ -12200,6 +12685,25 @@ public final class DictionaryOuterClass {
      */
     com.google.protobuf.ByteString
         getDeckNameBytes();
+
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The enum numeric value on the wire for scope.
+     */
+    int getScopeValue();
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The scope.
+     */
+    dictionary.v1.DictionaryOuterClass.ExportScope getScope();
   }
   /**
    * Protobuf type {@code dictionary.v1.CreateDeckLinkRequest}
@@ -12224,6 +12728,7 @@ public final class DictionaryOuterClass {
     }
     private CreateDeckLinkRequest() {
       deckName_ = "";
+      scope_ = 0;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -12286,6 +12791,32 @@ public final class DictionaryOuterClass {
       }
     }
 
+    public static final int SCOPE_FIELD_NUMBER = 20;
+    private int scope_ = 0;
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The enum numeric value on the wire for scope.
+     */
+    @java.lang.Override public int getScopeValue() {
+      return scope_;
+    }
+    /**
+     * <pre>
+     * Default: new words only.
+     * </pre>
+     *
+     * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+     * @return The scope.
+     */
+    @java.lang.Override public dictionary.v1.DictionaryOuterClass.ExportScope getScope() {
+      dictionary.v1.DictionaryOuterClass.ExportScope result = dictionary.v1.DictionaryOuterClass.ExportScope.forNumber(scope_);
+      return result == null ? dictionary.v1.DictionaryOuterClass.ExportScope.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -12303,6 +12834,9 @@ public final class DictionaryOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deckName_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 10, deckName_);
       }
+      if (scope_ != dictionary.v1.DictionaryOuterClass.ExportScope.EXPORT_SCOPE_UNSPECIFIED.getNumber()) {
+        output.writeEnum(20, scope_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -12314,6 +12848,10 @@ public final class DictionaryOuterClass {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deckName_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(10, deckName_);
+      }
+      if (scope_ != dictionary.v1.DictionaryOuterClass.ExportScope.EXPORT_SCOPE_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(20, scope_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -12332,6 +12870,7 @@ public final class DictionaryOuterClass {
 
       if (!getDeckName()
           .equals(other.getDeckName())) return false;
+      if (scope_ != other.scope_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -12345,6 +12884,8 @@ public final class DictionaryOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + DECK_NAME_FIELD_NUMBER;
       hash = (53 * hash) + getDeckName().hashCode();
+      hash = (37 * hash) + SCOPE_FIELD_NUMBER;
+      hash = (53 * hash) + scope_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -12477,6 +13018,7 @@ public final class DictionaryOuterClass {
         super.clear();
         bitField0_ = 0;
         deckName_ = "";
+        scope_ = 0;
         return this;
       }
 
@@ -12513,6 +13055,9 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.deckName_ = deckName_;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.scope_ = scope_;
+        }
       }
 
       @java.lang.Override
@@ -12531,6 +13076,9 @@ public final class DictionaryOuterClass {
           deckName_ = other.deckName_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.scope_ != 0) {
+          setScopeValue(other.getScopeValue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -12563,6 +13111,11 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 82
+              case 160: {
+                scope_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -12672,6 +13225,79 @@ public final class DictionaryOuterClass {
         return this;
       }
 
+      private int scope_ = 0;
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @return The enum numeric value on the wire for scope.
+       */
+      @java.lang.Override public int getScopeValue() {
+        return scope_;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @param value The enum numeric value on the wire for scope to set.
+       * @return This builder for chaining.
+       */
+      public Builder setScopeValue(int value) {
+        scope_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @return The scope.
+       */
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.ExportScope getScope() {
+        dictionary.v1.DictionaryOuterClass.ExportScope result = dictionary.v1.DictionaryOuterClass.ExportScope.forNumber(scope_);
+        return result == null ? dictionary.v1.DictionaryOuterClass.ExportScope.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @param value The scope to set.
+       * @return This builder for chaining.
+       */
+      public Builder setScope(dictionary.v1.DictionaryOuterClass.ExportScope value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        scope_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Default: new words only.
+       * </pre>
+       *
+       * <code>.dictionary.v1.ExportScope scope = 20 [json_name = "scope"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearScope() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        scope_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:dictionary.v1.CreateDeckLinkRequest)
     }
 
@@ -12718,6 +13344,815 @@ public final class DictionaryOuterClass {
 
     @java.lang.Override
     public dictionary.v1.DictionaryOuterClass.CreateDeckLinkRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RemoveExportedWordsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:dictionary.v1.RemoveExportedWordsRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code dictionary.v1.RemoveExportedWordsRequest}
+   */
+  public static final class RemoveExportedWordsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:dictionary.v1.RemoveExportedWordsRequest)
+      RemoveExportedWordsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        RemoveExportedWordsRequest.class.getName());
+    }
+    // Use RemoveExportedWordsRequest.newBuilder() to construct.
+    private RemoveExportedWordsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RemoveExportedWordsRequest() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.class, dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest)) {
+        return super.equals(obj);
+      }
+      dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest other = (dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code dictionary.v1.RemoveExportedWordsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:dictionary.v1.RemoveExportedWordsRequest)
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.class, dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.Builder.class);
+      }
+
+      // Construct using dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest getDefaultInstanceForType() {
+        return dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest build() {
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest buildPartial() {
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest result = new dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest) {
+          return mergeFrom((dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest other) {
+        if (other == dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:dictionary.v1.RemoveExportedWordsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:dictionary.v1.RemoveExportedWordsRequest)
+    private static final dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest();
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RemoveExportedWordsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RemoveExportedWordsRequest>() {
+      @java.lang.Override
+      public RemoveExportedWordsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoveExportedWordsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoveExportedWordsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RemoveExportedWordsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:dictionary.v1.RemoveExportedWordsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Words that left the list.
+     * </pre>
+     *
+     * <code>int32 removed = 10 [json_name = "removed"];</code>
+     * @return The removed.
+     */
+    int getRemoved();
+  }
+  /**
+   * Protobuf type {@code dictionary.v1.RemoveExportedWordsResponse}
+   */
+  public static final class RemoveExportedWordsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:dictionary.v1.RemoveExportedWordsResponse)
+      RemoveExportedWordsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        RemoveExportedWordsResponse.class.getName());
+    }
+    // Use RemoveExportedWordsResponse.newBuilder() to construct.
+    private RemoveExportedWordsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RemoveExportedWordsResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.class, dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.Builder.class);
+    }
+
+    public static final int REMOVED_FIELD_NUMBER = 10;
+    private int removed_ = 0;
+    /**
+     * <pre>
+     * Words that left the list.
+     * </pre>
+     *
+     * <code>int32 removed = 10 [json_name = "removed"];</code>
+     * @return The removed.
+     */
+    @java.lang.Override
+    public int getRemoved() {
+      return removed_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (removed_ != 0) {
+        output.writeInt32(10, removed_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (removed_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, removed_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse)) {
+        return super.equals(obj);
+      }
+      dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse other = (dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse) obj;
+
+      if (getRemoved()
+          != other.getRemoved()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REMOVED_FIELD_NUMBER;
+      hash = (53 * hash) + getRemoved();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code dictionary.v1.RemoveExportedWordsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:dictionary.v1.RemoveExportedWordsResponse)
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.class, dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.Builder.class);
+      }
+
+      // Construct using dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        removed_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_RemoveExportedWordsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse getDefaultInstanceForType() {
+        return dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse build() {
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse buildPartial() {
+        dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse result = new dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.removed_ = removed_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse) {
+          return mergeFrom((dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse other) {
+        if (other == dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse.getDefaultInstance()) return this;
+        if (other.getRemoved() != 0) {
+          setRemoved(other.getRemoved());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 80: {
+                removed_ = input.readInt32();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 80
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private int removed_ ;
+      /**
+       * <pre>
+       * Words that left the list.
+       * </pre>
+       *
+       * <code>int32 removed = 10 [json_name = "removed"];</code>
+       * @return The removed.
+       */
+      @java.lang.Override
+      public int getRemoved() {
+        return removed_;
+      }
+      /**
+       * <pre>
+       * Words that left the list.
+       * </pre>
+       *
+       * <code>int32 removed = 10 [json_name = "removed"];</code>
+       * @param value The removed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRemoved(int value) {
+
+        removed_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Words that left the list.
+       * </pre>
+       *
+       * <code>int32 removed = 10 [json_name = "removed"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRemoved() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        removed_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:dictionary.v1.RemoveExportedWordsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:dictionary.v1.RemoveExportedWordsResponse)
+    private static final dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse();
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RemoveExportedWordsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RemoveExportedWordsResponse>() {
+      @java.lang.Override
+      public RemoveExportedWordsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoveExportedWordsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoveExportedWordsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dictionary.v1.DictionaryOuterClass.RemoveExportedWordsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -14842,6 +16277,2264 @@ public final class DictionaryOuterClass {
 
   }
 
+  public interface UploadImageRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:dictionary.v1.UploadImageRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * MIME type the client claims; the service checks the bytes, not this.
+     * </pre>
+     *
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The contentType.
+     */
+    java.lang.String getContentType();
+    /**
+     * <pre>
+     * MIME type the client claims; the service checks the bytes, not this.
+     * </pre>
+     *
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The bytes for contentType.
+     */
+    com.google.protobuf.ByteString
+        getContentTypeBytes();
+
+    /**
+     * <code>bytes data = 20 [json_name = "data"];</code>
+     * @return The data.
+     */
+    com.google.protobuf.ByteString getData();
+  }
+  /**
+   * Protobuf type {@code dictionary.v1.UploadImageRequest}
+   */
+  public static final class UploadImageRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:dictionary.v1.UploadImageRequest)
+      UploadImageRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        UploadImageRequest.class.getName());
+    }
+    // Use UploadImageRequest.newBuilder() to construct.
+    private UploadImageRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private UploadImageRequest() {
+      contentType_ = "";
+      data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dictionary.v1.DictionaryOuterClass.UploadImageRequest.class, dictionary.v1.DictionaryOuterClass.UploadImageRequest.Builder.class);
+    }
+
+    public static final int CONTENT_TYPE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object contentType_ = "";
+    /**
+     * <pre>
+     * MIME type the client claims; the service checks the bytes, not this.
+     * </pre>
+     *
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The contentType.
+     */
+    @java.lang.Override
+    public java.lang.String getContentType() {
+      java.lang.Object ref = contentType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        contentType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * MIME type the client claims; the service checks the bytes, not this.
+     * </pre>
+     *
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The bytes for contentType.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getContentTypeBytes() {
+      java.lang.Object ref = contentType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        contentType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DATA_FIELD_NUMBER = 20;
+    private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <code>bytes data = 20 [json_name = "data"];</code>
+     * @return The data.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getData() {
+      return data_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(contentType_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, contentType_);
+      }
+      if (!data_.isEmpty()) {
+        output.writeBytes(20, data_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(contentType_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, contentType_);
+      }
+      if (!data_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(20, data_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dictionary.v1.DictionaryOuterClass.UploadImageRequest)) {
+        return super.equals(obj);
+      }
+      dictionary.v1.DictionaryOuterClass.UploadImageRequest other = (dictionary.v1.DictionaryOuterClass.UploadImageRequest) obj;
+
+      if (!getContentType()
+          .equals(other.getContentType())) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CONTENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getContentType().hashCode();
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dictionary.v1.DictionaryOuterClass.UploadImageRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code dictionary.v1.UploadImageRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:dictionary.v1.UploadImageRequest)
+        dictionary.v1.DictionaryOuterClass.UploadImageRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dictionary.v1.DictionaryOuterClass.UploadImageRequest.class, dictionary.v1.DictionaryOuterClass.UploadImageRequest.Builder.class);
+      }
+
+      // Construct using dictionary.v1.DictionaryOuterClass.UploadImageRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        contentType_ = "";
+        data_ = com.google.protobuf.ByteString.EMPTY;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.UploadImageRequest getDefaultInstanceForType() {
+        return dictionary.v1.DictionaryOuterClass.UploadImageRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.UploadImageRequest build() {
+        dictionary.v1.DictionaryOuterClass.UploadImageRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.UploadImageRequest buildPartial() {
+        dictionary.v1.DictionaryOuterClass.UploadImageRequest result = new dictionary.v1.DictionaryOuterClass.UploadImageRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(dictionary.v1.DictionaryOuterClass.UploadImageRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.contentType_ = contentType_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.data_ = data_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dictionary.v1.DictionaryOuterClass.UploadImageRequest) {
+          return mergeFrom((dictionary.v1.DictionaryOuterClass.UploadImageRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dictionary.v1.DictionaryOuterClass.UploadImageRequest other) {
+        if (other == dictionary.v1.DictionaryOuterClass.UploadImageRequest.getDefaultInstance()) return this;
+        if (!other.getContentType().isEmpty()) {
+          contentType_ = other.contentType_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
+          setData(other.getData());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                contentType_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                data_ = input.readBytes();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object contentType_ = "";
+      /**
+       * <pre>
+       * MIME type the client claims; the service checks the bytes, not this.
+       * </pre>
+       *
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @return The contentType.
+       */
+      public java.lang.String getContentType() {
+        java.lang.Object ref = contentType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          contentType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * MIME type the client claims; the service checks the bytes, not this.
+       * </pre>
+       *
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @return The bytes for contentType.
+       */
+      public com.google.protobuf.ByteString
+          getContentTypeBytes() {
+        java.lang.Object ref = contentType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          contentType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * MIME type the client claims; the service checks the bytes, not this.
+       * </pre>
+       *
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @param value The contentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContentType(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        contentType_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * MIME type the client claims; the service checks the bytes, not this.
+       * </pre>
+       *
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearContentType() {
+        contentType_ = getDefaultInstance().getContentType();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * MIME type the client claims; the service checks the bytes, not this.
+       * </pre>
+       *
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @param value The bytes for contentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContentTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        contentType_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes data = 20 [json_name = "data"];</code>
+       * @return The data.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getData() {
+        return data_;
+      }
+      /**
+       * <code>bytes data = 20 [json_name = "data"];</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
+       */
+      public Builder setData(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        data_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes data = 20 [json_name = "data"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearData() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        data_ = getDefaultInstance().getData();
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:dictionary.v1.UploadImageRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:dictionary.v1.UploadImageRequest)
+    private static final dictionary.v1.DictionaryOuterClass.UploadImageRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dictionary.v1.DictionaryOuterClass.UploadImageRequest();
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UploadImageRequest>
+        PARSER = new com.google.protobuf.AbstractParser<UploadImageRequest>() {
+      @java.lang.Override
+      public UploadImageRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<UploadImageRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UploadImageRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dictionary.v1.DictionaryOuterClass.UploadImageRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UploadImageResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:dictionary.v1.UploadImageResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+     * </pre>
+     *
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <pre>
+     * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+     * </pre>
+     *
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+  }
+  /**
+   * Protobuf type {@code dictionary.v1.UploadImageResponse}
+   */
+  public static final class UploadImageResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:dictionary.v1.UploadImageResponse)
+      UploadImageResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        UploadImageResponse.class.getName());
+    }
+    // Use UploadImageResponse.newBuilder() to construct.
+    private UploadImageResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private UploadImageResponse() {
+      id_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dictionary.v1.DictionaryOuterClass.UploadImageResponse.class, dictionary.v1.DictionaryOuterClass.UploadImageResponse.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object id_ = "";
+    /**
+     * <pre>
+     * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+     * </pre>
+     *
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+     * </pre>
+     *
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(id_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, id_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(id_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, id_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dictionary.v1.DictionaryOuterClass.UploadImageResponse)) {
+        return super.equals(obj);
+      }
+      dictionary.v1.DictionaryOuterClass.UploadImageResponse other = (dictionary.v1.DictionaryOuterClass.UploadImageResponse) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dictionary.v1.DictionaryOuterClass.UploadImageResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code dictionary.v1.UploadImageResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:dictionary.v1.UploadImageResponse)
+        dictionary.v1.DictionaryOuterClass.UploadImageResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dictionary.v1.DictionaryOuterClass.UploadImageResponse.class, dictionary.v1.DictionaryOuterClass.UploadImageResponse.Builder.class);
+      }
+
+      // Construct using dictionary.v1.DictionaryOuterClass.UploadImageResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        id_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_UploadImageResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.UploadImageResponse getDefaultInstanceForType() {
+        return dictionary.v1.DictionaryOuterClass.UploadImageResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.UploadImageResponse build() {
+        dictionary.v1.DictionaryOuterClass.UploadImageResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.UploadImageResponse buildPartial() {
+        dictionary.v1.DictionaryOuterClass.UploadImageResponse result = new dictionary.v1.DictionaryOuterClass.UploadImageResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(dictionary.v1.DictionaryOuterClass.UploadImageResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dictionary.v1.DictionaryOuterClass.UploadImageResponse) {
+          return mergeFrom((dictionary.v1.DictionaryOuterClass.UploadImageResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dictionary.v1.DictionaryOuterClass.UploadImageResponse other) {
+        if (other == dictionary.v1.DictionaryOuterClass.UploadImageResponse.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                id_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <pre>
+       * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+       * </pre>
+       *
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+       * </pre>
+       *
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+       * </pre>
+       *
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+       * </pre>
+       *
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        id_ = getDefaultInstance().getId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID; the card content refers to the image as dictimg:&lt;id&gt;.
+       * </pre>
+       *
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:dictionary.v1.UploadImageResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:dictionary.v1.UploadImageResponse)
+    private static final dictionary.v1.DictionaryOuterClass.UploadImageResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dictionary.v1.DictionaryOuterClass.UploadImageResponse();
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.UploadImageResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UploadImageResponse>
+        PARSER = new com.google.protobuf.AbstractParser<UploadImageResponse>() {
+      @java.lang.Override
+      public UploadImageResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<UploadImageResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UploadImageResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dictionary.v1.DictionaryOuterClass.UploadImageResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetImageRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:dictionary.v1.GetImageRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+  }
+  /**
+   * Protobuf type {@code dictionary.v1.GetImageRequest}
+   */
+  public static final class GetImageRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:dictionary.v1.GetImageRequest)
+      GetImageRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetImageRequest.class.getName());
+    }
+    // Use GetImageRequest.newBuilder() to construct.
+    private GetImageRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetImageRequest() {
+      id_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dictionary.v1.DictionaryOuterClass.GetImageRequest.class, dictionary.v1.DictionaryOuterClass.GetImageRequest.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object id_ = "";
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(id_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, id_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(id_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, id_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dictionary.v1.DictionaryOuterClass.GetImageRequest)) {
+        return super.equals(obj);
+      }
+      dictionary.v1.DictionaryOuterClass.GetImageRequest other = (dictionary.v1.DictionaryOuterClass.GetImageRequest) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dictionary.v1.DictionaryOuterClass.GetImageRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code dictionary.v1.GetImageRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:dictionary.v1.GetImageRequest)
+        dictionary.v1.DictionaryOuterClass.GetImageRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dictionary.v1.DictionaryOuterClass.GetImageRequest.class, dictionary.v1.DictionaryOuterClass.GetImageRequest.Builder.class);
+      }
+
+      // Construct using dictionary.v1.DictionaryOuterClass.GetImageRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        id_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.GetImageRequest getDefaultInstanceForType() {
+        return dictionary.v1.DictionaryOuterClass.GetImageRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.GetImageRequest build() {
+        dictionary.v1.DictionaryOuterClass.GetImageRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.GetImageRequest buildPartial() {
+        dictionary.v1.DictionaryOuterClass.GetImageRequest result = new dictionary.v1.DictionaryOuterClass.GetImageRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(dictionary.v1.DictionaryOuterClass.GetImageRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dictionary.v1.DictionaryOuterClass.GetImageRequest) {
+          return mergeFrom((dictionary.v1.DictionaryOuterClass.GetImageRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dictionary.v1.DictionaryOuterClass.GetImageRequest other) {
+        if (other == dictionary.v1.DictionaryOuterClass.GetImageRequest.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                id_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        id_ = getDefaultInstance().getId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:dictionary.v1.GetImageRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:dictionary.v1.GetImageRequest)
+    private static final dictionary.v1.DictionaryOuterClass.GetImageRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dictionary.v1.DictionaryOuterClass.GetImageRequest();
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetImageRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetImageRequest>() {
+      @java.lang.Override
+      public GetImageRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetImageRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetImageRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dictionary.v1.DictionaryOuterClass.GetImageRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetImageResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:dictionary.v1.GetImageResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The contentType.
+     */
+    java.lang.String getContentType();
+    /**
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The bytes for contentType.
+     */
+    com.google.protobuf.ByteString
+        getContentTypeBytes();
+
+    /**
+     * <code>bytes data = 20 [json_name = "data"];</code>
+     * @return The data.
+     */
+    com.google.protobuf.ByteString getData();
+  }
+  /**
+   * Protobuf type {@code dictionary.v1.GetImageResponse}
+   */
+  public static final class GetImageResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:dictionary.v1.GetImageResponse)
+      GetImageResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetImageResponse.class.getName());
+    }
+    // Use GetImageResponse.newBuilder() to construct.
+    private GetImageResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetImageResponse() {
+      contentType_ = "";
+      data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dictionary.v1.DictionaryOuterClass.GetImageResponse.class, dictionary.v1.DictionaryOuterClass.GetImageResponse.Builder.class);
+    }
+
+    public static final int CONTENT_TYPE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object contentType_ = "";
+    /**
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The contentType.
+     */
+    @java.lang.Override
+    public java.lang.String getContentType() {
+      java.lang.Object ref = contentType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        contentType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string content_type = 10 [json_name = "contentType"];</code>
+     * @return The bytes for contentType.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getContentTypeBytes() {
+      java.lang.Object ref = contentType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        contentType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DATA_FIELD_NUMBER = 20;
+    private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <code>bytes data = 20 [json_name = "data"];</code>
+     * @return The data.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getData() {
+      return data_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(contentType_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, contentType_);
+      }
+      if (!data_.isEmpty()) {
+        output.writeBytes(20, data_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(contentType_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, contentType_);
+      }
+      if (!data_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(20, data_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dictionary.v1.DictionaryOuterClass.GetImageResponse)) {
+        return super.equals(obj);
+      }
+      dictionary.v1.DictionaryOuterClass.GetImageResponse other = (dictionary.v1.DictionaryOuterClass.GetImageResponse) obj;
+
+      if (!getContentType()
+          .equals(other.getContentType())) return false;
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CONTENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getContentType().hashCode();
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dictionary.v1.DictionaryOuterClass.GetImageResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code dictionary.v1.GetImageResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:dictionary.v1.GetImageResponse)
+        dictionary.v1.DictionaryOuterClass.GetImageResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dictionary.v1.DictionaryOuterClass.GetImageResponse.class, dictionary.v1.DictionaryOuterClass.GetImageResponse.Builder.class);
+      }
+
+      // Construct using dictionary.v1.DictionaryOuterClass.GetImageResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        contentType_ = "";
+        data_ = com.google.protobuf.ByteString.EMPTY;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dictionary.v1.DictionaryOuterClass.internal_static_dictionary_v1_GetImageResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.GetImageResponse getDefaultInstanceForType() {
+        return dictionary.v1.DictionaryOuterClass.GetImageResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.GetImageResponse build() {
+        dictionary.v1.DictionaryOuterClass.GetImageResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dictionary.v1.DictionaryOuterClass.GetImageResponse buildPartial() {
+        dictionary.v1.DictionaryOuterClass.GetImageResponse result = new dictionary.v1.DictionaryOuterClass.GetImageResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(dictionary.v1.DictionaryOuterClass.GetImageResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.contentType_ = contentType_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.data_ = data_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dictionary.v1.DictionaryOuterClass.GetImageResponse) {
+          return mergeFrom((dictionary.v1.DictionaryOuterClass.GetImageResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dictionary.v1.DictionaryOuterClass.GetImageResponse other) {
+        if (other == dictionary.v1.DictionaryOuterClass.GetImageResponse.getDefaultInstance()) return this;
+        if (!other.getContentType().isEmpty()) {
+          contentType_ = other.contentType_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
+          setData(other.getData());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                contentType_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                data_ = input.readBytes();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object contentType_ = "";
+      /**
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @return The contentType.
+       */
+      public java.lang.String getContentType() {
+        java.lang.Object ref = contentType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          contentType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @return The bytes for contentType.
+       */
+      public com.google.protobuf.ByteString
+          getContentTypeBytes() {
+        java.lang.Object ref = contentType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          contentType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @param value The contentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContentType(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        contentType_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearContentType() {
+        contentType_ = getDefaultInstance().getContentType();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string content_type = 10 [json_name = "contentType"];</code>
+       * @param value The bytes for contentType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContentTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        contentType_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes data = 20 [json_name = "data"];</code>
+       * @return The data.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getData() {
+        return data_;
+      }
+      /**
+       * <code>bytes data = 20 [json_name = "data"];</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
+       */
+      public Builder setData(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        data_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes data = 20 [json_name = "data"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearData() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        data_ = getDefaultInstance().getData();
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:dictionary.v1.GetImageResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:dictionary.v1.GetImageResponse)
+    private static final dictionary.v1.DictionaryOuterClass.GetImageResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dictionary.v1.DictionaryOuterClass.GetImageResponse();
+    }
+
+    public static dictionary.v1.DictionaryOuterClass.GetImageResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetImageResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetImageResponse>() {
+      @java.lang.Override
+      public GetImageResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetImageResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetImageResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dictionary.v1.DictionaryOuterClass.GetImageResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface SettingsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:dictionary.v1.Settings)
       com.google.protobuf.MessageOrBuilder {
@@ -14891,6 +18584,26 @@ public final class DictionaryOuterClass {
      * @return The englishViEnabled.
      */
     boolean getEnglishViEnabled();
+
+    /**
+     * <pre>
+     * An export takes the words out of the list (a user can still turn it off for themself).
+     * </pre>
+     *
+     * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+     * @return The removeAfterExport.
+     */
+    boolean getRemoveAfterExport();
+
+    /**
+     * <pre>
+     * Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+     * </pre>
+     *
+     * <code>int32 exported_retention_hours = 70 [json_name = "exportedRetentionHours"];</code>
+     * @return The exportedRetentionHours.
+     */
+    int getExportedRetentionHours();
   }
   /**
    * <pre>
@@ -15004,6 +18717,36 @@ public final class DictionaryOuterClass {
       return englishViEnabled_;
     }
 
+    public static final int REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60;
+    private boolean removeAfterExport_ = false;
+    /**
+     * <pre>
+     * An export takes the words out of the list (a user can still turn it off for themself).
+     * </pre>
+     *
+     * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+     * @return The removeAfterExport.
+     */
+    @java.lang.Override
+    public boolean getRemoveAfterExport() {
+      return removeAfterExport_;
+    }
+
+    public static final int EXPORTED_RETENTION_HOURS_FIELD_NUMBER = 70;
+    private int exportedRetentionHours_ = 0;
+    /**
+     * <pre>
+     * Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+     * </pre>
+     *
+     * <code>int32 exported_retention_hours = 70 [json_name = "exportedRetentionHours"];</code>
+     * @return The exportedRetentionHours.
+     */
+    @java.lang.Override
+    public int getExportedRetentionHours() {
+      return exportedRetentionHours_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15032,6 +18775,12 @@ public final class DictionaryOuterClass {
       }
       if (englishViEnabled_ != false) {
         output.writeBool(50, englishViEnabled_);
+      }
+      if (removeAfterExport_ != false) {
+        output.writeBool(60, removeAfterExport_);
+      }
+      if (exportedRetentionHours_ != 0) {
+        output.writeInt32(70, exportedRetentionHours_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -15062,6 +18811,14 @@ public final class DictionaryOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(50, englishViEnabled_);
       }
+      if (removeAfterExport_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(60, removeAfterExport_);
+      }
+      if (exportedRetentionHours_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(70, exportedRetentionHours_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -15087,6 +18844,10 @@ public final class DictionaryOuterClass {
           != other.getEnglishEnabled()) return false;
       if (getEnglishViEnabled()
           != other.getEnglishViEnabled()) return false;
+      if (getRemoveAfterExport()
+          != other.getRemoveAfterExport()) return false;
+      if (getExportedRetentionHours()
+          != other.getExportedRetentionHours()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -15112,6 +18873,11 @@ public final class DictionaryOuterClass {
       hash = (37 * hash) + ENGLISH_VI_ENABLED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getEnglishViEnabled());
+      hash = (37 * hash) + REMOVE_AFTER_EXPORT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRemoveAfterExport());
+      hash = (37 * hash) + EXPORTED_RETENTION_HOURS_FIELD_NUMBER;
+      hash = (53 * hash) + getExportedRetentionHours();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15252,6 +19018,8 @@ public final class DictionaryOuterClass {
         allowExportLink_ = false;
         englishEnabled_ = false;
         englishViEnabled_ = false;
+        removeAfterExport_ = false;
+        exportedRetentionHours_ = 0;
         return this;
       }
 
@@ -15300,6 +19068,12 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000010) != 0)) {
           result.englishViEnabled_ = englishViEnabled_;
         }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.removeAfterExport_ = removeAfterExport_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.exportedRetentionHours_ = exportedRetentionHours_;
+        }
       }
 
       @java.lang.Override
@@ -15328,6 +19102,12 @@ public final class DictionaryOuterClass {
         }
         if (other.getEnglishViEnabled() != false) {
           setEnglishViEnabled(other.getEnglishViEnabled());
+        }
+        if (other.getRemoveAfterExport() != false) {
+          setRemoveAfterExport(other.getRemoveAfterExport());
+        }
+        if (other.getExportedRetentionHours() != 0) {
+          setExportedRetentionHours(other.getExportedRetentionHours());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -15380,6 +19160,16 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000010;
                 break;
               } // case 400
+              case 480: {
+                removeAfterExport_ = input.readBool();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 480
+              case 560: {
+                exportedRetentionHours_ = input.readInt32();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 560
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -15605,6 +19395,94 @@ public final class DictionaryOuterClass {
         return this;
       }
 
+      private boolean removeAfterExport_ ;
+      /**
+       * <pre>
+       * An export takes the words out of the list (a user can still turn it off for themself).
+       * </pre>
+       *
+       * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+       * @return The removeAfterExport.
+       */
+      @java.lang.Override
+      public boolean getRemoveAfterExport() {
+        return removeAfterExport_;
+      }
+      /**
+       * <pre>
+       * An export takes the words out of the list (a user can still turn it off for themself).
+       * </pre>
+       *
+       * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+       * @param value The removeAfterExport to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRemoveAfterExport(boolean value) {
+
+        removeAfterExport_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * An export takes the words out of the list (a user can still turn it off for themself).
+       * </pre>
+       *
+       * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRemoveAfterExport() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        removeAfterExport_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int exportedRetentionHours_ ;
+      /**
+       * <pre>
+       * Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+       * </pre>
+       *
+       * <code>int32 exported_retention_hours = 70 [json_name = "exportedRetentionHours"];</code>
+       * @return The exportedRetentionHours.
+       */
+      @java.lang.Override
+      public int getExportedRetentionHours() {
+        return exportedRetentionHours_;
+      }
+      /**
+       * <pre>
+       * Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+       * </pre>
+       *
+       * <code>int32 exported_retention_hours = 70 [json_name = "exportedRetentionHours"];</code>
+       * @param value The exportedRetentionHours to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExportedRetentionHours(int value) {
+
+        exportedRetentionHours_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+       * </pre>
+       *
+       * <code>int32 exported_retention_hours = 70 [json_name = "exportedRetentionHours"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExportedRetentionHours() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        exportedRetentionHours_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:dictionary.v1.Settings)
     }
 
@@ -15720,6 +19598,27 @@ public final class DictionaryOuterClass {
      * @return The maxLookupWords.
      */
     int getMaxLookupWords();
+
+    /**
+     * <pre>
+     * An export takes the words out of the list. Only in effect when Settings allows it too.
+     * </pre>
+     *
+     * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+     * @return The removeAfterExport.
+     */
+    boolean getRemoveAfterExport();
+
+    /**
+     * <pre>
+     * The user answered what to do with the exported words that were still in the list when remove after
+     * export came on. Cleared by the client when it goes off.
+     * </pre>
+     *
+     * <code>bool remove_acknowledged = 70 [json_name = "removeAcknowledged"];</code>
+     * @return The removeAcknowledged.
+     */
+    boolean getRemoveAcknowledged();
   }
   /**
    * <pre>
@@ -15874,6 +19773,37 @@ public final class DictionaryOuterClass {
       return maxLookupWords_;
     }
 
+    public static final int REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60;
+    private boolean removeAfterExport_ = false;
+    /**
+     * <pre>
+     * An export takes the words out of the list. Only in effect when Settings allows it too.
+     * </pre>
+     *
+     * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+     * @return The removeAfterExport.
+     */
+    @java.lang.Override
+    public boolean getRemoveAfterExport() {
+      return removeAfterExport_;
+    }
+
+    public static final int REMOVE_ACKNOWLEDGED_FIELD_NUMBER = 70;
+    private boolean removeAcknowledged_ = false;
+    /**
+     * <pre>
+     * The user answered what to do with the exported words that were still in the list when remove after
+     * export came on. Cleared by the client when it goes off.
+     * </pre>
+     *
+     * <code>bool remove_acknowledged = 70 [json_name = "removeAcknowledged"];</code>
+     * @return The removeAcknowledged.
+     */
+    @java.lang.Override
+    public boolean getRemoveAcknowledged() {
+      return removeAcknowledged_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15903,6 +19833,12 @@ public final class DictionaryOuterClass {
       if (maxLookupWords_ != 0) {
         output.writeInt32(50, maxLookupWords_);
       }
+      if (removeAfterExport_ != false) {
+        output.writeBool(60, removeAfterExport_);
+      }
+      if (removeAcknowledged_ != false) {
+        output.writeBool(70, removeAcknowledged_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -15931,6 +19867,14 @@ public final class DictionaryOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(50, maxLookupWords_);
       }
+      if (removeAfterExport_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(60, removeAfterExport_);
+      }
+      if (removeAcknowledged_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(70, removeAcknowledged_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -15955,6 +19899,10 @@ public final class DictionaryOuterClass {
           .equals(other.getDeckName())) return false;
       if (getMaxLookupWords()
           != other.getMaxLookupWords()) return false;
+      if (getRemoveAfterExport()
+          != other.getRemoveAfterExport()) return false;
+      if (getRemoveAcknowledged()
+          != other.getRemoveAcknowledged()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -15978,6 +19926,12 @@ public final class DictionaryOuterClass {
       hash = (53 * hash) + getDeckName().hashCode();
       hash = (37 * hash) + MAX_LOOKUP_WORDS_FIELD_NUMBER;
       hash = (53 * hash) + getMaxLookupWords();
+      hash = (37 * hash) + REMOVE_AFTER_EXPORT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRemoveAfterExport());
+      hash = (37 * hash) + REMOVE_ACKNOWLEDGED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRemoveAcknowledged());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -16118,6 +20072,8 @@ public final class DictionaryOuterClass {
         defaultDictionary_ = 0;
         deckName_ = "";
         maxLookupWords_ = 0;
+        removeAfterExport_ = false;
+        removeAcknowledged_ = false;
         return this;
       }
 
@@ -16166,6 +20122,12 @@ public final class DictionaryOuterClass {
         if (((from_bitField0_ & 0x00000010) != 0)) {
           result.maxLookupWords_ = maxLookupWords_;
         }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.removeAfterExport_ = removeAfterExport_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.removeAcknowledged_ = removeAcknowledged_;
+        }
       }
 
       @java.lang.Override
@@ -16196,6 +20158,12 @@ public final class DictionaryOuterClass {
         }
         if (other.getMaxLookupWords() != 0) {
           setMaxLookupWords(other.getMaxLookupWords());
+        }
+        if (other.getRemoveAfterExport() != false) {
+          setRemoveAfterExport(other.getRemoveAfterExport());
+        }
+        if (other.getRemoveAcknowledged() != false) {
+          setRemoveAcknowledged(other.getRemoveAcknowledged());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -16248,6 +20216,16 @@ public final class DictionaryOuterClass {
                 bitField0_ |= 0x00000010;
                 break;
               } // case 400
+              case 480: {
+                removeAfterExport_ = input.readBool();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 480
+              case 560: {
+                removeAcknowledged_ = input.readBool();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 560
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -16534,6 +20512,97 @@ public final class DictionaryOuterClass {
       public Builder clearMaxLookupWords() {
         bitField0_ = (bitField0_ & ~0x00000010);
         maxLookupWords_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean removeAfterExport_ ;
+      /**
+       * <pre>
+       * An export takes the words out of the list. Only in effect when Settings allows it too.
+       * </pre>
+       *
+       * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+       * @return The removeAfterExport.
+       */
+      @java.lang.Override
+      public boolean getRemoveAfterExport() {
+        return removeAfterExport_;
+      }
+      /**
+       * <pre>
+       * An export takes the words out of the list. Only in effect when Settings allows it too.
+       * </pre>
+       *
+       * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+       * @param value The removeAfterExport to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRemoveAfterExport(boolean value) {
+
+        removeAfterExport_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * An export takes the words out of the list. Only in effect when Settings allows it too.
+       * </pre>
+       *
+       * <code>bool remove_after_export = 60 [json_name = "removeAfterExport"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRemoveAfterExport() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        removeAfterExport_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean removeAcknowledged_ ;
+      /**
+       * <pre>
+       * The user answered what to do with the exported words that were still in the list when remove after
+       * export came on. Cleared by the client when it goes off.
+       * </pre>
+       *
+       * <code>bool remove_acknowledged = 70 [json_name = "removeAcknowledged"];</code>
+       * @return The removeAcknowledged.
+       */
+      @java.lang.Override
+      public boolean getRemoveAcknowledged() {
+        return removeAcknowledged_;
+      }
+      /**
+       * <pre>
+       * The user answered what to do with the exported words that were still in the list when remove after
+       * export came on. Cleared by the client when it goes off.
+       * </pre>
+       *
+       * <code>bool remove_acknowledged = 70 [json_name = "removeAcknowledged"];</code>
+       * @param value The removeAcknowledged to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRemoveAcknowledged(boolean value) {
+
+        removeAcknowledged_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The user answered what to do with the exported words that were still in the list when remove after
+       * export came on. Cleared by the client when it goes off.
+       * </pre>
+       *
+       * <code>bool remove_acknowledged = 70 [json_name = "removeAcknowledged"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRemoveAcknowledged() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        removeAcknowledged_ = false;
         onChanged();
         return this;
       }
@@ -21200,6 +25269,16 @@ public final class DictionaryOuterClass {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_dictionary_v1_CreateDeckLinkRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_dictionary_v1_RemoveExportedWordsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_dictionary_v1_RemoveExportedWordsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_dictionary_v1_RemoveExportedWordsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_dictionary_v1_RemoveExportedWordsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_dictionary_v1_CreateDeckLinkResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -21214,6 +25293,26 @@ public final class DictionaryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_dictionary_v1_DownloadDeckResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_dictionary_v1_UploadImageRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_dictionary_v1_UploadImageRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_dictionary_v1_UploadImageResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_dictionary_v1_UploadImageResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_dictionary_v1_GetImageRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_dictionary_v1_GetImageRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_dictionary_v1_GetImageResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_dictionary_v1_GetImageResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_dictionary_v1_Settings_descriptor;
   private static final 
@@ -21292,93 +25391,119 @@ public final class DictionaryOuterClass {
       "9\n\ndictionary\030\024 \001(\0162\031.dictionary.v1.Dict" +
       "ionaryR\ndictionary\"]\n\023LookupWordsRespons" +
       "e\022)\n\005words\030\n \003(\0132\023.dictionary.v1.WordR\005w" +
-      "ords\022\033\n\tnot_found\030\024 \003(\tR\010notFound\"\216\001\n\tSa" +
+      "ords\022\033\n\tnot_found\030\024 \003(\tR\010notFound\"\252\001\n\tSa" +
       "vedWord\022\022\n\004word\030\n \001(\tR\004word\022\030\n\007content\030\024" +
       " \001(\tR\007content\022\031\n\010audio_uk\030\036 \001(\tR\007audioUk" +
       "\022\031\n\010audio_us\030( \001(\tR\007audioUs\022\035\n\ncreated_a" +
-      "t\0302 \001(\tR\tcreatedAt\"u\n\017SaveWordRequest\022\022\n" +
-      "\004word\030\n \001(\tR\004word\022\030\n\007content\030\024 \001(\tR\007cont" +
-      "ent\022\031\n\010audio_uk\030\036 \001(\tR\007audioUk\022\031\n\010audio_" +
-      "us\030( \001(\tR\007audioUs\"3\n\020SaveWordResponse\022\037\n" +
-      "\013saved_count\030\n \001(\005R\nsavedCount\"S\n\025ListSa" +
-      "vedWordsRequest\022\033\n\tpage_size\030\n \001(\005R\010page" +
-      "Size\022\035\n\npage_token\030\024 \001(\tR\tpageToken\"\206\001\n\026" +
-      "ListSavedWordsResponse\022.\n\005words\030\n \003(\0132\030." +
-      "dictionary.v1.SavedWordR\005words\022&\n\017next_p" +
-      "age_token\030\024 \001(\tR\rnextPageToken\022\024\n\005total\030" +
-      "\036 \001(\005R\005total\",\n\026DeleteSavedWordRequest\022\022" +
-      "\n\004word\030\n \001(\tR\004word\"\031\n\027DeleteSavedWordRes" +
-      "ponse\"0\n\021ExportAnkiRequest\022\033\n\tdeck_name\030" +
-      "\n \001(\tR\010deckName\"c\n\022ExportAnkiResponse\022\032\n" +
-      "\010filename\030\n \001(\tR\010filename\022\022\n\004data\030\024 \001(\014R" +
-      "\004data\022\035\n\nword_count\030\036 \001(\005R\twordCount\"4\n\025" +
-      "CreateDeckLinkRequest\022\033\n\tdeck_name\030\n \001(\t" +
-      "R\010deckName\"\210\001\n\026CreateDeckLinkResponse\022\024\n" +
-      "\005token\030\n \001(\tR\005token\022\032\n\010filename\030\024 \001(\tR\010f" +
-      "ilename\022\035\n\nword_count\030\036 \001(\005R\twordCount\022\035" +
-      "\n\nexpires_at\030( \001(\tR\texpiresAt\"+\n\023Downloa" +
-      "dDeckRequest\022\024\n\005token\030\n \001(\tR\005token\"F\n\024Do" +
-      "wnloadDeckResponse\022\032\n\010filename\030\n \001(\tR\010fi" +
-      "lename\022\022\n\004data\030\024 \001(\014R\004data\"\341\001\n\010Settings\022" +
-      "&\n\017max_saved_words\030\n \001(\005R\rmaxSavedWords\022" +
-      "*\n\021allow_export_deck\030\024 \001(\010R\017allowExportD" +
-      "eck\022*\n\021allow_export_link\030\036 \001(\010R\017allowExp" +
-      "ortLink\022\'\n\017english_enabled\030( \001(\010R\016englis" +
-      "hEnabled\022,\n\022english_vi_enabled\0302 \001(\010R\020en" +
-      "glishViEnabled\"\366\001\n\014UserSettings\022\'\n\017engli" +
-      "sh_enabled\030\n \001(\010R\016englishEnabled\022,\n\022engl" +
-      "ish_vi_enabled\030\024 \001(\010R\020englishViEnabled\022H" +
-      "\n\022default_dictionary\030\036 \001(\0162\031.dictionary." +
-      "v1.DictionaryR\021defaultDictionary\022\033\n\tdeck" +
-      "_name\030( \001(\tR\010deckName\022(\n\020max_lookup_word" +
-      "s\0302 \001(\005R\016maxLookupWords\"\024\n\022GetSettingsRe" +
-      "quest\"J\n\023GetSettingsResponse\0223\n\010settings" +
-      "\030\n \001(\0132\027.dictionary.v1.SettingsR\010setting" +
-      "s\"L\n\025UpdateSettingsRequest\0223\n\010settings\030\n" +
-      " \001(\0132\027.dictionary.v1.SettingsR\010settings\"" +
-      "M\n\026UpdateSettingsResponse\0223\n\010settings\030\n " +
-      "\001(\0132\027.dictionary.v1.SettingsR\010settings\"\026" +
-      "\n\024GetMySettingsRequest\"y\n\025GetMySettingsR" +
-      "esponse\022/\n\004user\030\n \001(\0132\033.dictionary.v1.Us" +
-      "erSettingsR\004user\022/\n\006system\030\024 \001(\0132\027.dicti" +
-      "onary.v1.SettingsR\006system\"J\n\027UpdateMySet" +
-      "tingsRequest\022/\n\004user\030\n \001(\0132\033.dictionary." +
-      "v1.UserSettingsR\004user\"|\n\030UpdateMySetting" +
-      "sResponse\022/\n\004user\030\n \001(\0132\033.dictionary.v1." +
-      "UserSettingsR\004user\022/\n\006system\030\024 \001(\0132\027.dic" +
-      "tionary.v1.SettingsR\006system*c\n\nDictionar" +
-      "y\022\032\n\026DICTIONARY_UNSPECIFIED\020\000\022\026\n\022DICTION" +
-      "ARY_ENGLISH\020\n\022!\n\035DICTIONARY_ENGLISH_VIET" +
-      "NAMESE\020\0242\313\010\n\021DictionaryService\022Q\n\nLookup" +
-      "Word\022 .dictionary.v1.LookupWordRequest\032!" +
-      ".dictionary.v1.LookupWordResponse\022T\n\013Loo" +
-      "kupWords\022!.dictionary.v1.LookupWordsRequ" +
-      "est\032\".dictionary.v1.LookupWordsResponse\022" +
-      "K\n\010SaveWord\022\036.dictionary.v1.SaveWordRequ" +
-      "est\032\037.dictionary.v1.SaveWordResponse\022]\n\016" +
-      "ListSavedWords\022$.dictionary.v1.ListSaved" +
-      "WordsRequest\032%.dictionary.v1.ListSavedWo" +
-      "rdsResponse\022`\n\017DeleteSavedWord\022%.diction" +
-      "ary.v1.DeleteSavedWordRequest\032&.dictiona" +
-      "ry.v1.DeleteSavedWordResponse\022Q\n\nExportA" +
-      "nki\022 .dictionary.v1.ExportAnkiRequest\032!." +
-      "dictionary.v1.ExportAnkiResponse\022]\n\016Crea" +
-      "teDeckLink\022$.dictionary.v1.CreateDeckLin" +
-      "kRequest\032%.dictionary.v1.CreateDeckLinkR" +
-      "esponse\022W\n\014DownloadDeck\022\".dictionary.v1." +
-      "DownloadDeckRequest\032#.dictionary.v1.Down" +
-      "loadDeckResponse\022T\n\013GetSettings\022!.dictio" +
-      "nary.v1.GetSettingsRequest\032\".dictionary." +
-      "v1.GetSettingsResponse\022]\n\016UpdateSettings" +
-      "\022$.dictionary.v1.UpdateSettingsRequest\032%" +
-      ".dictionary.v1.UpdateSettingsResponse\022Z\n" +
-      "\rGetMySettings\022#.dictionary.v1.GetMySett" +
-      "ingsRequest\032$.dictionary.v1.GetMySetting" +
-      "sResponse\022c\n\020UpdateMySettings\022&.dictiona" +
-      "ry.v1.UpdateMySettingsRequest\032\'.dictiona" +
-      "ry.v1.UpdateMySettingsResponseB7Z5github" +
-      ".com/huponx/protogen/dictionary/v1;dicti" +
-      "onaryv1b\006proto3"
+      "t\0302 \001(\tR\tcreatedAt\022\032\n\010exported\030< \001(\010R\010ex" +
+      "ported\"u\n\017SaveWordRequest\022\022\n\004word\030\n \001(\tR" +
+      "\004word\022\030\n\007content\030\024 \001(\tR\007content\022\031\n\010audio" +
+      "_uk\030\036 \001(\tR\007audioUk\022\031\n\010audio_us\030( \001(\tR\007au" +
+      "dioUs\"3\n\020SaveWordResponse\022\037\n\013saved_count" +
+      "\030\n \001(\005R\nsavedCount\"S\n\025ListSavedWordsRequ" +
+      "est\022\033\n\tpage_size\030\n \001(\005R\010pageSize\022\035\n\npage" +
+      "_token\030\024 \001(\tR\tpageToken\"\243\001\n\026ListSavedWor" +
+      "dsResponse\022.\n\005words\030\n \003(\0132\030.dictionary.v" +
+      "1.SavedWordR\005words\022&\n\017next_page_token\030\024 " +
+      "\001(\tR\rnextPageToken\022\024\n\005total\030\036 \001(\005R\005total" +
+      "\022\033\n\tnew_total\030( \001(\005R\010newTotal\",\n\026DeleteS" +
+      "avedWordRequest\022\022\n\004word\030\n \001(\tR\004word\"\031\n\027D" +
+      "eleteSavedWordResponse\"b\n\021ExportAnkiRequ" +
+      "est\022\033\n\tdeck_name\030\n \001(\tR\010deckName\0220\n\005scop" +
+      "e\030\024 \001(\0162\032.dictionary.v1.ExportScopeR\005sco" +
+      "pe\"c\n\022ExportAnkiResponse\022\032\n\010filename\030\n \001" +
+      "(\tR\010filename\022\022\n\004data\030\024 \001(\014R\004data\022\035\n\nword" +
+      "_count\030\036 \001(\005R\twordCount\"f\n\025CreateDeckLin" +
+      "kRequest\022\033\n\tdeck_name\030\n \001(\tR\010deckName\0220\n" +
+      "\005scope\030\024 \001(\0162\032.dictionary.v1.ExportScope" +
+      "R\005scope\"\034\n\032RemoveExportedWordsRequest\"7\n" +
+      "\033RemoveExportedWordsResponse\022\030\n\007removed\030" +
+      "\n \001(\005R\007removed\"\210\001\n\026CreateDeckLinkRespons" +
+      "e\022\024\n\005token\030\n \001(\tR\005token\022\032\n\010filename\030\024 \001(" +
+      "\tR\010filename\022\035\n\nword_count\030\036 \001(\005R\twordCou" +
+      "nt\022\035\n\nexpires_at\030( \001(\tR\texpiresAt\"+\n\023Dow" +
+      "nloadDeckRequest\022\024\n\005token\030\n \001(\tR\005token\"F" +
+      "\n\024DownloadDeckResponse\022\032\n\010filename\030\n \001(\t" +
+      "R\010filename\022\022\n\004data\030\024 \001(\014R\004data\"K\n\022Upload" +
+      "ImageRequest\022!\n\014content_type\030\n \001(\tR\013cont" +
+      "entType\022\022\n\004data\030\024 \001(\014R\004data\"%\n\023UploadIma" +
+      "geResponse\022\016\n\002id\030\n \001(\tR\002id\"!\n\017GetImageRe" +
+      "quest\022\016\n\002id\030\n \001(\tR\002id\"I\n\020GetImageRespons" +
+      "e\022!\n\014content_type\030\n \001(\tR\013contentType\022\022\n\004" +
+      "data\030\024 \001(\014R\004data\"\313\002\n\010Settings\022&\n\017max_sav" +
+      "ed_words\030\n \001(\005R\rmaxSavedWords\022*\n\021allow_e" +
+      "xport_deck\030\024 \001(\010R\017allowExportDeck\022*\n\021all" +
+      "ow_export_link\030\036 \001(\010R\017allowExportLink\022\'\n" +
+      "\017english_enabled\030( \001(\010R\016englishEnabled\022," +
+      "\n\022english_vi_enabled\0302 \001(\010R\020englishViEna" +
+      "bled\022.\n\023remove_after_export\030< \001(\010R\021remov" +
+      "eAfterExport\0228\n\030exported_retention_hours" +
+      "\030F \001(\005R\026exportedRetentionHours\"\327\002\n\014UserS" +
+      "ettings\022\'\n\017english_enabled\030\n \001(\010R\016englis" +
+      "hEnabled\022,\n\022english_vi_enabled\030\024 \001(\010R\020en" +
+      "glishViEnabled\022H\n\022default_dictionary\030\036 \001" +
+      "(\0162\031.dictionary.v1.DictionaryR\021defaultDi" +
+      "ctionary\022\033\n\tdeck_name\030( \001(\tR\010deckName\022(\n" +
+      "\020max_lookup_words\0302 \001(\005R\016maxLookupWords\022" +
+      ".\n\023remove_after_export\030< \001(\010R\021removeAfte" +
+      "rExport\022/\n\023remove_acknowledged\030F \001(\010R\022re" +
+      "moveAcknowledged\"\024\n\022GetSettingsRequest\"J" +
+      "\n\023GetSettingsResponse\0223\n\010settings\030\n \001(\0132" +
+      "\027.dictionary.v1.SettingsR\010settings\"L\n\025Up" +
+      "dateSettingsRequest\0223\n\010settings\030\n \001(\0132\027." +
+      "dictionary.v1.SettingsR\010settings\"M\n\026Upda" +
+      "teSettingsResponse\0223\n\010settings\030\n \001(\0132\027.d" +
+      "ictionary.v1.SettingsR\010settings\"\026\n\024GetMy" +
+      "SettingsRequest\"y\n\025GetMySettingsResponse" +
+      "\022/\n\004user\030\n \001(\0132\033.dictionary.v1.UserSetti" +
+      "ngsR\004user\022/\n\006system\030\024 \001(\0132\027.dictionary.v" +
+      "1.SettingsR\006system\"J\n\027UpdateMySettingsRe" +
+      "quest\022/\n\004user\030\n \001(\0132\033.dictionary.v1.User" +
+      "SettingsR\004user\"|\n\030UpdateMySettingsRespon" +
+      "se\022/\n\004user\030\n \001(\0132\033.dictionary.v1.UserSet" +
+      "tingsR\004user\022/\n\006system\030\024 \001(\0132\027.dictionary" +
+      ".v1.SettingsR\006system*c\n\nDictionary\022\032\n\026DI" +
+      "CTIONARY_UNSPECIFIED\020\000\022\026\n\022DICTIONARY_ENG" +
+      "LISH\020\n\022!\n\035DICTIONARY_ENGLISH_VIETNAMESE\020" +
+      "\024*W\n\013ExportScope\022\034\n\030EXPORT_SCOPE_UNSPECI" +
+      "FIED\020\000\022\024\n\020EXPORT_SCOPE_NEW\020\n\022\024\n\020EXPORT_S" +
+      "COPE_ALL\020\0242\334\n\n\021DictionaryService\022Q\n\nLook" +
+      "upWord\022 .dictionary.v1.LookupWordRequest" +
+      "\032!.dictionary.v1.LookupWordResponse\022T\n\013L" +
+      "ookupWords\022!.dictionary.v1.LookupWordsRe" +
+      "quest\032\".dictionary.v1.LookupWordsRespons" +
+      "e\022K\n\010SaveWord\022\036.dictionary.v1.SaveWordRe" +
+      "quest\032\037.dictionary.v1.SaveWordResponse\022]" +
+      "\n\016ListSavedWords\022$.dictionary.v1.ListSav" +
+      "edWordsRequest\032%.dictionary.v1.ListSaved" +
+      "WordsResponse\022`\n\017DeleteSavedWord\022%.dicti" +
+      "onary.v1.DeleteSavedWordRequest\032&.dictio" +
+      "nary.v1.DeleteSavedWordResponse\022Q\n\nExpor" +
+      "tAnki\022 .dictionary.v1.ExportAnkiRequest\032" +
+      "!.dictionary.v1.ExportAnkiResponse\022]\n\016Cr" +
+      "eateDeckLink\022$.dictionary.v1.CreateDeckL" +
+      "inkRequest\032%.dictionary.v1.CreateDeckLin" +
+      "kResponse\022W\n\014DownloadDeck\022\".dictionary.v" +
+      "1.DownloadDeckRequest\032#.dictionary.v1.Do" +
+      "wnloadDeckResponse\022l\n\023RemoveExportedWord" +
+      "s\022).dictionary.v1.RemoveExportedWordsReq" +
+      "uest\032*.dictionary.v1.RemoveExportedWords" +
+      "Response\022T\n\013UploadImage\022!.dictionary.v1." +
+      "UploadImageRequest\032\".dictionary.v1.Uploa" +
+      "dImageResponse\022K\n\010GetImage\022\036.dictionary." +
+      "v1.GetImageRequest\032\037.dictionary.v1.GetIm" +
+      "ageResponse\022T\n\013GetSettings\022!.dictionary." +
+      "v1.GetSettingsRequest\032\".dictionary.v1.Ge" +
+      "tSettingsResponse\022]\n\016UpdateSettings\022$.di" +
+      "ctionary.v1.UpdateSettingsRequest\032%.dict" +
+      "ionary.v1.UpdateSettingsResponse\022Z\n\rGetM" +
+      "ySettings\022#.dictionary.v1.GetMySettingsR" +
+      "equest\032$.dictionary.v1.GetMySettingsResp" +
+      "onse\022c\n\020UpdateMySettings\022&.dictionary.v1" +
+      ".UpdateMySettingsRequest\032\'.dictionary.v1" +
+      ".UpdateMySettingsResponseB7Z5github.com/" +
+      "huponx/protogen/dictionary/v1;dictionary" +
+      "v1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -21425,7 +25550,7 @@ public final class DictionaryOuterClass {
     internal_static_dictionary_v1_SavedWord_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_SavedWord_descriptor,
-        new java.lang.String[] { "Word", "Content", "AudioUk", "AudioUs", "CreatedAt", });
+        new java.lang.String[] { "Word", "Content", "AudioUk", "AudioUs", "CreatedAt", "Exported", });
     internal_static_dictionary_v1_SaveWordRequest_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_dictionary_v1_SaveWordRequest_fieldAccessorTable = new
@@ -21449,7 +25574,7 @@ public final class DictionaryOuterClass {
     internal_static_dictionary_v1_ListSavedWordsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_ListSavedWordsResponse_descriptor,
-        new java.lang.String[] { "Words", "NextPageToken", "Total", });
+        new java.lang.String[] { "Words", "NextPageToken", "Total", "NewTotal", });
     internal_static_dictionary_v1_DeleteSavedWordRequest_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_dictionary_v1_DeleteSavedWordRequest_fieldAccessorTable = new
@@ -21467,7 +25592,7 @@ public final class DictionaryOuterClass {
     internal_static_dictionary_v1_ExportAnkiRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_ExportAnkiRequest_descriptor,
-        new java.lang.String[] { "DeckName", });
+        new java.lang.String[] { "DeckName", "Scope", });
     internal_static_dictionary_v1_ExportAnkiResponse_descriptor =
       getDescriptor().getMessageTypes().get(14);
     internal_static_dictionary_v1_ExportAnkiResponse_fieldAccessorTable = new
@@ -21479,81 +25604,117 @@ public final class DictionaryOuterClass {
     internal_static_dictionary_v1_CreateDeckLinkRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_CreateDeckLinkRequest_descriptor,
-        new java.lang.String[] { "DeckName", });
-    internal_static_dictionary_v1_CreateDeckLinkResponse_descriptor =
+        new java.lang.String[] { "DeckName", "Scope", });
+    internal_static_dictionary_v1_RemoveExportedWordsRequest_descriptor =
       getDescriptor().getMessageTypes().get(16);
+    internal_static_dictionary_v1_RemoveExportedWordsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_dictionary_v1_RemoveExportedWordsRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_dictionary_v1_RemoveExportedWordsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_dictionary_v1_RemoveExportedWordsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_dictionary_v1_RemoveExportedWordsResponse_descriptor,
+        new java.lang.String[] { "Removed", });
+    internal_static_dictionary_v1_CreateDeckLinkResponse_descriptor =
+      getDescriptor().getMessageTypes().get(18);
     internal_static_dictionary_v1_CreateDeckLinkResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_CreateDeckLinkResponse_descriptor,
         new java.lang.String[] { "Token", "Filename", "WordCount", "ExpiresAt", });
     internal_static_dictionary_v1_DownloadDeckRequest_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_dictionary_v1_DownloadDeckRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_DownloadDeckRequest_descriptor,
         new java.lang.String[] { "Token", });
     internal_static_dictionary_v1_DownloadDeckResponse_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_dictionary_v1_DownloadDeckResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_DownloadDeckResponse_descriptor,
         new java.lang.String[] { "Filename", "Data", });
+    internal_static_dictionary_v1_UploadImageRequest_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_dictionary_v1_UploadImageRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_dictionary_v1_UploadImageRequest_descriptor,
+        new java.lang.String[] { "ContentType", "Data", });
+    internal_static_dictionary_v1_UploadImageResponse_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_dictionary_v1_UploadImageResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_dictionary_v1_UploadImageResponse_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_dictionary_v1_GetImageRequest_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_dictionary_v1_GetImageRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_dictionary_v1_GetImageRequest_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_dictionary_v1_GetImageResponse_descriptor =
+      getDescriptor().getMessageTypes().get(24);
+    internal_static_dictionary_v1_GetImageResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_dictionary_v1_GetImageResponse_descriptor,
+        new java.lang.String[] { "ContentType", "Data", });
     internal_static_dictionary_v1_Settings_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_dictionary_v1_Settings_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_Settings_descriptor,
-        new java.lang.String[] { "MaxSavedWords", "AllowExportDeck", "AllowExportLink", "EnglishEnabled", "EnglishViEnabled", });
+        new java.lang.String[] { "MaxSavedWords", "AllowExportDeck", "AllowExportLink", "EnglishEnabled", "EnglishViEnabled", "RemoveAfterExport", "ExportedRetentionHours", });
     internal_static_dictionary_v1_UserSettings_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_dictionary_v1_UserSettings_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_UserSettings_descriptor,
-        new java.lang.String[] { "EnglishEnabled", "EnglishViEnabled", "DefaultDictionary", "DeckName", "MaxLookupWords", });
+        new java.lang.String[] { "EnglishEnabled", "EnglishViEnabled", "DefaultDictionary", "DeckName", "MaxLookupWords", "RemoveAfterExport", "RemoveAcknowledged", });
     internal_static_dictionary_v1_GetSettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_dictionary_v1_GetSettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_GetSettingsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_dictionary_v1_GetSettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_dictionary_v1_GetSettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_GetSettingsResponse_descriptor,
         new java.lang.String[] { "Settings", });
     internal_static_dictionary_v1_UpdateSettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_dictionary_v1_UpdateSettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_UpdateSettingsRequest_descriptor,
         new java.lang.String[] { "Settings", });
     internal_static_dictionary_v1_UpdateSettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_dictionary_v1_UpdateSettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_UpdateSettingsResponse_descriptor,
         new java.lang.String[] { "Settings", });
     internal_static_dictionary_v1_GetMySettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_dictionary_v1_GetMySettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_GetMySettingsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_dictionary_v1_GetMySettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_dictionary_v1_GetMySettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_GetMySettingsResponse_descriptor,
         new java.lang.String[] { "User", "System", });
     internal_static_dictionary_v1_UpdateMySettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_dictionary_v1_UpdateMySettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_UpdateMySettingsRequest_descriptor,
         new java.lang.String[] { "User", });
     internal_static_dictionary_v1_UpdateMySettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_dictionary_v1_UpdateMySettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dictionary_v1_UpdateMySettingsResponse_descriptor,
