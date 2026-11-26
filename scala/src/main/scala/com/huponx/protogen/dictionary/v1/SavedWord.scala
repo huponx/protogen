@@ -13,6 +13,12 @@ package com.huponx.protogen.dictionary.v1
   * @param exported
   *   The word was packed in a deck. It is still in the list (remove after export is off) until the user
   *   deletes it; saving it again makes it new.
+  * @param categoryIds
+  *   Ids of the categories of the word.
+  * @param nextReviewAt
+  *   RFC 3339: when the word is due for its next review. Empty for a new word (never reviewed).
+  * @param learning
+  *   The word is in the learning steps (not yet graduated to the long intervals).
   */
 @SerialVersionUID(0L)
 final case class SavedWord(
@@ -22,6 +28,9 @@ final case class SavedWord(
     audioUs: _root_.scala.Predef.String = "",
     createdAt: _root_.scala.Predef.String = "",
     exported: _root_.scala.Boolean = false,
+    categoryIds: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
+    nextReviewAt: _root_.scala.Predef.String = "",
+    learning: _root_.scala.Boolean = false,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SavedWord] {
     @transient
@@ -68,6 +77,24 @@ final case class SavedWord(
         val __value = exported
         if (__value != false) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(60, __value)
+        }
+      };
+      categoryIds.foreach { __item =>
+        val __value = __item
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(70, __value)
+      }
+      
+      {
+        val __value = nextReviewAt
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(80, __value)
+        }
+      };
+      
+      {
+        val __value = learning
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(90, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -119,6 +146,22 @@ final case class SavedWord(
           _output__.writeBool(60, __v)
         }
       };
+      categoryIds.foreach { __v =>
+        val __m = __v
+        _output__.writeString(70, __m)
+      };
+      {
+        val __v = nextReviewAt
+        if (!__v.isEmpty) {
+          _output__.writeString(80, __v)
+        }
+      };
+      {
+        val __v = learning
+        if (__v != false) {
+          _output__.writeBool(90, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withWord(__v: _root_.scala.Predef.String): SavedWord = copy(word = __v)
@@ -127,6 +170,12 @@ final case class SavedWord(
     def withAudioUs(__v: _root_.scala.Predef.String): SavedWord = copy(audioUs = __v)
     def withCreatedAt(__v: _root_.scala.Predef.String): SavedWord = copy(createdAt = __v)
     def withExported(__v: _root_.scala.Boolean): SavedWord = copy(exported = __v)
+    def clearCategoryIds = copy(categoryIds = _root_.scala.Seq.empty)
+    def addCategoryIds(__vs: _root_.scala.Predef.String *): SavedWord = addAllCategoryIds(__vs)
+    def addAllCategoryIds(__vs: Iterable[_root_.scala.Predef.String]): SavedWord = copy(categoryIds = categoryIds ++ __vs)
+    def withCategoryIds(__v: _root_.scala.Seq[_root_.scala.Predef.String]): SavedWord = copy(categoryIds = __v)
+    def withNextReviewAt(__v: _root_.scala.Predef.String): SavedWord = copy(nextReviewAt = __v)
+    def withLearning(__v: _root_.scala.Boolean): SavedWord = copy(learning = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -155,6 +204,15 @@ final case class SavedWord(
           val __t = exported
           if (__t != false) __t else null
         }
+        case 70 => categoryIds
+        case 80 => {
+          val __t = nextReviewAt
+          if (__t != "") __t else null
+        }
+        case 90 => {
+          val __t = learning
+          if (__t != false) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -166,6 +224,9 @@ final case class SavedWord(
         case 40 => _root_.scalapb.descriptors.PString(audioUs)
         case 50 => _root_.scalapb.descriptors.PString(createdAt)
         case 60 => _root_.scalapb.descriptors.PBoolean(exported)
+        case 70 => _root_.scalapb.descriptors.PRepeated(categoryIds.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
+        case 80 => _root_.scalapb.descriptors.PString(nextReviewAt)
+        case 90 => _root_.scalapb.descriptors.PBoolean(learning)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -182,6 +243,9 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     var __audioUs: _root_.scala.Predef.String = ""
     var __createdAt: _root_.scala.Predef.String = ""
     var __exported: _root_.scala.Boolean = false
+    val __categoryIds: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
+    var __nextReviewAt: _root_.scala.Predef.String = ""
+    var __learning: _root_.scala.Boolean = false
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -200,6 +264,12 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
           __createdAt = _input__.readStringRequireUtf8()
         case 480 =>
           __exported = _input__.readBool()
+        case 562 =>
+          __categoryIds += _input__.readStringRequireUtf8()
+        case 642 =>
+          __nextReviewAt = _input__.readStringRequireUtf8()
+        case 720 =>
+          __learning = _input__.readBool()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -214,6 +284,9 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
         audioUs = __audioUs,
         createdAt = __createdAt,
         exported = __exported,
+        categoryIds = __categoryIds.result(),
+        nextReviewAt = __nextReviewAt,
+        learning = __learning,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -226,7 +299,10 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
         audioUk = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         audioUs = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         createdAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        exported = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        exported = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        categoryIds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
+        nextReviewAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        learning = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -241,7 +317,10 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     audioUk = "",
     audioUs = "",
     createdAt = "",
-    exported = false
+    exported = false,
+    categoryIds = _root_.scala.Seq.empty,
+    nextReviewAt = "",
+    learning = false
   )
   implicit class SavedWordLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.SavedWord]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.SavedWord](_l) {
     def word: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.word)((c_, f_) => c_.copy(word = f_))
@@ -250,6 +329,9 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     def audioUs: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.audioUs)((c_, f_) => c_.copy(audioUs = f_))
     def createdAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.createdAt)((c_, f_) => c_.copy(createdAt = f_))
     def exported: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.exported)((c_, f_) => c_.copy(exported = f_))
+    def categoryIds: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.categoryIds)((c_, f_) => c_.copy(categoryIds = f_))
+    def nextReviewAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.nextReviewAt)((c_, f_) => c_.copy(nextReviewAt = f_))
+    def learning: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.learning)((c_, f_) => c_.copy(learning = f_))
   }
   final val WORD_FIELD_NUMBER = 10
   final val CONTENT_FIELD_NUMBER = 20
@@ -257,20 +339,29 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
   final val AUDIO_US_FIELD_NUMBER = 40
   final val CREATED_AT_FIELD_NUMBER = 50
   final val EXPORTED_FIELD_NUMBER = 60
+  final val CATEGORY_IDS_FIELD_NUMBER = 70
+  final val NEXT_REVIEW_AT_FIELD_NUMBER = 80
+  final val LEARNING_FIELD_NUMBER = 90
   def of(
     word: _root_.scala.Predef.String,
     content: _root_.scala.Predef.String,
     audioUk: _root_.scala.Predef.String,
     audioUs: _root_.scala.Predef.String,
     createdAt: _root_.scala.Predef.String,
-    exported: _root_.scala.Boolean
+    exported: _root_.scala.Boolean,
+    categoryIds: _root_.scala.Seq[_root_.scala.Predef.String],
+    nextReviewAt: _root_.scala.Predef.String,
+    learning: _root_.scala.Boolean
   ): _root_.com.huponx.protogen.dictionary.v1.SavedWord = _root_.com.huponx.protogen.dictionary.v1.SavedWord(
     word,
     content,
     audioUk,
     audioUs,
     createdAt,
-    exported
+    exported,
+    categoryIds,
+    nextReviewAt,
+    learning
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.SavedWord])
 }

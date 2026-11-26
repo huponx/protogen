@@ -5,10 +5,17 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param fsrsTrainedAt
+  *   RFC 3339: when the FSRS parameters of the user were last fitted and applied; empty when they are the defaults.
+  * @param fsrsReviewCount
+  *   Reviews that fit used.
+  */
 @SerialVersionUID(0L)
 final case class GetMySettingsResponse(
     user: _root_.scala.Option[com.huponx.protogen.dictionary.v1.UserSettings] = _root_.scala.None,
     system: _root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings] = _root_.scala.None,
+    fsrsTrainedAt: _root_.scala.Predef.String = "",
+    fsrsReviewCount: _root_.scala.Int = 0,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[GetMySettingsResponse] {
     @transient
@@ -22,6 +29,20 @@ final case class GetMySettingsResponse(
       if (system.isDefined) {
         val __value = system.get
         __size += 2 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
+      };
+      
+      {
+        val __value = fsrsTrainedAt
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
+        }
+      };
+      
+      {
+        val __value = fsrsReviewCount
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(40, __value)
+        }
       };
       __size += unknownFields.serializedSize
       __size
@@ -48,6 +69,18 @@ final case class GetMySettingsResponse(
         _output__.writeUInt32NoTag(__m.serializedSize)
         __m.writeTo(_output__)
       };
+      {
+        val __v = fsrsTrainedAt
+        if (!__v.isEmpty) {
+          _output__.writeString(30, __v)
+        }
+      };
+      {
+        val __v = fsrsReviewCount
+        if (__v != 0) {
+          _output__.writeInt32(40, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def getUser: com.huponx.protogen.dictionary.v1.UserSettings = user.getOrElse(com.huponx.protogen.dictionary.v1.UserSettings.defaultInstance)
@@ -56,12 +89,22 @@ final case class GetMySettingsResponse(
     def getSystem: com.huponx.protogen.dictionary.v1.Settings = system.getOrElse(com.huponx.protogen.dictionary.v1.Settings.defaultInstance)
     def clearSystem: GetMySettingsResponse = copy(system = _root_.scala.None)
     def withSystem(__v: com.huponx.protogen.dictionary.v1.Settings): GetMySettingsResponse = copy(system = Option(__v))
+    def withFsrsTrainedAt(__v: _root_.scala.Predef.String): GetMySettingsResponse = copy(fsrsTrainedAt = __v)
+    def withFsrsReviewCount(__v: _root_.scala.Int): GetMySettingsResponse = copy(fsrsReviewCount = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
       (__fieldNumber: @_root_.scala.unchecked) match {
         case 10 => user.orNull
         case 20 => system.orNull
+        case 30 => {
+          val __t = fsrsTrainedAt
+          if (__t != "") __t else null
+        }
+        case 40 => {
+          val __t = fsrsReviewCount
+          if (__t != 0) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -69,6 +112,8 @@ final case class GetMySettingsResponse(
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => user.map(_.toPMessage).getOrElse(_root_.scalapb.descriptors.PEmpty)
         case 20 => system.map(_.toPMessage).getOrElse(_root_.scalapb.descriptors.PEmpty)
+        case 30 => _root_.scalapb.descriptors.PString(fsrsTrainedAt)
+        case 40 => _root_.scalapb.descriptors.PInt(fsrsReviewCount)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -81,6 +126,8 @@ object GetMySettingsResponse extends scalapb.GeneratedMessageCompanion[com.hupon
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.GetMySettingsResponse = {
     var __user: _root_.scala.Option[com.huponx.protogen.dictionary.v1.UserSettings] = _root_.scala.None
     var __system: _root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings] = _root_.scala.None
+    var __fsrsTrainedAt: _root_.scala.Predef.String = ""
+    var __fsrsReviewCount: _root_.scala.Int = 0
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -91,6 +138,10 @@ object GetMySettingsResponse extends scalapb.GeneratedMessageCompanion[com.hupon
           __user = _root_.scala.Option(__user.fold(_root_.scalapb.LiteParser.readMessage[com.huponx.protogen.dictionary.v1.UserSettings](_input__))(_root_.scalapb.LiteParser.readMessage(_input__, _)))
         case 162 =>
           __system = _root_.scala.Option(__system.fold(_root_.scalapb.LiteParser.readMessage[com.huponx.protogen.dictionary.v1.Settings](_input__))(_root_.scalapb.LiteParser.readMessage(_input__, _)))
+        case 242 =>
+          __fsrsTrainedAt = _input__.readStringRequireUtf8()
+        case 320 =>
+          __fsrsReviewCount = _input__.readInt32()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -101,6 +152,8 @@ object GetMySettingsResponse extends scalapb.GeneratedMessageCompanion[com.hupon
     com.huponx.protogen.dictionary.v1.GetMySettingsResponse(
         user = __user,
         system = __system,
+        fsrsTrainedAt = __fsrsTrainedAt,
+        fsrsReviewCount = __fsrsReviewCount,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -109,12 +162,14 @@ object GetMySettingsResponse extends scalapb.GeneratedMessageCompanion[com.hupon
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.GetMySettingsResponse(
         user = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).flatMap(_.as[_root_.scala.Option[com.huponx.protogen.dictionary.v1.UserSettings]]),
-        system = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).flatMap(_.as[_root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings]])
+        system = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).flatMap(_.as[_root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings]]),
+        fsrsTrainedAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        fsrsReviewCount = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Int]).getOrElse(0)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(32)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(32)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(66)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(66)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -127,22 +182,32 @@ object GetMySettingsResponse extends scalapb.GeneratedMessageCompanion[com.hupon
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.GetMySettingsResponse(
     user = _root_.scala.None,
-    system = _root_.scala.None
+    system = _root_.scala.None,
+    fsrsTrainedAt = "",
+    fsrsReviewCount = 0
   )
   implicit class GetMySettingsResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.GetMySettingsResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.GetMySettingsResponse](_l) {
     def user: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings] = field(_.getUser)((c_, f_) => c_.copy(user = _root_.scala.Option(f_)))
     def optionalUser: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[com.huponx.protogen.dictionary.v1.UserSettings]] = field(_.user)((c_, f_) => c_.copy(user = f_))
     def system: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Settings] = field(_.getSystem)((c_, f_) => c_.copy(system = _root_.scala.Option(f_)))
     def optionalSystem: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings]] = field(_.system)((c_, f_) => c_.copy(system = f_))
+    def fsrsTrainedAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.fsrsTrainedAt)((c_, f_) => c_.copy(fsrsTrainedAt = f_))
+    def fsrsReviewCount: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.fsrsReviewCount)((c_, f_) => c_.copy(fsrsReviewCount = f_))
   }
   final val USER_FIELD_NUMBER = 10
   final val SYSTEM_FIELD_NUMBER = 20
+  final val FSRS_TRAINED_AT_FIELD_NUMBER = 30
+  final val FSRS_REVIEW_COUNT_FIELD_NUMBER = 40
   def of(
     user: _root_.scala.Option[com.huponx.protogen.dictionary.v1.UserSettings],
-    system: _root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings]
+    system: _root_.scala.Option[com.huponx.protogen.dictionary.v1.Settings],
+    fsrsTrainedAt: _root_.scala.Predef.String,
+    fsrsReviewCount: _root_.scala.Int
   ): _root_.com.huponx.protogen.dictionary.v1.GetMySettingsResponse = _root_.com.huponx.protogen.dictionary.v1.GetMySettingsResponse(
     user,
-    system
+    system,
+    fsrsTrainedAt,
+    fsrsReviewCount
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.GetMySettingsResponse])
 }

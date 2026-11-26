@@ -14554,6 +14554,885 @@ public final class Identity {
 
   }
 
+  public interface DeleteUserRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.DeleteUserRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The userId.
+     */
+    java.lang.String getUserId();
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The bytes for userId.
+     */
+    com.google.protobuf.ByteString
+        getUserIdBytes();
+  }
+  /**
+   * <pre>
+   * The account is disabled, loses its sessions, tokens, roles, MFA and settings, and its email and name are
+   * anonymized (the email can be registered again) at once; the data of the services (dictionary words, files) is
+   * deleted in the background and the row after a grace period. Idempotent: deleting a deleted user succeeds.
+   * FAILED_PRECONDITION for the user of the calling token and for the last user holding the admin role. There is no undo.
+   * </pre>
+   *
+   * Protobuf type {@code identity.v1.DeleteUserRequest}
+   */
+  public static final class DeleteUserRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.DeleteUserRequest)
+      DeleteUserRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        DeleteUserRequest.class.getName());
+    }
+    // Use DeleteUserRequest.newBuilder() to construct.
+    private DeleteUserRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private DeleteUserRequest() {
+      userId_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_DeleteUserRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_DeleteUserRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.DeleteUserRequest.class, identity.v1.Identity.DeleteUserRequest.Builder.class);
+    }
+
+    public static final int USER_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object userId_ = "";
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The userId.
+     */
+    @java.lang.Override
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The bytes for userId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, userId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, userId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.DeleteUserRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.DeleteUserRequest other = (identity.v1.Identity.DeleteUserRequest) obj;
+
+      if (!getUserId()
+          .equals(other.getUserId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getUserId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.DeleteUserRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.DeleteUserRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DeleteUserRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.DeleteUserRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * The account is disabled, loses its sessions, tokens, roles, MFA and settings, and its email and name are
+     * anonymized (the email can be registered again) at once; the data of the services (dictionary words, files) is
+     * deleted in the background and the row after a grace period. Idempotent: deleting a deleted user succeeds.
+     * FAILED_PRECONDITION for the user of the calling token and for the last user holding the admin role. There is no undo.
+     * </pre>
+     *
+     * Protobuf type {@code identity.v1.DeleteUserRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.DeleteUserRequest)
+        identity.v1.Identity.DeleteUserRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_DeleteUserRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_DeleteUserRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.DeleteUserRequest.class, identity.v1.Identity.DeleteUserRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.DeleteUserRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        userId_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_DeleteUserRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DeleteUserRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.DeleteUserRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DeleteUserRequest build() {
+        identity.v1.Identity.DeleteUserRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DeleteUserRequest buildPartial() {
+        identity.v1.Identity.DeleteUserRequest result = new identity.v1.Identity.DeleteUserRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.DeleteUserRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userId_ = userId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.DeleteUserRequest) {
+          return mergeFrom((identity.v1.Identity.DeleteUserRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.DeleteUserRequest other) {
+        if (other == identity.v1.Identity.DeleteUserRequest.getDefaultInstance()) return this;
+        if (!other.getUserId().isEmpty()) {
+          userId_ = other.userId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                userId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object userId_ = "";
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return The userId.
+       */
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return The bytes for userId.
+       */
+      public com.google.protobuf.ByteString
+          getUserIdBytes() {
+        java.lang.Object ref = userId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        userId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserId() {
+        userId_ = getDefaultInstance().getUserId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @param value The bytes for userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        userId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.DeleteUserRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.DeleteUserRequest)
+    private static final identity.v1.Identity.DeleteUserRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.DeleteUserRequest();
+    }
+
+    public static identity.v1.Identity.DeleteUserRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DeleteUserRequest>
+        PARSER = new com.google.protobuf.AbstractParser<DeleteUserRequest>() {
+      @java.lang.Override
+      public DeleteUserRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeleteUserRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeleteUserRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.DeleteUserRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DeleteUserResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.DeleteUserResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.DeleteUserResponse}
+   */
+  public static final class DeleteUserResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.DeleteUserResponse)
+      DeleteUserResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        DeleteUserResponse.class.getName());
+    }
+    // Use DeleteUserResponse.newBuilder() to construct.
+    private DeleteUserResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private DeleteUserResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_DeleteUserResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_DeleteUserResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.DeleteUserResponse.class, identity.v1.Identity.DeleteUserResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.DeleteUserResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.DeleteUserResponse other = (identity.v1.Identity.DeleteUserResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.DeleteUserResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.DeleteUserResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DeleteUserResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.DeleteUserResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.DeleteUserResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.DeleteUserResponse)
+        identity.v1.Identity.DeleteUserResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_DeleteUserResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_DeleteUserResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.DeleteUserResponse.class, identity.v1.Identity.DeleteUserResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.DeleteUserResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_DeleteUserResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DeleteUserResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.DeleteUserResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DeleteUserResponse build() {
+        identity.v1.Identity.DeleteUserResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DeleteUserResponse buildPartial() {
+        identity.v1.Identity.DeleteUserResponse result = new identity.v1.Identity.DeleteUserResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.DeleteUserResponse) {
+          return mergeFrom((identity.v1.Identity.DeleteUserResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.DeleteUserResponse other) {
+        if (other == identity.v1.Identity.DeleteUserResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.DeleteUserResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.DeleteUserResponse)
+    private static final identity.v1.Identity.DeleteUserResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.DeleteUserResponse();
+    }
+
+    public static identity.v1.Identity.DeleteUserResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DeleteUserResponse>
+        PARSER = new com.google.protobuf.AbstractParser<DeleteUserResponse>() {
+      @java.lang.Override
+      public DeleteUserResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeleteUserResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeleteUserResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.DeleteUserResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface SetUserPasswordRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:identity.v1.SetUserPasswordRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -23113,6 +23992,5158 @@ public final class Identity {
 
     @java.lang.Override
     public identity.v1.Identity.SetMyAvatarResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ChangeMyPasswordRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.ChangeMyPasswordRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+     * @return The currentPassword.
+     */
+    java.lang.String getCurrentPassword();
+    /**
+     * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+     * @return The bytes for currentPassword.
+     */
+    com.google.protobuf.ByteString
+        getCurrentPasswordBytes();
+
+    /**
+     * <code>string new_password = 20 [json_name = "newPassword"];</code>
+     * @return The newPassword.
+     */
+    java.lang.String getNewPassword();
+    /**
+     * <code>string new_password = 20 [json_name = "newPassword"];</code>
+     * @return The bytes for newPassword.
+     */
+    com.google.protobuf.ByteString
+        getNewPasswordBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.ChangeMyPasswordRequest}
+   */
+  public static final class ChangeMyPasswordRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.ChangeMyPasswordRequest)
+      ChangeMyPasswordRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ChangeMyPasswordRequest.class.getName());
+    }
+    // Use ChangeMyPasswordRequest.newBuilder() to construct.
+    private ChangeMyPasswordRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ChangeMyPasswordRequest() {
+      currentPassword_ = "";
+      newPassword_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.ChangeMyPasswordRequest.class, identity.v1.Identity.ChangeMyPasswordRequest.Builder.class);
+    }
+
+    public static final int CURRENT_PASSWORD_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object currentPassword_ = "";
+    /**
+     * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+     * @return The currentPassword.
+     */
+    @java.lang.Override
+    public java.lang.String getCurrentPassword() {
+      java.lang.Object ref = currentPassword_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        currentPassword_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+     * @return The bytes for currentPassword.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCurrentPasswordBytes() {
+      java.lang.Object ref = currentPassword_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        currentPassword_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NEW_PASSWORD_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object newPassword_ = "";
+    /**
+     * <code>string new_password = 20 [json_name = "newPassword"];</code>
+     * @return The newPassword.
+     */
+    @java.lang.Override
+    public java.lang.String getNewPassword() {
+      java.lang.Object ref = newPassword_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        newPassword_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string new_password = 20 [json_name = "newPassword"];</code>
+     * @return The bytes for newPassword.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNewPasswordBytes() {
+      java.lang.Object ref = newPassword_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        newPassword_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(currentPassword_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, currentPassword_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(newPassword_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, newPassword_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(currentPassword_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, currentPassword_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(newPassword_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, newPassword_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.ChangeMyPasswordRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.ChangeMyPasswordRequest other = (identity.v1.Identity.ChangeMyPasswordRequest) obj;
+
+      if (!getCurrentPassword()
+          .equals(other.getCurrentPassword())) return false;
+      if (!getNewPassword()
+          .equals(other.getNewPassword())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CURRENT_PASSWORD_FIELD_NUMBER;
+      hash = (53 * hash) + getCurrentPassword().hashCode();
+      hash = (37 * hash) + NEW_PASSWORD_FIELD_NUMBER;
+      hash = (53 * hash) + getNewPassword().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.ChangeMyPasswordRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.ChangeMyPasswordRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.ChangeMyPasswordRequest)
+        identity.v1.Identity.ChangeMyPasswordRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.ChangeMyPasswordRequest.class, identity.v1.Identity.ChangeMyPasswordRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.ChangeMyPasswordRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        currentPassword_ = "";
+        newPassword_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ChangeMyPasswordRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.ChangeMyPasswordRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ChangeMyPasswordRequest build() {
+        identity.v1.Identity.ChangeMyPasswordRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ChangeMyPasswordRequest buildPartial() {
+        identity.v1.Identity.ChangeMyPasswordRequest result = new identity.v1.Identity.ChangeMyPasswordRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.ChangeMyPasswordRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.currentPassword_ = currentPassword_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.newPassword_ = newPassword_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.ChangeMyPasswordRequest) {
+          return mergeFrom((identity.v1.Identity.ChangeMyPasswordRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.ChangeMyPasswordRequest other) {
+        if (other == identity.v1.Identity.ChangeMyPasswordRequest.getDefaultInstance()) return this;
+        if (!other.getCurrentPassword().isEmpty()) {
+          currentPassword_ = other.currentPassword_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getNewPassword().isEmpty()) {
+          newPassword_ = other.newPassword_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                currentPassword_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                newPassword_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object currentPassword_ = "";
+      /**
+       * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+       * @return The currentPassword.
+       */
+      public java.lang.String getCurrentPassword() {
+        java.lang.Object ref = currentPassword_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          currentPassword_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+       * @return The bytes for currentPassword.
+       */
+      public com.google.protobuf.ByteString
+          getCurrentPasswordBytes() {
+        java.lang.Object ref = currentPassword_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          currentPassword_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+       * @param value The currentPassword to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCurrentPassword(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        currentPassword_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCurrentPassword() {
+        currentPassword_ = getDefaultInstance().getCurrentPassword();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string current_password = 10 [json_name = "currentPassword"];</code>
+       * @param value The bytes for currentPassword to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCurrentPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        currentPassword_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object newPassword_ = "";
+      /**
+       * <code>string new_password = 20 [json_name = "newPassword"];</code>
+       * @return The newPassword.
+       */
+      public java.lang.String getNewPassword() {
+        java.lang.Object ref = newPassword_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          newPassword_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string new_password = 20 [json_name = "newPassword"];</code>
+       * @return The bytes for newPassword.
+       */
+      public com.google.protobuf.ByteString
+          getNewPasswordBytes() {
+        java.lang.Object ref = newPassword_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          newPassword_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string new_password = 20 [json_name = "newPassword"];</code>
+       * @param value The newPassword to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewPassword(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        newPassword_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string new_password = 20 [json_name = "newPassword"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNewPassword() {
+        newPassword_ = getDefaultInstance().getNewPassword();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string new_password = 20 [json_name = "newPassword"];</code>
+       * @param value The bytes for newPassword to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        newPassword_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.ChangeMyPasswordRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.ChangeMyPasswordRequest)
+    private static final identity.v1.Identity.ChangeMyPasswordRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.ChangeMyPasswordRequest();
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ChangeMyPasswordRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ChangeMyPasswordRequest>() {
+      @java.lang.Override
+      public ChangeMyPasswordRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ChangeMyPasswordRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ChangeMyPasswordRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.ChangeMyPasswordRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ChangeMyPasswordResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.ChangeMyPasswordResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.ChangeMyPasswordResponse}
+   */
+  public static final class ChangeMyPasswordResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.ChangeMyPasswordResponse)
+      ChangeMyPasswordResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ChangeMyPasswordResponse.class.getName());
+    }
+    // Use ChangeMyPasswordResponse.newBuilder() to construct.
+    private ChangeMyPasswordResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ChangeMyPasswordResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.ChangeMyPasswordResponse.class, identity.v1.Identity.ChangeMyPasswordResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.ChangeMyPasswordResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.ChangeMyPasswordResponse other = (identity.v1.Identity.ChangeMyPasswordResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ChangeMyPasswordResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.ChangeMyPasswordResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.ChangeMyPasswordResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.ChangeMyPasswordResponse)
+        identity.v1.Identity.ChangeMyPasswordResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.ChangeMyPasswordResponse.class, identity.v1.Identity.ChangeMyPasswordResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.ChangeMyPasswordResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_ChangeMyPasswordResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ChangeMyPasswordResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.ChangeMyPasswordResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ChangeMyPasswordResponse build() {
+        identity.v1.Identity.ChangeMyPasswordResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ChangeMyPasswordResponse buildPartial() {
+        identity.v1.Identity.ChangeMyPasswordResponse result = new identity.v1.Identity.ChangeMyPasswordResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.ChangeMyPasswordResponse) {
+          return mergeFrom((identity.v1.Identity.ChangeMyPasswordResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.ChangeMyPasswordResponse other) {
+        if (other == identity.v1.Identity.ChangeMyPasswordResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.ChangeMyPasswordResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.ChangeMyPasswordResponse)
+    private static final identity.v1.Identity.ChangeMyPasswordResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.ChangeMyPasswordResponse();
+    }
+
+    public static identity.v1.Identity.ChangeMyPasswordResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ChangeMyPasswordResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ChangeMyPasswordResponse>() {
+      @java.lang.Override
+      public ChangeMyPasswordResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ChangeMyPasswordResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ChangeMyPasswordResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.ChangeMyPasswordResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetMyMFARequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetMyMFARequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetMyMFARequest}
+   */
+  public static final class GetMyMFARequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetMyMFARequest)
+      GetMyMFARequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetMyMFARequest.class.getName());
+    }
+    // Use GetMyMFARequest.newBuilder() to construct.
+    private GetMyMFARequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetMyMFARequest() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyMFARequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyMFARequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetMyMFARequest.class, identity.v1.Identity.GetMyMFARequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetMyMFARequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetMyMFARequest other = (identity.v1.Identity.GetMyMFARequest) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetMyMFARequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetMyMFARequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetMyMFARequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetMyMFARequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetMyMFARequest)
+        identity.v1.Identity.GetMyMFARequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyMFARequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetMyMFARequest.class, identity.v1.Identity.GetMyMFARequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetMyMFARequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyMFARequest getDefaultInstanceForType() {
+        return identity.v1.Identity.GetMyMFARequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyMFARequest build() {
+        identity.v1.Identity.GetMyMFARequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyMFARequest buildPartial() {
+        identity.v1.Identity.GetMyMFARequest result = new identity.v1.Identity.GetMyMFARequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetMyMFARequest) {
+          return mergeFrom((identity.v1.Identity.GetMyMFARequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetMyMFARequest other) {
+        if (other == identity.v1.Identity.GetMyMFARequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetMyMFARequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetMyMFARequest)
+    private static final identity.v1.Identity.GetMyMFARequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetMyMFARequest();
+    }
+
+    public static identity.v1.Identity.GetMyMFARequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetMyMFARequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetMyMFARequest>() {
+      @java.lang.Override
+      public GetMyMFARequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetMyMFARequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetMyMFARequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetMyMFARequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetMyMFAResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetMyMFAResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool enabled = 10 [json_name = "enabled"];</code>
+     * @return The enabled.
+     */
+    boolean getEnabled();
+
+    /**
+     * <pre>
+     * MFA is required for the account: it cannot be turned off.
+     * </pre>
+     *
+     * <code>bool forced = 20 [json_name = "forced"];</code>
+     * @return The forced.
+     */
+    boolean getForced();
+
+    /**
+     * <code>int32 recovery_codes_left = 30 [json_name = "recoveryCodesLeft"];</code>
+     * @return The recoveryCodesLeft.
+     */
+    int getRecoveryCodesLeft();
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetMyMFAResponse}
+   */
+  public static final class GetMyMFAResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetMyMFAResponse)
+      GetMyMFAResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetMyMFAResponse.class.getName());
+    }
+    // Use GetMyMFAResponse.newBuilder() to construct.
+    private GetMyMFAResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetMyMFAResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyMFAResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetMyMFAResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetMyMFAResponse.class, identity.v1.Identity.GetMyMFAResponse.Builder.class);
+    }
+
+    public static final int ENABLED_FIELD_NUMBER = 10;
+    private boolean enabled_ = false;
+    /**
+     * <code>bool enabled = 10 [json_name = "enabled"];</code>
+     * @return The enabled.
+     */
+    @java.lang.Override
+    public boolean getEnabled() {
+      return enabled_;
+    }
+
+    public static final int FORCED_FIELD_NUMBER = 20;
+    private boolean forced_ = false;
+    /**
+     * <pre>
+     * MFA is required for the account: it cannot be turned off.
+     * </pre>
+     *
+     * <code>bool forced = 20 [json_name = "forced"];</code>
+     * @return The forced.
+     */
+    @java.lang.Override
+    public boolean getForced() {
+      return forced_;
+    }
+
+    public static final int RECOVERY_CODES_LEFT_FIELD_NUMBER = 30;
+    private int recoveryCodesLeft_ = 0;
+    /**
+     * <code>int32 recovery_codes_left = 30 [json_name = "recoveryCodesLeft"];</code>
+     * @return The recoveryCodesLeft.
+     */
+    @java.lang.Override
+    public int getRecoveryCodesLeft() {
+      return recoveryCodesLeft_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (enabled_ != false) {
+        output.writeBool(10, enabled_);
+      }
+      if (forced_ != false) {
+        output.writeBool(20, forced_);
+      }
+      if (recoveryCodesLeft_ != 0) {
+        output.writeInt32(30, recoveryCodesLeft_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (enabled_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, enabled_);
+      }
+      if (forced_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(20, forced_);
+      }
+      if (recoveryCodesLeft_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(30, recoveryCodesLeft_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetMyMFAResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetMyMFAResponse other = (identity.v1.Identity.GetMyMFAResponse) obj;
+
+      if (getEnabled()
+          != other.getEnabled()) return false;
+      if (getForced()
+          != other.getForced()) return false;
+      if (getRecoveryCodesLeft()
+          != other.getRecoveryCodesLeft()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ENABLED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getEnabled());
+      hash = (37 * hash) + FORCED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getForced());
+      hash = (37 * hash) + RECOVERY_CODES_LEFT_FIELD_NUMBER;
+      hash = (53 * hash) + getRecoveryCodesLeft();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetMyMFAResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetMyMFAResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetMyMFAResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetMyMFAResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetMyMFAResponse)
+        identity.v1.Identity.GetMyMFAResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyMFAResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetMyMFAResponse.class, identity.v1.Identity.GetMyMFAResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetMyMFAResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        enabled_ = false;
+        forced_ = false;
+        recoveryCodesLeft_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyMFAResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.GetMyMFAResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyMFAResponse build() {
+        identity.v1.Identity.GetMyMFAResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetMyMFAResponse buildPartial() {
+        identity.v1.Identity.GetMyMFAResponse result = new identity.v1.Identity.GetMyMFAResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.GetMyMFAResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.enabled_ = enabled_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.forced_ = forced_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.recoveryCodesLeft_ = recoveryCodesLeft_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetMyMFAResponse) {
+          return mergeFrom((identity.v1.Identity.GetMyMFAResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetMyMFAResponse other) {
+        if (other == identity.v1.Identity.GetMyMFAResponse.getDefaultInstance()) return this;
+        if (other.getEnabled() != false) {
+          setEnabled(other.getEnabled());
+        }
+        if (other.getForced() != false) {
+          setForced(other.getForced());
+        }
+        if (other.getRecoveryCodesLeft() != 0) {
+          setRecoveryCodesLeft(other.getRecoveryCodesLeft());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 80: {
+                enabled_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 80
+              case 160: {
+                forced_ = input.readBool();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
+              case 240: {
+                recoveryCodesLeft_ = input.readInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 240
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean enabled_ ;
+      /**
+       * <code>bool enabled = 10 [json_name = "enabled"];</code>
+       * @return The enabled.
+       */
+      @java.lang.Override
+      public boolean getEnabled() {
+        return enabled_;
+      }
+      /**
+       * <code>bool enabled = 10 [json_name = "enabled"];</code>
+       * @param value The enabled to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEnabled(boolean value) {
+
+        enabled_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool enabled = 10 [json_name = "enabled"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEnabled() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        enabled_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean forced_ ;
+      /**
+       * <pre>
+       * MFA is required for the account: it cannot be turned off.
+       * </pre>
+       *
+       * <code>bool forced = 20 [json_name = "forced"];</code>
+       * @return The forced.
+       */
+      @java.lang.Override
+      public boolean getForced() {
+        return forced_;
+      }
+      /**
+       * <pre>
+       * MFA is required for the account: it cannot be turned off.
+       * </pre>
+       *
+       * <code>bool forced = 20 [json_name = "forced"];</code>
+       * @param value The forced to set.
+       * @return This builder for chaining.
+       */
+      public Builder setForced(boolean value) {
+
+        forced_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * MFA is required for the account: it cannot be turned off.
+       * </pre>
+       *
+       * <code>bool forced = 20 [json_name = "forced"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearForced() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        forced_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int recoveryCodesLeft_ ;
+      /**
+       * <code>int32 recovery_codes_left = 30 [json_name = "recoveryCodesLeft"];</code>
+       * @return The recoveryCodesLeft.
+       */
+      @java.lang.Override
+      public int getRecoveryCodesLeft() {
+        return recoveryCodesLeft_;
+      }
+      /**
+       * <code>int32 recovery_codes_left = 30 [json_name = "recoveryCodesLeft"];</code>
+       * @param value The recoveryCodesLeft to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRecoveryCodesLeft(int value) {
+
+        recoveryCodesLeft_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 recovery_codes_left = 30 [json_name = "recoveryCodesLeft"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRecoveryCodesLeft() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        recoveryCodesLeft_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetMyMFAResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetMyMFAResponse)
+    private static final identity.v1.Identity.GetMyMFAResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetMyMFAResponse();
+    }
+
+    public static identity.v1.Identity.GetMyMFAResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetMyMFAResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetMyMFAResponse>() {
+      @java.lang.Override
+      public GetMyMFAResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetMyMFAResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetMyMFAResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetMyMFAResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BeginMyMFARequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.BeginMyMFARequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.BeginMyMFARequest}
+   */
+  public static final class BeginMyMFARequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.BeginMyMFARequest)
+      BeginMyMFARequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        BeginMyMFARequest.class.getName());
+    }
+    // Use BeginMyMFARequest.newBuilder() to construct.
+    private BeginMyMFARequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private BeginMyMFARequest() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_BeginMyMFARequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_BeginMyMFARequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.BeginMyMFARequest.class, identity.v1.Identity.BeginMyMFARequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.BeginMyMFARequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.BeginMyMFARequest other = (identity.v1.Identity.BeginMyMFARequest) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.BeginMyMFARequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.BeginMyMFARequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.BeginMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.BeginMyMFARequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.BeginMyMFARequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.BeginMyMFARequest)
+        identity.v1.Identity.BeginMyMFARequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_BeginMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_BeginMyMFARequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.BeginMyMFARequest.class, identity.v1.Identity.BeginMyMFARequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.BeginMyMFARequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_BeginMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.BeginMyMFARequest getDefaultInstanceForType() {
+        return identity.v1.Identity.BeginMyMFARequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.BeginMyMFARequest build() {
+        identity.v1.Identity.BeginMyMFARequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.BeginMyMFARequest buildPartial() {
+        identity.v1.Identity.BeginMyMFARequest result = new identity.v1.Identity.BeginMyMFARequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.BeginMyMFARequest) {
+          return mergeFrom((identity.v1.Identity.BeginMyMFARequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.BeginMyMFARequest other) {
+        if (other == identity.v1.Identity.BeginMyMFARequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.BeginMyMFARequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.BeginMyMFARequest)
+    private static final identity.v1.Identity.BeginMyMFARequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.BeginMyMFARequest();
+    }
+
+    public static identity.v1.Identity.BeginMyMFARequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BeginMyMFARequest>
+        PARSER = new com.google.protobuf.AbstractParser<BeginMyMFARequest>() {
+      @java.lang.Override
+      public BeginMyMFARequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<BeginMyMFARequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BeginMyMFARequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.BeginMyMFARequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BeginMyMFAResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.BeginMyMFAResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * A data URL of the QR code and the key to type.
+     * </pre>
+     *
+     * <code>string qr = 10 [json_name = "qr"];</code>
+     * @return The qr.
+     */
+    java.lang.String getQr();
+    /**
+     * <pre>
+     * A data URL of the QR code and the key to type.
+     * </pre>
+     *
+     * <code>string qr = 10 [json_name = "qr"];</code>
+     * @return The bytes for qr.
+     */
+    com.google.protobuf.ByteString
+        getQrBytes();
+
+    /**
+     * <code>string secret = 20 [json_name = "secret"];</code>
+     * @return The secret.
+     */
+    java.lang.String getSecret();
+    /**
+     * <code>string secret = 20 [json_name = "secret"];</code>
+     * @return The bytes for secret.
+     */
+    com.google.protobuf.ByteString
+        getSecretBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.BeginMyMFAResponse}
+   */
+  public static final class BeginMyMFAResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.BeginMyMFAResponse)
+      BeginMyMFAResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        BeginMyMFAResponse.class.getName());
+    }
+    // Use BeginMyMFAResponse.newBuilder() to construct.
+    private BeginMyMFAResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private BeginMyMFAResponse() {
+      qr_ = "";
+      secret_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_BeginMyMFAResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_BeginMyMFAResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.BeginMyMFAResponse.class, identity.v1.Identity.BeginMyMFAResponse.Builder.class);
+    }
+
+    public static final int QR_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object qr_ = "";
+    /**
+     * <pre>
+     * A data URL of the QR code and the key to type.
+     * </pre>
+     *
+     * <code>string qr = 10 [json_name = "qr"];</code>
+     * @return The qr.
+     */
+    @java.lang.Override
+    public java.lang.String getQr() {
+      java.lang.Object ref = qr_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        qr_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * A data URL of the QR code and the key to type.
+     * </pre>
+     *
+     * <code>string qr = 10 [json_name = "qr"];</code>
+     * @return The bytes for qr.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getQrBytes() {
+      java.lang.Object ref = qr_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        qr_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SECRET_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object secret_ = "";
+    /**
+     * <code>string secret = 20 [json_name = "secret"];</code>
+     * @return The secret.
+     */
+    @java.lang.Override
+    public java.lang.String getSecret() {
+      java.lang.Object ref = secret_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        secret_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string secret = 20 [json_name = "secret"];</code>
+     * @return The bytes for secret.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSecretBytes() {
+      java.lang.Object ref = secret_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        secret_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(qr_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, qr_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(secret_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, secret_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(qr_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, qr_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(secret_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, secret_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.BeginMyMFAResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.BeginMyMFAResponse other = (identity.v1.Identity.BeginMyMFAResponse) obj;
+
+      if (!getQr()
+          .equals(other.getQr())) return false;
+      if (!getSecret()
+          .equals(other.getSecret())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + QR_FIELD_NUMBER;
+      hash = (53 * hash) + getQr().hashCode();
+      hash = (37 * hash) + SECRET_FIELD_NUMBER;
+      hash = (53 * hash) + getSecret().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.BeginMyMFAResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.BeginMyMFAResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.BeginMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.BeginMyMFAResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.BeginMyMFAResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.BeginMyMFAResponse)
+        identity.v1.Identity.BeginMyMFAResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_BeginMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_BeginMyMFAResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.BeginMyMFAResponse.class, identity.v1.Identity.BeginMyMFAResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.BeginMyMFAResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        qr_ = "";
+        secret_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_BeginMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.BeginMyMFAResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.BeginMyMFAResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.BeginMyMFAResponse build() {
+        identity.v1.Identity.BeginMyMFAResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.BeginMyMFAResponse buildPartial() {
+        identity.v1.Identity.BeginMyMFAResponse result = new identity.v1.Identity.BeginMyMFAResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.BeginMyMFAResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.qr_ = qr_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.secret_ = secret_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.BeginMyMFAResponse) {
+          return mergeFrom((identity.v1.Identity.BeginMyMFAResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.BeginMyMFAResponse other) {
+        if (other == identity.v1.Identity.BeginMyMFAResponse.getDefaultInstance()) return this;
+        if (!other.getQr().isEmpty()) {
+          qr_ = other.qr_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getSecret().isEmpty()) {
+          secret_ = other.secret_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                qr_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                secret_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object qr_ = "";
+      /**
+       * <pre>
+       * A data URL of the QR code and the key to type.
+       * </pre>
+       *
+       * <code>string qr = 10 [json_name = "qr"];</code>
+       * @return The qr.
+       */
+      public java.lang.String getQr() {
+        java.lang.Object ref = qr_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          qr_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A data URL of the QR code and the key to type.
+       * </pre>
+       *
+       * <code>string qr = 10 [json_name = "qr"];</code>
+       * @return The bytes for qr.
+       */
+      public com.google.protobuf.ByteString
+          getQrBytes() {
+        java.lang.Object ref = qr_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          qr_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A data URL of the QR code and the key to type.
+       * </pre>
+       *
+       * <code>string qr = 10 [json_name = "qr"];</code>
+       * @param value The qr to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQr(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        qr_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A data URL of the QR code and the key to type.
+       * </pre>
+       *
+       * <code>string qr = 10 [json_name = "qr"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearQr() {
+        qr_ = getDefaultInstance().getQr();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A data URL of the QR code and the key to type.
+       * </pre>
+       *
+       * <code>string qr = 10 [json_name = "qr"];</code>
+       * @param value The bytes for qr to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQrBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        qr_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object secret_ = "";
+      /**
+       * <code>string secret = 20 [json_name = "secret"];</code>
+       * @return The secret.
+       */
+      public java.lang.String getSecret() {
+        java.lang.Object ref = secret_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          secret_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string secret = 20 [json_name = "secret"];</code>
+       * @return The bytes for secret.
+       */
+      public com.google.protobuf.ByteString
+          getSecretBytes() {
+        java.lang.Object ref = secret_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          secret_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string secret = 20 [json_name = "secret"];</code>
+       * @param value The secret to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSecret(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        secret_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string secret = 20 [json_name = "secret"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSecret() {
+        secret_ = getDefaultInstance().getSecret();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string secret = 20 [json_name = "secret"];</code>
+       * @param value The bytes for secret to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSecretBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        secret_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.BeginMyMFAResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.BeginMyMFAResponse)
+    private static final identity.v1.Identity.BeginMyMFAResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.BeginMyMFAResponse();
+    }
+
+    public static identity.v1.Identity.BeginMyMFAResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BeginMyMFAResponse>
+        PARSER = new com.google.protobuf.AbstractParser<BeginMyMFAResponse>() {
+      @java.lang.Override
+      public BeginMyMFAResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<BeginMyMFAResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BeginMyMFAResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.BeginMyMFAResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ConfirmMyMFARequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.ConfirmMyMFARequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string code = 10 [json_name = "code"];</code>
+     * @return The code.
+     */
+    java.lang.String getCode();
+    /**
+     * <code>string code = 10 [json_name = "code"];</code>
+     * @return The bytes for code.
+     */
+    com.google.protobuf.ByteString
+        getCodeBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.ConfirmMyMFARequest}
+   */
+  public static final class ConfirmMyMFARequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.ConfirmMyMFARequest)
+      ConfirmMyMFARequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ConfirmMyMFARequest.class.getName());
+    }
+    // Use ConfirmMyMFARequest.newBuilder() to construct.
+    private ConfirmMyMFARequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ConfirmMyMFARequest() {
+      code_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFARequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFARequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.ConfirmMyMFARequest.class, identity.v1.Identity.ConfirmMyMFARequest.Builder.class);
+    }
+
+    public static final int CODE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object code_ = "";
+    /**
+     * <code>string code = 10 [json_name = "code"];</code>
+     * @return The code.
+     */
+    @java.lang.Override
+    public java.lang.String getCode() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        code_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string code = 10 [json_name = "code"];</code>
+     * @return The bytes for code.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCodeBytes() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        code_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(code_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, code_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(code_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, code_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.ConfirmMyMFARequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.ConfirmMyMFARequest other = (identity.v1.Identity.ConfirmMyMFARequest) obj;
+
+      if (!getCode()
+          .equals(other.getCode())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFARequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFARequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ConfirmMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.ConfirmMyMFARequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.ConfirmMyMFARequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.ConfirmMyMFARequest)
+        identity.v1.Identity.ConfirmMyMFARequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFARequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.ConfirmMyMFARequest.class, identity.v1.Identity.ConfirmMyMFARequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.ConfirmMyMFARequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        code_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ConfirmMyMFARequest getDefaultInstanceForType() {
+        return identity.v1.Identity.ConfirmMyMFARequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ConfirmMyMFARequest build() {
+        identity.v1.Identity.ConfirmMyMFARequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ConfirmMyMFARequest buildPartial() {
+        identity.v1.Identity.ConfirmMyMFARequest result = new identity.v1.Identity.ConfirmMyMFARequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.ConfirmMyMFARequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.code_ = code_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.ConfirmMyMFARequest) {
+          return mergeFrom((identity.v1.Identity.ConfirmMyMFARequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.ConfirmMyMFARequest other) {
+        if (other == identity.v1.Identity.ConfirmMyMFARequest.getDefaultInstance()) return this;
+        if (!other.getCode().isEmpty()) {
+          code_ = other.code_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                code_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object code_ = "";
+      /**
+       * <code>string code = 10 [json_name = "code"];</code>
+       * @return The code.
+       */
+      public java.lang.String getCode() {
+        java.lang.Object ref = code_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          code_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string code = 10 [json_name = "code"];</code>
+       * @return The bytes for code.
+       */
+      public com.google.protobuf.ByteString
+          getCodeBytes() {
+        java.lang.Object ref = code_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          code_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string code = 10 [json_name = "code"];</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCode(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        code_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string code = 10 [json_name = "code"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCode() {
+        code_ = getDefaultInstance().getCode();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string code = 10 [json_name = "code"];</code>
+       * @param value The bytes for code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        code_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.ConfirmMyMFARequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.ConfirmMyMFARequest)
+    private static final identity.v1.Identity.ConfirmMyMFARequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.ConfirmMyMFARequest();
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFARequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ConfirmMyMFARequest>
+        PARSER = new com.google.protobuf.AbstractParser<ConfirmMyMFARequest>() {
+      @java.lang.Override
+      public ConfirmMyMFARequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ConfirmMyMFARequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ConfirmMyMFARequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.ConfirmMyMFARequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ConfirmMyMFAResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.ConfirmMyMFAResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @return A list containing the recoveryCodes.
+     */
+    java.util.List<java.lang.String>
+        getRecoveryCodesList();
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @return The count of recoveryCodes.
+     */
+    int getRecoveryCodesCount();
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @param index The index of the element to return.
+     * @return The recoveryCodes at the given index.
+     */
+    java.lang.String getRecoveryCodes(int index);
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the recoveryCodes at the given index.
+     */
+    com.google.protobuf.ByteString
+        getRecoveryCodesBytes(int index);
+  }
+  /**
+   * Protobuf type {@code identity.v1.ConfirmMyMFAResponse}
+   */
+  public static final class ConfirmMyMFAResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.ConfirmMyMFAResponse)
+      ConfirmMyMFAResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ConfirmMyMFAResponse.class.getName());
+    }
+    // Use ConfirmMyMFAResponse.newBuilder() to construct.
+    private ConfirmMyMFAResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ConfirmMyMFAResponse() {
+      recoveryCodes_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFAResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFAResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.ConfirmMyMFAResponse.class, identity.v1.Identity.ConfirmMyMFAResponse.Builder.class);
+    }
+
+    public static final int RECOVERY_CODES_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList recoveryCodes_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @return A list containing the recoveryCodes.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getRecoveryCodesList() {
+      return recoveryCodes_;
+    }
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @return The count of recoveryCodes.
+     */
+    public int getRecoveryCodesCount() {
+      return recoveryCodes_.size();
+    }
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @param index The index of the element to return.
+     * @return The recoveryCodes at the given index.
+     */
+    public java.lang.String getRecoveryCodes(int index) {
+      return recoveryCodes_.get(index);
+    }
+    /**
+     * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the recoveryCodes at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getRecoveryCodesBytes(int index) {
+      return recoveryCodes_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < recoveryCodes_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, recoveryCodes_.getRaw(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < recoveryCodes_.size(); i++) {
+          dataSize += computeStringSizeNoTag(recoveryCodes_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getRecoveryCodesList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.ConfirmMyMFAResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.ConfirmMyMFAResponse other = (identity.v1.Identity.ConfirmMyMFAResponse) obj;
+
+      if (!getRecoveryCodesList()
+          .equals(other.getRecoveryCodesList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRecoveryCodesCount() > 0) {
+        hash = (37 * hash) + RECOVERY_CODES_FIELD_NUMBER;
+        hash = (53 * hash) + getRecoveryCodesList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ConfirmMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.ConfirmMyMFAResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.ConfirmMyMFAResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.ConfirmMyMFAResponse)
+        identity.v1.Identity.ConfirmMyMFAResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFAResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.ConfirmMyMFAResponse.class, identity.v1.Identity.ConfirmMyMFAResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.ConfirmMyMFAResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        recoveryCodes_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_ConfirmMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ConfirmMyMFAResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.ConfirmMyMFAResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ConfirmMyMFAResponse build() {
+        identity.v1.Identity.ConfirmMyMFAResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ConfirmMyMFAResponse buildPartial() {
+        identity.v1.Identity.ConfirmMyMFAResponse result = new identity.v1.Identity.ConfirmMyMFAResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.ConfirmMyMFAResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          recoveryCodes_.makeImmutable();
+          result.recoveryCodes_ = recoveryCodes_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.ConfirmMyMFAResponse) {
+          return mergeFrom((identity.v1.Identity.ConfirmMyMFAResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.ConfirmMyMFAResponse other) {
+        if (other == identity.v1.Identity.ConfirmMyMFAResponse.getDefaultInstance()) return this;
+        if (!other.recoveryCodes_.isEmpty()) {
+          if (recoveryCodes_.isEmpty()) {
+            recoveryCodes_ = other.recoveryCodes_;
+            bitField0_ |= 0x00000001;
+          } else {
+            ensureRecoveryCodesIsMutable();
+            recoveryCodes_.addAll(other.recoveryCodes_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureRecoveryCodesIsMutable();
+                recoveryCodes_.add(s);
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringArrayList recoveryCodes_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureRecoveryCodesIsMutable() {
+        if (!recoveryCodes_.isModifiable()) {
+          recoveryCodes_ = new com.google.protobuf.LazyStringArrayList(recoveryCodes_);
+        }
+        bitField0_ |= 0x00000001;
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @return A list containing the recoveryCodes.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getRecoveryCodesList() {
+        recoveryCodes_.makeImmutable();
+        return recoveryCodes_;
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @return The count of recoveryCodes.
+       */
+      public int getRecoveryCodesCount() {
+        return recoveryCodes_.size();
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @param index The index of the element to return.
+       * @return The recoveryCodes at the given index.
+       */
+      public java.lang.String getRecoveryCodes(int index) {
+        return recoveryCodes_.get(index);
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the recoveryCodes at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getRecoveryCodesBytes(int index) {
+        return recoveryCodes_.getByteString(index);
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @param index The index to set the value at.
+       * @param value The recoveryCodes to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRecoveryCodes(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureRecoveryCodesIsMutable();
+        recoveryCodes_.set(index, value);
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @param value The recoveryCodes to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRecoveryCodes(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureRecoveryCodesIsMutable();
+        recoveryCodes_.add(value);
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @param values The recoveryCodes to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllRecoveryCodes(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureRecoveryCodesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, recoveryCodes_);
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRecoveryCodes() {
+        recoveryCodes_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string recovery_codes = 10 [json_name = "recoveryCodes"];</code>
+       * @param value The bytes of the recoveryCodes to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRecoveryCodesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureRecoveryCodesIsMutable();
+        recoveryCodes_.add(value);
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.ConfirmMyMFAResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.ConfirmMyMFAResponse)
+    private static final identity.v1.Identity.ConfirmMyMFAResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.ConfirmMyMFAResponse();
+    }
+
+    public static identity.v1.Identity.ConfirmMyMFAResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ConfirmMyMFAResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ConfirmMyMFAResponse>() {
+      @java.lang.Override
+      public ConfirmMyMFAResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ConfirmMyMFAResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ConfirmMyMFAResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.ConfirmMyMFAResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisableMyMFARequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.DisableMyMFARequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string password = 10 [json_name = "password"];</code>
+     * @return The password.
+     */
+    java.lang.String getPassword();
+    /**
+     * <code>string password = 10 [json_name = "password"];</code>
+     * @return The bytes for password.
+     */
+    com.google.protobuf.ByteString
+        getPasswordBytes();
+
+    /**
+     * <pre>
+     * A code of the authenticator app or a recovery code.
+     * </pre>
+     *
+     * <code>string code = 20 [json_name = "code"];</code>
+     * @return The code.
+     */
+    java.lang.String getCode();
+    /**
+     * <pre>
+     * A code of the authenticator app or a recovery code.
+     * </pre>
+     *
+     * <code>string code = 20 [json_name = "code"];</code>
+     * @return The bytes for code.
+     */
+    com.google.protobuf.ByteString
+        getCodeBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.DisableMyMFARequest}
+   */
+  public static final class DisableMyMFARequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.DisableMyMFARequest)
+      DisableMyMFARequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        DisableMyMFARequest.class.getName());
+    }
+    // Use DisableMyMFARequest.newBuilder() to construct.
+    private DisableMyMFARequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private DisableMyMFARequest() {
+      password_ = "";
+      code_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_DisableMyMFARequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_DisableMyMFARequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.DisableMyMFARequest.class, identity.v1.Identity.DisableMyMFARequest.Builder.class);
+    }
+
+    public static final int PASSWORD_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object password_ = "";
+    /**
+     * <code>string password = 10 [json_name = "password"];</code>
+     * @return The password.
+     */
+    @java.lang.Override
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        password_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string password = 10 [json_name = "password"];</code>
+     * @return The bytes for password.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CODE_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object code_ = "";
+    /**
+     * <pre>
+     * A code of the authenticator app or a recovery code.
+     * </pre>
+     *
+     * <code>string code = 20 [json_name = "code"];</code>
+     * @return The code.
+     */
+    @java.lang.Override
+    public java.lang.String getCode() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        code_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * A code of the authenticator app or a recovery code.
+     * </pre>
+     *
+     * <code>string code = 20 [json_name = "code"];</code>
+     * @return The bytes for code.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCodeBytes() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        code_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, password_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(code_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, code_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, password_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(code_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, code_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.DisableMyMFARequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.DisableMyMFARequest other = (identity.v1.Identity.DisableMyMFARequest) obj;
+
+      if (!getPassword()
+          .equals(other.getPassword())) return false;
+      if (!getCode()
+          .equals(other.getCode())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
+      hash = (53 * hash) + getPassword().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.DisableMyMFARequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.DisableMyMFARequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DisableMyMFARequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.DisableMyMFARequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.DisableMyMFARequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.DisableMyMFARequest)
+        identity.v1.Identity.DisableMyMFARequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_DisableMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_DisableMyMFARequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.DisableMyMFARequest.class, identity.v1.Identity.DisableMyMFARequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.DisableMyMFARequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        password_ = "";
+        code_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_DisableMyMFARequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DisableMyMFARequest getDefaultInstanceForType() {
+        return identity.v1.Identity.DisableMyMFARequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DisableMyMFARequest build() {
+        identity.v1.Identity.DisableMyMFARequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DisableMyMFARequest buildPartial() {
+        identity.v1.Identity.DisableMyMFARequest result = new identity.v1.Identity.DisableMyMFARequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.DisableMyMFARequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.password_ = password_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.code_ = code_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.DisableMyMFARequest) {
+          return mergeFrom((identity.v1.Identity.DisableMyMFARequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.DisableMyMFARequest other) {
+        if (other == identity.v1.Identity.DisableMyMFARequest.getDefaultInstance()) return this;
+        if (!other.getPassword().isEmpty()) {
+          password_ = other.password_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getCode().isEmpty()) {
+          code_ = other.code_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                password_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                code_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object password_ = "";
+      /**
+       * <code>string password = 10 [json_name = "password"];</code>
+       * @return The password.
+       */
+      public java.lang.String getPassword() {
+        java.lang.Object ref = password_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          password_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string password = 10 [json_name = "password"];</code>
+       * @return The bytes for password.
+       */
+      public com.google.protobuf.ByteString
+          getPasswordBytes() {
+        java.lang.Object ref = password_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          password_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string password = 10 [json_name = "password"];</code>
+       * @param value The password to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPassword(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        password_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string password = 10 [json_name = "password"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPassword() {
+        password_ = getDefaultInstance().getPassword();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string password = 10 [json_name = "password"];</code>
+       * @param value The bytes for password to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        password_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object code_ = "";
+      /**
+       * <pre>
+       * A code of the authenticator app or a recovery code.
+       * </pre>
+       *
+       * <code>string code = 20 [json_name = "code"];</code>
+       * @return The code.
+       */
+      public java.lang.String getCode() {
+        java.lang.Object ref = code_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          code_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A code of the authenticator app or a recovery code.
+       * </pre>
+       *
+       * <code>string code = 20 [json_name = "code"];</code>
+       * @return The bytes for code.
+       */
+      public com.google.protobuf.ByteString
+          getCodeBytes() {
+        java.lang.Object ref = code_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          code_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A code of the authenticator app or a recovery code.
+       * </pre>
+       *
+       * <code>string code = 20 [json_name = "code"];</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCode(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        code_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A code of the authenticator app or a recovery code.
+       * </pre>
+       *
+       * <code>string code = 20 [json_name = "code"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCode() {
+        code_ = getDefaultInstance().getCode();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A code of the authenticator app or a recovery code.
+       * </pre>
+       *
+       * <code>string code = 20 [json_name = "code"];</code>
+       * @param value The bytes for code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        code_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.DisableMyMFARequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.DisableMyMFARequest)
+    private static final identity.v1.Identity.DisableMyMFARequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.DisableMyMFARequest();
+    }
+
+    public static identity.v1.Identity.DisableMyMFARequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisableMyMFARequest>
+        PARSER = new com.google.protobuf.AbstractParser<DisableMyMFARequest>() {
+      @java.lang.Override
+      public DisableMyMFARequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisableMyMFARequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisableMyMFARequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.DisableMyMFARequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisableMyMFAResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.DisableMyMFAResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.DisableMyMFAResponse}
+   */
+  public static final class DisableMyMFAResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.DisableMyMFAResponse)
+      DisableMyMFAResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        DisableMyMFAResponse.class.getName());
+    }
+    // Use DisableMyMFAResponse.newBuilder() to construct.
+    private DisableMyMFAResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private DisableMyMFAResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_DisableMyMFAResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_DisableMyMFAResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.DisableMyMFAResponse.class, identity.v1.Identity.DisableMyMFAResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.DisableMyMFAResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.DisableMyMFAResponse other = (identity.v1.Identity.DisableMyMFAResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.DisableMyMFAResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.DisableMyMFAResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.DisableMyMFAResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.DisableMyMFAResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.DisableMyMFAResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.DisableMyMFAResponse)
+        identity.v1.Identity.DisableMyMFAResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_DisableMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_DisableMyMFAResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.DisableMyMFAResponse.class, identity.v1.Identity.DisableMyMFAResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.DisableMyMFAResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_DisableMyMFAResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DisableMyMFAResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.DisableMyMFAResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DisableMyMFAResponse build() {
+        identity.v1.Identity.DisableMyMFAResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.DisableMyMFAResponse buildPartial() {
+        identity.v1.Identity.DisableMyMFAResponse result = new identity.v1.Identity.DisableMyMFAResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.DisableMyMFAResponse) {
+          return mergeFrom((identity.v1.Identity.DisableMyMFAResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.DisableMyMFAResponse other) {
+        if (other == identity.v1.Identity.DisableMyMFAResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.DisableMyMFAResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.DisableMyMFAResponse)
+    private static final identity.v1.Identity.DisableMyMFAResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.DisableMyMFAResponse();
+    }
+
+    public static identity.v1.Identity.DisableMyMFAResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisableMyMFAResponse>
+        PARSER = new com.google.protobuf.AbstractParser<DisableMyMFAResponse>() {
+      @java.lang.Override
+      public DisableMyMFAResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisableMyMFAResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisableMyMFAResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.DisableMyMFAResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -63785,6 +69816,16 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_SetUserDisabledResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_DeleteUserRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_DeleteUserRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_DeleteUserResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_DeleteUserResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_SetUserPasswordRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -63864,6 +69905,56 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_SetMyAvatarResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_ChangeMyPasswordRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_ChangeMyPasswordRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_ChangeMyPasswordResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_ChangeMyPasswordResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetMyMFARequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetMyMFARequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetMyMFAResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetMyMFAResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_BeginMyMFARequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_BeginMyMFARequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_BeginMyMFAResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_BeginMyMFAResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_ConfirmMyMFARequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_ConfirmMyMFARequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_ConfirmMyMFAResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_ConfirmMyMFAResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_DisableMyMFARequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_DisableMyMFARequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_DisableMyMFAResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_DisableMyMFAResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_GetMyUserSettingsRequest_descriptor;
   private static final 
@@ -64229,202 +70320,230 @@ java.lang.String defaultValue) {
       "\0132\021.identity.v1.UserR\004user\"M\n\026SetUserDis" +
       "abledRequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\032\n" +
       "\010disabled\030\024 \001(\010R\010disabled\"\031\n\027SetUserDisa" +
-      "bledResponse\"M\n\026SetUserPasswordRequest\022\027" +
-      "\n\007user_id\030\n \001(\tR\006userId\022\032\n\010password\030\024 \001(" +
-      "\tR\010password\"\031\n\027SetUserPasswordResponse\"3" +
-      "\n\030SendPasswordResetRequest\022\027\n\007user_id\030\n " +
-      "\001(\tR\006userId\"\033\n\031SendPasswordResetResponse" +
-      "\"X\n\021UpdateUserRequest\022\027\n\007user_id\030\n \001(\tR\006" +
-      "userId\022\022\n\004name\030\024 \001(\tR\004name\022\026\n\006locale\030\036 \001" +
-      "(\tR\006locale\";\n\022UpdateUserResponse\022%\n\004user" +
-      "\030\n \001(\0132\021.identity.v1.UserR\004user\"b\n\024SetUs" +
-      "erAvatarRequest\022\027\n\007user_id\030\n \001(\tR\006userId" +
-      "\022\024\n\005image\030\024 \001(\014R\005image\022\033\n\tmime_type\030\036 \001(" +
-      "\tR\010mimeType\"\027\n\025SetUserAvatarResponse\"-\n\022" +
-      "SendWelcomeRequest\022\027\n\007user_id\030\n \001(\tR\006use" +
-      "rId\"\025\n\023SendWelcomeResponse\"\016\n\014GetMeReque" +
-      "st\"6\n\rGetMeResponse\022%\n\004user\030\n \001(\0132\021.iden" +
-      "tity.v1.UserR\004user\"S\n\017UpdateMeRequest\022\022\n" +
-      "\004name\030\n \001(\tR\004name\022\026\n\006locale\030\024 \001(\tR\006local" +
-      "e\022\024\n\005theme\030\036 \001(\tR\005theme\"9\n\020UpdateMeRespo" +
-      "nse\022%\n\004user\030\n \001(\0132\021.identity.v1.UserR\004us" +
-      "er\"G\n\022SetMyAvatarRequest\022\024\n\005image\030\n \001(\014R" +
-      "\005image\022\033\n\tmime_type\030\024 \001(\tR\010mimeType\"\025\n\023S" +
-      "etMyAvatarResponse\",\n\030GetMyUserSettingsR" +
-      "equest\022\020\n\003app\030\n \001(\tR\003app\"@\n\031GetMyUserSet" +
-      "tingsResponse\022#\n\rsettings_json\030\n \001(\tR\014se" +
-      "ttingsJson\"Q\n\030PutMyUserSettingsRequest\022\020" +
-      "\n\003app\030\n \001(\tR\003app\022#\n\rsettings_json\030\024 \001(\tR" +
-      "\014settingsJson\"\033\n\031PutMyUserSettingsRespon" +
-      "se\"\205\001\n\004Role\022\022\n\004name\030\n \001(\tR\004name\022 \n\013descr" +
-      "iption\030\024 \001(\tR\013description\022 \n\013permissions" +
-      "\030\036 \003(\tR\013permissions\022%\n\016assigned_count\030( " +
-      "\001(\003R\rassignedCount\":\n\021CreateRoleRequest\022" +
-      "%\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004role\";" +
-      "\n\022CreateRoleResponse\022%\n\004role\030\n \001(\0132\021.ide" +
-      "ntity.v1.RoleR\004role\"Q\n\031SetRolePermission" +
-      "sRequest\022\022\n\004role\030\n \001(\tR\004role\022 \n\013permissi" +
-      "ons\030\024 \003(\tR\013permissions\"C\n\032SetRolePermiss" +
-      "ionsResponse\022%\n\004role\030\n \001(\0132\021.identity.v1" +
-      ".RoleR\004role\"k\n\021UpdateRoleRequest\022\022\n\004role" +
-      "\030\n \001(\tR\004role\022 \n\013description\030\024 \001(\tR\013descr" +
-      "iption\022 \n\013permissions\030\036 \003(\tR\013permissions" +
-      "\";\n\022UpdateRoleResponse\022%\n\004role\030\n \001(\0132\021.i" +
-      "dentity.v1.RoleR\004role\"\'\n\021DeleteRoleReque" +
-      "st\022\022\n\004role\030\n \001(\tR\004role\"\024\n\022DeleteRoleResp" +
-      "onse\"d\n\020ListRolesRequest\022\024\n\005query\030\n \001(\tR" +
-      "\005query\022\033\n\tpage_size\030\024 \001(\005R\010pageSize\022\035\n\np" +
-      "age_token\030\036 \001(\tR\tpageToken\"z\n\021ListRolesR" +
-      "esponse\022\'\n\005roles\030\n \003(\0132\021.identity.v1.Rol" +
-      "eR\005roles\022&\n\017next_page_token\030\024 \001(\tR\rnextP" +
-      "ageToken\022\024\n\005total\030\036 \001(\003R\005total\"a\n\nPermis" +
-      "sion\022\022\n\004name\030\n \001(\tR\004name\022 \n\013description\030" +
-      "\024 \001(\tR\013description\022\035\n\nrole_count\030\036 \001(\003R\t" +
-      "roleCount\"j\n\026ListPermissionsRequest\022\024\n\005q" +
-      "uery\030\n \001(\tR\005query\022\033\n\tpage_size\030\024 \001(\005R\010pa" +
-      "geSize\022\035\n\npage_token\030\036 \001(\tR\tpageToken\"\222\001" +
-      "\n\027ListPermissionsResponse\0229\n\013permissions" +
-      "\030\n \003(\0132\027.identity.v1.PermissionR\013permiss" +
-      "ions\022&\n\017next_page_token\030\024 \001(\tR\rnextPageT" +
-      "oken\022\024\n\005total\030\036 \001(\003R\005total\"R\n\027CreatePerm" +
-      "issionRequest\0227\n\npermission\030\n \001(\0132\027.iden" +
-      "tity.v1.PermissionR\npermission\"S\n\030Create" +
-      "PermissionResponse\0227\n\npermission\030\n \001(\0132\027" +
-      ".identity.v1.PermissionR\npermission\"o\n\027U" +
-      "pdatePermissionRequest\022\022\n\004name\030\n \001(\tR\004na" +
-      "me\022\036\n\npermission\030\024 \001(\tR\npermission\022 \n\013de" +
-      "scription\030\036 \001(\tR\013description\"S\n\030UpdatePe" +
-      "rmissionResponse\0227\n\npermission\030\n \001(\0132\027.i" +
-      "dentity.v1.PermissionR\npermission\"M\n\027Del" +
-      "etePermissionRequest\022\022\n\004name\030\n \001(\tR\004name" +
-      "\022\036\n\npermission\030\024 \001(\tR\npermission\"\032\n\030Dele" +
-      "tePermissionResponse\"]\n\021AssignRoleReques" +
-      "t\022\027\n\007user_id\030\n \001(\tR\006userId\022\033\n\tclient_id\030" +
-      "\024 \001(\tR\010clientId\022\022\n\004role\030\036 \001(\tR\004role\"\024\n\022A" +
-      "ssignRoleResponse\"]\n\021RevokeRoleRequest\022\027" +
-      "\n\007user_id\030\n \001(\tR\006userId\022\033\n\tclient_id\030\024 \001" +
-      "(\tR\010clientId\022\022\n\004role\030\036 \001(\tR\004role\"\024\n\022Revo" +
-      "keRoleResponse\"\230\003\n\006Client\022\033\n\tclient_id\030\n" +
-      " \001(\tR\010clientId\022\022\n\004name\030\024 \001(\tR\004name\022+\n\004ty" +
-      "pe\030\036 \001(\0162\027.identity.v1.ClientTypeR\004type\022" +
-      "#\n\rredirect_uris\030( \003(\tR\014redirectUris\0229\n\031" +
-      "post_logout_redirect_uris\0302 \003(\tR\026postLog" +
-      "outRedirectUris\0224\n\026backchannel_logout_ur" +
-      "i\030< \001(\tR\024backchannelLogoutUri\022%\n\016allowed" +
-      "_grants\030F \003(\tR\rallowedGrants\022%\n\016allowed_" +
-      "scopes\030P \003(\tR\rallowedScopes\022\032\n\010resource\030" +
-      "Z \001(\tR\010resource\022\024\n\005roles\030d \003(\tR\005roles\022\032\n" +
-      "\010disabled\030n \001(\010R\010disabled\"B\n\023CreateClien" +
-      "tRequest\022+\n\006client\030\n \001(\0132\023.identity.v1.C" +
-      "lientR\006client\"h\n\024CreateClientResponse\022+\n" +
-      "\006client\030\n \001(\0132\023.identity.v1.ClientR\006clie" +
-      "nt\022#\n\rclient_secret\030\024 \001(\tR\014clientSecret\"" +
-      "8\n\031RotateClientSecretRequest\022\033\n\tclient_i" +
-      "d\030\n \001(\tR\010clientId\"A\n\032RotateClientSecretR" +
-      "esponse\022#\n\rclient_secret\030\n \001(\tR\014clientSe" +
-      "cret\"\334\002\n\023UpdateClientRequest\022\033\n\tclient_i" +
-      "d\030\n \001(\tR\010clientId\022\022\n\004name\030\024 \001(\tR\004name\022#\n" +
-      "\rredirect_uris\030\036 \003(\tR\014redirectUris\0229\n\031po" +
-      "st_logout_redirect_uris\030( \003(\tR\026postLogou" +
-      "tRedirectUris\0224\n\026backchannel_logout_uri\030" +
-      "2 \001(\tR\024backchannelLogoutUri\022%\n\016allowed_g" +
-      "rants\030< \003(\tR\rallowedGrants\022%\n\016allowed_sc" +
-      "opes\030F \003(\tR\rallowedScopes\022\032\n\010resource\030P " +
-      "\001(\tR\010resource\022\024\n\005roles\030Z \003(\tR\005roles\"C\n\024U" +
-      "pdateClientResponse\022+\n\006client\030\n \001(\0132\023.id" +
-      "entity.v1.ClientR\006client\"S\n\030SetClientDis" +
-      "abledRequest\022\033\n\tclient_id\030\n \001(\tR\010clientI" +
-      "d\022\032\n\010disabled\030\024 \001(\010R\010disabled\"H\n\031SetClie" +
-      "ntDisabledResponse\022+\n\006client\030\n \001(\0132\023.ide" +
-      "ntity.v1.ClientR\006client\"2\n\023DeleteClientR" +
-      "equest\022\033\n\tclient_id\030\n \001(\tR\010clientId\"\026\n\024D" +
-      "eleteClientResponse\"\223\001\n\022ListClientsReque" +
-      "st\022\024\n\005query\030\n \001(\tR\005query\022+\n\004type\030\024 \001(\0162\027" +
-      ".identity.v1.ClientTypeR\004type\022\033\n\tpage_si" +
-      "ze\030\036 \001(\005R\010pageSize\022\035\n\npage_token\030( \001(\tR\t" +
-      "pageToken\"l\n\023ListClientsResponse\022-\n\007clie" +
-      "nts\030\n \003(\0132\023.identity.v1.ClientR\007clients\022" +
-      "&\n\017next_page_token\030\024 \001(\tR\rnextPageToken\"" +
-      "\216\001\n\016ExchangePolicy\022\033\n\tclient_id\030\n \001(\tR\010c" +
-      "lientId\022\032\n\010audience\030\024 \001(\tR\010audience\022\033\n\tm" +
-      "ax_scope\030\036 \001(\tR\010maxScope\022&\n\017max_chain_de" +
-      "pth\030( \001(\005R\rmaxChainDepth\"g\n\030SetExchangeP" +
-      "olicyRequest\0223\n\006policy\030\n \001(\0132\033.identity." +
-      "v1.ExchangePolicyR\006policy\022\026\n\006delete\030\024 \001(" +
-      "\010R\006delete\"\033\n\031SetExchangePolicyResponse\"\250" +
-      "\001\n\033ListExchangePoliciesRequest\022\033\n\tclient" +
-      "_id\030\n \001(\tR\010clientId\022\024\n\005query\030\024 \001(\tR\005quer" +
-      "y\022\032\n\010audience\030\036 \001(\tR\010audience\022\033\n\tpage_si" +
-      "ze\030( \001(\005R\010pageSize\022\035\n\npage_token\0302 \001(\tR\t" +
-      "pageToken\"\177\n\034ListExchangePoliciesRespons" +
-      "e\0227\n\010policies\030\n \003(\0132\033.identity.v1.Exchan" +
-      "gePolicyR\010policies\022&\n\017next_page_token\030\024 " +
-      "\001(\tR\rnextPageToken\",\n\021GetUserMFARequest\022" +
-      "\027\n\007user_id\030\n \001(\tR\006userId\"\216\001\n\022GetUserMFAR" +
-      "esponse\022\030\n\007enabled\030\n \001(\010R\007enabled\022\032\n\010enf" +
-      "orced\030\024 \001(\010R\010enforced\022\022\n\004mode\030\036 \001(\tR\004mod" +
-      "e\022.\n\023recovery_codes_left\030( \001(\005R\021recovery" +
-      "CodesLeft\"F\n\021SetUserMFARequest\022\027\n\007user_i" +
-      "d\030\n \001(\tR\006userId\022\030\n\007enabled\030\024 \001(\010R\007enable" +
-      "d\"\024\n\022SetUserMFAResponse\"L\n\025EnforceUserMF" +
-      "ARequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\032\n\010enf" +
-      "orced\030\024 \001(\010R\010enforced\"\030\n\026EnforceUserMFAR" +
-      "esponse\".\n\023ResetUserMFARequest\022\027\n\007user_i" +
-      "d\030\n \001(\tR\006userId\"\026\n\024ResetUserMFAResponse\"" +
-      "\023\n\021GetUIStyleRequest\"\300\001\n\022GetUIStyleRespo" +
-      "nse\022\031\n\010ui_style\030\n \001(\tR\007uiStyle\022P\n\013ui_pal" +
-      "ettes\030\024 \003(\0132/.identity.v1.GetUIStyleResp" +
-      "onse.UiPalettesEntryR\nuiPalettes\032=\n\017UiPa" +
-      "lettesEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002" +
-      " \001(\tR\005value:\0028\001\"\276\001\n\021SetUIStyleRequest\022\031\n" +
-      "\010ui_style\030\n \001(\tR\007uiStyle\022O\n\013ui_palettes\030" +
-      "\024 \003(\0132..identity.v1.SetUIStyleRequest.Ui" +
-      "PalettesEntryR\nuiPalettes\032=\n\017UiPalettesE" +
-      "ntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005v" +
-      "alue:\0028\001\"\300\001\n\022SetUIStyleResponse\022\031\n\010ui_st" +
-      "yle\030\n \001(\tR\007uiStyle\022P\n\013ui_palettes\030\024 \003(\0132" +
-      "/.identity.v1.SetUIStyleResponse.UiPalet" +
-      "tesEntryR\nuiPalettes\032=\n\017UiPalettesEntry\022" +
-      "\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:" +
-      "\0028\001*t\n\nUserStatus\022\033\n\027USER_STATUS_UNSPECI" +
-      "FIED\020\000\022\027\n\023USER_STATUS_PENDING\020\n\022\026\n\022USER_" +
-      "STATUS_ACTIVE\020\024\022\030\n\024USER_STATUS_DISABLED\020" +
-      "\036*_\n\nClientType\022\033\n\027CLIENT_TYPE_UNSPECIFI" +
-      "ED\020\000\022\026\n\022CLIENT_TYPE_PUBLIC\020\n\022\034\n\030CLIENT_T" +
-      "YPE_CONFIDENTIAL\020\0242\232\035\n\017IdentityService\022M" +
-      "\n\nIntrospect\022\036.identity.v1.IntrospectReq" +
-      "uest\032\037.identity.v1.IntrospectResponse\022\\\n" +
-      "\017CheckPermission\022#.identity.v1.CheckPerm" +
-      "issionRequest\032$.identity.v1.CheckPermiss" +
-      "ionResponse\022P\n\013RevokeToken\022\037.identity.v1" +
-      ".RevokeTokenRequest\032 .identity.v1.Revoke" +
-      "TokenResponse\022D\n\007GetUser\022\033.identity.v1.G" +
-      "etUserRequest\032\034.identity.v1.GetUserRespo" +
-      "nse\022J\n\tListUsers\022\035.identity.v1.ListUsers" +
-      "Request\032\036.identity.v1.ListUsersResponse\022" +
-      "M\n\nCreateUser\022\036.identity.v1.CreateUserRe" +
-      "quest\032\037.identity.v1.CreateUserResponse\022\\" +
-      "\n\017SetUserDisabled\022#.identity.v1.SetUserD" +
-      "isabledRequest\032$.identity.v1.SetUserDisa" +
-      "bledResponse\022\\\n\017SetUserPassword\022#.identi" +
-      "ty.v1.SetUserPasswordRequest\032$.identity." +
-      "v1.SetUserPasswordResponse\022b\n\021SendPasswo" +
-      "rdReset\022%.identity.v1.SendPasswordResetR" +
-      "equest\032&.identity.v1.SendPasswordResetRe" +
-      "sponse\022M\n\nUpdateUser\022\036.identity.v1.Updat" +
-      "eUserRequest\032\037.identity.v1.UpdateUserRes" +
-      "ponse\022V\n\rSetUserAvatar\022!.identity.v1.Set" +
-      "UserAvatarRequest\032\".identity.v1.SetUserA" +
-      "vatarResponse\022P\n\013SendWelcome\022\037.identity." +
-      "v1.SendWelcomeRequest\032 .identity.v1.Send" +
-      "WelcomeResponse\022S\n\014GetUserStats\022 .identi" +
-      "ty.v1.GetUserStatsRequest\032!.identity.v1." +
-      "GetUserStatsResponse\022>\n\005GetMe\022\031.identity" +
-      ".v1.GetMeRequest\032\032.identity.v1.GetMeResp" +
-      "onse\022G\n\010UpdateMe\022\034.identity.v1.UpdateMeR" +
-      "equest\032\035.identity.v1.UpdateMeResponse\022P\n" +
-      "\013SetMyAvatar\022\037.identity.v1.SetMyAvatarRe" +
-      "quest\032 .identity.v1.SetMyAvatarResponse\022" +
+      "bledResponse\",\n\021DeleteUserRequest\022\027\n\007use" +
+      "r_id\030\n \001(\tR\006userId\"\024\n\022DeleteUserResponse" +
+      "\"M\n\026SetUserPasswordRequest\022\027\n\007user_id\030\n " +
+      "\001(\tR\006userId\022\032\n\010password\030\024 \001(\tR\010password\"" +
+      "\031\n\027SetUserPasswordResponse\"3\n\030SendPasswo" +
+      "rdResetRequest\022\027\n\007user_id\030\n \001(\tR\006userId\"" +
+      "\033\n\031SendPasswordResetResponse\"X\n\021UpdateUs" +
+      "erRequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\022\n\004na" +
+      "me\030\024 \001(\tR\004name\022\026\n\006locale\030\036 \001(\tR\006locale\";" +
+      "\n\022UpdateUserResponse\022%\n\004user\030\n \001(\0132\021.ide" +
+      "ntity.v1.UserR\004user\"b\n\024SetUserAvatarRequ" +
+      "est\022\027\n\007user_id\030\n \001(\tR\006userId\022\024\n\005image\030\024 " +
+      "\001(\014R\005image\022\033\n\tmime_type\030\036 \001(\tR\010mimeType\"" +
+      "\027\n\025SetUserAvatarResponse\"-\n\022SendWelcomeR" +
+      "equest\022\027\n\007user_id\030\n \001(\tR\006userId\"\025\n\023SendW" +
+      "elcomeResponse\"\016\n\014GetMeRequest\"6\n\rGetMeR" +
+      "esponse\022%\n\004user\030\n \001(\0132\021.identity.v1.User" +
+      "R\004user\"S\n\017UpdateMeRequest\022\022\n\004name\030\n \001(\tR" +
+      "\004name\022\026\n\006locale\030\024 \001(\tR\006locale\022\024\n\005theme\030\036" +
+      " \001(\tR\005theme\"9\n\020UpdateMeResponse\022%\n\004user\030" +
+      "\n \001(\0132\021.identity.v1.UserR\004user\"G\n\022SetMyA" +
+      "vatarRequest\022\024\n\005image\030\n \001(\014R\005image\022\033\n\tmi" +
+      "me_type\030\024 \001(\tR\010mimeType\"\025\n\023SetMyAvatarRe" +
+      "sponse\"g\n\027ChangeMyPasswordRequest\022)\n\020cur" +
+      "rent_password\030\n \001(\tR\017currentPassword\022!\n\014" +
+      "new_password\030\024 \001(\tR\013newPassword\"\032\n\030Chang" +
+      "eMyPasswordResponse\"\021\n\017GetMyMFARequest\"t" +
+      "\n\020GetMyMFAResponse\022\030\n\007enabled\030\n \001(\010R\007ena" +
+      "bled\022\026\n\006forced\030\024 \001(\010R\006forced\022.\n\023recovery" +
+      "_codes_left\030\036 \001(\005R\021recoveryCodesLeft\"\023\n\021" +
+      "BeginMyMFARequest\"<\n\022BeginMyMFAResponse\022" +
+      "\016\n\002qr\030\n \001(\tR\002qr\022\026\n\006secret\030\024 \001(\tR\006secret\"" +
+      ")\n\023ConfirmMyMFARequest\022\022\n\004code\030\n \001(\tR\004co" +
+      "de\"=\n\024ConfirmMyMFAResponse\022%\n\016recovery_c" +
+      "odes\030\n \003(\tR\rrecoveryCodes\"E\n\023DisableMyMF" +
+      "ARequest\022\032\n\010password\030\n \001(\tR\010password\022\022\n\004" +
+      "code\030\024 \001(\tR\004code\"\026\n\024DisableMyMFAResponse" +
+      "\",\n\030GetMyUserSettingsRequest\022\020\n\003app\030\n \001(" +
+      "\tR\003app\"@\n\031GetMyUserSettingsResponse\022#\n\rs" +
+      "ettings_json\030\n \001(\tR\014settingsJson\"Q\n\030PutM" +
+      "yUserSettingsRequest\022\020\n\003app\030\n \001(\tR\003app\022#" +
+      "\n\rsettings_json\030\024 \001(\tR\014settingsJson\"\033\n\031P" +
+      "utMyUserSettingsResponse\"\205\001\n\004Role\022\022\n\004nam" +
+      "e\030\n \001(\tR\004name\022 \n\013description\030\024 \001(\tR\013desc" +
+      "ription\022 \n\013permissions\030\036 \003(\tR\013permission" +
+      "s\022%\n\016assigned_count\030( \001(\003R\rassignedCount" +
+      "\":\n\021CreateRoleRequest\022%\n\004role\030\n \001(\0132\021.id" +
+      "entity.v1.RoleR\004role\";\n\022CreateRoleRespon" +
+      "se\022%\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004rol" +
+      "e\"Q\n\031SetRolePermissionsRequest\022\022\n\004role\030\n" +
+      " \001(\tR\004role\022 \n\013permissions\030\024 \003(\tR\013permiss" +
+      "ions\"C\n\032SetRolePermissionsResponse\022%\n\004ro" +
+      "le\030\n \001(\0132\021.identity.v1.RoleR\004role\"k\n\021Upd" +
+      "ateRoleRequest\022\022\n\004role\030\n \001(\tR\004role\022 \n\013de" +
+      "scription\030\024 \001(\tR\013description\022 \n\013permissi" +
+      "ons\030\036 \003(\tR\013permissions\";\n\022UpdateRoleResp" +
+      "onse\022%\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004r" +
+      "ole\"\'\n\021DeleteRoleRequest\022\022\n\004role\030\n \001(\tR\004" +
+      "role\"\024\n\022DeleteRoleResponse\"d\n\020ListRolesR" +
+      "equest\022\024\n\005query\030\n \001(\tR\005query\022\033\n\tpage_siz" +
+      "e\030\024 \001(\005R\010pageSize\022\035\n\npage_token\030\036 \001(\tR\tp" +
+      "ageToken\"z\n\021ListRolesResponse\022\'\n\005roles\030\n" +
+      " \003(\0132\021.identity.v1.RoleR\005roles\022&\n\017next_p" +
+      "age_token\030\024 \001(\tR\rnextPageToken\022\024\n\005total\030" +
+      "\036 \001(\003R\005total\"a\n\nPermission\022\022\n\004name\030\n \001(\t" +
+      "R\004name\022 \n\013description\030\024 \001(\tR\013description" +
+      "\022\035\n\nrole_count\030\036 \001(\003R\troleCount\"j\n\026ListP" +
+      "ermissionsRequest\022\024\n\005query\030\n \001(\tR\005query\022" +
+      "\033\n\tpage_size\030\024 \001(\005R\010pageSize\022\035\n\npage_tok" +
+      "en\030\036 \001(\tR\tpageToken\"\222\001\n\027ListPermissionsR" +
+      "esponse\0229\n\013permissions\030\n \003(\0132\027.identity." +
+      "v1.PermissionR\013permissions\022&\n\017next_page_" +
+      "token\030\024 \001(\tR\rnextPageToken\022\024\n\005total\030\036 \001(" +
+      "\003R\005total\"R\n\027CreatePermissionRequest\0227\n\np" +
+      "ermission\030\n \001(\0132\027.identity.v1.Permission" +
+      "R\npermission\"S\n\030CreatePermissionResponse" +
+      "\0227\n\npermission\030\n \001(\0132\027.identity.v1.Permi" +
+      "ssionR\npermission\"o\n\027UpdatePermissionReq" +
+      "uest\022\022\n\004name\030\n \001(\tR\004name\022\036\n\npermission\030\024" +
+      " \001(\tR\npermission\022 \n\013description\030\036 \001(\tR\013d" +
+      "escription\"S\n\030UpdatePermissionResponse\0227" +
+      "\n\npermission\030\n \001(\0132\027.identity.v1.Permiss" +
+      "ionR\npermission\"M\n\027DeletePermissionReque" +
+      "st\022\022\n\004name\030\n \001(\tR\004name\022\036\n\npermission\030\024 \001" +
+      "(\tR\npermission\"\032\n\030DeletePermissionRespon" +
+      "se\"]\n\021AssignRoleRequest\022\027\n\007user_id\030\n \001(\t" +
+      "R\006userId\022\033\n\tclient_id\030\024 \001(\tR\010clientId\022\022\n" +
+      "\004role\030\036 \001(\tR\004role\"\024\n\022AssignRoleResponse\"" +
+      "]\n\021RevokeRoleRequest\022\027\n\007user_id\030\n \001(\tR\006u" +
+      "serId\022\033\n\tclient_id\030\024 \001(\tR\010clientId\022\022\n\004ro" +
+      "le\030\036 \001(\tR\004role\"\024\n\022RevokeRoleResponse\"\230\003\n" +
+      "\006Client\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\022\n\004" +
+      "name\030\024 \001(\tR\004name\022+\n\004type\030\036 \001(\0162\027.identit" +
+      "y.v1.ClientTypeR\004type\022#\n\rredirect_uris\030(" +
+      " \003(\tR\014redirectUris\0229\n\031post_logout_redire" +
+      "ct_uris\0302 \003(\tR\026postLogoutRedirectUris\0224\n" +
+      "\026backchannel_logout_uri\030< \001(\tR\024backchann" +
+      "elLogoutUri\022%\n\016allowed_grants\030F \003(\tR\rall" +
+      "owedGrants\022%\n\016allowed_scopes\030P \003(\tR\rallo" +
+      "wedScopes\022\032\n\010resource\030Z \001(\tR\010resource\022\024\n" +
+      "\005roles\030d \003(\tR\005roles\022\032\n\010disabled\030n \001(\010R\010d" +
+      "isabled\"B\n\023CreateClientRequest\022+\n\006client" +
+      "\030\n \001(\0132\023.identity.v1.ClientR\006client\"h\n\024C" +
+      "reateClientResponse\022+\n\006client\030\n \001(\0132\023.id" +
+      "entity.v1.ClientR\006client\022#\n\rclient_secre" +
+      "t\030\024 \001(\tR\014clientSecret\"8\n\031RotateClientSec" +
+      "retRequest\022\033\n\tclient_id\030\n \001(\tR\010clientId\"" +
+      "A\n\032RotateClientSecretResponse\022#\n\rclient_" +
+      "secret\030\n \001(\tR\014clientSecret\"\334\002\n\023UpdateCli" +
+      "entRequest\022\033\n\tclient_id\030\n \001(\tR\010clientId\022" +
+      "\022\n\004name\030\024 \001(\tR\004name\022#\n\rredirect_uris\030\036 \003" +
+      "(\tR\014redirectUris\0229\n\031post_logout_redirect" +
+      "_uris\030( \003(\tR\026postLogoutRedirectUris\0224\n\026b" +
+      "ackchannel_logout_uri\0302 \001(\tR\024backchannel" +
+      "LogoutUri\022%\n\016allowed_grants\030< \003(\tR\rallow" +
+      "edGrants\022%\n\016allowed_scopes\030F \003(\tR\rallowe" +
+      "dScopes\022\032\n\010resource\030P \001(\tR\010resource\022\024\n\005r" +
+      "oles\030Z \003(\tR\005roles\"C\n\024UpdateClientRespons" +
+      "e\022+\n\006client\030\n \001(\0132\023.identity.v1.ClientR\006" +
+      "client\"S\n\030SetClientDisabledRequest\022\033\n\tcl" +
+      "ient_id\030\n \001(\tR\010clientId\022\032\n\010disabled\030\024 \001(" +
+      "\010R\010disabled\"H\n\031SetClientDisabledResponse" +
+      "\022+\n\006client\030\n \001(\0132\023.identity.v1.ClientR\006c" +
+      "lient\"2\n\023DeleteClientRequest\022\033\n\tclient_i" +
+      "d\030\n \001(\tR\010clientId\"\026\n\024DeleteClientRespons" +
+      "e\"\223\001\n\022ListClientsRequest\022\024\n\005query\030\n \001(\tR" +
+      "\005query\022+\n\004type\030\024 \001(\0162\027.identity.v1.Clien" +
+      "tTypeR\004type\022\033\n\tpage_size\030\036 \001(\005R\010pageSize" +
+      "\022\035\n\npage_token\030( \001(\tR\tpageToken\"l\n\023ListC" +
+      "lientsResponse\022-\n\007clients\030\n \003(\0132\023.identi" +
+      "ty.v1.ClientR\007clients\022&\n\017next_page_token" +
+      "\030\024 \001(\tR\rnextPageToken\"\216\001\n\016ExchangePolicy" +
+      "\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\032\n\010audienc" +
+      "e\030\024 \001(\tR\010audience\022\033\n\tmax_scope\030\036 \001(\tR\010ma" +
+      "xScope\022&\n\017max_chain_depth\030( \001(\005R\rmaxChai" +
+      "nDepth\"g\n\030SetExchangePolicyRequest\0223\n\006po" +
+      "licy\030\n \001(\0132\033.identity.v1.ExchangePolicyR" +
+      "\006policy\022\026\n\006delete\030\024 \001(\010R\006delete\"\033\n\031SetEx" +
+      "changePolicyResponse\"\250\001\n\033ListExchangePol" +
+      "iciesRequest\022\033\n\tclient_id\030\n \001(\tR\010clientI" +
+      "d\022\024\n\005query\030\024 \001(\tR\005query\022\032\n\010audience\030\036 \001(" +
+      "\tR\010audience\022\033\n\tpage_size\030( \001(\005R\010pageSize" +
+      "\022\035\n\npage_token\0302 \001(\tR\tpageToken\"\177\n\034ListE" +
+      "xchangePoliciesResponse\0227\n\010policies\030\n \003(" +
+      "\0132\033.identity.v1.ExchangePolicyR\010policies" +
+      "\022&\n\017next_page_token\030\024 \001(\tR\rnextPageToken" +
+      "\",\n\021GetUserMFARequest\022\027\n\007user_id\030\n \001(\tR\006" +
+      "userId\"\216\001\n\022GetUserMFAResponse\022\030\n\007enabled" +
+      "\030\n \001(\010R\007enabled\022\032\n\010enforced\030\024 \001(\010R\010enfor" +
+      "ced\022\022\n\004mode\030\036 \001(\tR\004mode\022.\n\023recovery_code" +
+      "s_left\030( \001(\005R\021recoveryCodesLeft\"F\n\021SetUs" +
+      "erMFARequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\030\n" +
+      "\007enabled\030\024 \001(\010R\007enabled\"\024\n\022SetUserMFARes" +
+      "ponse\"L\n\025EnforceUserMFARequest\022\027\n\007user_i" +
+      "d\030\n \001(\tR\006userId\022\032\n\010enforced\030\024 \001(\010R\010enfor" +
+      "ced\"\030\n\026EnforceUserMFAResponse\".\n\023ResetUs" +
+      "erMFARequest\022\027\n\007user_id\030\n \001(\tR\006userId\"\026\n" +
+      "\024ResetUserMFAResponse\"\023\n\021GetUIStyleReque" +
+      "st\"\300\001\n\022GetUIStyleResponse\022\031\n\010ui_style\030\n " +
+      "\001(\tR\007uiStyle\022P\n\013ui_palettes\030\024 \003(\0132/.iden" +
+      "tity.v1.GetUIStyleResponse.UiPalettesEnt" +
+      "ryR\nuiPalettes\032=\n\017UiPalettesEntry\022\020\n\003key" +
+      "\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"\276\001" +
+      "\n\021SetUIStyleRequest\022\031\n\010ui_style\030\n \001(\tR\007u" +
+      "iStyle\022O\n\013ui_palettes\030\024 \003(\0132..identity.v" +
+      "1.SetUIStyleRequest.UiPalettesEntryR\nuiP" +
+      "alettes\032=\n\017UiPalettesEntry\022\020\n\003key\030\001 \001(\tR" +
+      "\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"\300\001\n\022SetUI" +
+      "StyleResponse\022\031\n\010ui_style\030\n \001(\tR\007uiStyle" +
+      "\022P\n\013ui_palettes\030\024 \003(\0132/.identity.v1.SetU" +
+      "IStyleResponse.UiPalettesEntryR\nuiPalett" +
+      "es\032=\n\017UiPalettesEntry\022\020\n\003key\030\001 \001(\tR\003key\022" +
+      "\024\n\005value\030\002 \001(\tR\005value:\0028\001*t\n\nUserStatus\022" +
+      "\033\n\027USER_STATUS_UNSPECIFIED\020\000\022\027\n\023USER_STA" +
+      "TUS_PENDING\020\n\022\026\n\022USER_STATUS_ACTIVE\020\024\022\030\n" +
+      "\024USER_STATUS_DISABLED\020\036*_\n\nClientType\022\033\n" +
+      "\027CLIENT_TYPE_UNSPECIFIED\020\000\022\026\n\022CLIENT_TYP" +
+      "E_PUBLIC\020\n\022\034\n\030CLIENT_TYPE_CONFIDENTIAL\020\024" +
+      "2\214!\n\017IdentityService\022M\n\nIntrospect\022\036.ide" +
+      "ntity.v1.IntrospectRequest\032\037.identity.v1" +
+      ".IntrospectResponse\022\\\n\017CheckPermission\022#" +
+      ".identity.v1.CheckPermissionRequest\032$.id" +
+      "entity.v1.CheckPermissionResponse\022P\n\013Rev" +
+      "okeToken\022\037.identity.v1.RevokeTokenReques" +
+      "t\032 .identity.v1.RevokeTokenResponse\022D\n\007G" +
+      "etUser\022\033.identity.v1.GetUserRequest\032\034.id" +
+      "entity.v1.GetUserResponse\022J\n\tListUsers\022\035" +
+      ".identity.v1.ListUsersRequest\032\036.identity" +
+      ".v1.ListUsersResponse\022M\n\nCreateUser\022\036.id" +
+      "entity.v1.CreateUserRequest\032\037.identity.v" +
+      "1.CreateUserResponse\022\\\n\017SetUserDisabled\022" +
+      "#.identity.v1.SetUserDisabledRequest\032$.i" +
+      "dentity.v1.SetUserDisabledResponse\022M\n\nDe" +
+      "leteUser\022\036.identity.v1.DeleteUserRequest" +
+      "\032\037.identity.v1.DeleteUserResponse\022\\\n\017Set" +
+      "UserPassword\022#.identity.v1.SetUserPasswo" +
+      "rdRequest\032$.identity.v1.SetUserPasswordR" +
+      "esponse\022b\n\021SendPasswordReset\022%.identity." +
+      "v1.SendPasswordResetRequest\032&.identity.v" +
+      "1.SendPasswordResetResponse\022M\n\nUpdateUse" +
+      "r\022\036.identity.v1.UpdateUserRequest\032\037.iden" +
+      "tity.v1.UpdateUserResponse\022V\n\rSetUserAva" +
+      "tar\022!.identity.v1.SetUserAvatarRequest\032\"" +
+      ".identity.v1.SetUserAvatarResponse\022P\n\013Se" +
+      "ndWelcome\022\037.identity.v1.SendWelcomeReque" +
+      "st\032 .identity.v1.SendWelcomeResponse\022S\n\014" +
+      "GetUserStats\022 .identity.v1.GetUserStatsR" +
+      "equest\032!.identity.v1.GetUserStatsRespons" +
+      "e\022>\n\005GetMe\022\031.identity.v1.GetMeRequest\032\032." +
+      "identity.v1.GetMeResponse\022G\n\010UpdateMe\022\034." +
+      "identity.v1.UpdateMeRequest\032\035.identity.v" +
+      "1.UpdateMeResponse\022P\n\013SetMyAvatar\022\037.iden" +
+      "tity.v1.SetMyAvatarRequest\032 .identity.v1" +
+      ".SetMyAvatarResponse\022_\n\020ChangeMyPassword" +
+      "\022$.identity.v1.ChangeMyPasswordRequest\032%" +
+      ".identity.v1.ChangeMyPasswordResponse\022G\n" +
+      "\010GetMyMFA\022\034.identity.v1.GetMyMFARequest\032" +
+      "\035.identity.v1.GetMyMFAResponse\022M\n\nBeginM" +
+      "yMFA\022\036.identity.v1.BeginMyMFARequest\032\037.i" +
+      "dentity.v1.BeginMyMFAResponse\022S\n\014Confirm" +
+      "MyMFA\022 .identity.v1.ConfirmMyMFARequest\032" +
+      "!.identity.v1.ConfirmMyMFAResponse\022S\n\014Di" +
+      "sableMyMFA\022 .identity.v1.DisableMyMFAReq" +
+      "uest\032!.identity.v1.DisableMyMFAResponse\022" +
       "b\n\021GetMyUserSettings\022%.identity.v1.GetMy" +
       "UserSettingsRequest\032&.identity.v1.GetMyU" +
       "serSettingsResponse\022b\n\021PutMyUserSettings" +
@@ -64594,434 +70713,506 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserDisabledResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_identity_v1_SetUserPasswordRequest_descriptor =
+    internal_static_identity_v1_DeleteUserRequest_descriptor =
       getDescriptor().getMessageTypes().get(17);
+    internal_static_identity_v1_DeleteUserRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_DeleteUserRequest_descriptor,
+        new java.lang.String[] { "UserId", });
+    internal_static_identity_v1_DeleteUserResponse_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_identity_v1_DeleteUserResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_DeleteUserResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_SetUserPasswordRequest_descriptor =
+      getDescriptor().getMessageTypes().get(19);
     internal_static_identity_v1_SetUserPasswordRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserPasswordRequest_descriptor,
         new java.lang.String[] { "UserId", "Password", });
     internal_static_identity_v1_SetUserPasswordResponse_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_identity_v1_SetUserPasswordResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserPasswordResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_SendPasswordResetRequest_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_identity_v1_SendPasswordResetRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SendPasswordResetRequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_SendPasswordResetResponse_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_identity_v1_SendPasswordResetResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SendPasswordResetResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_UpdateUserRequest_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_identity_v1_UpdateUserRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateUserRequest_descriptor,
         new java.lang.String[] { "UserId", "Name", "Locale", });
     internal_static_identity_v1_UpdateUserResponse_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_identity_v1_UpdateUserResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateUserResponse_descriptor,
         new java.lang.String[] { "User", });
     internal_static_identity_v1_SetUserAvatarRequest_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_identity_v1_SetUserAvatarRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserAvatarRequest_descriptor,
         new java.lang.String[] { "UserId", "Image", "MimeType", });
     internal_static_identity_v1_SetUserAvatarResponse_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_identity_v1_SetUserAvatarResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserAvatarResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_SendWelcomeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_identity_v1_SendWelcomeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SendWelcomeRequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_SendWelcomeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_identity_v1_SendWelcomeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SendWelcomeResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetMeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_identity_v1_GetMeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMeRequest_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetMeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_identity_v1_GetMeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMeResponse_descriptor,
         new java.lang.String[] { "User", });
     internal_static_identity_v1_UpdateMeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_identity_v1_UpdateMeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateMeRequest_descriptor,
         new java.lang.String[] { "Name", "Locale", "Theme", });
     internal_static_identity_v1_UpdateMeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_identity_v1_UpdateMeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateMeResponse_descriptor,
         new java.lang.String[] { "User", });
     internal_static_identity_v1_SetMyAvatarRequest_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_identity_v1_SetMyAvatarRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetMyAvatarRequest_descriptor,
         new java.lang.String[] { "Image", "MimeType", });
     internal_static_identity_v1_SetMyAvatarResponse_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_identity_v1_SetMyAvatarResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetMyAvatarResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_identity_v1_ChangeMyPasswordRequest_descriptor =
+      getDescriptor().getMessageTypes().get(35);
+    internal_static_identity_v1_ChangeMyPasswordRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_ChangeMyPasswordRequest_descriptor,
+        new java.lang.String[] { "CurrentPassword", "NewPassword", });
+    internal_static_identity_v1_ChangeMyPasswordResponse_descriptor =
+      getDescriptor().getMessageTypes().get(36);
+    internal_static_identity_v1_ChangeMyPasswordResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_ChangeMyPasswordResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_GetMyMFARequest_descriptor =
+      getDescriptor().getMessageTypes().get(37);
+    internal_static_identity_v1_GetMyMFARequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetMyMFARequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_GetMyMFAResponse_descriptor =
+      getDescriptor().getMessageTypes().get(38);
+    internal_static_identity_v1_GetMyMFAResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetMyMFAResponse_descriptor,
+        new java.lang.String[] { "Enabled", "Forced", "RecoveryCodesLeft", });
+    internal_static_identity_v1_BeginMyMFARequest_descriptor =
+      getDescriptor().getMessageTypes().get(39);
+    internal_static_identity_v1_BeginMyMFARequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_BeginMyMFARequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_BeginMyMFAResponse_descriptor =
+      getDescriptor().getMessageTypes().get(40);
+    internal_static_identity_v1_BeginMyMFAResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_BeginMyMFAResponse_descriptor,
+        new java.lang.String[] { "Qr", "Secret", });
+    internal_static_identity_v1_ConfirmMyMFARequest_descriptor =
+      getDescriptor().getMessageTypes().get(41);
+    internal_static_identity_v1_ConfirmMyMFARequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_ConfirmMyMFARequest_descriptor,
+        new java.lang.String[] { "Code", });
+    internal_static_identity_v1_ConfirmMyMFAResponse_descriptor =
+      getDescriptor().getMessageTypes().get(42);
+    internal_static_identity_v1_ConfirmMyMFAResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_ConfirmMyMFAResponse_descriptor,
+        new java.lang.String[] { "RecoveryCodes", });
+    internal_static_identity_v1_DisableMyMFARequest_descriptor =
+      getDescriptor().getMessageTypes().get(43);
+    internal_static_identity_v1_DisableMyMFARequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_DisableMyMFARequest_descriptor,
+        new java.lang.String[] { "Password", "Code", });
+    internal_static_identity_v1_DisableMyMFAResponse_descriptor =
+      getDescriptor().getMessageTypes().get(44);
+    internal_static_identity_v1_DisableMyMFAResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_DisableMyMFAResponse_descriptor,
+        new java.lang.String[] { });
     internal_static_identity_v1_GetMyUserSettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_identity_v1_GetMyUserSettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMyUserSettingsRequest_descriptor,
         new java.lang.String[] { "App", });
     internal_static_identity_v1_GetMyUserSettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_identity_v1_GetMyUserSettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMyUserSettingsResponse_descriptor,
         new java.lang.String[] { "SettingsJson", });
     internal_static_identity_v1_PutMyUserSettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_identity_v1_PutMyUserSettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_PutMyUserSettingsRequest_descriptor,
         new java.lang.String[] { "App", "SettingsJson", });
     internal_static_identity_v1_PutMyUserSettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_identity_v1_PutMyUserSettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_PutMyUserSettingsResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_Role_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_identity_v1_Role_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Role_descriptor,
         new java.lang.String[] { "Name", "Description", "Permissions", "AssignedCount", });
     internal_static_identity_v1_CreateRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_identity_v1_CreateRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateRoleRequest_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_CreateRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_identity_v1_CreateRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateRoleResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_SetRolePermissionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_identity_v1_SetRolePermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetRolePermissionsRequest_descriptor,
         new java.lang.String[] { "Role", "Permissions", });
     internal_static_identity_v1_SetRolePermissionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_identity_v1_SetRolePermissionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetRolePermissionsResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_UpdateRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_identity_v1_UpdateRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateRoleRequest_descriptor,
         new java.lang.String[] { "Role", "Description", "Permissions", });
     internal_static_identity_v1_UpdateRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_identity_v1_UpdateRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateRoleResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_DeleteRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_identity_v1_DeleteRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteRoleRequest_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_DeleteRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_identity_v1_DeleteRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListRolesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_identity_v1_ListRolesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListRolesRequest_descriptor,
         new java.lang.String[] { "Query", "PageSize", "PageToken", });
     internal_static_identity_v1_ListRolesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_identity_v1_ListRolesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListRolesResponse_descriptor,
         new java.lang.String[] { "Roles", "NextPageToken", "Total", });
     internal_static_identity_v1_Permission_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_identity_v1_Permission_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Permission_descriptor,
         new java.lang.String[] { "Name", "Description", "RoleCount", });
     internal_static_identity_v1_ListPermissionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_identity_v1_ListPermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListPermissionsRequest_descriptor,
         new java.lang.String[] { "Query", "PageSize", "PageToken", });
     internal_static_identity_v1_ListPermissionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(62);
     internal_static_identity_v1_ListPermissionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListPermissionsResponse_descriptor,
         new java.lang.String[] { "Permissions", "NextPageToken", "Total", });
     internal_static_identity_v1_CreatePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(63);
     internal_static_identity_v1_CreatePermissionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreatePermissionRequest_descriptor,
         new java.lang.String[] { "Permission", });
     internal_static_identity_v1_CreatePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(64);
     internal_static_identity_v1_CreatePermissionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreatePermissionResponse_descriptor,
         new java.lang.String[] { "Permission", });
     internal_static_identity_v1_UpdatePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(65);
     internal_static_identity_v1_UpdatePermissionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdatePermissionRequest_descriptor,
         new java.lang.String[] { "Name", "Permission", "Description", });
     internal_static_identity_v1_UpdatePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(66);
     internal_static_identity_v1_UpdatePermissionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdatePermissionResponse_descriptor,
         new java.lang.String[] { "Permission", });
     internal_static_identity_v1_DeletePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(67);
     internal_static_identity_v1_DeletePermissionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeletePermissionRequest_descriptor,
         new java.lang.String[] { "Name", "Permission", });
     internal_static_identity_v1_DeletePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(68);
     internal_static_identity_v1_DeletePermissionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeletePermissionResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_AssignRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(69);
     internal_static_identity_v1_AssignRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_AssignRoleRequest_descriptor,
         new java.lang.String[] { "UserId", "ClientId", "Role", });
     internal_static_identity_v1_AssignRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(70);
     internal_static_identity_v1_AssignRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_AssignRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_RevokeRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(59);
+      getDescriptor().getMessageTypes().get(71);
     internal_static_identity_v1_RevokeRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RevokeRoleRequest_descriptor,
         new java.lang.String[] { "UserId", "ClientId", "Role", });
     internal_static_identity_v1_RevokeRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(60);
+      getDescriptor().getMessageTypes().get(72);
     internal_static_identity_v1_RevokeRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RevokeRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_Client_descriptor =
-      getDescriptor().getMessageTypes().get(61);
+      getDescriptor().getMessageTypes().get(73);
     internal_static_identity_v1_Client_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Client_descriptor,
         new java.lang.String[] { "ClientId", "Name", "Type", "RedirectUris", "PostLogoutRedirectUris", "BackchannelLogoutUri", "AllowedGrants", "AllowedScopes", "Resource", "Roles", "Disabled", });
     internal_static_identity_v1_CreateClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(62);
+      getDescriptor().getMessageTypes().get(74);
     internal_static_identity_v1_CreateClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateClientRequest_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_CreateClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(63);
+      getDescriptor().getMessageTypes().get(75);
     internal_static_identity_v1_CreateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateClientResponse_descriptor,
         new java.lang.String[] { "Client", "ClientSecret", });
     internal_static_identity_v1_RotateClientSecretRequest_descriptor =
-      getDescriptor().getMessageTypes().get(64);
+      getDescriptor().getMessageTypes().get(76);
     internal_static_identity_v1_RotateClientSecretRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RotateClientSecretRequest_descriptor,
         new java.lang.String[] { "ClientId", });
     internal_static_identity_v1_RotateClientSecretResponse_descriptor =
-      getDescriptor().getMessageTypes().get(65);
+      getDescriptor().getMessageTypes().get(77);
     internal_static_identity_v1_RotateClientSecretResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RotateClientSecretResponse_descriptor,
         new java.lang.String[] { "ClientSecret", });
     internal_static_identity_v1_UpdateClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(66);
+      getDescriptor().getMessageTypes().get(78);
     internal_static_identity_v1_UpdateClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateClientRequest_descriptor,
         new java.lang.String[] { "ClientId", "Name", "RedirectUris", "PostLogoutRedirectUris", "BackchannelLogoutUri", "AllowedGrants", "AllowedScopes", "Resource", "Roles", });
     internal_static_identity_v1_UpdateClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(67);
+      getDescriptor().getMessageTypes().get(79);
     internal_static_identity_v1_UpdateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateClientResponse_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_SetClientDisabledRequest_descriptor =
-      getDescriptor().getMessageTypes().get(68);
+      getDescriptor().getMessageTypes().get(80);
     internal_static_identity_v1_SetClientDisabledRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetClientDisabledRequest_descriptor,
         new java.lang.String[] { "ClientId", "Disabled", });
     internal_static_identity_v1_SetClientDisabledResponse_descriptor =
-      getDescriptor().getMessageTypes().get(69);
+      getDescriptor().getMessageTypes().get(81);
     internal_static_identity_v1_SetClientDisabledResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetClientDisabledResponse_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_DeleteClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(70);
+      getDescriptor().getMessageTypes().get(82);
     internal_static_identity_v1_DeleteClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteClientRequest_descriptor,
         new java.lang.String[] { "ClientId", });
     internal_static_identity_v1_DeleteClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(71);
+      getDescriptor().getMessageTypes().get(83);
     internal_static_identity_v1_DeleteClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteClientResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListClientsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(72);
+      getDescriptor().getMessageTypes().get(84);
     internal_static_identity_v1_ListClientsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListClientsRequest_descriptor,
         new java.lang.String[] { "Query", "Type", "PageSize", "PageToken", });
     internal_static_identity_v1_ListClientsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(73);
+      getDescriptor().getMessageTypes().get(85);
     internal_static_identity_v1_ListClientsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListClientsResponse_descriptor,
         new java.lang.String[] { "Clients", "NextPageToken", });
     internal_static_identity_v1_ExchangePolicy_descriptor =
-      getDescriptor().getMessageTypes().get(74);
+      getDescriptor().getMessageTypes().get(86);
     internal_static_identity_v1_ExchangePolicy_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ExchangePolicy_descriptor,
         new java.lang.String[] { "ClientId", "Audience", "MaxScope", "MaxChainDepth", });
     internal_static_identity_v1_SetExchangePolicyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(75);
+      getDescriptor().getMessageTypes().get(87);
     internal_static_identity_v1_SetExchangePolicyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetExchangePolicyRequest_descriptor,
         new java.lang.String[] { "Policy", "Delete", });
     internal_static_identity_v1_SetExchangePolicyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(76);
+      getDescriptor().getMessageTypes().get(88);
     internal_static_identity_v1_SetExchangePolicyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetExchangePolicyResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListExchangePoliciesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(77);
+      getDescriptor().getMessageTypes().get(89);
     internal_static_identity_v1_ListExchangePoliciesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListExchangePoliciesRequest_descriptor,
         new java.lang.String[] { "ClientId", "Query", "Audience", "PageSize", "PageToken", });
     internal_static_identity_v1_ListExchangePoliciesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(78);
+      getDescriptor().getMessageTypes().get(90);
     internal_static_identity_v1_ListExchangePoliciesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListExchangePoliciesResponse_descriptor,
         new java.lang.String[] { "Policies", "NextPageToken", });
     internal_static_identity_v1_GetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(79);
+      getDescriptor().getMessageTypes().get(91);
     internal_static_identity_v1_GetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_GetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(80);
+      getDescriptor().getMessageTypes().get(92);
     internal_static_identity_v1_GetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserMFAResponse_descriptor,
         new java.lang.String[] { "Enabled", "Enforced", "Mode", "RecoveryCodesLeft", });
     internal_static_identity_v1_SetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(81);
+      getDescriptor().getMessageTypes().get(93);
     internal_static_identity_v1_SetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", "Enabled", });
     internal_static_identity_v1_SetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(82);
+      getDescriptor().getMessageTypes().get(94);
     internal_static_identity_v1_SetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_EnforceUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(83);
+      getDescriptor().getMessageTypes().get(95);
     internal_static_identity_v1_EnforceUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_EnforceUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", "Enforced", });
     internal_static_identity_v1_EnforceUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(84);
+      getDescriptor().getMessageTypes().get(96);
     internal_static_identity_v1_EnforceUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_EnforceUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ResetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(85);
+      getDescriptor().getMessageTypes().get(97);
     internal_static_identity_v1_ResetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_ResetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(86);
+      getDescriptor().getMessageTypes().get(98);
     internal_static_identity_v1_ResetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetUIStyleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(87);
+      getDescriptor().getMessageTypes().get(99);
     internal_static_identity_v1_GetUIStyleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUIStyleRequest_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetUIStyleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(88);
+      getDescriptor().getMessageTypes().get(100);
     internal_static_identity_v1_GetUIStyleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUIStyleResponse_descriptor,
@@ -65033,7 +71224,7 @@ java.lang.String defaultValue) {
         internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_identity_v1_SetUIStyleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(89);
+      getDescriptor().getMessageTypes().get(101);
     internal_static_identity_v1_SetUIStyleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUIStyleRequest_descriptor,
@@ -65045,7 +71236,7 @@ java.lang.String defaultValue) {
         internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_identity_v1_SetUIStyleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(90);
+      getDescriptor().getMessageTypes().get(102);
     internal_static_identity_v1_SetUIStyleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUIStyleResponse_descriptor,

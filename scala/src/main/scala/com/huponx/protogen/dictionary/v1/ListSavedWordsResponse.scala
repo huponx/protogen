@@ -11,6 +11,9 @@ package com.huponx.protogen.dictionary.v1
   *   Words in the list of the user (all pages), the exported ones too.
   * @param newTotal
   *   How many of them are new (never exported).
+  * @param countsCapped
+  *   The count is bounded so its cost does not grow with the list: when true, new_total (and total when a
+  *   category filter is set) is a lower bound, "10000+". The unfiltered total is always exact.
   */
 @SerialVersionUID(0L)
 final case class ListSavedWordsResponse(
@@ -18,6 +21,7 @@ final case class ListSavedWordsResponse(
     nextPageToken: _root_.scala.Predef.String = "",
     total: _root_.scala.Int = 0,
     newTotal: _root_.scala.Int = 0,
+    countsCapped: _root_.scala.Boolean = false,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListSavedWordsResponse] {
     @transient
@@ -47,6 +51,13 @@ final case class ListSavedWordsResponse(
         val __value = newTotal
         if (__value != 0) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(40, __value)
+        }
+      };
+      
+      {
+        val __value = countsCapped
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(50, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -86,6 +97,12 @@ final case class ListSavedWordsResponse(
           _output__.writeInt32(40, __v)
         }
       };
+      {
+        val __v = countsCapped
+        if (__v != false) {
+          _output__.writeBool(50, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def clearWords = copy(words = _root_.scala.Seq.empty)
@@ -95,6 +112,7 @@ final case class ListSavedWordsResponse(
     def withNextPageToken(__v: _root_.scala.Predef.String): ListSavedWordsResponse = copy(nextPageToken = __v)
     def withTotal(__v: _root_.scala.Int): ListSavedWordsResponse = copy(total = __v)
     def withNewTotal(__v: _root_.scala.Int): ListSavedWordsResponse = copy(newTotal = __v)
+    def withCountsCapped(__v: _root_.scala.Boolean): ListSavedWordsResponse = copy(countsCapped = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -112,6 +130,10 @@ final case class ListSavedWordsResponse(
           val __t = newTotal
           if (__t != 0) __t else null
         }
+        case 50 => {
+          val __t = countsCapped
+          if (__t != false) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -121,6 +143,7 @@ final case class ListSavedWordsResponse(
         case 20 => _root_.scalapb.descriptors.PString(nextPageToken)
         case 30 => _root_.scalapb.descriptors.PInt(total)
         case 40 => _root_.scalapb.descriptors.PInt(newTotal)
+        case 50 => _root_.scalapb.descriptors.PBoolean(countsCapped)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -135,6 +158,7 @@ object ListSavedWordsResponse extends scalapb.GeneratedMessageCompanion[com.hupo
     var __nextPageToken: _root_.scala.Predef.String = ""
     var __total: _root_.scala.Int = 0
     var __newTotal: _root_.scala.Int = 0
+    var __countsCapped: _root_.scala.Boolean = false
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -149,6 +173,8 @@ object ListSavedWordsResponse extends scalapb.GeneratedMessageCompanion[com.hupo
           __total = _input__.readInt32()
         case 320 =>
           __newTotal = _input__.readInt32()
+        case 400 =>
+          __countsCapped = _input__.readBool()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -161,6 +187,7 @@ object ListSavedWordsResponse extends scalapb.GeneratedMessageCompanion[com.hupo
         nextPageToken = __nextPageToken,
         total = __total,
         newTotal = __newTotal,
+        countsCapped = __countsCapped,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -171,7 +198,8 @@ object ListSavedWordsResponse extends scalapb.GeneratedMessageCompanion[com.hupo
         words = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Seq[com.huponx.protogen.dictionary.v1.SavedWord]]).getOrElse(_root_.scala.Seq.empty),
         nextPageToken = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         total = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Int]).getOrElse(0),
-        newTotal = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Int]).getOrElse(0)
+        newTotal = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        countsCapped = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -190,28 +218,33 @@ object ListSavedWordsResponse extends scalapb.GeneratedMessageCompanion[com.hupo
     words = _root_.scala.Seq.empty,
     nextPageToken = "",
     total = 0,
-    newTotal = 0
+    newTotal = 0,
+    countsCapped = false
   )
   implicit class ListSavedWordsResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ListSavedWordsResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.ListSavedWordsResponse](_l) {
     def words: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[com.huponx.protogen.dictionary.v1.SavedWord]] = field(_.words)((c_, f_) => c_.copy(words = f_))
     def nextPageToken: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.nextPageToken)((c_, f_) => c_.copy(nextPageToken = f_))
     def total: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.total)((c_, f_) => c_.copy(total = f_))
     def newTotal: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.newTotal)((c_, f_) => c_.copy(newTotal = f_))
+    def countsCapped: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.countsCapped)((c_, f_) => c_.copy(countsCapped = f_))
   }
   final val WORDS_FIELD_NUMBER = 10
   final val NEXT_PAGE_TOKEN_FIELD_NUMBER = 20
   final val TOTAL_FIELD_NUMBER = 30
   final val NEW_TOTAL_FIELD_NUMBER = 40
+  final val COUNTS_CAPPED_FIELD_NUMBER = 50
   def of(
     words: _root_.scala.Seq[com.huponx.protogen.dictionary.v1.SavedWord],
     nextPageToken: _root_.scala.Predef.String,
     total: _root_.scala.Int,
-    newTotal: _root_.scala.Int
+    newTotal: _root_.scala.Int,
+    countsCapped: _root_.scala.Boolean
   ): _root_.com.huponx.protogen.dictionary.v1.ListSavedWordsResponse = _root_.com.huponx.protogen.dictionary.v1.ListSavedWordsResponse(
     words,
     nextPageToken,
     total,
-    newTotal
+    newTotal,
+    countsCapped
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.ListSavedWordsResponse])
 }

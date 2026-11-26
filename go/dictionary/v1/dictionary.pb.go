@@ -126,6 +126,61 @@ func (ExportScope) EnumDescriptor() ([]byte, []int) {
 	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{1}
 }
 
+type ReviewGrade int32
+
+const (
+	ReviewGrade_REVIEW_GRADE_UNSPECIFIED ReviewGrade = 0
+	ReviewGrade_REVIEW_GRADE_AGAIN       ReviewGrade = 1
+	ReviewGrade_REVIEW_GRADE_HARD        ReviewGrade = 2
+	ReviewGrade_REVIEW_GRADE_GOOD        ReviewGrade = 3
+	ReviewGrade_REVIEW_GRADE_EASY        ReviewGrade = 4
+)
+
+// Enum value maps for ReviewGrade.
+var (
+	ReviewGrade_name = map[int32]string{
+		0: "REVIEW_GRADE_UNSPECIFIED",
+		1: "REVIEW_GRADE_AGAIN",
+		2: "REVIEW_GRADE_HARD",
+		3: "REVIEW_GRADE_GOOD",
+		4: "REVIEW_GRADE_EASY",
+	}
+	ReviewGrade_value = map[string]int32{
+		"REVIEW_GRADE_UNSPECIFIED": 0,
+		"REVIEW_GRADE_AGAIN":       1,
+		"REVIEW_GRADE_HARD":        2,
+		"REVIEW_GRADE_GOOD":        3,
+		"REVIEW_GRADE_EASY":        4,
+	}
+)
+
+func (x ReviewGrade) Enum() *ReviewGrade {
+	p := new(ReviewGrade)
+	*p = x
+	return p
+}
+
+func (x ReviewGrade) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ReviewGrade) Descriptor() protoreflect.EnumDescriptor {
+	return file_dictionary_v1_dictionary_proto_enumTypes[2].Descriptor()
+}
+
+func (ReviewGrade) Type() protoreflect.EnumType {
+	return &file_dictionary_v1_dictionary_proto_enumTypes[2]
+}
+
+func (x ReviewGrade) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ReviewGrade.Descriptor instead.
+func (ReviewGrade) EnumDescriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{2}
+}
+
 type Meaning struct {
 	state      protoimpl.MessageState `protogen:"open.v1"`
 	Definition string                 `protobuf:"bytes,10,opt,name=definition,proto3" json:"definition,omitempty"`
@@ -502,7 +557,13 @@ type SavedWord struct {
 	CreatedAt string `protobuf:"bytes,50,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// The word was packed in a deck. It is still in the list (remove after export is off) until the user
 	// deletes it; saving it again makes it new.
-	Exported      bool `protobuf:"varint,60,opt,name=exported,proto3" json:"exported,omitempty"`
+	Exported bool `protobuf:"varint,60,opt,name=exported,proto3" json:"exported,omitempty"`
+	// Ids of the categories of the word.
+	CategoryIds []string `protobuf:"bytes,70,rep,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	// RFC 3339: when the word is due for its next review. Empty for a new word (never reviewed).
+	NextReviewAt string `protobuf:"bytes,80,opt,name=next_review_at,json=nextReviewAt,proto3" json:"next_review_at,omitempty"`
+	// The word is in the learning steps (not yet graduated to the long intervals).
+	Learning      bool `protobuf:"varint,90,opt,name=learning,proto3" json:"learning,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -579,12 +640,35 @@ func (x *SavedWord) GetExported() bool {
 	return false
 }
 
+func (x *SavedWord) GetCategoryIds() []string {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
+func (x *SavedWord) GetNextReviewAt() string {
+	if x != nil {
+		return x.NextReviewAt
+	}
+	return ""
+}
+
+func (x *SavedWord) GetLearning() bool {
+	if x != nil {
+		return x.Learning
+	}
+	return false
+}
+
 type SaveWordRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Word          string                 `protobuf:"bytes,10,opt,name=word,proto3" json:"word,omitempty"`
-	Content       string                 `protobuf:"bytes,20,opt,name=content,proto3" json:"content,omitempty"`
-	AudioUk       string                 `protobuf:"bytes,30,opt,name=audio_uk,json=audioUk,proto3" json:"audio_uk,omitempty"`
-	AudioUs       string                 `protobuf:"bytes,40,opt,name=audio_us,json=audioUs,proto3" json:"audio_us,omitempty"`
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	Word    string                 `protobuf:"bytes,10,opt,name=word,proto3" json:"word,omitempty"`
+	Content string                 `protobuf:"bytes,20,opt,name=content,proto3" json:"content,omitempty"`
+	AudioUk string                 `protobuf:"bytes,30,opt,name=audio_uk,json=audioUk,proto3" json:"audio_uk,omitempty"`
+	AudioUs string                 `protobuf:"bytes,40,opt,name=audio_us,json=audioUs,proto3" json:"audio_us,omitempty"`
+	// Categories to add the word to. Only adds: the ones the word already has stay.
+	CategoryIds   []string `protobuf:"bytes,50,rep,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -647,6 +731,13 @@ func (x *SaveWordRequest) GetAudioUs() string {
 	return ""
 }
 
+func (x *SaveWordRequest) GetCategoryIds() []string {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
 type SaveWordResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Pending words of the user after the save.
@@ -700,7 +791,12 @@ type ListSavedWordsRequest struct {
 	PageToken string `protobuf:"bytes,20,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
 	// Only the words that contain this text (case-insensitive, matched on the word, not on the card).
 	// Empty = all words. At most 100 characters. The totals of the response ignore it.
-	Query         string `protobuf:"bytes,30,opt,name=query,proto3" json:"query,omitempty"`
+	Query string `protobuf:"bytes,30,opt,name=query,proto3" json:"query,omitempty"`
+	// Only the words of this category; empty = no filter. The id "uncategorized" means uncategorized = true (a query
+	// string has no bool). The totals of the response follow the filter.
+	CategoryId string `protobuf:"bytes,40,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	// Only the words that have no category (category_id is then ignored).
+	Uncategorized bool `protobuf:"varint,50,opt,name=uncategorized,proto3" json:"uncategorized,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -756,6 +852,20 @@ func (x *ListSavedWordsRequest) GetQuery() string {
 	return ""
 }
 
+func (x *ListSavedWordsRequest) GetCategoryId() string {
+	if x != nil {
+		return x.CategoryId
+	}
+	return ""
+}
+
+func (x *ListSavedWordsRequest) GetUncategorized() bool {
+	if x != nil {
+		return x.Uncategorized
+	}
+	return false
+}
+
 type ListSavedWordsResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Words []*SavedWord           `protobuf:"bytes,10,rep,name=words,proto3" json:"words,omitempty"`
@@ -764,7 +874,10 @@ type ListSavedWordsResponse struct {
 	// Words in the list of the user (all pages), the exported ones too.
 	Total int32 `protobuf:"varint,30,opt,name=total,proto3" json:"total,omitempty"`
 	// How many of them are new (never exported).
-	NewTotal      int32 `protobuf:"varint,40,opt,name=new_total,json=newTotal,proto3" json:"new_total,omitempty"`
+	NewTotal int32 `protobuf:"varint,40,opt,name=new_total,json=newTotal,proto3" json:"new_total,omitempty"`
+	// The count is bounded so its cost does not grow with the list: when true, new_total (and total when a
+	// category filter is set) is a lower bound, "10000+". The unfiltered total is always exact.
+	CountsCapped  bool `protobuf:"varint,50,opt,name=counts_capped,json=countsCapped,proto3" json:"counts_capped,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -825,6 +938,13 @@ func (x *ListSavedWordsResponse) GetNewTotal() int32 {
 		return x.NewTotal
 	}
 	return 0
+}
+
+func (x *ListSavedWordsResponse) GetCountsCapped() bool {
+	if x != nil {
+		return x.CountsCapped
+	}
+	return false
 }
 
 type DeleteSavedWordRequest struct {
@@ -912,7 +1032,14 @@ type ExportAnkiRequest struct {
 	// Default "My Words".
 	DeckName string `protobuf:"bytes,10,opt,name=deck_name,json=deckName,proto3" json:"deck_name,omitempty"`
 	// Default: new words only.
-	Scope         ExportScope `protobuf:"varint,20,opt,name=scope,proto3,enum=dictionary.v1.ExportScope" json:"scope,omitempty"`
+	Scope ExportScope `protobuf:"varint,20,opt,name=scope,proto3,enum=dictionary.v1.ExportScope" json:"scope,omitempty"`
+	// Only the words of this category; empty (with uncategorized false) = every word.
+	CategoryId string `protobuf:"bytes,30,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	// Only the words that have no category.
+	Uncategorized bool `protobuf:"varint,40,opt,name=uncategorized,proto3" json:"uncategorized,omitempty"`
+	// Export exactly these words: category_id, uncategorized and scope are then ignored and exported words are
+	// packed again. At most as many as the list may hold; words not in the list are skipped.
+	Words         []string `protobuf:"bytes,50,rep,name=words,proto3" json:"words,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -959,6 +1086,27 @@ func (x *ExportAnkiRequest) GetScope() ExportScope {
 		return x.Scope
 	}
 	return ExportScope_EXPORT_SCOPE_UNSPECIFIED
+}
+
+func (x *ExportAnkiRequest) GetCategoryId() string {
+	if x != nil {
+		return x.CategoryId
+	}
+	return ""
+}
+
+func (x *ExportAnkiRequest) GetUncategorized() bool {
+	if x != nil {
+		return x.Uncategorized
+	}
+	return false
+}
+
+func (x *ExportAnkiRequest) GetWords() []string {
+	if x != nil {
+		return x.Words
+	}
+	return nil
 }
 
 type ExportAnkiResponse struct {
@@ -1029,7 +1177,14 @@ type CreateDeckLinkRequest struct {
 	// Default "My Words".
 	DeckName string `protobuf:"bytes,10,opt,name=deck_name,json=deckName,proto3" json:"deck_name,omitempty"`
 	// Default: new words only.
-	Scope         ExportScope `protobuf:"varint,20,opt,name=scope,proto3,enum=dictionary.v1.ExportScope" json:"scope,omitempty"`
+	Scope ExportScope `protobuf:"varint,20,opt,name=scope,proto3,enum=dictionary.v1.ExportScope" json:"scope,omitempty"`
+	// Only the words of this category; empty (with uncategorized false) = every word.
+	CategoryId string `protobuf:"bytes,30,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	// Only the words that have no category.
+	Uncategorized bool `protobuf:"varint,40,opt,name=uncategorized,proto3" json:"uncategorized,omitempty"`
+	// Export exactly these words: category_id, uncategorized and scope are then ignored and exported words are
+	// packed again. At most as many as the list may hold; words not in the list are skipped.
+	Words         []string `protobuf:"bytes,50,rep,name=words,proto3" json:"words,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1076,6 +1231,27 @@ func (x *CreateDeckLinkRequest) GetScope() ExportScope {
 		return x.Scope
 	}
 	return ExportScope_EXPORT_SCOPE_UNSPECIFIED
+}
+
+func (x *CreateDeckLinkRequest) GetCategoryId() string {
+	if x != nil {
+		return x.CategoryId
+	}
+	return ""
+}
+
+func (x *CreateDeckLinkRequest) GetUncategorized() bool {
+	if x != nil {
+		return x.Uncategorized
+	}
+	return false
+}
+
+func (x *CreateDeckLinkRequest) GetWords() []string {
+	if x != nil {
+		return x.Words
+	}
+	return nil
 }
 
 type RemoveExportedWordsRequest struct {
@@ -1328,6 +1504,112 @@ func (x *DownloadDeckResponse) GetData() []byte {
 	return nil
 }
 
+type DownloadExportPartRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,10,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DownloadExportPartRequest) Reset() {
+	*x = DownloadExportPartRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DownloadExportPartRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DownloadExportPartRequest) ProtoMessage() {}
+
+func (x *DownloadExportPartRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DownloadExportPartRequest.ProtoReflect.Descriptor instead.
+func (*DownloadExportPartRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *DownloadExportPartRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type DownloadChunk struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Only in the first chunk.
+	Filename string `protobuf:"bytes,10,opt,name=filename,proto3" json:"filename,omitempty"`
+	// Size of the whole file in bytes; only in the first chunk.
+	Size          int64  `protobuf:"varint,20,opt,name=size,proto3" json:"size,omitempty"`
+	Data          []byte `protobuf:"bytes,30,opt,name=data,proto3" json:"data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DownloadChunk) Reset() {
+	*x = DownloadChunk{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DownloadChunk) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DownloadChunk) ProtoMessage() {}
+
+func (x *DownloadChunk) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DownloadChunk.ProtoReflect.Descriptor instead.
+func (*DownloadChunk) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *DownloadChunk) GetFilename() string {
+	if x != nil {
+		return x.Filename
+	}
+	return ""
+}
+
+func (x *DownloadChunk) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *DownloadChunk) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
 type UploadImageRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// MIME type the client claims; the service checks the bytes, not this.
@@ -1339,7 +1621,7 @@ type UploadImageRequest struct {
 
 func (x *UploadImageRequest) Reset() {
 	*x = UploadImageRequest{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[21]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1351,7 +1633,7 @@ func (x *UploadImageRequest) String() string {
 func (*UploadImageRequest) ProtoMessage() {}
 
 func (x *UploadImageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[21]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1364,7 +1646,7 @@ func (x *UploadImageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadImageRequest.ProtoReflect.Descriptor instead.
 func (*UploadImageRequest) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{21}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *UploadImageRequest) GetContentType() string {
@@ -1391,7 +1673,7 @@ type UploadImageResponse struct {
 
 func (x *UploadImageResponse) Reset() {
 	*x = UploadImageResponse{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[22]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1403,7 +1685,7 @@ func (x *UploadImageResponse) String() string {
 func (*UploadImageResponse) ProtoMessage() {}
 
 func (x *UploadImageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[22]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1416,7 +1698,7 @@ func (x *UploadImageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadImageResponse.ProtoReflect.Descriptor instead.
 func (*UploadImageResponse) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{22}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *UploadImageResponse) GetId() string {
@@ -1435,7 +1717,7 @@ type GetImageRequest struct {
 
 func (x *GetImageRequest) Reset() {
 	*x = GetImageRequest{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[23]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1447,7 +1729,7 @@ func (x *GetImageRequest) String() string {
 func (*GetImageRequest) ProtoMessage() {}
 
 func (x *GetImageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[23]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1460,7 +1742,7 @@ func (x *GetImageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetImageRequest.ProtoReflect.Descriptor instead.
 func (*GetImageRequest) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{23}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetImageRequest) GetId() string {
@@ -1480,7 +1762,7 @@ type GetImageResponse struct {
 
 func (x *GetImageResponse) Reset() {
 	*x = GetImageResponse{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[24]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1492,7 +1774,7 @@ func (x *GetImageResponse) String() string {
 func (*GetImageResponse) ProtoMessage() {}
 
 func (x *GetImageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[24]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1505,7 +1787,7 @@ func (x *GetImageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetImageResponse.ProtoReflect.Descriptor instead.
 func (*GetImageResponse) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{24}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetImageResponse) GetContentType() string {
@@ -1522,10 +1804,1387 @@ func (x *GetImageResponse) GetData() []byte {
 	return nil
 }
 
+type UploadAudioRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// MIME type the client claims; the service checks the bytes, not this.
+	ContentType   string `protobuf:"bytes,10,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
+	Data          []byte `protobuf:"bytes,20,opt,name=data,proto3" json:"data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadAudioRequest) Reset() {
+	*x = UploadAudioRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadAudioRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadAudioRequest) ProtoMessage() {}
+
+func (x *UploadAudioRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadAudioRequest.ProtoReflect.Descriptor instead.
+func (*UploadAudioRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *UploadAudioRequest) GetContentType() string {
+	if x != nil {
+		return x.ContentType
+	}
+	return ""
+}
+
+func (x *UploadAudioRequest) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type UploadAudioResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// UUID; the card refers to the audio as dictaud:<id>.
+	Id            string `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadAudioResponse) Reset() {
+	*x = UploadAudioResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadAudioResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadAudioResponse) ProtoMessage() {}
+
+func (x *UploadAudioResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadAudioResponse.ProtoReflect.Descriptor instead.
+func (*UploadAudioResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *UploadAudioResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetAudioRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAudioRequest) Reset() {
+	*x = GetAudioRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAudioRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAudioRequest) ProtoMessage() {}
+
+func (x *GetAudioRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAudioRequest.ProtoReflect.Descriptor instead.
+func (*GetAudioRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *GetAudioRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetAudioResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ContentType   string                 `protobuf:"bytes,10,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
+	Data          []byte                 `protobuf:"bytes,20,opt,name=data,proto3" json:"data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAudioResponse) Reset() {
+	*x = GetAudioResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAudioResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAudioResponse) ProtoMessage() {}
+
+func (x *GetAudioResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAudioResponse.ProtoReflect.Descriptor instead.
+func (*GetAudioResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *GetAudioResponse) GetContentType() string {
+	if x != nil {
+		return x.ContentType
+	}
+	return ""
+}
+
+func (x *GetAudioResponse) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type ReviewCard struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Word  string                 `protobuf:"bytes,10,opt,name=word,proto3" json:"word,omitempty"`
+	// The card as HTML, like SavedWord.content.
+	Content string `protobuf:"bytes,20,opt,name=content,proto3" json:"content,omitempty"`
+	AudioUk string `protobuf:"bytes,30,opt,name=audio_uk,json=audioUk,proto3" json:"audio_uk,omitempty"`
+	AudioUs string `protobuf:"bytes,40,opt,name=audio_us,json=audioUs,proto3" json:"audio_us,omitempty"`
+	// The word was never reviewed.
+	IsNew bool `protobuf:"varint,50,opt,name=is_new,json=isNew,proto3" json:"is_new,omitempty"`
+	// Seconds until the next review after Again, Hard, Good and Easy (in this order).
+	GradeIntervalsSeconds []int64 `protobuf:"varint,60,rep,packed,name=grade_intervals_seconds,json=gradeIntervalsSeconds,proto3" json:"grade_intervals_seconds,omitempty"`
+	// The card is being learned (after Again or Hard); is_new stays for words never reviewed, the two exclude each other.
+	Learning      bool `protobuf:"varint,70,opt,name=learning,proto3" json:"learning,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReviewCard) Reset() {
+	*x = ReviewCard{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReviewCard) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReviewCard) ProtoMessage() {}
+
+func (x *ReviewCard) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReviewCard.ProtoReflect.Descriptor instead.
+func (*ReviewCard) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *ReviewCard) GetWord() string {
+	if x != nil {
+		return x.Word
+	}
+	return ""
+}
+
+func (x *ReviewCard) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *ReviewCard) GetAudioUk() string {
+	if x != nil {
+		return x.AudioUk
+	}
+	return ""
+}
+
+func (x *ReviewCard) GetAudioUs() string {
+	if x != nil {
+		return x.AudioUs
+	}
+	return ""
+}
+
+func (x *ReviewCard) GetIsNew() bool {
+	if x != nil {
+		return x.IsNew
+	}
+	return false
+}
+
+func (x *ReviewCard) GetGradeIntervalsSeconds() []int64 {
+	if x != nil {
+		return x.GradeIntervalsSeconds
+	}
+	return nil
+}
+
+func (x *ReviewCard) GetLearning() bool {
+	if x != nil {
+		return x.Learning
+	}
+	return false
+}
+
+type GetReviewQueueRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Cards to return; 0 takes the default (50), at most 200.
+	Limit int32 `protobuf:"varint,10,opt,name=limit,proto3" json:"limit,omitempty"`
+	// Only the words of this category; empty (with uncategorized false) = every word; the id "uncategorized" means
+	// uncategorized = true (a query string has no bool). The daily limit of new
+	// words stays one for all categories.
+	CategoryId string `protobuf:"bytes,20,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	// Only the words that have no category.
+	Uncategorized bool `protobuf:"varint,30,opt,name=uncategorized,proto3" json:"uncategorized,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetReviewQueueRequest) Reset() {
+	*x = GetReviewQueueRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetReviewQueueRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReviewQueueRequest) ProtoMessage() {}
+
+func (x *GetReviewQueueRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReviewQueueRequest.ProtoReflect.Descriptor instead.
+func (*GetReviewQueueRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *GetReviewQueueRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *GetReviewQueueRequest) GetCategoryId() string {
+	if x != nil {
+		return x.CategoryId
+	}
+	return ""
+}
+
+func (x *GetReviewQueueRequest) GetUncategorized() bool {
+	if x != nil {
+		return x.Uncategorized
+	}
+	return false
+}
+
+type GetReviewQueueResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Cards []*ReviewCard          `protobuf:"bytes,10,rep,name=cards,proto3" json:"cards,omitempty"`
+	// Review cards (not in learning) due now, and new cards still allowed today, before the cut to limit.
+	DueCount int32 `protobuf:"varint,20,opt,name=due_count,json=dueCount,proto3" json:"due_count,omitempty"`
+	NewCount int32 `protobuf:"varint,30,opt,name=new_count,json=newCount,proto3" json:"new_count,omitempty"`
+	// Words in the list.
+	TotalCount int32 `protobuf:"varint,40,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
+	// RFC 3339: when the next card that is not due yet comes due; empty when there is none.
+	NextDueAt string `protobuf:"bytes,50,opt,name=next_due_at,json=nextDueAt,proto3" json:"next_due_at,omitempty"`
+	// Cards being learned (after Again or Hard) that are due now.
+	LearningCount int32 `protobuf:"varint,60,opt,name=learning_count,json=learningCount,proto3" json:"learning_count,omitempty"`
+	// New words, and due plus learning cards, that are left but held back by the daily limits (with the bonus).
+	NewHeld int32 `protobuf:"varint,70,opt,name=new_held,json=newHeld,proto3" json:"new_held,omitempty"`
+	DueHeld int32 `protobuf:"varint,80,opt,name=due_held,json=dueHeld,proto3" json:"due_held,omitempty"`
+	// A count reached its cap (10000) and is a lower bound: show "10000+".
+	CountsCapped  bool `protobuf:"varint,90,opt,name=counts_capped,json=countsCapped,proto3" json:"counts_capped,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetReviewQueueResponse) Reset() {
+	*x = GetReviewQueueResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetReviewQueueResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReviewQueueResponse) ProtoMessage() {}
+
+func (x *GetReviewQueueResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReviewQueueResponse.ProtoReflect.Descriptor instead.
+func (*GetReviewQueueResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *GetReviewQueueResponse) GetCards() []*ReviewCard {
+	if x != nil {
+		return x.Cards
+	}
+	return nil
+}
+
+func (x *GetReviewQueueResponse) GetDueCount() int32 {
+	if x != nil {
+		return x.DueCount
+	}
+	return 0
+}
+
+func (x *GetReviewQueueResponse) GetNewCount() int32 {
+	if x != nil {
+		return x.NewCount
+	}
+	return 0
+}
+
+func (x *GetReviewQueueResponse) GetTotalCount() int32 {
+	if x != nil {
+		return x.TotalCount
+	}
+	return 0
+}
+
+func (x *GetReviewQueueResponse) GetNextDueAt() string {
+	if x != nil {
+		return x.NextDueAt
+	}
+	return ""
+}
+
+func (x *GetReviewQueueResponse) GetLearningCount() int32 {
+	if x != nil {
+		return x.LearningCount
+	}
+	return 0
+}
+
+func (x *GetReviewQueueResponse) GetNewHeld() int32 {
+	if x != nil {
+		return x.NewHeld
+	}
+	return 0
+}
+
+func (x *GetReviewQueueResponse) GetDueHeld() int32 {
+	if x != nil {
+		return x.DueHeld
+	}
+	return 0
+}
+
+func (x *GetReviewQueueResponse) GetCountsCapped() bool {
+	if x != nil {
+		return x.CountsCapped
+	}
+	return false
+}
+
+type AddReviewBonusRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// New words and review cards to add to today's limits (0 to 9999 each, at least one above 0).
+	NewWords      int32 `protobuf:"varint,10,opt,name=new_words,json=newWords,proto3" json:"new_words,omitempty"`
+	Reviews       int32 `protobuf:"varint,20,opt,name=reviews,proto3" json:"reviews,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddReviewBonusRequest) Reset() {
+	*x = AddReviewBonusRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddReviewBonusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddReviewBonusRequest) ProtoMessage() {}
+
+func (x *AddReviewBonusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddReviewBonusRequest.ProtoReflect.Descriptor instead.
+func (*AddReviewBonusRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *AddReviewBonusRequest) GetNewWords() int32 {
+	if x != nil {
+		return x.NewWords
+	}
+	return 0
+}
+
+func (x *AddReviewBonusRequest) GetReviews() int32 {
+	if x != nil {
+		return x.Reviews
+	}
+	return 0
+}
+
+type AddReviewBonusResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The whole bonus now in effect and when it ends (RFC 3339).
+	ExtraNew      int32  `protobuf:"varint,10,opt,name=extra_new,json=extraNew,proto3" json:"extra_new,omitempty"`
+	ExtraReviews  int32  `protobuf:"varint,20,opt,name=extra_reviews,json=extraReviews,proto3" json:"extra_reviews,omitempty"`
+	ExpiresAt     string `protobuf:"bytes,30,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddReviewBonusResponse) Reset() {
+	*x = AddReviewBonusResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddReviewBonusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddReviewBonusResponse) ProtoMessage() {}
+
+func (x *AddReviewBonusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddReviewBonusResponse.ProtoReflect.Descriptor instead.
+func (*AddReviewBonusResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *AddReviewBonusResponse) GetExtraNew() int32 {
+	if x != nil {
+		return x.ExtraNew
+	}
+	return 0
+}
+
+func (x *AddReviewBonusResponse) GetExtraReviews() int32 {
+	if x != nil {
+		return x.ExtraReviews
+	}
+	return 0
+}
+
+func (x *AddReviewBonusResponse) GetExpiresAt() string {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return ""
+}
+
+type SubmitReviewRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Word          string                 `protobuf:"bytes,10,opt,name=word,proto3" json:"word,omitempty"`
+	Grade         ReviewGrade            `protobuf:"varint,20,opt,name=grade,proto3,enum=dictionary.v1.ReviewGrade" json:"grade,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubmitReviewRequest) Reset() {
+	*x = SubmitReviewRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubmitReviewRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubmitReviewRequest) ProtoMessage() {}
+
+func (x *SubmitReviewRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubmitReviewRequest.ProtoReflect.Descriptor instead.
+func (*SubmitReviewRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *SubmitReviewRequest) GetWord() string {
+	if x != nil {
+		return x.Word
+	}
+	return ""
+}
+
+func (x *SubmitReviewRequest) GetGrade() ReviewGrade {
+	if x != nil {
+		return x.Grade
+	}
+	return ReviewGrade_REVIEW_GRADE_UNSPECIFIED
+}
+
+type SubmitReviewResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// RFC 3339.
+	DueAt           string `protobuf:"bytes,10,opt,name=due_at,json=dueAt,proto3" json:"due_at,omitempty"`
+	IntervalSeconds int64  `protobuf:"varint,20,opt,name=interval_seconds,json=intervalSeconds,proto3" json:"interval_seconds,omitempty"`
+	// Seconds until the next review after Again, Hard, Good and Easy of the card as it is now.
+	GradeIntervalsSeconds []int64 `protobuf:"varint,30,rep,packed,name=grade_intervals_seconds,json=gradeIntervalsSeconds,proto3" json:"grade_intervals_seconds,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *SubmitReviewResponse) Reset() {
+	*x = SubmitReviewResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubmitReviewResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubmitReviewResponse) ProtoMessage() {}
+
+func (x *SubmitReviewResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubmitReviewResponse.ProtoReflect.Descriptor instead.
+func (*SubmitReviewResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *SubmitReviewResponse) GetDueAt() string {
+	if x != nil {
+		return x.DueAt
+	}
+	return ""
+}
+
+func (x *SubmitReviewResponse) GetIntervalSeconds() int64 {
+	if x != nil {
+		return x.IntervalSeconds
+	}
+	return 0
+}
+
+func (x *SubmitReviewResponse) GetGradeIntervalsSeconds() []int64 {
+	if x != nil {
+		return x.GradeIntervalsSeconds
+	}
+	return nil
+}
+
+type OptimizeReviewParametersRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Forget the fitted parameters (back to the defaults) instead of fitting.
+	RestoreDefaults bool `protobuf:"varint,10,opt,name=restore_defaults,json=restoreDefaults,proto3" json:"restore_defaults,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *OptimizeReviewParametersRequest) Reset() {
+	*x = OptimizeReviewParametersRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OptimizeReviewParametersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptimizeReviewParametersRequest) ProtoMessage() {}
+
+func (x *OptimizeReviewParametersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptimizeReviewParametersRequest.ProtoReflect.Descriptor instead.
+func (*OptimizeReviewParametersRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *OptimizeReviewParametersRequest) GetRestoreDefaults() bool {
+	if x != nil {
+		return x.RestoreDefaults
+	}
+	return false
+}
+
+type OptimizeReviewParametersResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The fitted parameters were stored (they beat the defaults on the held-out reviews).
+	Applied bool `protobuf:"varint,10,opt,name=applied,proto3" json:"applied,omitempty"`
+	// Reviews the fit used.
+	ReviewCount int32 `protobuf:"varint,20,opt,name=review_count,json=reviewCount,proto3" json:"review_count,omitempty"`
+	// Log-loss of the default and of the fitted parameters on the held-out reviews (lower is better).
+	LossDefault float32 `protobuf:"fixed32,30,opt,name=loss_default,json=lossDefault,proto3" json:"loss_default,omitempty"`
+	LossTrained float32 `protobuf:"fixed32,40,opt,name=loss_trained,json=lossTrained,proto3" json:"loss_trained,omitempty"`
+	// RFC 3339; empty when never fitted.
+	TrainedAt string `protobuf:"bytes,50,opt,name=trained_at,json=trainedAt,proto3" json:"trained_at,omitempty"`
+	// Why the parameters were not applied.
+	Reason        string `protobuf:"bytes,60,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OptimizeReviewParametersResponse) Reset() {
+	*x = OptimizeReviewParametersResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OptimizeReviewParametersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptimizeReviewParametersResponse) ProtoMessage() {}
+
+func (x *OptimizeReviewParametersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptimizeReviewParametersResponse.ProtoReflect.Descriptor instead.
+func (*OptimizeReviewParametersResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *OptimizeReviewParametersResponse) GetApplied() bool {
+	if x != nil {
+		return x.Applied
+	}
+	return false
+}
+
+func (x *OptimizeReviewParametersResponse) GetReviewCount() int32 {
+	if x != nil {
+		return x.ReviewCount
+	}
+	return 0
+}
+
+func (x *OptimizeReviewParametersResponse) GetLossDefault() float32 {
+	if x != nil {
+		return x.LossDefault
+	}
+	return 0
+}
+
+func (x *OptimizeReviewParametersResponse) GetLossTrained() float32 {
+	if x != nil {
+		return x.LossTrained
+	}
+	return 0
+}
+
+func (x *OptimizeReviewParametersResponse) GetTrainedAt() string {
+	if x != nil {
+		return x.TrainedAt
+	}
+	return ""
+}
+
+func (x *OptimizeReviewParametersResponse) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+// Category groups saved words; a word may be in several.
+type Category struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Id    string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	Name  string                 `protobuf:"bytes,20,opt,name=name,proto3" json:"name,omitempty"`
+	// Words of the list in the category, and how many are new (never exported).
+	Total         int32 `protobuf:"varint,30,opt,name=total,proto3" json:"total,omitempty"`
+	NewTotal      int32 `protobuf:"varint,40,opt,name=new_total,json=newTotal,proto3" json:"new_total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Category) Reset() {
+	*x = Category{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Category) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Category) ProtoMessage() {}
+
+func (x *Category) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Category.ProtoReflect.Descriptor instead.
+func (*Category) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *Category) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Category) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Category) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *Category) GetNewTotal() int32 {
+	if x != nil {
+		return x.NewTotal
+	}
+	return 0
+}
+
+type ListCategoriesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCategoriesRequest) Reset() {
+	*x = ListCategoriesRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCategoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCategoriesRequest) ProtoMessage() {}
+
+func (x *ListCategoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCategoriesRequest.ProtoReflect.Descriptor instead.
+func (*ListCategoriesRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{41}
+}
+
+type ListCategoriesResponse struct {
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	Categories []*Category            `protobuf:"bytes,10,rep,name=categories,proto3" json:"categories,omitempty"`
+	// Words in no category (total, new): for the "Uncategorized" filter.
+	UncategorizedTotal    int32 `protobuf:"varint,20,opt,name=uncategorized_total,json=uncategorizedTotal,proto3" json:"uncategorized_total,omitempty"`
+	UncategorizedNewTotal int32 `protobuf:"varint,30,opt,name=uncategorized_new_total,json=uncategorizedNewTotal,proto3" json:"uncategorized_new_total,omitempty"`
+	// Every count is bounded: when true, at least one total or new_total is a lower bound, "10000+".
+	CountsCapped  bool `protobuf:"varint,40,opt,name=counts_capped,json=countsCapped,proto3" json:"counts_capped,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCategoriesResponse) Reset() {
+	*x = ListCategoriesResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCategoriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCategoriesResponse) ProtoMessage() {}
+
+func (x *ListCategoriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCategoriesResponse.ProtoReflect.Descriptor instead.
+func (*ListCategoriesResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *ListCategoriesResponse) GetCategories() []*Category {
+	if x != nil {
+		return x.Categories
+	}
+	return nil
+}
+
+func (x *ListCategoriesResponse) GetUncategorizedTotal() int32 {
+	if x != nil {
+		return x.UncategorizedTotal
+	}
+	return 0
+}
+
+func (x *ListCategoriesResponse) GetUncategorizedNewTotal() int32 {
+	if x != nil {
+		return x.UncategorizedNewTotal
+	}
+	return 0
+}
+
+func (x *ListCategoriesResponse) GetCountsCapped() bool {
+	if x != nil {
+		return x.CountsCapped
+	}
+	return false
+}
+
+type CreateCategoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,10,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCategoryRequest) Reset() {
+	*x = CreateCategoryRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCategoryRequest) ProtoMessage() {}
+
+func (x *CreateCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCategoryRequest.ProtoReflect.Descriptor instead.
+func (*CreateCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *CreateCategoryRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type CreateCategoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Category      *Category              `protobuf:"bytes,10,opt,name=category,proto3" json:"category,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCategoryResponse) Reset() {
+	*x = CreateCategoryResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCategoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCategoryResponse) ProtoMessage() {}
+
+func (x *CreateCategoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCategoryResponse.ProtoReflect.Descriptor instead.
+func (*CreateCategoryResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *CreateCategoryResponse) GetCategory() *Category {
+	if x != nil {
+		return x.Category
+	}
+	return nil
+}
+
+type RenameCategoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,20,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RenameCategoryRequest) Reset() {
+	*x = RenameCategoryRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RenameCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RenameCategoryRequest) ProtoMessage() {}
+
+func (x *RenameCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RenameCategoryRequest.ProtoReflect.Descriptor instead.
+func (*RenameCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *RenameCategoryRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *RenameCategoryRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type RenameCategoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Category      *Category              `protobuf:"bytes,10,opt,name=category,proto3" json:"category,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RenameCategoryResponse) Reset() {
+	*x = RenameCategoryResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RenameCategoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RenameCategoryResponse) ProtoMessage() {}
+
+func (x *RenameCategoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RenameCategoryResponse.ProtoReflect.Descriptor instead.
+func (*RenameCategoryResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *RenameCategoryResponse) GetCategory() *Category {
+	if x != nil {
+		return x.Category
+	}
+	return nil
+}
+
+type DeleteCategoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteCategoryRequest) Reset() {
+	*x = DeleteCategoryRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteCategoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCategoryRequest) ProtoMessage() {}
+
+func (x *DeleteCategoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCategoryRequest.ProtoReflect.Descriptor instead.
+func (*DeleteCategoryRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *DeleteCategoryRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type DeleteCategoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteCategoryResponse) Reset() {
+	*x = DeleteCategoryResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteCategoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCategoryResponse) ProtoMessage() {}
+
+func (x *DeleteCategoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCategoryResponse.ProtoReflect.Descriptor instead.
+func (*DeleteCategoryResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{48}
+}
+
+type UpdateWordCategoriesRequest struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Words             []string               `protobuf:"bytes,10,rep,name=words,proto3" json:"words,omitempty"`
+	AddCategoryIds    []string               `protobuf:"bytes,20,rep,name=add_category_ids,json=addCategoryIds,proto3" json:"add_category_ids,omitempty"`
+	RemoveCategoryIds []string               `protobuf:"bytes,30,rep,name=remove_category_ids,json=removeCategoryIds,proto3" json:"remove_category_ids,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *UpdateWordCategoriesRequest) Reset() {
+	*x = UpdateWordCategoriesRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateWordCategoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateWordCategoriesRequest) ProtoMessage() {}
+
+func (x *UpdateWordCategoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateWordCategoriesRequest.ProtoReflect.Descriptor instead.
+func (*UpdateWordCategoriesRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{49}
+}
+
+func (x *UpdateWordCategoriesRequest) GetWords() []string {
+	if x != nil {
+		return x.Words
+	}
+	return nil
+}
+
+func (x *UpdateWordCategoriesRequest) GetAddCategoryIds() []string {
+	if x != nil {
+		return x.AddCategoryIds
+	}
+	return nil
+}
+
+func (x *UpdateWordCategoriesRequest) GetRemoveCategoryIds() []string {
+	if x != nil {
+		return x.RemoveCategoryIds
+	}
+	return nil
+}
+
+type UpdateWordCategoriesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Words that were in the list.
+	Updated       int32 `protobuf:"varint,10,opt,name=updated,proto3" json:"updated,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateWordCategoriesResponse) Reset() {
+	*x = UpdateWordCategoriesResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateWordCategoriesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateWordCategoriesResponse) ProtoMessage() {}
+
+func (x *UpdateWordCategoriesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateWordCategoriesResponse.ProtoReflect.Descriptor instead.
+func (*UpdateWordCategoriesResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *UpdateWordCategoriesResponse) GetUpdated() int32 {
+	if x != nil {
+		return x.Updated
+	}
+	return 0
+}
+
 // Settings of the whole system, edited by an administrator.
 type Settings struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Pending (not yet exported) words one user may keep.
+	// Words one user may keep in the list, from 1 to 1,000,000 (the words that are exported and left the list do not
+	// count). Long lists are listed, counted and exported in pages and parts, see ListSavedWords and StartExport.
 	MaxSavedWords int32 `protobuf:"varint,10,opt,name=max_saved_words,json=maxSavedWords,proto3" json:"max_saved_words,omitempty"`
 	// Anki deck download (ExportAnki).
 	AllowExportDeck bool `protobuf:"varint,20,opt,name=allow_export_deck,json=allowExportDeck,proto3" json:"allow_export_deck,omitempty"`
@@ -1538,13 +3197,44 @@ type Settings struct {
 	RemoveAfterExport bool `protobuf:"varint,60,opt,name=remove_after_export,json=removeAfterExport,proto3" json:"remove_after_export,omitempty"`
 	// Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
 	ExportedRetentionHours int32 `protobuf:"varint,70,opt,name=exported_retention_hours,json=exportedRetentionHours,proto3" json:"exported_retention_hours,omitempty"`
-	unknownFields          protoimpl.UnknownFields
-	sizeCache              protoimpl.SizeCache
+	// Categories one user may have (1 to 200, 50 until chosen); 0 from a service that predates it.
+	MaxCategories int32 `protobuf:"varint,80,opt,name=max_categories,json=maxCategories,proto3" json:"max_categories,omitempty"`
+	// Longest category name, in characters (1 to 100, 40 until chosen); 0 from a service that predates it.
+	MaxCategoryNameLength int32 `protobuf:"varint,90,opt,name=max_category_name_length,json=maxCategoryNameLength,proto3" json:"max_category_name_length,omitempty"`
+	// Largest .apkg of a synchronous export (ExportAnki, CreateDeckLink), in bytes: from 64 KiB to
+	// export_max_bytes_ceiling. 0 from a client that predates it keeps the current value.
+	ExportMaxBytes int32 `protobuf:"varint,100,opt,name=export_max_bytes,json=exportMaxBytes,proto3" json:"export_max_bytes,omitempty"`
+	// Largest part of an export job (StartExport), in bytes: from 64 KiB to export_part_max_bytes_ceiling.
+	// 0 from a client that predates it keeps the current value.
+	ExportPartMaxBytes int32 `protobuf:"varint,110,opt,name=export_part_max_bytes,json=exportPartMaxBytes,proto3" json:"export_part_max_bytes,omitempty"`
+	// The ceilings of the two sizes above: the configuration of the deployment. Read only, ignored on update.
+	ExportMaxBytesCeiling     int32 `protobuf:"varint,120,opt,name=export_max_bytes_ceiling,json=exportMaxBytesCeiling,proto3" json:"export_max_bytes_ceiling,omitempty"`
+	ExportPartMaxBytesCeiling int32 `protobuf:"varint,130,opt,name=export_part_max_bytes_ceiling,json=exportPartMaxBytesCeiling,proto3" json:"export_part_max_bytes_ceiling,omitempty"`
+	// Most words a synchronous export (ExportAnki, CreateDeckLink) packs, from 1 to 5000; a longer list is refused
+	// with EXPORT_USE_JOB and has to be exported in parts (StartExport). It bounds the memory of one request.
+	// 0 from a client that predates it keeps the current value.
+	ExportSyncMaxWords int32 `protobuf:"varint,140,opt,name=export_sync_max_words,json=exportSyncMaxWords,proto3" json:"export_sync_max_words,omitempty"`
+	// Largest content of one word, in bytes: from 1 KiB to max_content_bytes_ceiling (64 KiB until chosen).
+	// 0 from a client that predates it keeps the current value.
+	MaxContentBytes int32 `protobuf:"varint,150,opt,name=max_content_bytes,json=maxContentBytes,proto3" json:"max_content_bytes,omitempty"`
+	// What one user may keep, in bytes: the content of the words in the list, the images and the audio files. Each
+	// goes up to its ceiling; a user can have an own limit (SetUserQuota). 0 from a client that predates it keeps
+	// the current value.
+	ContentUserQuota int64 `protobuf:"varint,160,opt,name=content_user_quota,json=contentUserQuota,proto3" json:"content_user_quota,omitempty"`
+	ImageUserQuota   int64 `protobuf:"varint,170,opt,name=image_user_quota,json=imageUserQuota,proto3" json:"image_user_quota,omitempty"`
+	AudioUserQuota   int64 `protobuf:"varint,180,opt,name=audio_user_quota,json=audioUserQuota,proto3" json:"audio_user_quota,omitempty"`
+	// The ceilings of the four sizes above: the configuration of the deployment. Read only, ignored on update.
+	MaxContentBytesCeiling  int32 `protobuf:"varint,190,opt,name=max_content_bytes_ceiling,json=maxContentBytesCeiling,proto3" json:"max_content_bytes_ceiling,omitempty"`
+	ContentUserQuotaCeiling int64 `protobuf:"varint,200,opt,name=content_user_quota_ceiling,json=contentUserQuotaCeiling,proto3" json:"content_user_quota_ceiling,omitempty"`
+	ImageUserQuotaCeiling   int64 `protobuf:"varint,210,opt,name=image_user_quota_ceiling,json=imageUserQuotaCeiling,proto3" json:"image_user_quota_ceiling,omitempty"`
+	AudioUserQuotaCeiling   int64 `protobuf:"varint,220,opt,name=audio_user_quota_ceiling,json=audioUserQuotaCeiling,proto3" json:"audio_user_quota_ceiling,omitempty"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *Settings) Reset() {
 	*x = Settings{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[25]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1556,7 +3246,7 @@ func (x *Settings) String() string {
 func (*Settings) ProtoMessage() {}
 
 func (x *Settings) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[25]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1569,7 +3259,7 @@ func (x *Settings) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Settings.ProtoReflect.Descriptor instead.
 func (*Settings) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{25}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *Settings) GetMaxSavedWords() int32 {
@@ -1621,6 +3311,111 @@ func (x *Settings) GetExportedRetentionHours() int32 {
 	return 0
 }
 
+func (x *Settings) GetMaxCategories() int32 {
+	if x != nil {
+		return x.MaxCategories
+	}
+	return 0
+}
+
+func (x *Settings) GetMaxCategoryNameLength() int32 {
+	if x != nil {
+		return x.MaxCategoryNameLength
+	}
+	return 0
+}
+
+func (x *Settings) GetExportMaxBytes() int32 {
+	if x != nil {
+		return x.ExportMaxBytes
+	}
+	return 0
+}
+
+func (x *Settings) GetExportPartMaxBytes() int32 {
+	if x != nil {
+		return x.ExportPartMaxBytes
+	}
+	return 0
+}
+
+func (x *Settings) GetExportMaxBytesCeiling() int32 {
+	if x != nil {
+		return x.ExportMaxBytesCeiling
+	}
+	return 0
+}
+
+func (x *Settings) GetExportPartMaxBytesCeiling() int32 {
+	if x != nil {
+		return x.ExportPartMaxBytesCeiling
+	}
+	return 0
+}
+
+func (x *Settings) GetExportSyncMaxWords() int32 {
+	if x != nil {
+		return x.ExportSyncMaxWords
+	}
+	return 0
+}
+
+func (x *Settings) GetMaxContentBytes() int32 {
+	if x != nil {
+		return x.MaxContentBytes
+	}
+	return 0
+}
+
+func (x *Settings) GetContentUserQuota() int64 {
+	if x != nil {
+		return x.ContentUserQuota
+	}
+	return 0
+}
+
+func (x *Settings) GetImageUserQuota() int64 {
+	if x != nil {
+		return x.ImageUserQuota
+	}
+	return 0
+}
+
+func (x *Settings) GetAudioUserQuota() int64 {
+	if x != nil {
+		return x.AudioUserQuota
+	}
+	return 0
+}
+
+func (x *Settings) GetMaxContentBytesCeiling() int32 {
+	if x != nil {
+		return x.MaxContentBytesCeiling
+	}
+	return 0
+}
+
+func (x *Settings) GetContentUserQuotaCeiling() int64 {
+	if x != nil {
+		return x.ContentUserQuotaCeiling
+	}
+	return 0
+}
+
+func (x *Settings) GetImageUserQuotaCeiling() int64 {
+	if x != nil {
+		return x.ImageUserQuotaCeiling
+	}
+	return 0
+}
+
+func (x *Settings) GetAudioUserQuotaCeiling() int64 {
+	if x != nil {
+		return x.AudioUserQuotaCeiling
+	}
+	return 0
+}
+
 // Preferences of one user. They only narrow what Settings allows.
 type UserSettings struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
@@ -1639,14 +3434,22 @@ type UserSettings struct {
 	RemoveAcknowledged bool `protobuf:"varint,70,opt,name=remove_acknowledged,json=removeAcknowledged,proto3" json:"remove_acknowledged,omitempty"`
 	// Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
 	// keep their identity, so importing a deck again updates them (the deck name must stay the same).
-	FreshDeck     bool `protobuf:"varint,80,opt,name=fresh_deck,json=freshDeck,proto3" json:"fresh_deck,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	FreshDeck bool `protobuf:"varint,80,opt,name=fresh_deck,json=freshDeck,proto3" json:"fresh_deck,omitempty"`
+	// New words the review shows per 24 hours (0 to 100; 0: no new words).
+	ReviewNewPerDay int32 `protobuf:"varint,90,opt,name=review_new_per_day,json=reviewNewPerDay,proto3" json:"review_new_per_day,omitempty"`
+	// Review cards (due and learning) the review shows per 24 hours (0 to 9999; 0: none).
+	ReviewMaxPerDay int32 `protobuf:"varint,100,opt,name=review_max_per_day,json=reviewMaxPerDay,proto3" json:"review_max_per_day,omitempty"`
+	// The algorithm that schedules the review: "sm2" or "fsrs"; empty is "sm2".
+	ReviewAlgorithm string `protobuf:"bytes,110,opt,name=review_algorithm,json=reviewAlgorithm,proto3" json:"review_algorithm,omitempty"`
+	// FSRS: the chance (in percent, 70 to 97) to remember a card on the day it is due; 0 is 90.
+	DesiredRetention int32 `protobuf:"varint,120,opt,name=desired_retention,json=desiredRetention,proto3" json:"desired_retention,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *UserSettings) Reset() {
 	*x = UserSettings{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[26]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1658,7 +3461,7 @@ func (x *UserSettings) String() string {
 func (*UserSettings) ProtoMessage() {}
 
 func (x *UserSettings) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[26]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1671,7 +3474,7 @@ func (x *UserSettings) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserSettings.ProtoReflect.Descriptor instead.
 func (*UserSettings) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{26}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *UserSettings) GetEnglishEnabled() bool {
@@ -1730,6 +3533,34 @@ func (x *UserSettings) GetFreshDeck() bool {
 	return false
 }
 
+func (x *UserSettings) GetReviewNewPerDay() int32 {
+	if x != nil {
+		return x.ReviewNewPerDay
+	}
+	return 0
+}
+
+func (x *UserSettings) GetReviewMaxPerDay() int32 {
+	if x != nil {
+		return x.ReviewMaxPerDay
+	}
+	return 0
+}
+
+func (x *UserSettings) GetReviewAlgorithm() string {
+	if x != nil {
+		return x.ReviewAlgorithm
+	}
+	return ""
+}
+
+func (x *UserSettings) GetDesiredRetention() int32 {
+	if x != nil {
+		return x.DesiredRetention
+	}
+	return 0
+}
+
 type GetSettingsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -1738,7 +3569,7 @@ type GetSettingsRequest struct {
 
 func (x *GetSettingsRequest) Reset() {
 	*x = GetSettingsRequest{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[27]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1750,7 +3581,7 @@ func (x *GetSettingsRequest) String() string {
 func (*GetSettingsRequest) ProtoMessage() {}
 
 func (x *GetSettingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[27]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1763,7 +3594,7 @@ func (x *GetSettingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSettingsRequest.ProtoReflect.Descriptor instead.
 func (*GetSettingsRequest) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{27}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{53}
 }
 
 type GetSettingsResponse struct {
@@ -1775,7 +3606,7 @@ type GetSettingsResponse struct {
 
 func (x *GetSettingsResponse) Reset() {
 	*x = GetSettingsResponse{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[28]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1787,7 +3618,7 @@ func (x *GetSettingsResponse) String() string {
 func (*GetSettingsResponse) ProtoMessage() {}
 
 func (x *GetSettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[28]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1800,7 +3631,7 @@ func (x *GetSettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSettingsResponse.ProtoReflect.Descriptor instead.
 func (*GetSettingsResponse) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{28}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{54}
 }
 
 func (x *GetSettingsResponse) GetSettings() *Settings {
@@ -1819,7 +3650,7 @@ type UpdateSettingsRequest struct {
 
 func (x *UpdateSettingsRequest) Reset() {
 	*x = UpdateSettingsRequest{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[29]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[55]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1831,7 +3662,7 @@ func (x *UpdateSettingsRequest) String() string {
 func (*UpdateSettingsRequest) ProtoMessage() {}
 
 func (x *UpdateSettingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[29]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[55]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1844,7 +3675,7 @@ func (x *UpdateSettingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateSettingsRequest.ProtoReflect.Descriptor instead.
 func (*UpdateSettingsRequest) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{29}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *UpdateSettingsRequest) GetSettings() *Settings {
@@ -1863,7 +3694,7 @@ type UpdateSettingsResponse struct {
 
 func (x *UpdateSettingsResponse) Reset() {
 	*x = UpdateSettingsResponse{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[30]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1875,7 +3706,7 @@ func (x *UpdateSettingsResponse) String() string {
 func (*UpdateSettingsResponse) ProtoMessage() {}
 
 func (x *UpdateSettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[30]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1888,12 +3719,442 @@ func (x *UpdateSettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateSettingsResponse.ProtoReflect.Descriptor instead.
 func (*UpdateSettingsResponse) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{30}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *UpdateSettingsResponse) GetSettings() *Settings {
 	if x != nil {
 		return x.Settings
+	}
+	return nil
+}
+
+// StorageQuota is a size in bytes per kind of storage.
+type StorageQuota struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Content       int64                  `protobuf:"varint,10,opt,name=content,proto3" json:"content,omitempty"`
+	Image         int64                  `protobuf:"varint,20,opt,name=image,proto3" json:"image,omitempty"`
+	Audio         int64                  `protobuf:"varint,30,opt,name=audio,proto3" json:"audio,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StorageQuota) Reset() {
+	*x = StorageQuota{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[57]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StorageQuota) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StorageQuota) ProtoMessage() {}
+
+func (x *StorageQuota) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[57]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StorageQuota.ProtoReflect.Descriptor instead.
+func (*StorageQuota) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *StorageQuota) GetContent() int64 {
+	if x != nil {
+		return x.Content
+	}
+	return 0
+}
+
+func (x *StorageQuota) GetImage() int64 {
+	if x != nil {
+		return x.Image
+	}
+	return 0
+}
+
+func (x *StorageQuota) GetAudio() int64 {
+	if x != nil {
+		return x.Audio
+	}
+	return 0
+}
+
+type GetUserQuotaRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,10,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserQuotaRequest) Reset() {
+	*x = GetUserQuotaRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[58]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserQuotaRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserQuotaRequest) ProtoMessage() {}
+
+func (x *GetUserQuotaRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[58]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserQuotaRequest.ProtoReflect.Descriptor instead.
+func (*GetUserQuotaRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{58}
+}
+
+func (x *GetUserQuotaRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type GetUserQuotaResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// What the user stores now.
+	Used *StorageQuota `protobuf:"bytes,10,opt,name=used,proto3" json:"used,omitempty"`
+	// The limits set for this user; 0 for a kind without one (the system setting applies).
+	Override *StorageQuota `protobuf:"bytes,20,opt,name=override,proto3" json:"override,omitempty"`
+	// The limits in effect: the override, else the system setting.
+	Effective     *StorageQuota `protobuf:"bytes,30,opt,name=effective,proto3" json:"effective,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserQuotaResponse) Reset() {
+	*x = GetUserQuotaResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[59]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserQuotaResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserQuotaResponse) ProtoMessage() {}
+
+func (x *GetUserQuotaResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[59]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserQuotaResponse.ProtoReflect.Descriptor instead.
+func (*GetUserQuotaResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{59}
+}
+
+func (x *GetUserQuotaResponse) GetUsed() *StorageQuota {
+	if x != nil {
+		return x.Used
+	}
+	return nil
+}
+
+func (x *GetUserQuotaResponse) GetOverride() *StorageQuota {
+	if x != nil {
+		return x.Override
+	}
+	return nil
+}
+
+func (x *GetUserQuotaResponse) GetEffective() *StorageQuota {
+	if x != nil {
+		return x.Effective
+	}
+	return nil
+}
+
+type SetUserQuotaRequest struct {
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	UserId string                 `protobuf:"bytes,10,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// The own limits of the user; 0 or absent removes the limit of that kind.
+	Quotas        *StorageQuota `protobuf:"bytes,20,opt,name=quotas,proto3" json:"quotas,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetUserQuotaRequest) Reset() {
+	*x = SetUserQuotaRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[60]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetUserQuotaRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetUserQuotaRequest) ProtoMessage() {}
+
+func (x *SetUserQuotaRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[60]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetUserQuotaRequest.ProtoReflect.Descriptor instead.
+func (*SetUserQuotaRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{60}
+}
+
+func (x *SetUserQuotaRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *SetUserQuotaRequest) GetQuotas() *StorageQuota {
+	if x != nil {
+		return x.Quotas
+	}
+	return nil
+}
+
+type SetUserQuotaResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Used          *StorageQuota          `protobuf:"bytes,10,opt,name=used,proto3" json:"used,omitempty"`
+	Override      *StorageQuota          `protobuf:"bytes,20,opt,name=override,proto3" json:"override,omitempty"`
+	Effective     *StorageQuota          `protobuf:"bytes,30,opt,name=effective,proto3" json:"effective,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetUserQuotaResponse) Reset() {
+	*x = SetUserQuotaResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[61]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetUserQuotaResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetUserQuotaResponse) ProtoMessage() {}
+
+func (x *SetUserQuotaResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[61]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetUserQuotaResponse.ProtoReflect.Descriptor instead.
+func (*SetUserQuotaResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{61}
+}
+
+func (x *SetUserQuotaResponse) GetUsed() *StorageQuota {
+	if x != nil {
+		return x.Used
+	}
+	return nil
+}
+
+func (x *SetUserQuotaResponse) GetOverride() *StorageQuota {
+	if x != nil {
+		return x.Override
+	}
+	return nil
+}
+
+func (x *SetUserQuotaResponse) GetEffective() *StorageQuota {
+	if x != nil {
+		return x.Effective
+	}
+	return nil
+}
+
+// StorageUsage is what is stored and the limit of it, in bytes.
+type StorageUsage struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Used          int64                  `protobuf:"varint,10,opt,name=used,proto3" json:"used,omitempty"`
+	Limit         int64                  `protobuf:"varint,20,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StorageUsage) Reset() {
+	*x = StorageUsage{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[62]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StorageUsage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StorageUsage) ProtoMessage() {}
+
+func (x *StorageUsage) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[62]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StorageUsage.ProtoReflect.Descriptor instead.
+func (*StorageUsage) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{62}
+}
+
+func (x *StorageUsage) GetUsed() int64 {
+	if x != nil {
+		return x.Used
+	}
+	return 0
+}
+
+func (x *StorageUsage) GetLimit() int64 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type GetMyStorageRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMyStorageRequest) Reset() {
+	*x = GetMyStorageRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[63]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMyStorageRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMyStorageRequest) ProtoMessage() {}
+
+func (x *GetMyStorageRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[63]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMyStorageRequest.ProtoReflect.Descriptor instead.
+func (*GetMyStorageRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{63}
+}
+
+type GetMyStorageResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Content       *StorageUsage          `protobuf:"bytes,10,opt,name=content,proto3" json:"content,omitempty"`
+	Image         *StorageUsage          `protobuf:"bytes,20,opt,name=image,proto3" json:"image,omitempty"`
+	Audio         *StorageUsage          `protobuf:"bytes,30,opt,name=audio,proto3" json:"audio,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMyStorageResponse) Reset() {
+	*x = GetMyStorageResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[64]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMyStorageResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMyStorageResponse) ProtoMessage() {}
+
+func (x *GetMyStorageResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[64]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMyStorageResponse.ProtoReflect.Descriptor instead.
+func (*GetMyStorageResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{64}
+}
+
+func (x *GetMyStorageResponse) GetContent() *StorageUsage {
+	if x != nil {
+		return x.Content
+	}
+	return nil
+}
+
+func (x *GetMyStorageResponse) GetImage() *StorageUsage {
+	if x != nil {
+		return x.Image
+	}
+	return nil
+}
+
+func (x *GetMyStorageResponse) GetAudio() *StorageUsage {
+	if x != nil {
+		return x.Audio
 	}
 	return nil
 }
@@ -1906,7 +4167,7 @@ type GetMySettingsRequest struct {
 
 func (x *GetMySettingsRequest) Reset() {
 	*x = GetMySettingsRequest{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[31]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1918,7 +4179,7 @@ func (x *GetMySettingsRequest) String() string {
 func (*GetMySettingsRequest) ProtoMessage() {}
 
 func (x *GetMySettingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[31]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1931,20 +4192,24 @@ func (x *GetMySettingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMySettingsRequest.ProtoReflect.Descriptor instead.
 func (*GetMySettingsRequest) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{31}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{65}
 }
 
 type GetMySettingsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          *UserSettings          `protobuf:"bytes,10,opt,name=user,proto3" json:"user,omitempty"`
-	System        *Settings              `protobuf:"bytes,20,opt,name=system,proto3" json:"system,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state  protoimpl.MessageState `protogen:"open.v1"`
+	User   *UserSettings          `protobuf:"bytes,10,opt,name=user,proto3" json:"user,omitempty"`
+	System *Settings              `protobuf:"bytes,20,opt,name=system,proto3" json:"system,omitempty"`
+	// RFC 3339: when the FSRS parameters of the user were last fitted and applied; empty when they are the defaults.
+	FsrsTrainedAt string `protobuf:"bytes,30,opt,name=fsrs_trained_at,json=fsrsTrainedAt,proto3" json:"fsrs_trained_at,omitempty"`
+	// Reviews that fit used.
+	FsrsReviewCount int32 `protobuf:"varint,40,opt,name=fsrs_review_count,json=fsrsReviewCount,proto3" json:"fsrs_review_count,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *GetMySettingsResponse) Reset() {
 	*x = GetMySettingsResponse{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[32]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1956,7 +4221,7 @@ func (x *GetMySettingsResponse) String() string {
 func (*GetMySettingsResponse) ProtoMessage() {}
 
 func (x *GetMySettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[32]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1969,7 +4234,7 @@ func (x *GetMySettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMySettingsResponse.ProtoReflect.Descriptor instead.
 func (*GetMySettingsResponse) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{32}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *GetMySettingsResponse) GetUser() *UserSettings {
@@ -1986,6 +4251,20 @@ func (x *GetMySettingsResponse) GetSystem() *Settings {
 	return nil
 }
 
+func (x *GetMySettingsResponse) GetFsrsTrainedAt() string {
+	if x != nil {
+		return x.FsrsTrainedAt
+	}
+	return ""
+}
+
+func (x *GetMySettingsResponse) GetFsrsReviewCount() int32 {
+	if x != nil {
+		return x.FsrsReviewCount
+	}
+	return 0
+}
+
 type UpdateMySettingsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	User          *UserSettings          `protobuf:"bytes,10,opt,name=user,proto3" json:"user,omitempty"`
@@ -1995,7 +4274,7 @@ type UpdateMySettingsRequest struct {
 
 func (x *UpdateMySettingsRequest) Reset() {
 	*x = UpdateMySettingsRequest{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[33]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[67]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2007,7 +4286,7 @@ func (x *UpdateMySettingsRequest) String() string {
 func (*UpdateMySettingsRequest) ProtoMessage() {}
 
 func (x *UpdateMySettingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[33]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[67]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2020,7 +4299,7 @@ func (x *UpdateMySettingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMySettingsRequest.ProtoReflect.Descriptor instead.
 func (*UpdateMySettingsRequest) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{33}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *UpdateMySettingsRequest) GetUser() *UserSettings {
@@ -2040,7 +4319,7 @@ type UpdateMySettingsResponse struct {
 
 func (x *UpdateMySettingsResponse) Reset() {
 	*x = UpdateMySettingsResponse{}
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[34]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2052,7 +4331,7 @@ func (x *UpdateMySettingsResponse) String() string {
 func (*UpdateMySettingsResponse) ProtoMessage() {}
 
 func (x *UpdateMySettingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_dictionary_v1_dictionary_proto_msgTypes[34]
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2065,7 +4344,7 @@ func (x *UpdateMySettingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMySettingsResponse.ProtoReflect.Descriptor instead.
 func (*UpdateMySettingsResponse) Descriptor() ([]byte, []int) {
-	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{34}
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *UpdateMySettingsResponse) GetUser() *UserSettings {
@@ -2078,6 +4357,761 @@ func (x *UpdateMySettingsResponse) GetUser() *UserSettings {
 func (x *UpdateMySettingsResponse) GetSystem() *Settings {
 	if x != nil {
 		return x.System
+	}
+	return nil
+}
+
+type StartExportRequest struct {
+	state    protoimpl.MessageState `protogen:"open.v1"`
+	DeckName string                 `protobuf:"bytes,10,opt,name=deck_name,json=deckName,proto3" json:"deck_name,omitempty"`
+	Scope    ExportScope            `protobuf:"varint,20,opt,name=scope,proto3,enum=dictionary.v1.ExportScope" json:"scope,omitempty"`
+	// Only the words of this category; the id "uncategorized" (or uncategorized = true) keeps the words in none.
+	CategoryId    string `protobuf:"bytes,30,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	Uncategorized bool   `protobuf:"varint,40,opt,name=uncategorized,proto3" json:"uncategorized,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StartExportRequest) Reset() {
+	*x = StartExportRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[69]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StartExportRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartExportRequest) ProtoMessage() {}
+
+func (x *StartExportRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[69]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartExportRequest.ProtoReflect.Descriptor instead.
+func (*StartExportRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{69}
+}
+
+func (x *StartExportRequest) GetDeckName() string {
+	if x != nil {
+		return x.DeckName
+	}
+	return ""
+}
+
+func (x *StartExportRequest) GetScope() ExportScope {
+	if x != nil {
+		return x.Scope
+	}
+	return ExportScope_EXPORT_SCOPE_UNSPECIFIED
+}
+
+func (x *StartExportRequest) GetCategoryId() string {
+	if x != nil {
+		return x.CategoryId
+	}
+	return ""
+}
+
+func (x *StartExportRequest) GetUncategorized() bool {
+	if x != nil {
+		return x.Uncategorized
+	}
+	return false
+}
+
+type StartExportResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Job           *ExportJob             `protobuf:"bytes,10,opt,name=job,proto3" json:"job,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StartExportResponse) Reset() {
+	*x = StartExportResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[70]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StartExportResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartExportResponse) ProtoMessage() {}
+
+func (x *StartExportResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[70]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartExportResponse.ProtoReflect.Descriptor instead.
+func (*StartExportResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{70}
+}
+
+func (x *StartExportResponse) GetJob() *ExportJob {
+	if x != nil {
+		return x.Job
+	}
+	return nil
+}
+
+type GetExportRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// A job id, or "latest" (also empty).
+	Id            string `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetExportRequest) Reset() {
+	*x = GetExportRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[71]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetExportRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetExportRequest) ProtoMessage() {}
+
+func (x *GetExportRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[71]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetExportRequest.ProtoReflect.Descriptor instead.
+func (*GetExportRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{71}
+}
+
+func (x *GetExportRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetExportResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Job           *ExportJob             `protobuf:"bytes,10,opt,name=job,proto3" json:"job,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetExportResponse) Reset() {
+	*x = GetExportResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[72]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetExportResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetExportResponse) ProtoMessage() {}
+
+func (x *GetExportResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[72]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetExportResponse.ProtoReflect.Descriptor instead.
+func (*GetExportResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{72}
+}
+
+func (x *GetExportResponse) GetJob() *ExportJob {
+	if x != nil {
+		return x.Job
+	}
+	return nil
+}
+
+type CancelExportRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelExportRequest) Reset() {
+	*x = CancelExportRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[73]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelExportRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelExportRequest) ProtoMessage() {}
+
+func (x *CancelExportRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[73]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelExportRequest.ProtoReflect.Descriptor instead.
+func (*CancelExportRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{73}
+}
+
+func (x *CancelExportRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type CancelExportResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Job           *ExportJob             `protobuf:"bytes,10,opt,name=job,proto3" json:"job,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelExportResponse) Reset() {
+	*x = CancelExportResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[74]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelExportResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelExportResponse) ProtoMessage() {}
+
+func (x *CancelExportResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[74]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelExportResponse.ProtoReflect.Descriptor instead.
+func (*CancelExportResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{74}
+}
+
+func (x *CancelExportResponse) GetJob() *ExportJob {
+	if x != nil {
+		return x.Job
+	}
+	return nil
+}
+
+type CreateExportPartLinkRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Id    string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	// The part number, from 1.
+	N             int32 `protobuf:"varint,20,opt,name=n,proto3" json:"n,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateExportPartLinkRequest) Reset() {
+	*x = CreateExportPartLinkRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[75]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateExportPartLinkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateExportPartLinkRequest) ProtoMessage() {}
+
+func (x *CreateExportPartLinkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[75]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateExportPartLinkRequest.ProtoReflect.Descriptor instead.
+func (*CreateExportPartLinkRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{75}
+}
+
+func (x *CreateExportPartLinkRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CreateExportPartLinkRequest) GetN() int32 {
+	if x != nil {
+		return x.N
+	}
+	return 0
+}
+
+type CreateExportPartLinkResponse struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Token     string                 `protobuf:"bytes,10,opt,name=token,proto3" json:"token,omitempty"`
+	Filename  string                 `protobuf:"bytes,20,opt,name=filename,proto3" json:"filename,omitempty"`
+	WordCount int32                  `protobuf:"varint,30,opt,name=word_count,json=wordCount,proto3" json:"word_count,omitempty"`
+	// RFC 3339: when the link stops working (the job expires).
+	ExpiresAt     string `protobuf:"bytes,40,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateExportPartLinkResponse) Reset() {
+	*x = CreateExportPartLinkResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[76]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateExportPartLinkResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateExportPartLinkResponse) ProtoMessage() {}
+
+func (x *CreateExportPartLinkResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[76]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateExportPartLinkResponse.ProtoReflect.Descriptor instead.
+func (*CreateExportPartLinkResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{76}
+}
+
+func (x *CreateExportPartLinkResponse) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *CreateExportPartLinkResponse) GetFilename() string {
+	if x != nil {
+		return x.Filename
+	}
+	return ""
+}
+
+func (x *CreateExportPartLinkResponse) GetWordCount() int32 {
+	if x != nil {
+		return x.WordCount
+	}
+	return 0
+}
+
+func (x *CreateExportPartLinkResponse) GetExpiresAt() string {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return ""
+}
+
+// ExportJob is the state of an export job.
+type ExportJob struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Id    string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	// queued, running, done, failed or cancelled.
+	Status   string `protobuf:"bytes,20,opt,name=status,proto3" json:"status,omitempty"`
+	DeckName string `protobuf:"bytes,30,opt,name=deck_name,json=deckName,proto3" json:"deck_name,omitempty"`
+	// Words the job packs (known once it runs; 0 before), and how many it has packed.
+	Total int32 `protobuf:"varint,40,opt,name=total,proto3" json:"total,omitempty"`
+	Built int32 `protobuf:"varint,50,opt,name=built,proto3" json:"built,omitempty"`
+	// Words of the part being built that are done so far (an estimate, 0 between parts); built + building is the
+	// progress to show.
+	Building int32         `protobuf:"varint,110,opt,name=building,proto3" json:"building,omitempty"`
+	Parts    []*ExportPart `protobuf:"bytes,60,rep,name=parts,proto3" json:"parts,omitempty"`
+	// Why a failed job failed.
+	Error      string `protobuf:"bytes,70,opt,name=error,proto3" json:"error,omitempty"`
+	CreatedAt  string `protobuf:"bytes,80,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	FinishedAt string `protobuf:"bytes,90,opt,name=finished_at,json=finishedAt,proto3" json:"finished_at,omitempty"`
+	// When the job and its files are deleted.
+	ExpiresAt     string `protobuf:"bytes,100,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExportJob) Reset() {
+	*x = ExportJob{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[77]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExportJob) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExportJob) ProtoMessage() {}
+
+func (x *ExportJob) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[77]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExportJob.ProtoReflect.Descriptor instead.
+func (*ExportJob) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{77}
+}
+
+func (x *ExportJob) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ExportJob) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *ExportJob) GetDeckName() string {
+	if x != nil {
+		return x.DeckName
+	}
+	return ""
+}
+
+func (x *ExportJob) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *ExportJob) GetBuilt() int32 {
+	if x != nil {
+		return x.Built
+	}
+	return 0
+}
+
+func (x *ExportJob) GetBuilding() int32 {
+	if x != nil {
+		return x.Building
+	}
+	return 0
+}
+
+func (x *ExportJob) GetParts() []*ExportPart {
+	if x != nil {
+		return x.Parts
+	}
+	return nil
+}
+
+func (x *ExportJob) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+func (x *ExportJob) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *ExportJob) GetFinishedAt() string {
+	if x != nil {
+		return x.FinishedAt
+	}
+	return ""
+}
+
+func (x *ExportJob) GetExpiresAt() string {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return ""
+}
+
+type ExportPart struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// From 1.
+	N         int32  `protobuf:"varint,10,opt,name=n,proto3" json:"n,omitempty"`
+	Filename  string `protobuf:"bytes,20,opt,name=filename,proto3" json:"filename,omitempty"`
+	WordCount int32  `protobuf:"varint,30,opt,name=word_count,json=wordCount,proto3" json:"word_count,omitempty"`
+	// Bytes of the file.
+	Size          int32 `protobuf:"varint,40,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExportPart) Reset() {
+	*x = ExportPart{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[78]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExportPart) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExportPart) ProtoMessage() {}
+
+func (x *ExportPart) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[78]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExportPart.ProtoReflect.Descriptor instead.
+func (*ExportPart) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{78}
+}
+
+func (x *ExportPart) GetN() int32 {
+	if x != nil {
+		return x.N
+	}
+	return 0
+}
+
+func (x *ExportPart) GetFilename() string {
+	if x != nil {
+		return x.Filename
+	}
+	return ""
+}
+
+func (x *ExportPart) GetWordCount() int32 {
+	if x != nil {
+		return x.WordCount
+	}
+	return 0
+}
+
+func (x *ExportPart) GetSize() int32 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+type CheckSavedWordsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// At most 100; they are normalized like the words of SaveWord, so a word that is not valid is simply not saved.
+	Words         []string `protobuf:"bytes,10,rep,name=words,proto3" json:"words,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckSavedWordsRequest) Reset() {
+	*x = CheckSavedWordsRequest{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[79]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckSavedWordsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckSavedWordsRequest) ProtoMessage() {}
+
+func (x *CheckSavedWordsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[79]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckSavedWordsRequest.ProtoReflect.Descriptor instead.
+func (*CheckSavedWordsRequest) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{79}
+}
+
+func (x *CheckSavedWordsRequest) GetWords() []string {
+	if x != nil {
+		return x.Words
+	}
+	return nil
+}
+
+type CheckSavedWordsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The words of the request that are in the list (normalized), each with the ids of its categories.
+	Words         []*SavedWordRef `protobuf:"bytes,10,rep,name=words,proto3" json:"words,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckSavedWordsResponse) Reset() {
+	*x = CheckSavedWordsResponse{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[80]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckSavedWordsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckSavedWordsResponse) ProtoMessage() {}
+
+func (x *CheckSavedWordsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[80]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckSavedWordsResponse.ProtoReflect.Descriptor instead.
+func (*CheckSavedWordsResponse) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{80}
+}
+
+func (x *CheckSavedWordsResponse) GetWords() []*SavedWordRef {
+	if x != nil {
+		return x.Words
+	}
+	return nil
+}
+
+type SavedWordRef struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Word          string                 `protobuf:"bytes,10,opt,name=word,proto3" json:"word,omitempty"`
+	CategoryIds   []string               `protobuf:"bytes,20,rep,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SavedWordRef) Reset() {
+	*x = SavedWordRef{}
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[81]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SavedWordRef) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SavedWordRef) ProtoMessage() {}
+
+func (x *SavedWordRef) ProtoReflect() protoreflect.Message {
+	mi := &file_dictionary_v1_dictionary_proto_msgTypes[81]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SavedWordRef.ProtoReflect.Descriptor instead.
+func (*SavedWordRef) Descriptor() ([]byte, []int) {
+	return file_dictionary_v1_dictionary_proto_rawDescGZIP(), []int{81}
+}
+
+func (x *SavedWordRef) GetWord() string {
+	if x != nil {
+		return x.Word
+	}
+	return ""
+}
+
+func (x *SavedWordRef) GetCategoryIds() []string {
+	if x != nil {
+		return x.CategoryIds
 	}
 	return nil
 }
@@ -2124,7 +5158,7 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x13LookupWordsResponse\x12)\n" +
 	"\x05words\x18\n" +
 	" \x03(\v2\x13.dictionary.v1.WordR\x05words\x12\x1b\n" +
-	"\tnot_found\x18\x14 \x03(\tR\bnotFound\"\xaa\x01\n" +
+	"\tnot_found\x18\x14 \x03(\tR\bnotFound\"\x8f\x02\n" +
 	"\tSavedWord\x12\x12\n" +
 	"\x04word\x18\n" +
 	" \x01(\tR\x04word\x12\x18\n" +
@@ -2133,47 +5167,63 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\baudio_us\x18( \x01(\tR\aaudioUs\x12\x1d\n" +
 	"\n" +
 	"created_at\x182 \x01(\tR\tcreatedAt\x12\x1a\n" +
-	"\bexported\x18< \x01(\bR\bexported\"u\n" +
+	"\bexported\x18< \x01(\bR\bexported\x12!\n" +
+	"\fcategory_ids\x18F \x03(\tR\vcategoryIds\x12$\n" +
+	"\x0enext_review_at\x18P \x01(\tR\fnextReviewAt\x12\x1a\n" +
+	"\blearning\x18Z \x01(\bR\blearning\"\x98\x01\n" +
 	"\x0fSaveWordRequest\x12\x12\n" +
 	"\x04word\x18\n" +
 	" \x01(\tR\x04word\x12\x18\n" +
 	"\acontent\x18\x14 \x01(\tR\acontent\x12\x19\n" +
 	"\baudio_uk\x18\x1e \x01(\tR\aaudioUk\x12\x19\n" +
-	"\baudio_us\x18( \x01(\tR\aaudioUs\"3\n" +
+	"\baudio_us\x18( \x01(\tR\aaudioUs\x12!\n" +
+	"\fcategory_ids\x182 \x03(\tR\vcategoryIds\"3\n" +
 	"\x10SaveWordResponse\x12\x1f\n" +
 	"\vsaved_count\x18\n" +
 	" \x01(\x05R\n" +
-	"savedCount\"i\n" +
+	"savedCount\"\xb0\x01\n" +
 	"\x15ListSavedWordsRequest\x12\x1b\n" +
 	"\tpage_size\x18\n" +
 	" \x01(\x05R\bpageSize\x12\x1d\n" +
 	"\n" +
 	"page_token\x18\x14 \x01(\tR\tpageToken\x12\x14\n" +
-	"\x05query\x18\x1e \x01(\tR\x05query\"\xa3\x01\n" +
+	"\x05query\x18\x1e \x01(\tR\x05query\x12\x1f\n" +
+	"\vcategory_id\x18( \x01(\tR\n" +
+	"categoryId\x12$\n" +
+	"\runcategorized\x182 \x01(\bR\runcategorized\"\xc8\x01\n" +
 	"\x16ListSavedWordsResponse\x12.\n" +
 	"\x05words\x18\n" +
 	" \x03(\v2\x18.dictionary.v1.SavedWordR\x05words\x12&\n" +
 	"\x0fnext_page_token\x18\x14 \x01(\tR\rnextPageToken\x12\x14\n" +
 	"\x05total\x18\x1e \x01(\x05R\x05total\x12\x1b\n" +
-	"\tnew_total\x18( \x01(\x05R\bnewTotal\",\n" +
+	"\tnew_total\x18( \x01(\x05R\bnewTotal\x12#\n" +
+	"\rcounts_capped\x182 \x01(\bR\fcountsCapped\",\n" +
 	"\x16DeleteSavedWordRequest\x12\x12\n" +
 	"\x04word\x18\n" +
 	" \x01(\tR\x04word\"\x19\n" +
-	"\x17DeleteSavedWordResponse\"b\n" +
+	"\x17DeleteSavedWordResponse\"\xbf\x01\n" +
 	"\x11ExportAnkiRequest\x12\x1b\n" +
 	"\tdeck_name\x18\n" +
 	" \x01(\tR\bdeckName\x120\n" +
-	"\x05scope\x18\x14 \x01(\x0e2\x1a.dictionary.v1.ExportScopeR\x05scope\"c\n" +
+	"\x05scope\x18\x14 \x01(\x0e2\x1a.dictionary.v1.ExportScopeR\x05scope\x12\x1f\n" +
+	"\vcategory_id\x18\x1e \x01(\tR\n" +
+	"categoryId\x12$\n" +
+	"\runcategorized\x18( \x01(\bR\runcategorized\x12\x14\n" +
+	"\x05words\x182 \x03(\tR\x05words\"c\n" +
 	"\x12ExportAnkiResponse\x12\x1a\n" +
 	"\bfilename\x18\n" +
 	" \x01(\tR\bfilename\x12\x12\n" +
 	"\x04data\x18\x14 \x01(\fR\x04data\x12\x1d\n" +
 	"\n" +
-	"word_count\x18\x1e \x01(\x05R\twordCount\"f\n" +
+	"word_count\x18\x1e \x01(\x05R\twordCount\"\xc3\x01\n" +
 	"\x15CreateDeckLinkRequest\x12\x1b\n" +
 	"\tdeck_name\x18\n" +
 	" \x01(\tR\bdeckName\x120\n" +
-	"\x05scope\x18\x14 \x01(\x0e2\x1a.dictionary.v1.ExportScopeR\x05scope\"\x1c\n" +
+	"\x05scope\x18\x14 \x01(\x0e2\x1a.dictionary.v1.ExportScopeR\x05scope\x12\x1f\n" +
+	"\vcategory_id\x18\x1e \x01(\tR\n" +
+	"categoryId\x12$\n" +
+	"\runcategorized\x18( \x01(\bR\runcategorized\x12\x14\n" +
+	"\x05words\x182 \x03(\tR\x05words\"\x1c\n" +
 	"\x1aRemoveExportedWordsRequest\"7\n" +
 	"\x1bRemoveExportedWordsResponse\x12\x18\n" +
 	"\aremoved\x18\n" +
@@ -2192,7 +5242,15 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x14DownloadDeckResponse\x12\x1a\n" +
 	"\bfilename\x18\n" +
 	" \x01(\tR\bfilename\x12\x12\n" +
-	"\x04data\x18\x14 \x01(\fR\x04data\"K\n" +
+	"\x04data\x18\x14 \x01(\fR\x04data\"1\n" +
+	"\x19DownloadExportPartRequest\x12\x14\n" +
+	"\x05token\x18\n" +
+	" \x01(\tR\x05token\"S\n" +
+	"\rDownloadChunk\x12\x1a\n" +
+	"\bfilename\x18\n" +
+	" \x01(\tR\bfilename\x12\x12\n" +
+	"\x04size\x18\x14 \x01(\x03R\x04size\x12\x12\n" +
+	"\x04data\x18\x1e \x01(\fR\x04data\"K\n" +
 	"\x12UploadImageRequest\x12!\n" +
 	"\fcontent_type\x18\n" +
 	" \x01(\tR\vcontentType\x12\x12\n" +
@@ -2206,7 +5264,120 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x10GetImageResponse\x12!\n" +
 	"\fcontent_type\x18\n" +
 	" \x01(\tR\vcontentType\x12\x12\n" +
-	"\x04data\x18\x14 \x01(\fR\x04data\"\xcb\x02\n" +
+	"\x04data\x18\x14 \x01(\fR\x04data\"K\n" +
+	"\x12UploadAudioRequest\x12!\n" +
+	"\fcontent_type\x18\n" +
+	" \x01(\tR\vcontentType\x12\x12\n" +
+	"\x04data\x18\x14 \x01(\fR\x04data\"%\n" +
+	"\x13UploadAudioResponse\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\"!\n" +
+	"\x0fGetAudioRequest\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\"I\n" +
+	"\x10GetAudioResponse\x12!\n" +
+	"\fcontent_type\x18\n" +
+	" \x01(\tR\vcontentType\x12\x12\n" +
+	"\x04data\x18\x14 \x01(\fR\x04data\"\xdb\x01\n" +
+	"\n" +
+	"ReviewCard\x12\x12\n" +
+	"\x04word\x18\n" +
+	" \x01(\tR\x04word\x12\x18\n" +
+	"\acontent\x18\x14 \x01(\tR\acontent\x12\x19\n" +
+	"\baudio_uk\x18\x1e \x01(\tR\aaudioUk\x12\x19\n" +
+	"\baudio_us\x18( \x01(\tR\aaudioUs\x12\x15\n" +
+	"\x06is_new\x182 \x01(\bR\x05isNew\x126\n" +
+	"\x17grade_intervals_seconds\x18< \x03(\x03R\x15gradeIntervalsSeconds\x12\x1a\n" +
+	"\blearning\x18F \x01(\bR\blearning\"t\n" +
+	"\x15GetReviewQueueRequest\x12\x14\n" +
+	"\x05limit\x18\n" +
+	" \x01(\x05R\x05limit\x12\x1f\n" +
+	"\vcategory_id\x18\x14 \x01(\tR\n" +
+	"categoryId\x12$\n" +
+	"\runcategorized\x18\x1e \x01(\bR\runcategorized\"\xc6\x02\n" +
+	"\x16GetReviewQueueResponse\x12/\n" +
+	"\x05cards\x18\n" +
+	" \x03(\v2\x19.dictionary.v1.ReviewCardR\x05cards\x12\x1b\n" +
+	"\tdue_count\x18\x14 \x01(\x05R\bdueCount\x12\x1b\n" +
+	"\tnew_count\x18\x1e \x01(\x05R\bnewCount\x12\x1f\n" +
+	"\vtotal_count\x18( \x01(\x05R\n" +
+	"totalCount\x12\x1e\n" +
+	"\vnext_due_at\x182 \x01(\tR\tnextDueAt\x12%\n" +
+	"\x0elearning_count\x18< \x01(\x05R\rlearningCount\x12\x19\n" +
+	"\bnew_held\x18F \x01(\x05R\anewHeld\x12\x19\n" +
+	"\bdue_held\x18P \x01(\x05R\adueHeld\x12#\n" +
+	"\rcounts_capped\x18Z \x01(\bR\fcountsCapped\"N\n" +
+	"\x15AddReviewBonusRequest\x12\x1b\n" +
+	"\tnew_words\x18\n" +
+	" \x01(\x05R\bnewWords\x12\x18\n" +
+	"\areviews\x18\x14 \x01(\x05R\areviews\"y\n" +
+	"\x16AddReviewBonusResponse\x12\x1b\n" +
+	"\textra_new\x18\n" +
+	" \x01(\x05R\bextraNew\x12#\n" +
+	"\rextra_reviews\x18\x14 \x01(\x05R\fextraReviews\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18\x1e \x01(\tR\texpiresAt\"[\n" +
+	"\x13SubmitReviewRequest\x12\x12\n" +
+	"\x04word\x18\n" +
+	" \x01(\tR\x04word\x120\n" +
+	"\x05grade\x18\x14 \x01(\x0e2\x1a.dictionary.v1.ReviewGradeR\x05grade\"\x90\x01\n" +
+	"\x14SubmitReviewResponse\x12\x15\n" +
+	"\x06due_at\x18\n" +
+	" \x01(\tR\x05dueAt\x12)\n" +
+	"\x10interval_seconds\x18\x14 \x01(\x03R\x0fintervalSeconds\x126\n" +
+	"\x17grade_intervals_seconds\x18\x1e \x03(\x03R\x15gradeIntervalsSeconds\"L\n" +
+	"\x1fOptimizeReviewParametersRequest\x12)\n" +
+	"\x10restore_defaults\x18\n" +
+	" \x01(\bR\x0frestoreDefaults\"\xdc\x01\n" +
+	" OptimizeReviewParametersResponse\x12\x18\n" +
+	"\aapplied\x18\n" +
+	" \x01(\bR\aapplied\x12!\n" +
+	"\freview_count\x18\x14 \x01(\x05R\vreviewCount\x12!\n" +
+	"\floss_default\x18\x1e \x01(\x02R\vlossDefault\x12!\n" +
+	"\floss_trained\x18( \x01(\x02R\vlossTrained\x12\x1d\n" +
+	"\n" +
+	"trained_at\x182 \x01(\tR\ttrainedAt\x12\x16\n" +
+	"\x06reason\x18< \x01(\tR\x06reason\"a\n" +
+	"\bCategory\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x14 \x01(\tR\x04name\x12\x14\n" +
+	"\x05total\x18\x1e \x01(\x05R\x05total\x12\x1b\n" +
+	"\tnew_total\x18( \x01(\x05R\bnewTotal\"\x17\n" +
+	"\x15ListCategoriesRequest\"\xdf\x01\n" +
+	"\x16ListCategoriesResponse\x127\n" +
+	"\n" +
+	"categories\x18\n" +
+	" \x03(\v2\x17.dictionary.v1.CategoryR\n" +
+	"categories\x12/\n" +
+	"\x13uncategorized_total\x18\x14 \x01(\x05R\x12uncategorizedTotal\x126\n" +
+	"\x17uncategorized_new_total\x18\x1e \x01(\x05R\x15uncategorizedNewTotal\x12#\n" +
+	"\rcounts_capped\x18( \x01(\bR\fcountsCapped\"+\n" +
+	"\x15CreateCategoryRequest\x12\x12\n" +
+	"\x04name\x18\n" +
+	" \x01(\tR\x04name\"M\n" +
+	"\x16CreateCategoryResponse\x123\n" +
+	"\bcategory\x18\n" +
+	" \x01(\v2\x17.dictionary.v1.CategoryR\bcategory\";\n" +
+	"\x15RenameCategoryRequest\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x14 \x01(\tR\x04name\"M\n" +
+	"\x16RenameCategoryResponse\x123\n" +
+	"\bcategory\x18\n" +
+	" \x01(\v2\x17.dictionary.v1.CategoryR\bcategory\"'\n" +
+	"\x15DeleteCategoryRequest\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\"\x18\n" +
+	"\x16DeleteCategoryResponse\"\x8d\x01\n" +
+	"\x1bUpdateWordCategoriesRequest\x12\x14\n" +
+	"\x05words\x18\n" +
+	" \x03(\tR\x05words\x12(\n" +
+	"\x10add_category_ids\x18\x14 \x03(\tR\x0eaddCategoryIds\x12.\n" +
+	"\x13remove_category_ids\x18\x1e \x03(\tR\x11removeCategoryIds\"8\n" +
+	"\x1cUpdateWordCategoriesResponse\x12\x18\n" +
+	"\aupdated\x18\n" +
+	" \x01(\x05R\aupdated\"\xd8\b\n" +
 	"\bSettings\x12&\n" +
 	"\x0fmax_saved_words\x18\n" +
 	" \x01(\x05R\rmaxSavedWords\x12*\n" +
@@ -2215,7 +5386,22 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x0fenglish_enabled\x18( \x01(\bR\x0eenglishEnabled\x12,\n" +
 	"\x12english_vi_enabled\x182 \x01(\bR\x10englishViEnabled\x12.\n" +
 	"\x13remove_after_export\x18< \x01(\bR\x11removeAfterExport\x128\n" +
-	"\x18exported_retention_hours\x18F \x01(\x05R\x16exportedRetentionHours\"\xf6\x02\n" +
+	"\x18exported_retention_hours\x18F \x01(\x05R\x16exportedRetentionHours\x12%\n" +
+	"\x0emax_categories\x18P \x01(\x05R\rmaxCategories\x127\n" +
+	"\x18max_category_name_length\x18Z \x01(\x05R\x15maxCategoryNameLength\x12(\n" +
+	"\x10export_max_bytes\x18d \x01(\x05R\x0eexportMaxBytes\x121\n" +
+	"\x15export_part_max_bytes\x18n \x01(\x05R\x12exportPartMaxBytes\x127\n" +
+	"\x18export_max_bytes_ceiling\x18x \x01(\x05R\x15exportMaxBytesCeiling\x12A\n" +
+	"\x1dexport_part_max_bytes_ceiling\x18\x82\x01 \x01(\x05R\x19exportPartMaxBytesCeiling\x122\n" +
+	"\x15export_sync_max_words\x18\x8c\x01 \x01(\x05R\x12exportSyncMaxWords\x12+\n" +
+	"\x11max_content_bytes\x18\x96\x01 \x01(\x05R\x0fmaxContentBytes\x12-\n" +
+	"\x12content_user_quota\x18\xa0\x01 \x01(\x03R\x10contentUserQuota\x12)\n" +
+	"\x10image_user_quota\x18\xaa\x01 \x01(\x03R\x0eimageUserQuota\x12)\n" +
+	"\x10audio_user_quota\x18\xb4\x01 \x01(\x03R\x0eaudioUserQuota\x12:\n" +
+	"\x19max_content_bytes_ceiling\x18\xbe\x01 \x01(\x05R\x16maxContentBytesCeiling\x12<\n" +
+	"\x1acontent_user_quota_ceiling\x18\xc8\x01 \x01(\x03R\x17contentUserQuotaCeiling\x128\n" +
+	"\x18image_user_quota_ceiling\x18\xd2\x01 \x01(\x03R\x15imageUserQuotaCeiling\x128\n" +
+	"\x18audio_user_quota_ceiling\x18\xdc\x01 \x01(\x03R\x15audioUserQuotaCeiling\"\xa8\x04\n" +
 	"\fUserSettings\x12'\n" +
 	"\x0fenglish_enabled\x18\n" +
 	" \x01(\bR\x0eenglishEnabled\x12,\n" +
@@ -2226,7 +5412,11 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x13remove_after_export\x18< \x01(\bR\x11removeAfterExport\x12/\n" +
 	"\x13remove_acknowledged\x18F \x01(\bR\x12removeAcknowledged\x12\x1d\n" +
 	"\n" +
-	"fresh_deck\x18P \x01(\bR\tfreshDeck\"\x14\n" +
+	"fresh_deck\x18P \x01(\bR\tfreshDeck\x12+\n" +
+	"\x12review_new_per_day\x18Z \x01(\x05R\x0freviewNewPerDay\x12+\n" +
+	"\x12review_max_per_day\x18d \x01(\x05R\x0freviewMaxPerDay\x12)\n" +
+	"\x10review_algorithm\x18n \x01(\tR\x0freviewAlgorithm\x12+\n" +
+	"\x11desired_retention\x18x \x01(\x05R\x10desiredRetention\"\x14\n" +
 	"\x12GetSettingsRequest\"J\n" +
 	"\x13GetSettingsResponse\x123\n" +
 	"\bsettings\x18\n" +
@@ -2236,19 +5426,121 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	" \x01(\v2\x17.dictionary.v1.SettingsR\bsettings\"M\n" +
 	"\x16UpdateSettingsResponse\x123\n" +
 	"\bsettings\x18\n" +
-	" \x01(\v2\x17.dictionary.v1.SettingsR\bsettings\"\x16\n" +
-	"\x14GetMySettingsRequest\"y\n" +
+	" \x01(\v2\x17.dictionary.v1.SettingsR\bsettings\"T\n" +
+	"\fStorageQuota\x12\x18\n" +
+	"\acontent\x18\n" +
+	" \x01(\x03R\acontent\x12\x14\n" +
+	"\x05image\x18\x14 \x01(\x03R\x05image\x12\x14\n" +
+	"\x05audio\x18\x1e \x01(\x03R\x05audio\".\n" +
+	"\x13GetUserQuotaRequest\x12\x17\n" +
+	"\auser_id\x18\n" +
+	" \x01(\tR\x06userId\"\xbb\x01\n" +
+	"\x14GetUserQuotaResponse\x12/\n" +
+	"\x04used\x18\n" +
+	" \x01(\v2\x1b.dictionary.v1.StorageQuotaR\x04used\x127\n" +
+	"\boverride\x18\x14 \x01(\v2\x1b.dictionary.v1.StorageQuotaR\boverride\x129\n" +
+	"\teffective\x18\x1e \x01(\v2\x1b.dictionary.v1.StorageQuotaR\teffective\"c\n" +
+	"\x13SetUserQuotaRequest\x12\x17\n" +
+	"\auser_id\x18\n" +
+	" \x01(\tR\x06userId\x123\n" +
+	"\x06quotas\x18\x14 \x01(\v2\x1b.dictionary.v1.StorageQuotaR\x06quotas\"\xbb\x01\n" +
+	"\x14SetUserQuotaResponse\x12/\n" +
+	"\x04used\x18\n" +
+	" \x01(\v2\x1b.dictionary.v1.StorageQuotaR\x04used\x127\n" +
+	"\boverride\x18\x14 \x01(\v2\x1b.dictionary.v1.StorageQuotaR\boverride\x129\n" +
+	"\teffective\x18\x1e \x01(\v2\x1b.dictionary.v1.StorageQuotaR\teffective\"8\n" +
+	"\fStorageUsage\x12\x12\n" +
+	"\x04used\x18\n" +
+	" \x01(\x03R\x04used\x12\x14\n" +
+	"\x05limit\x18\x14 \x01(\x03R\x05limit\"\x15\n" +
+	"\x13GetMyStorageRequest\"\xb3\x01\n" +
+	"\x14GetMyStorageResponse\x125\n" +
+	"\acontent\x18\n" +
+	" \x01(\v2\x1b.dictionary.v1.StorageUsageR\acontent\x121\n" +
+	"\x05image\x18\x14 \x01(\v2\x1b.dictionary.v1.StorageUsageR\x05image\x121\n" +
+	"\x05audio\x18\x1e \x01(\v2\x1b.dictionary.v1.StorageUsageR\x05audio\"\x16\n" +
+	"\x14GetMySettingsRequest\"\xcd\x01\n" +
 	"\x15GetMySettingsResponse\x12/\n" +
 	"\x04user\x18\n" +
 	" \x01(\v2\x1b.dictionary.v1.UserSettingsR\x04user\x12/\n" +
-	"\x06system\x18\x14 \x01(\v2\x17.dictionary.v1.SettingsR\x06system\"J\n" +
+	"\x06system\x18\x14 \x01(\v2\x17.dictionary.v1.SettingsR\x06system\x12&\n" +
+	"\x0ffsrs_trained_at\x18\x1e \x01(\tR\rfsrsTrainedAt\x12*\n" +
+	"\x11fsrs_review_count\x18( \x01(\x05R\x0ffsrsReviewCount\"J\n" +
 	"\x17UpdateMySettingsRequest\x12/\n" +
 	"\x04user\x18\n" +
 	" \x01(\v2\x1b.dictionary.v1.UserSettingsR\x04user\"|\n" +
 	"\x18UpdateMySettingsResponse\x12/\n" +
 	"\x04user\x18\n" +
 	" \x01(\v2\x1b.dictionary.v1.UserSettingsR\x04user\x12/\n" +
-	"\x06system\x18\x14 \x01(\v2\x17.dictionary.v1.SettingsR\x06system*c\n" +
+	"\x06system\x18\x14 \x01(\v2\x17.dictionary.v1.SettingsR\x06system\"\xaa\x01\n" +
+	"\x12StartExportRequest\x12\x1b\n" +
+	"\tdeck_name\x18\n" +
+	" \x01(\tR\bdeckName\x120\n" +
+	"\x05scope\x18\x14 \x01(\x0e2\x1a.dictionary.v1.ExportScopeR\x05scope\x12\x1f\n" +
+	"\vcategory_id\x18\x1e \x01(\tR\n" +
+	"categoryId\x12$\n" +
+	"\runcategorized\x18( \x01(\bR\runcategorized\"A\n" +
+	"\x13StartExportResponse\x12*\n" +
+	"\x03job\x18\n" +
+	" \x01(\v2\x18.dictionary.v1.ExportJobR\x03job\"\"\n" +
+	"\x10GetExportRequest\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\"?\n" +
+	"\x11GetExportResponse\x12*\n" +
+	"\x03job\x18\n" +
+	" \x01(\v2\x18.dictionary.v1.ExportJobR\x03job\"%\n" +
+	"\x13CancelExportRequest\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\"B\n" +
+	"\x14CancelExportResponse\x12*\n" +
+	"\x03job\x18\n" +
+	" \x01(\v2\x18.dictionary.v1.ExportJobR\x03job\";\n" +
+	"\x1bCreateExportPartLinkRequest\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\x12\f\n" +
+	"\x01n\x18\x14 \x01(\x05R\x01n\"\x8e\x01\n" +
+	"\x1cCreateExportPartLinkResponse\x12\x14\n" +
+	"\x05token\x18\n" +
+	" \x01(\tR\x05token\x12\x1a\n" +
+	"\bfilename\x18\x14 \x01(\tR\bfilename\x12\x1d\n" +
+	"\n" +
+	"word_count\x18\x1e \x01(\x05R\twordCount\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18( \x01(\tR\texpiresAt\"\xbe\x02\n" +
+	"\tExportJob\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\x12\x16\n" +
+	"\x06status\x18\x14 \x01(\tR\x06status\x12\x1b\n" +
+	"\tdeck_name\x18\x1e \x01(\tR\bdeckName\x12\x14\n" +
+	"\x05total\x18( \x01(\x05R\x05total\x12\x14\n" +
+	"\x05built\x182 \x01(\x05R\x05built\x12\x1a\n" +
+	"\bbuilding\x18n \x01(\x05R\bbuilding\x12/\n" +
+	"\x05parts\x18< \x03(\v2\x19.dictionary.v1.ExportPartR\x05parts\x12\x14\n" +
+	"\x05error\x18F \x01(\tR\x05error\x12\x1d\n" +
+	"\n" +
+	"created_at\x18P \x01(\tR\tcreatedAt\x12\x1f\n" +
+	"\vfinished_at\x18Z \x01(\tR\n" +
+	"finishedAt\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18d \x01(\tR\texpiresAt\"i\n" +
+	"\n" +
+	"ExportPart\x12\f\n" +
+	"\x01n\x18\n" +
+	" \x01(\x05R\x01n\x12\x1a\n" +
+	"\bfilename\x18\x14 \x01(\tR\bfilename\x12\x1d\n" +
+	"\n" +
+	"word_count\x18\x1e \x01(\x05R\twordCount\x12\x12\n" +
+	"\x04size\x18( \x01(\x05R\x04size\".\n" +
+	"\x16CheckSavedWordsRequest\x12\x14\n" +
+	"\x05words\x18\n" +
+	" \x03(\tR\x05words\"L\n" +
+	"\x17CheckSavedWordsResponse\x121\n" +
+	"\x05words\x18\n" +
+	" \x03(\v2\x1b.dictionary.v1.SavedWordRefR\x05words\"E\n" +
+	"\fSavedWordRef\x12\x12\n" +
+	"\x04word\x18\n" +
+	" \x01(\tR\x04word\x12!\n" +
+	"\fcategory_ids\x18\x14 \x03(\tR\vcategoryIds*c\n" +
 	"\n" +
 	"Dictionary\x12\x1a\n" +
 	"\x16DICTIONARY_UNSPECIFIED\x10\x00\x12\x16\n" +
@@ -2259,24 +5551,49 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x18EXPORT_SCOPE_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10EXPORT_SCOPE_NEW\x10\n" +
 	"\x12\x14\n" +
-	"\x10EXPORT_SCOPE_ALL\x10\x142\xdc\n" +
-	"\n" +
+	"\x10EXPORT_SCOPE_ALL\x10\x14*\x88\x01\n" +
+	"\vReviewGrade\x12\x1c\n" +
+	"\x18REVIEW_GRADE_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12REVIEW_GRADE_AGAIN\x10\x01\x12\x15\n" +
+	"\x11REVIEW_GRADE_HARD\x10\x02\x12\x15\n" +
+	"\x11REVIEW_GRADE_GOOD\x10\x03\x12\x15\n" +
+	"\x11REVIEW_GRADE_EASY\x10\x042\xbd\x19\n" +
 	"\x11DictionaryService\x12Q\n" +
 	"\n" +
 	"LookupWord\x12 .dictionary.v1.LookupWordRequest\x1a!.dictionary.v1.LookupWordResponse\x12T\n" +
 	"\vLookupWords\x12!.dictionary.v1.LookupWordsRequest\x1a\".dictionary.v1.LookupWordsResponse\x12K\n" +
 	"\bSaveWord\x12\x1e.dictionary.v1.SaveWordRequest\x1a\x1f.dictionary.v1.SaveWordResponse\x12]\n" +
 	"\x0eListSavedWords\x12$.dictionary.v1.ListSavedWordsRequest\x1a%.dictionary.v1.ListSavedWordsResponse\x12`\n" +
+	"\x0fCheckSavedWords\x12%.dictionary.v1.CheckSavedWordsRequest\x1a&.dictionary.v1.CheckSavedWordsResponse\x12`\n" +
 	"\x0fDeleteSavedWord\x12%.dictionary.v1.DeleteSavedWordRequest\x1a&.dictionary.v1.DeleteSavedWordResponse\x12Q\n" +
 	"\n" +
 	"ExportAnki\x12 .dictionary.v1.ExportAnkiRequest\x1a!.dictionary.v1.ExportAnkiResponse\x12]\n" +
-	"\x0eCreateDeckLink\x12$.dictionary.v1.CreateDeckLinkRequest\x1a%.dictionary.v1.CreateDeckLinkResponse\x12W\n" +
-	"\fDownloadDeck\x12\".dictionary.v1.DownloadDeckRequest\x1a#.dictionary.v1.DownloadDeckResponse\x12l\n" +
+	"\x0eCreateDeckLink\x12$.dictionary.v1.CreateDeckLinkRequest\x1a%.dictionary.v1.CreateDeckLinkResponse\x12T\n" +
+	"\vStartExport\x12!.dictionary.v1.StartExportRequest\x1a\".dictionary.v1.StartExportResponse\x12N\n" +
+	"\tGetExport\x12\x1f.dictionary.v1.GetExportRequest\x1a .dictionary.v1.GetExportResponse\x12W\n" +
+	"\fCancelExport\x12\".dictionary.v1.CancelExportRequest\x1a#.dictionary.v1.CancelExportResponse\x12o\n" +
+	"\x14CreateExportPartLink\x12*.dictionary.v1.CreateExportPartLinkRequest\x1a+.dictionary.v1.CreateExportPartLinkResponse\x12W\n" +
+	"\fDownloadDeck\x12\".dictionary.v1.DownloadDeckRequest\x1a#.dictionary.v1.DownloadDeckResponse\x12^\n" +
+	"\x12DownloadExportPart\x12(.dictionary.v1.DownloadExportPartRequest\x1a\x1c.dictionary.v1.DownloadChunk0\x01\x12]\n" +
+	"\x0eListCategories\x12$.dictionary.v1.ListCategoriesRequest\x1a%.dictionary.v1.ListCategoriesResponse\x12]\n" +
+	"\x0eCreateCategory\x12$.dictionary.v1.CreateCategoryRequest\x1a%.dictionary.v1.CreateCategoryResponse\x12]\n" +
+	"\x0eRenameCategory\x12$.dictionary.v1.RenameCategoryRequest\x1a%.dictionary.v1.RenameCategoryResponse\x12]\n" +
+	"\x0eDeleteCategory\x12$.dictionary.v1.DeleteCategoryRequest\x1a%.dictionary.v1.DeleteCategoryResponse\x12o\n" +
+	"\x14UpdateWordCategories\x12*.dictionary.v1.UpdateWordCategoriesRequest\x1a+.dictionary.v1.UpdateWordCategoriesResponse\x12l\n" +
 	"\x13RemoveExportedWords\x12).dictionary.v1.RemoveExportedWordsRequest\x1a*.dictionary.v1.RemoveExportedWordsResponse\x12T\n" +
 	"\vUploadImage\x12!.dictionary.v1.UploadImageRequest\x1a\".dictionary.v1.UploadImageResponse\x12K\n" +
 	"\bGetImage\x12\x1e.dictionary.v1.GetImageRequest\x1a\x1f.dictionary.v1.GetImageResponse\x12T\n" +
+	"\vUploadAudio\x12!.dictionary.v1.UploadAudioRequest\x1a\".dictionary.v1.UploadAudioResponse\x12K\n" +
+	"\bGetAudio\x12\x1e.dictionary.v1.GetAudioRequest\x1a\x1f.dictionary.v1.GetAudioResponse\x12]\n" +
+	"\x0eGetReviewQueue\x12$.dictionary.v1.GetReviewQueueRequest\x1a%.dictionary.v1.GetReviewQueueResponse\x12W\n" +
+	"\fSubmitReview\x12\".dictionary.v1.SubmitReviewRequest\x1a#.dictionary.v1.SubmitReviewResponse\x12]\n" +
+	"\x0eAddReviewBonus\x12$.dictionary.v1.AddReviewBonusRequest\x1a%.dictionary.v1.AddReviewBonusResponse\x12{\n" +
+	"\x18OptimizeReviewParameters\x12..dictionary.v1.OptimizeReviewParametersRequest\x1a/.dictionary.v1.OptimizeReviewParametersResponse\x12T\n" +
 	"\vGetSettings\x12!.dictionary.v1.GetSettingsRequest\x1a\".dictionary.v1.GetSettingsResponse\x12]\n" +
-	"\x0eUpdateSettings\x12$.dictionary.v1.UpdateSettingsRequest\x1a%.dictionary.v1.UpdateSettingsResponse\x12Z\n" +
+	"\x0eUpdateSettings\x12$.dictionary.v1.UpdateSettingsRequest\x1a%.dictionary.v1.UpdateSettingsResponse\x12W\n" +
+	"\fGetUserQuota\x12\".dictionary.v1.GetUserQuotaRequest\x1a#.dictionary.v1.GetUserQuotaResponse\x12W\n" +
+	"\fSetUserQuota\x12\".dictionary.v1.SetUserQuotaRequest\x1a#.dictionary.v1.SetUserQuotaResponse\x12W\n" +
+	"\fGetMyStorage\x12\".dictionary.v1.GetMyStorageRequest\x1a#.dictionary.v1.GetMyStorageResponse\x12Z\n" +
 	"\rGetMySettings\x12#.dictionary.v1.GetMySettingsRequest\x1a$.dictionary.v1.GetMySettingsResponse\x12c\n" +
 	"\x10UpdateMySettings\x12&.dictionary.v1.UpdateMySettingsRequest\x1a'.dictionary.v1.UpdateMySettingsResponseB\xb3\x01\n" +
 	"\x11com.dictionary.v1B\x0fDictionaryProtoP\x01Z8github.com/huponx/protogen/go/dictionary/v1;dictionaryv1\xa2\x02\x03DXX\xaa\x02\rDictionary.V1\xca\x02\rDictionary\\V1\xe2\x02\x19Dictionary\\V1\\GPBMetadata\xea\x02\x0eDictionary::V1b\x06proto3"
@@ -2293,100 +5610,209 @@ func file_dictionary_v1_dictionary_proto_rawDescGZIP() []byte {
 	return file_dictionary_v1_dictionary_proto_rawDescData
 }
 
-var file_dictionary_v1_dictionary_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_dictionary_v1_dictionary_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_dictionary_v1_dictionary_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_dictionary_v1_dictionary_proto_msgTypes = make([]protoimpl.MessageInfo, 82)
 var file_dictionary_v1_dictionary_proto_goTypes = []any{
-	(Dictionary)(0),                     // 0: dictionary.v1.Dictionary
-	(ExportScope)(0),                    // 1: dictionary.v1.ExportScope
-	(*Meaning)(nil),                     // 2: dictionary.v1.Meaning
-	(*Word)(nil),                        // 3: dictionary.v1.Word
-	(*LookupWordRequest)(nil),           // 4: dictionary.v1.LookupWordRequest
-	(*LookupWordResponse)(nil),          // 5: dictionary.v1.LookupWordResponse
-	(*LookupWordsRequest)(nil),          // 6: dictionary.v1.LookupWordsRequest
-	(*LookupWordsResponse)(nil),         // 7: dictionary.v1.LookupWordsResponse
-	(*SavedWord)(nil),                   // 8: dictionary.v1.SavedWord
-	(*SaveWordRequest)(nil),             // 9: dictionary.v1.SaveWordRequest
-	(*SaveWordResponse)(nil),            // 10: dictionary.v1.SaveWordResponse
-	(*ListSavedWordsRequest)(nil),       // 11: dictionary.v1.ListSavedWordsRequest
-	(*ListSavedWordsResponse)(nil),      // 12: dictionary.v1.ListSavedWordsResponse
-	(*DeleteSavedWordRequest)(nil),      // 13: dictionary.v1.DeleteSavedWordRequest
-	(*DeleteSavedWordResponse)(nil),     // 14: dictionary.v1.DeleteSavedWordResponse
-	(*ExportAnkiRequest)(nil),           // 15: dictionary.v1.ExportAnkiRequest
-	(*ExportAnkiResponse)(nil),          // 16: dictionary.v1.ExportAnkiResponse
-	(*CreateDeckLinkRequest)(nil),       // 17: dictionary.v1.CreateDeckLinkRequest
-	(*RemoveExportedWordsRequest)(nil),  // 18: dictionary.v1.RemoveExportedWordsRequest
-	(*RemoveExportedWordsResponse)(nil), // 19: dictionary.v1.RemoveExportedWordsResponse
-	(*CreateDeckLinkResponse)(nil),      // 20: dictionary.v1.CreateDeckLinkResponse
-	(*DownloadDeckRequest)(nil),         // 21: dictionary.v1.DownloadDeckRequest
-	(*DownloadDeckResponse)(nil),        // 22: dictionary.v1.DownloadDeckResponse
-	(*UploadImageRequest)(nil),          // 23: dictionary.v1.UploadImageRequest
-	(*UploadImageResponse)(nil),         // 24: dictionary.v1.UploadImageResponse
-	(*GetImageRequest)(nil),             // 25: dictionary.v1.GetImageRequest
-	(*GetImageResponse)(nil),            // 26: dictionary.v1.GetImageResponse
-	(*Settings)(nil),                    // 27: dictionary.v1.Settings
-	(*UserSettings)(nil),                // 28: dictionary.v1.UserSettings
-	(*GetSettingsRequest)(nil),          // 29: dictionary.v1.GetSettingsRequest
-	(*GetSettingsResponse)(nil),         // 30: dictionary.v1.GetSettingsResponse
-	(*UpdateSettingsRequest)(nil),       // 31: dictionary.v1.UpdateSettingsRequest
-	(*UpdateSettingsResponse)(nil),      // 32: dictionary.v1.UpdateSettingsResponse
-	(*GetMySettingsRequest)(nil),        // 33: dictionary.v1.GetMySettingsRequest
-	(*GetMySettingsResponse)(nil),       // 34: dictionary.v1.GetMySettingsResponse
-	(*UpdateMySettingsRequest)(nil),     // 35: dictionary.v1.UpdateMySettingsRequest
-	(*UpdateMySettingsResponse)(nil),    // 36: dictionary.v1.UpdateMySettingsResponse
+	(Dictionary)(0),                          // 0: dictionary.v1.Dictionary
+	(ExportScope)(0),                         // 1: dictionary.v1.ExportScope
+	(ReviewGrade)(0),                         // 2: dictionary.v1.ReviewGrade
+	(*Meaning)(nil),                          // 3: dictionary.v1.Meaning
+	(*Word)(nil),                             // 4: dictionary.v1.Word
+	(*LookupWordRequest)(nil),                // 5: dictionary.v1.LookupWordRequest
+	(*LookupWordResponse)(nil),               // 6: dictionary.v1.LookupWordResponse
+	(*LookupWordsRequest)(nil),               // 7: dictionary.v1.LookupWordsRequest
+	(*LookupWordsResponse)(nil),              // 8: dictionary.v1.LookupWordsResponse
+	(*SavedWord)(nil),                        // 9: dictionary.v1.SavedWord
+	(*SaveWordRequest)(nil),                  // 10: dictionary.v1.SaveWordRequest
+	(*SaveWordResponse)(nil),                 // 11: dictionary.v1.SaveWordResponse
+	(*ListSavedWordsRequest)(nil),            // 12: dictionary.v1.ListSavedWordsRequest
+	(*ListSavedWordsResponse)(nil),           // 13: dictionary.v1.ListSavedWordsResponse
+	(*DeleteSavedWordRequest)(nil),           // 14: dictionary.v1.DeleteSavedWordRequest
+	(*DeleteSavedWordResponse)(nil),          // 15: dictionary.v1.DeleteSavedWordResponse
+	(*ExportAnkiRequest)(nil),                // 16: dictionary.v1.ExportAnkiRequest
+	(*ExportAnkiResponse)(nil),               // 17: dictionary.v1.ExportAnkiResponse
+	(*CreateDeckLinkRequest)(nil),            // 18: dictionary.v1.CreateDeckLinkRequest
+	(*RemoveExportedWordsRequest)(nil),       // 19: dictionary.v1.RemoveExportedWordsRequest
+	(*RemoveExportedWordsResponse)(nil),      // 20: dictionary.v1.RemoveExportedWordsResponse
+	(*CreateDeckLinkResponse)(nil),           // 21: dictionary.v1.CreateDeckLinkResponse
+	(*DownloadDeckRequest)(nil),              // 22: dictionary.v1.DownloadDeckRequest
+	(*DownloadDeckResponse)(nil),             // 23: dictionary.v1.DownloadDeckResponse
+	(*DownloadExportPartRequest)(nil),        // 24: dictionary.v1.DownloadExportPartRequest
+	(*DownloadChunk)(nil),                    // 25: dictionary.v1.DownloadChunk
+	(*UploadImageRequest)(nil),               // 26: dictionary.v1.UploadImageRequest
+	(*UploadImageResponse)(nil),              // 27: dictionary.v1.UploadImageResponse
+	(*GetImageRequest)(nil),                  // 28: dictionary.v1.GetImageRequest
+	(*GetImageResponse)(nil),                 // 29: dictionary.v1.GetImageResponse
+	(*UploadAudioRequest)(nil),               // 30: dictionary.v1.UploadAudioRequest
+	(*UploadAudioResponse)(nil),              // 31: dictionary.v1.UploadAudioResponse
+	(*GetAudioRequest)(nil),                  // 32: dictionary.v1.GetAudioRequest
+	(*GetAudioResponse)(nil),                 // 33: dictionary.v1.GetAudioResponse
+	(*ReviewCard)(nil),                       // 34: dictionary.v1.ReviewCard
+	(*GetReviewQueueRequest)(nil),            // 35: dictionary.v1.GetReviewQueueRequest
+	(*GetReviewQueueResponse)(nil),           // 36: dictionary.v1.GetReviewQueueResponse
+	(*AddReviewBonusRequest)(nil),            // 37: dictionary.v1.AddReviewBonusRequest
+	(*AddReviewBonusResponse)(nil),           // 38: dictionary.v1.AddReviewBonusResponse
+	(*SubmitReviewRequest)(nil),              // 39: dictionary.v1.SubmitReviewRequest
+	(*SubmitReviewResponse)(nil),             // 40: dictionary.v1.SubmitReviewResponse
+	(*OptimizeReviewParametersRequest)(nil),  // 41: dictionary.v1.OptimizeReviewParametersRequest
+	(*OptimizeReviewParametersResponse)(nil), // 42: dictionary.v1.OptimizeReviewParametersResponse
+	(*Category)(nil),                         // 43: dictionary.v1.Category
+	(*ListCategoriesRequest)(nil),            // 44: dictionary.v1.ListCategoriesRequest
+	(*ListCategoriesResponse)(nil),           // 45: dictionary.v1.ListCategoriesResponse
+	(*CreateCategoryRequest)(nil),            // 46: dictionary.v1.CreateCategoryRequest
+	(*CreateCategoryResponse)(nil),           // 47: dictionary.v1.CreateCategoryResponse
+	(*RenameCategoryRequest)(nil),            // 48: dictionary.v1.RenameCategoryRequest
+	(*RenameCategoryResponse)(nil),           // 49: dictionary.v1.RenameCategoryResponse
+	(*DeleteCategoryRequest)(nil),            // 50: dictionary.v1.DeleteCategoryRequest
+	(*DeleteCategoryResponse)(nil),           // 51: dictionary.v1.DeleteCategoryResponse
+	(*UpdateWordCategoriesRequest)(nil),      // 52: dictionary.v1.UpdateWordCategoriesRequest
+	(*UpdateWordCategoriesResponse)(nil),     // 53: dictionary.v1.UpdateWordCategoriesResponse
+	(*Settings)(nil),                         // 54: dictionary.v1.Settings
+	(*UserSettings)(nil),                     // 55: dictionary.v1.UserSettings
+	(*GetSettingsRequest)(nil),               // 56: dictionary.v1.GetSettingsRequest
+	(*GetSettingsResponse)(nil),              // 57: dictionary.v1.GetSettingsResponse
+	(*UpdateSettingsRequest)(nil),            // 58: dictionary.v1.UpdateSettingsRequest
+	(*UpdateSettingsResponse)(nil),           // 59: dictionary.v1.UpdateSettingsResponse
+	(*StorageQuota)(nil),                     // 60: dictionary.v1.StorageQuota
+	(*GetUserQuotaRequest)(nil),              // 61: dictionary.v1.GetUserQuotaRequest
+	(*GetUserQuotaResponse)(nil),             // 62: dictionary.v1.GetUserQuotaResponse
+	(*SetUserQuotaRequest)(nil),              // 63: dictionary.v1.SetUserQuotaRequest
+	(*SetUserQuotaResponse)(nil),             // 64: dictionary.v1.SetUserQuotaResponse
+	(*StorageUsage)(nil),                     // 65: dictionary.v1.StorageUsage
+	(*GetMyStorageRequest)(nil),              // 66: dictionary.v1.GetMyStorageRequest
+	(*GetMyStorageResponse)(nil),             // 67: dictionary.v1.GetMyStorageResponse
+	(*GetMySettingsRequest)(nil),             // 68: dictionary.v1.GetMySettingsRequest
+	(*GetMySettingsResponse)(nil),            // 69: dictionary.v1.GetMySettingsResponse
+	(*UpdateMySettingsRequest)(nil),          // 70: dictionary.v1.UpdateMySettingsRequest
+	(*UpdateMySettingsResponse)(nil),         // 71: dictionary.v1.UpdateMySettingsResponse
+	(*StartExportRequest)(nil),               // 72: dictionary.v1.StartExportRequest
+	(*StartExportResponse)(nil),              // 73: dictionary.v1.StartExportResponse
+	(*GetExportRequest)(nil),                 // 74: dictionary.v1.GetExportRequest
+	(*GetExportResponse)(nil),                // 75: dictionary.v1.GetExportResponse
+	(*CancelExportRequest)(nil),              // 76: dictionary.v1.CancelExportRequest
+	(*CancelExportResponse)(nil),             // 77: dictionary.v1.CancelExportResponse
+	(*CreateExportPartLinkRequest)(nil),      // 78: dictionary.v1.CreateExportPartLinkRequest
+	(*CreateExportPartLinkResponse)(nil),     // 79: dictionary.v1.CreateExportPartLinkResponse
+	(*ExportJob)(nil),                        // 80: dictionary.v1.ExportJob
+	(*ExportPart)(nil),                       // 81: dictionary.v1.ExportPart
+	(*CheckSavedWordsRequest)(nil),           // 82: dictionary.v1.CheckSavedWordsRequest
+	(*CheckSavedWordsResponse)(nil),          // 83: dictionary.v1.CheckSavedWordsResponse
+	(*SavedWordRef)(nil),                     // 84: dictionary.v1.SavedWordRef
 }
 var file_dictionary_v1_dictionary_proto_depIdxs = []int32{
-	2,  // 0: dictionary.v1.Word.meanings:type_name -> dictionary.v1.Meaning
+	3,  // 0: dictionary.v1.Word.meanings:type_name -> dictionary.v1.Meaning
 	0,  // 1: dictionary.v1.LookupWordRequest.dictionary:type_name -> dictionary.v1.Dictionary
-	3,  // 2: dictionary.v1.LookupWordResponse.word:type_name -> dictionary.v1.Word
+	4,  // 2: dictionary.v1.LookupWordResponse.word:type_name -> dictionary.v1.Word
 	0,  // 3: dictionary.v1.LookupWordsRequest.dictionary:type_name -> dictionary.v1.Dictionary
-	3,  // 4: dictionary.v1.LookupWordsResponse.words:type_name -> dictionary.v1.Word
-	8,  // 5: dictionary.v1.ListSavedWordsResponse.words:type_name -> dictionary.v1.SavedWord
+	4,  // 4: dictionary.v1.LookupWordsResponse.words:type_name -> dictionary.v1.Word
+	9,  // 5: dictionary.v1.ListSavedWordsResponse.words:type_name -> dictionary.v1.SavedWord
 	1,  // 6: dictionary.v1.ExportAnkiRequest.scope:type_name -> dictionary.v1.ExportScope
 	1,  // 7: dictionary.v1.CreateDeckLinkRequest.scope:type_name -> dictionary.v1.ExportScope
-	0,  // 8: dictionary.v1.UserSettings.default_dictionary:type_name -> dictionary.v1.Dictionary
-	27, // 9: dictionary.v1.GetSettingsResponse.settings:type_name -> dictionary.v1.Settings
-	27, // 10: dictionary.v1.UpdateSettingsRequest.settings:type_name -> dictionary.v1.Settings
-	27, // 11: dictionary.v1.UpdateSettingsResponse.settings:type_name -> dictionary.v1.Settings
-	28, // 12: dictionary.v1.GetMySettingsResponse.user:type_name -> dictionary.v1.UserSettings
-	27, // 13: dictionary.v1.GetMySettingsResponse.system:type_name -> dictionary.v1.Settings
-	28, // 14: dictionary.v1.UpdateMySettingsRequest.user:type_name -> dictionary.v1.UserSettings
-	28, // 15: dictionary.v1.UpdateMySettingsResponse.user:type_name -> dictionary.v1.UserSettings
-	27, // 16: dictionary.v1.UpdateMySettingsResponse.system:type_name -> dictionary.v1.Settings
-	4,  // 17: dictionary.v1.DictionaryService.LookupWord:input_type -> dictionary.v1.LookupWordRequest
-	6,  // 18: dictionary.v1.DictionaryService.LookupWords:input_type -> dictionary.v1.LookupWordsRequest
-	9,  // 19: dictionary.v1.DictionaryService.SaveWord:input_type -> dictionary.v1.SaveWordRequest
-	11, // 20: dictionary.v1.DictionaryService.ListSavedWords:input_type -> dictionary.v1.ListSavedWordsRequest
-	13, // 21: dictionary.v1.DictionaryService.DeleteSavedWord:input_type -> dictionary.v1.DeleteSavedWordRequest
-	15, // 22: dictionary.v1.DictionaryService.ExportAnki:input_type -> dictionary.v1.ExportAnkiRequest
-	17, // 23: dictionary.v1.DictionaryService.CreateDeckLink:input_type -> dictionary.v1.CreateDeckLinkRequest
-	21, // 24: dictionary.v1.DictionaryService.DownloadDeck:input_type -> dictionary.v1.DownloadDeckRequest
-	18, // 25: dictionary.v1.DictionaryService.RemoveExportedWords:input_type -> dictionary.v1.RemoveExportedWordsRequest
-	23, // 26: dictionary.v1.DictionaryService.UploadImage:input_type -> dictionary.v1.UploadImageRequest
-	25, // 27: dictionary.v1.DictionaryService.GetImage:input_type -> dictionary.v1.GetImageRequest
-	29, // 28: dictionary.v1.DictionaryService.GetSettings:input_type -> dictionary.v1.GetSettingsRequest
-	31, // 29: dictionary.v1.DictionaryService.UpdateSettings:input_type -> dictionary.v1.UpdateSettingsRequest
-	33, // 30: dictionary.v1.DictionaryService.GetMySettings:input_type -> dictionary.v1.GetMySettingsRequest
-	35, // 31: dictionary.v1.DictionaryService.UpdateMySettings:input_type -> dictionary.v1.UpdateMySettingsRequest
-	5,  // 32: dictionary.v1.DictionaryService.LookupWord:output_type -> dictionary.v1.LookupWordResponse
-	7,  // 33: dictionary.v1.DictionaryService.LookupWords:output_type -> dictionary.v1.LookupWordsResponse
-	10, // 34: dictionary.v1.DictionaryService.SaveWord:output_type -> dictionary.v1.SaveWordResponse
-	12, // 35: dictionary.v1.DictionaryService.ListSavedWords:output_type -> dictionary.v1.ListSavedWordsResponse
-	14, // 36: dictionary.v1.DictionaryService.DeleteSavedWord:output_type -> dictionary.v1.DeleteSavedWordResponse
-	16, // 37: dictionary.v1.DictionaryService.ExportAnki:output_type -> dictionary.v1.ExportAnkiResponse
-	20, // 38: dictionary.v1.DictionaryService.CreateDeckLink:output_type -> dictionary.v1.CreateDeckLinkResponse
-	22, // 39: dictionary.v1.DictionaryService.DownloadDeck:output_type -> dictionary.v1.DownloadDeckResponse
-	19, // 40: dictionary.v1.DictionaryService.RemoveExportedWords:output_type -> dictionary.v1.RemoveExportedWordsResponse
-	24, // 41: dictionary.v1.DictionaryService.UploadImage:output_type -> dictionary.v1.UploadImageResponse
-	26, // 42: dictionary.v1.DictionaryService.GetImage:output_type -> dictionary.v1.GetImageResponse
-	30, // 43: dictionary.v1.DictionaryService.GetSettings:output_type -> dictionary.v1.GetSettingsResponse
-	32, // 44: dictionary.v1.DictionaryService.UpdateSettings:output_type -> dictionary.v1.UpdateSettingsResponse
-	34, // 45: dictionary.v1.DictionaryService.GetMySettings:output_type -> dictionary.v1.GetMySettingsResponse
-	36, // 46: dictionary.v1.DictionaryService.UpdateMySettings:output_type -> dictionary.v1.UpdateMySettingsResponse
-	32, // [32:47] is the sub-list for method output_type
-	17, // [17:32] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	34, // 8: dictionary.v1.GetReviewQueueResponse.cards:type_name -> dictionary.v1.ReviewCard
+	2,  // 9: dictionary.v1.SubmitReviewRequest.grade:type_name -> dictionary.v1.ReviewGrade
+	43, // 10: dictionary.v1.ListCategoriesResponse.categories:type_name -> dictionary.v1.Category
+	43, // 11: dictionary.v1.CreateCategoryResponse.category:type_name -> dictionary.v1.Category
+	43, // 12: dictionary.v1.RenameCategoryResponse.category:type_name -> dictionary.v1.Category
+	0,  // 13: dictionary.v1.UserSettings.default_dictionary:type_name -> dictionary.v1.Dictionary
+	54, // 14: dictionary.v1.GetSettingsResponse.settings:type_name -> dictionary.v1.Settings
+	54, // 15: dictionary.v1.UpdateSettingsRequest.settings:type_name -> dictionary.v1.Settings
+	54, // 16: dictionary.v1.UpdateSettingsResponse.settings:type_name -> dictionary.v1.Settings
+	60, // 17: dictionary.v1.GetUserQuotaResponse.used:type_name -> dictionary.v1.StorageQuota
+	60, // 18: dictionary.v1.GetUserQuotaResponse.override:type_name -> dictionary.v1.StorageQuota
+	60, // 19: dictionary.v1.GetUserQuotaResponse.effective:type_name -> dictionary.v1.StorageQuota
+	60, // 20: dictionary.v1.SetUserQuotaRequest.quotas:type_name -> dictionary.v1.StorageQuota
+	60, // 21: dictionary.v1.SetUserQuotaResponse.used:type_name -> dictionary.v1.StorageQuota
+	60, // 22: dictionary.v1.SetUserQuotaResponse.override:type_name -> dictionary.v1.StorageQuota
+	60, // 23: dictionary.v1.SetUserQuotaResponse.effective:type_name -> dictionary.v1.StorageQuota
+	65, // 24: dictionary.v1.GetMyStorageResponse.content:type_name -> dictionary.v1.StorageUsage
+	65, // 25: dictionary.v1.GetMyStorageResponse.image:type_name -> dictionary.v1.StorageUsage
+	65, // 26: dictionary.v1.GetMyStorageResponse.audio:type_name -> dictionary.v1.StorageUsage
+	55, // 27: dictionary.v1.GetMySettingsResponse.user:type_name -> dictionary.v1.UserSettings
+	54, // 28: dictionary.v1.GetMySettingsResponse.system:type_name -> dictionary.v1.Settings
+	55, // 29: dictionary.v1.UpdateMySettingsRequest.user:type_name -> dictionary.v1.UserSettings
+	55, // 30: dictionary.v1.UpdateMySettingsResponse.user:type_name -> dictionary.v1.UserSettings
+	54, // 31: dictionary.v1.UpdateMySettingsResponse.system:type_name -> dictionary.v1.Settings
+	1,  // 32: dictionary.v1.StartExportRequest.scope:type_name -> dictionary.v1.ExportScope
+	80, // 33: dictionary.v1.StartExportResponse.job:type_name -> dictionary.v1.ExportJob
+	80, // 34: dictionary.v1.GetExportResponse.job:type_name -> dictionary.v1.ExportJob
+	80, // 35: dictionary.v1.CancelExportResponse.job:type_name -> dictionary.v1.ExportJob
+	81, // 36: dictionary.v1.ExportJob.parts:type_name -> dictionary.v1.ExportPart
+	84, // 37: dictionary.v1.CheckSavedWordsResponse.words:type_name -> dictionary.v1.SavedWordRef
+	5,  // 38: dictionary.v1.DictionaryService.LookupWord:input_type -> dictionary.v1.LookupWordRequest
+	7,  // 39: dictionary.v1.DictionaryService.LookupWords:input_type -> dictionary.v1.LookupWordsRequest
+	10, // 40: dictionary.v1.DictionaryService.SaveWord:input_type -> dictionary.v1.SaveWordRequest
+	12, // 41: dictionary.v1.DictionaryService.ListSavedWords:input_type -> dictionary.v1.ListSavedWordsRequest
+	82, // 42: dictionary.v1.DictionaryService.CheckSavedWords:input_type -> dictionary.v1.CheckSavedWordsRequest
+	14, // 43: dictionary.v1.DictionaryService.DeleteSavedWord:input_type -> dictionary.v1.DeleteSavedWordRequest
+	16, // 44: dictionary.v1.DictionaryService.ExportAnki:input_type -> dictionary.v1.ExportAnkiRequest
+	18, // 45: dictionary.v1.DictionaryService.CreateDeckLink:input_type -> dictionary.v1.CreateDeckLinkRequest
+	72, // 46: dictionary.v1.DictionaryService.StartExport:input_type -> dictionary.v1.StartExportRequest
+	74, // 47: dictionary.v1.DictionaryService.GetExport:input_type -> dictionary.v1.GetExportRequest
+	76, // 48: dictionary.v1.DictionaryService.CancelExport:input_type -> dictionary.v1.CancelExportRequest
+	78, // 49: dictionary.v1.DictionaryService.CreateExportPartLink:input_type -> dictionary.v1.CreateExportPartLinkRequest
+	22, // 50: dictionary.v1.DictionaryService.DownloadDeck:input_type -> dictionary.v1.DownloadDeckRequest
+	24, // 51: dictionary.v1.DictionaryService.DownloadExportPart:input_type -> dictionary.v1.DownloadExportPartRequest
+	44, // 52: dictionary.v1.DictionaryService.ListCategories:input_type -> dictionary.v1.ListCategoriesRequest
+	46, // 53: dictionary.v1.DictionaryService.CreateCategory:input_type -> dictionary.v1.CreateCategoryRequest
+	48, // 54: dictionary.v1.DictionaryService.RenameCategory:input_type -> dictionary.v1.RenameCategoryRequest
+	50, // 55: dictionary.v1.DictionaryService.DeleteCategory:input_type -> dictionary.v1.DeleteCategoryRequest
+	52, // 56: dictionary.v1.DictionaryService.UpdateWordCategories:input_type -> dictionary.v1.UpdateWordCategoriesRequest
+	19, // 57: dictionary.v1.DictionaryService.RemoveExportedWords:input_type -> dictionary.v1.RemoveExportedWordsRequest
+	26, // 58: dictionary.v1.DictionaryService.UploadImage:input_type -> dictionary.v1.UploadImageRequest
+	28, // 59: dictionary.v1.DictionaryService.GetImage:input_type -> dictionary.v1.GetImageRequest
+	30, // 60: dictionary.v1.DictionaryService.UploadAudio:input_type -> dictionary.v1.UploadAudioRequest
+	32, // 61: dictionary.v1.DictionaryService.GetAudio:input_type -> dictionary.v1.GetAudioRequest
+	35, // 62: dictionary.v1.DictionaryService.GetReviewQueue:input_type -> dictionary.v1.GetReviewQueueRequest
+	39, // 63: dictionary.v1.DictionaryService.SubmitReview:input_type -> dictionary.v1.SubmitReviewRequest
+	37, // 64: dictionary.v1.DictionaryService.AddReviewBonus:input_type -> dictionary.v1.AddReviewBonusRequest
+	41, // 65: dictionary.v1.DictionaryService.OptimizeReviewParameters:input_type -> dictionary.v1.OptimizeReviewParametersRequest
+	56, // 66: dictionary.v1.DictionaryService.GetSettings:input_type -> dictionary.v1.GetSettingsRequest
+	58, // 67: dictionary.v1.DictionaryService.UpdateSettings:input_type -> dictionary.v1.UpdateSettingsRequest
+	61, // 68: dictionary.v1.DictionaryService.GetUserQuota:input_type -> dictionary.v1.GetUserQuotaRequest
+	63, // 69: dictionary.v1.DictionaryService.SetUserQuota:input_type -> dictionary.v1.SetUserQuotaRequest
+	66, // 70: dictionary.v1.DictionaryService.GetMyStorage:input_type -> dictionary.v1.GetMyStorageRequest
+	68, // 71: dictionary.v1.DictionaryService.GetMySettings:input_type -> dictionary.v1.GetMySettingsRequest
+	70, // 72: dictionary.v1.DictionaryService.UpdateMySettings:input_type -> dictionary.v1.UpdateMySettingsRequest
+	6,  // 73: dictionary.v1.DictionaryService.LookupWord:output_type -> dictionary.v1.LookupWordResponse
+	8,  // 74: dictionary.v1.DictionaryService.LookupWords:output_type -> dictionary.v1.LookupWordsResponse
+	11, // 75: dictionary.v1.DictionaryService.SaveWord:output_type -> dictionary.v1.SaveWordResponse
+	13, // 76: dictionary.v1.DictionaryService.ListSavedWords:output_type -> dictionary.v1.ListSavedWordsResponse
+	83, // 77: dictionary.v1.DictionaryService.CheckSavedWords:output_type -> dictionary.v1.CheckSavedWordsResponse
+	15, // 78: dictionary.v1.DictionaryService.DeleteSavedWord:output_type -> dictionary.v1.DeleteSavedWordResponse
+	17, // 79: dictionary.v1.DictionaryService.ExportAnki:output_type -> dictionary.v1.ExportAnkiResponse
+	21, // 80: dictionary.v1.DictionaryService.CreateDeckLink:output_type -> dictionary.v1.CreateDeckLinkResponse
+	73, // 81: dictionary.v1.DictionaryService.StartExport:output_type -> dictionary.v1.StartExportResponse
+	75, // 82: dictionary.v1.DictionaryService.GetExport:output_type -> dictionary.v1.GetExportResponse
+	77, // 83: dictionary.v1.DictionaryService.CancelExport:output_type -> dictionary.v1.CancelExportResponse
+	79, // 84: dictionary.v1.DictionaryService.CreateExportPartLink:output_type -> dictionary.v1.CreateExportPartLinkResponse
+	23, // 85: dictionary.v1.DictionaryService.DownloadDeck:output_type -> dictionary.v1.DownloadDeckResponse
+	25, // 86: dictionary.v1.DictionaryService.DownloadExportPart:output_type -> dictionary.v1.DownloadChunk
+	45, // 87: dictionary.v1.DictionaryService.ListCategories:output_type -> dictionary.v1.ListCategoriesResponse
+	47, // 88: dictionary.v1.DictionaryService.CreateCategory:output_type -> dictionary.v1.CreateCategoryResponse
+	49, // 89: dictionary.v1.DictionaryService.RenameCategory:output_type -> dictionary.v1.RenameCategoryResponse
+	51, // 90: dictionary.v1.DictionaryService.DeleteCategory:output_type -> dictionary.v1.DeleteCategoryResponse
+	53, // 91: dictionary.v1.DictionaryService.UpdateWordCategories:output_type -> dictionary.v1.UpdateWordCategoriesResponse
+	20, // 92: dictionary.v1.DictionaryService.RemoveExportedWords:output_type -> dictionary.v1.RemoveExportedWordsResponse
+	27, // 93: dictionary.v1.DictionaryService.UploadImage:output_type -> dictionary.v1.UploadImageResponse
+	29, // 94: dictionary.v1.DictionaryService.GetImage:output_type -> dictionary.v1.GetImageResponse
+	31, // 95: dictionary.v1.DictionaryService.UploadAudio:output_type -> dictionary.v1.UploadAudioResponse
+	33, // 96: dictionary.v1.DictionaryService.GetAudio:output_type -> dictionary.v1.GetAudioResponse
+	36, // 97: dictionary.v1.DictionaryService.GetReviewQueue:output_type -> dictionary.v1.GetReviewQueueResponse
+	40, // 98: dictionary.v1.DictionaryService.SubmitReview:output_type -> dictionary.v1.SubmitReviewResponse
+	38, // 99: dictionary.v1.DictionaryService.AddReviewBonus:output_type -> dictionary.v1.AddReviewBonusResponse
+	42, // 100: dictionary.v1.DictionaryService.OptimizeReviewParameters:output_type -> dictionary.v1.OptimizeReviewParametersResponse
+	57, // 101: dictionary.v1.DictionaryService.GetSettings:output_type -> dictionary.v1.GetSettingsResponse
+	59, // 102: dictionary.v1.DictionaryService.UpdateSettings:output_type -> dictionary.v1.UpdateSettingsResponse
+	62, // 103: dictionary.v1.DictionaryService.GetUserQuota:output_type -> dictionary.v1.GetUserQuotaResponse
+	64, // 104: dictionary.v1.DictionaryService.SetUserQuota:output_type -> dictionary.v1.SetUserQuotaResponse
+	67, // 105: dictionary.v1.DictionaryService.GetMyStorage:output_type -> dictionary.v1.GetMyStorageResponse
+	69, // 106: dictionary.v1.DictionaryService.GetMySettings:output_type -> dictionary.v1.GetMySettingsResponse
+	71, // 107: dictionary.v1.DictionaryService.UpdateMySettings:output_type -> dictionary.v1.UpdateMySettingsResponse
+	73, // [73:108] is the sub-list for method output_type
+	38, // [38:73] is the sub-list for method input_type
+	38, // [38:38] is the sub-list for extension type_name
+	38, // [38:38] is the sub-list for extension extendee
+	0,  // [0:38] is the sub-list for field type_name
 }
 
 func init() { file_dictionary_v1_dictionary_proto_init() }
@@ -2399,8 +5825,8 @@ func file_dictionary_v1_dictionary_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dictionary_v1_dictionary_proto_rawDesc), len(file_dictionary_v1_dictionary_proto_rawDesc)),
-			NumEnums:      2,
-			NumMessages:   35,
+			NumEnums:      3,
+			NumMessages:   82,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

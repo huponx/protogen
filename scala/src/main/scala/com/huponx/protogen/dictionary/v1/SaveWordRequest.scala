@@ -5,12 +5,16 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param categoryIds
+  *   Categories to add the word to. Only adds: the ones the word already has stay.
+  */
 @SerialVersionUID(0L)
 final case class SaveWordRequest(
     word: _root_.scala.Predef.String = "",
     content: _root_.scala.Predef.String = "",
     audioUk: _root_.scala.Predef.String = "",
     audioUs: _root_.scala.Predef.String = "",
+    categoryIds: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SaveWordRequest] {
     @transient
@@ -45,6 +49,10 @@ final case class SaveWordRequest(
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(40, __value)
         }
       };
+      categoryIds.foreach { __item =>
+        val __value = __item
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(50, __value)
+      }
       __size += unknownFields.serializedSize
       __size
     }
@@ -82,12 +90,20 @@ final case class SaveWordRequest(
           _output__.writeString(40, __v)
         }
       };
+      categoryIds.foreach { __v =>
+        val __m = __v
+        _output__.writeString(50, __m)
+      };
       unknownFields.writeTo(_output__)
     }
     def withWord(__v: _root_.scala.Predef.String): SaveWordRequest = copy(word = __v)
     def withContent(__v: _root_.scala.Predef.String): SaveWordRequest = copy(content = __v)
     def withAudioUk(__v: _root_.scala.Predef.String): SaveWordRequest = copy(audioUk = __v)
     def withAudioUs(__v: _root_.scala.Predef.String): SaveWordRequest = copy(audioUs = __v)
+    def clearCategoryIds = copy(categoryIds = _root_.scala.Seq.empty)
+    def addCategoryIds(__vs: _root_.scala.Predef.String *): SaveWordRequest = addAllCategoryIds(__vs)
+    def addAllCategoryIds(__vs: Iterable[_root_.scala.Predef.String]): SaveWordRequest = copy(categoryIds = categoryIds ++ __vs)
+    def withCategoryIds(__v: _root_.scala.Seq[_root_.scala.Predef.String]): SaveWordRequest = copy(categoryIds = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -108,6 +124,7 @@ final case class SaveWordRequest(
           val __t = audioUs
           if (__t != "") __t else null
         }
+        case 50 => categoryIds
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -117,6 +134,7 @@ final case class SaveWordRequest(
         case 20 => _root_.scalapb.descriptors.PString(content)
         case 30 => _root_.scalapb.descriptors.PString(audioUk)
         case 40 => _root_.scalapb.descriptors.PString(audioUs)
+        case 50 => _root_.scalapb.descriptors.PRepeated(categoryIds.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -131,6 +149,7 @@ object SaveWordRequest extends scalapb.GeneratedMessageCompanion[com.huponx.prot
     var __content: _root_.scala.Predef.String = ""
     var __audioUk: _root_.scala.Predef.String = ""
     var __audioUs: _root_.scala.Predef.String = ""
+    val __categoryIds: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -145,6 +164,8 @@ object SaveWordRequest extends scalapb.GeneratedMessageCompanion[com.huponx.prot
           __audioUk = _input__.readStringRequireUtf8()
         case 322 =>
           __audioUs = _input__.readStringRequireUtf8()
+        case 402 =>
+          __categoryIds += _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -157,6 +178,7 @@ object SaveWordRequest extends scalapb.GeneratedMessageCompanion[com.huponx.prot
         content = __content,
         audioUk = __audioUk,
         audioUs = __audioUs,
+        categoryIds = __categoryIds.result(),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -167,7 +189,8 @@ object SaveWordRequest extends scalapb.GeneratedMessageCompanion[com.huponx.prot
         word = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         content = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         audioUk = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        audioUs = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        audioUs = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        categoryIds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -180,28 +203,33 @@ object SaveWordRequest extends scalapb.GeneratedMessageCompanion[com.huponx.prot
     word = "",
     content = "",
     audioUk = "",
-    audioUs = ""
+    audioUs = "",
+    categoryIds = _root_.scala.Seq.empty
   )
   implicit class SaveWordRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.SaveWordRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.SaveWordRequest](_l) {
     def word: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.word)((c_, f_) => c_.copy(word = f_))
     def content: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.content)((c_, f_) => c_.copy(content = f_))
     def audioUk: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.audioUk)((c_, f_) => c_.copy(audioUk = f_))
     def audioUs: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.audioUs)((c_, f_) => c_.copy(audioUs = f_))
+    def categoryIds: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.categoryIds)((c_, f_) => c_.copy(categoryIds = f_))
   }
   final val WORD_FIELD_NUMBER = 10
   final val CONTENT_FIELD_NUMBER = 20
   final val AUDIO_UK_FIELD_NUMBER = 30
   final val AUDIO_US_FIELD_NUMBER = 40
+  final val CATEGORY_IDS_FIELD_NUMBER = 50
   def of(
     word: _root_.scala.Predef.String,
     content: _root_.scala.Predef.String,
     audioUk: _root_.scala.Predef.String,
-    audioUs: _root_.scala.Predef.String
+    audioUs: _root_.scala.Predef.String,
+    categoryIds: _root_.scala.Seq[_root_.scala.Predef.String]
   ): _root_.com.huponx.protogen.dictionary.v1.SaveWordRequest = _root_.com.huponx.protogen.dictionary.v1.SaveWordRequest(
     word,
     content,
     audioUk,
-    audioUs
+    audioUs,
+    categoryIds
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.SaveWordRequest])
 }
