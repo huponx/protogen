@@ -19,21 +19,41 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	DictionaryService_LookupWord_FullMethodName          = "/dictionary.v1.DictionaryService/LookupWord"
-	DictionaryService_LookupWords_FullMethodName         = "/dictionary.v1.DictionaryService/LookupWords"
-	DictionaryService_SaveWord_FullMethodName            = "/dictionary.v1.DictionaryService/SaveWord"
-	DictionaryService_ListSavedWords_FullMethodName      = "/dictionary.v1.DictionaryService/ListSavedWords"
-	DictionaryService_DeleteSavedWord_FullMethodName     = "/dictionary.v1.DictionaryService/DeleteSavedWord"
-	DictionaryService_ExportAnki_FullMethodName          = "/dictionary.v1.DictionaryService/ExportAnki"
-	DictionaryService_CreateDeckLink_FullMethodName      = "/dictionary.v1.DictionaryService/CreateDeckLink"
-	DictionaryService_DownloadDeck_FullMethodName        = "/dictionary.v1.DictionaryService/DownloadDeck"
-	DictionaryService_RemoveExportedWords_FullMethodName = "/dictionary.v1.DictionaryService/RemoveExportedWords"
-	DictionaryService_UploadImage_FullMethodName         = "/dictionary.v1.DictionaryService/UploadImage"
-	DictionaryService_GetImage_FullMethodName            = "/dictionary.v1.DictionaryService/GetImage"
-	DictionaryService_GetSettings_FullMethodName         = "/dictionary.v1.DictionaryService/GetSettings"
-	DictionaryService_UpdateSettings_FullMethodName      = "/dictionary.v1.DictionaryService/UpdateSettings"
-	DictionaryService_GetMySettings_FullMethodName       = "/dictionary.v1.DictionaryService/GetMySettings"
-	DictionaryService_UpdateMySettings_FullMethodName    = "/dictionary.v1.DictionaryService/UpdateMySettings"
+	DictionaryService_LookupWord_FullMethodName               = "/dictionary.v1.DictionaryService/LookupWord"
+	DictionaryService_LookupWords_FullMethodName              = "/dictionary.v1.DictionaryService/LookupWords"
+	DictionaryService_SaveWord_FullMethodName                 = "/dictionary.v1.DictionaryService/SaveWord"
+	DictionaryService_ListSavedWords_FullMethodName           = "/dictionary.v1.DictionaryService/ListSavedWords"
+	DictionaryService_CheckSavedWords_FullMethodName          = "/dictionary.v1.DictionaryService/CheckSavedWords"
+	DictionaryService_DeleteSavedWord_FullMethodName          = "/dictionary.v1.DictionaryService/DeleteSavedWord"
+	DictionaryService_ExportAnki_FullMethodName               = "/dictionary.v1.DictionaryService/ExportAnki"
+	DictionaryService_CreateDeckLink_FullMethodName           = "/dictionary.v1.DictionaryService/CreateDeckLink"
+	DictionaryService_StartExport_FullMethodName              = "/dictionary.v1.DictionaryService/StartExport"
+	DictionaryService_GetExport_FullMethodName                = "/dictionary.v1.DictionaryService/GetExport"
+	DictionaryService_CancelExport_FullMethodName             = "/dictionary.v1.DictionaryService/CancelExport"
+	DictionaryService_CreateExportPartLink_FullMethodName     = "/dictionary.v1.DictionaryService/CreateExportPartLink"
+	DictionaryService_DownloadDeck_FullMethodName             = "/dictionary.v1.DictionaryService/DownloadDeck"
+	DictionaryService_DownloadExportPart_FullMethodName       = "/dictionary.v1.DictionaryService/DownloadExportPart"
+	DictionaryService_ListCategories_FullMethodName           = "/dictionary.v1.DictionaryService/ListCategories"
+	DictionaryService_CreateCategory_FullMethodName           = "/dictionary.v1.DictionaryService/CreateCategory"
+	DictionaryService_RenameCategory_FullMethodName           = "/dictionary.v1.DictionaryService/RenameCategory"
+	DictionaryService_DeleteCategory_FullMethodName           = "/dictionary.v1.DictionaryService/DeleteCategory"
+	DictionaryService_UpdateWordCategories_FullMethodName     = "/dictionary.v1.DictionaryService/UpdateWordCategories"
+	DictionaryService_RemoveExportedWords_FullMethodName      = "/dictionary.v1.DictionaryService/RemoveExportedWords"
+	DictionaryService_UploadImage_FullMethodName              = "/dictionary.v1.DictionaryService/UploadImage"
+	DictionaryService_GetImage_FullMethodName                 = "/dictionary.v1.DictionaryService/GetImage"
+	DictionaryService_UploadAudio_FullMethodName              = "/dictionary.v1.DictionaryService/UploadAudio"
+	DictionaryService_GetAudio_FullMethodName                 = "/dictionary.v1.DictionaryService/GetAudio"
+	DictionaryService_GetReviewQueue_FullMethodName           = "/dictionary.v1.DictionaryService/GetReviewQueue"
+	DictionaryService_SubmitReview_FullMethodName             = "/dictionary.v1.DictionaryService/SubmitReview"
+	DictionaryService_AddReviewBonus_FullMethodName           = "/dictionary.v1.DictionaryService/AddReviewBonus"
+	DictionaryService_OptimizeReviewParameters_FullMethodName = "/dictionary.v1.DictionaryService/OptimizeReviewParameters"
+	DictionaryService_GetSettings_FullMethodName              = "/dictionary.v1.DictionaryService/GetSettings"
+	DictionaryService_UpdateSettings_FullMethodName           = "/dictionary.v1.DictionaryService/UpdateSettings"
+	DictionaryService_GetUserQuota_FullMethodName             = "/dictionary.v1.DictionaryService/GetUserQuota"
+	DictionaryService_SetUserQuota_FullMethodName             = "/dictionary.v1.DictionaryService/SetUserQuota"
+	DictionaryService_GetMyStorage_FullMethodName             = "/dictionary.v1.DictionaryService/GetMyStorage"
+	DictionaryService_GetMySettings_FullMethodName            = "/dictionary.v1.DictionaryService/GetMySettings"
+	DictionaryService_UpdateMySettings_FullMethodName         = "/dictionary.v1.DictionaryService/UpdateMySettings"
 )
 
 // DictionaryServiceClient is the client API for DictionaryService service.
@@ -55,6 +75,9 @@ type DictionaryServiceClient interface {
 	// ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
 	// kept (remove after export is off). Permission: dictionary:word:read.
 	ListSavedWords(ctx context.Context, in *ListSavedWordsRequest, opts ...grpc.CallOption) (*ListSavedWordsResponse, error)
+	// CheckSavedWords tells which of up to 100 words are in the list of the user, with their categories: the lookup
+	// marks the words that are saved without reading the whole list. Permission: dictionary:word:read.
+	CheckSavedWords(ctx context.Context, in *CheckSavedWordsRequest, opts ...grpc.CallOption) (*CheckSavedWordsResponse, error)
 	// DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
 	DeleteSavedWord(ctx context.Context, in *DeleteSavedWordRequest, opts ...grpc.CallOption) (*DeleteSavedWordResponse, error)
 	// ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
@@ -67,10 +90,46 @@ type DictionaryServiceClient interface {
 	// can import it from a link ("download link" of AnkiMobile). A link of the same user created
 	// earlier is replaced. Permission: dictionary:word:write.
 	CreateDeckLink(ctx context.Context, in *CreateDeckLinkRequest, opts ...grpc.CallOption) (*CreateDeckLinkResponse, error)
+	// StartExport starts a job that packs a list that is too long for ExportAnki (EXPORT_USE_JOB) in parts,
+	// each a deck file of at most the size limit, and marks the words of a part exported when the part is
+	// done. The words are the new ones (or all, see scope), of the category or of no category. One job at a
+	// time per user: another one fails with EXPORT_JOB_ACTIVE. Permission: dictionary:word:write.
+	StartExport(ctx context.Context, in *StartExportRequest, opts ...grpc.CallOption) (*StartExportResponse, error)
+	// GetExport returns the state of a job and its parts so far. The id "latest" (or empty) is the job started
+	// last by the user. NOT_FOUND when there is none. Permission: dictionary:word:write.
+	GetExport(ctx context.Context, in *GetExportRequest, opts ...grpc.CallOption) (*GetExportResponse, error)
+	// CancelExport stops a queued or running job; the parts made so far stay downloadable until the job
+	// expires. Permission: dictionary:word:write.
+	CancelExport(ctx context.Context, in *CancelExportRequest, opts ...grpc.CallOption) (*CancelExportResponse, error)
+	// CreateExportPartLink makes the download link of a part of a job (the same anonymous download as
+	// CreateDeckLink, but it works many times until the job expires). Permission: dictionary:word:write.
+	CreateExportPartLink(ctx context.Context, in *CreateExportPartLinkRequest, opts ...grpc.CallOption) (*CreateExportPartLinkResponse, error)
 	// DownloadDeck returns the deck of a link and burns the link (it works once). It is called by the
 	// gateway for the anonymous download request, so it takes a service token (client credentials)
 	// and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
 	DownloadDeck(ctx context.Context, in *DownloadDeckRequest, opts ...grpc.CallOption) (*DownloadDeckResponse, error)
+	// DownloadExportPart streams the part of an export job (see CreateExportPartLink) in chunks of at most 256 KiB, so
+	// a part larger than a gRPC message travels without being held whole: the first chunk carries filename and size,
+	// the next ones only data. Like DownloadDeck it takes a service token (the gateway). NOT_FOUND when the token is
+	// unknown or expired.
+	// buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+	DownloadExportPart(ctx context.Context, in *DownloadExportPartRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[DownloadChunk], error)
+	// ListCategories lists the categories of the user (by name) with their word counts. Permission: dictionary:word:read.
+	ListCategories(ctx context.Context, in *ListCategoriesRequest, opts ...grpc.CallOption) (*ListCategoriesResponse, error)
+	// CreateCategory adds a category. Fails with ALREADY_EXISTS (CATEGORY_EXISTS) for a name the user has (case-insensitive),
+	// RESOURCE_EXHAUSTED (CATEGORY_LIMIT_REACHED) at 50 categories and INVALID_ARGUMENT for a name of 0 or more
+	// than 40 characters. Permission: dictionary:word:write.
+	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
+	// RenameCategory renames one. NOT_FOUND for an unknown id, ALREADY_EXISTS (CATEGORY_EXISTS) for a name in use.
+	// Permission: dictionary:word:write.
+	RenameCategory(ctx context.Context, in *RenameCategoryRequest, opts ...grpc.CallOption) (*RenameCategoryResponse, error)
+	// DeleteCategory deletes the category only; its words stay in the list. NOT_FOUND for an unknown id.
+	// Permission: dictionary:word:write.
+	DeleteCategory(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*DeleteCategoryResponse, error)
+	// UpdateWordCategories adds the words to some categories and takes them out of others, in one step. It does not
+	// touch the card or the exported flag. NOT_FOUND for an unknown category; words that are not in the list are
+	// ignored. Permission: dictionary:word:write.
+	UpdateWordCategories(ctx context.Context, in *UpdateWordCategoriesRequest, opts ...grpc.CallOption) (*UpdateWordCategoriesResponse, error)
 	// RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
 	// when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
 	RemoveExportedWords(ctx context.Context, in *RemoveExportedWordsRequest, opts ...grpc.CallOption) (*RemoveExportedWordsResponse, error)
@@ -83,12 +142,46 @@ type DictionaryServiceClient interface {
 	// GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
 	// Permission: dictionary:word:read.
 	GetImage(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*GetImageResponse, error)
+	// UploadAudio stores an audio file of a card (mp3, ogg, wav or m4a), as it is: it is not re-encoded. The
+	// card refers to it in audio_uk / audio_us as dictaud:<id>. The same file of the same user gets the same
+	// id. Fails with INVALID_ARGUMENT (AUDIO_UNSUPPORTED, AUDIO_TOO_LARGE), RESOURCE_EXHAUSTED
+	// (AUDIO_QUOTA_EXCEEDED) or FAILED_PRECONDITION (AUDIO_DISABLED, no files directory).
+	// Permission: dictionary:word:write.
+	UploadAudio(ctx context.Context, in *UploadAudioRequest, opts ...grpc.CallOption) (*UploadAudioResponse, error)
+	// GetAudio returns an audio file of the user (NOT_FOUND for an unknown id or one of another user).
+	// Permission: dictionary:word:read.
+	GetAudio(ctx context.Context, in *GetAudioRequest, opts ...grpc.CallOption) (*GetAudioResponse, error)
+	// GetReviewQueue returns the cards to review: the ones that are due first (earliest due first), then new
+	// words (oldest first) up to the daily limit of the user, cut to limit cards. Only words still in the list.
+	// Permission: dictionary:word:read.
+	GetReviewQueue(ctx context.Context, in *GetReviewQueueRequest, opts ...grpc.CallOption) (*GetReviewQueueResponse, error)
+	// SubmitReview grades a card and schedules its next review (SM-2 or FSRS, as the user chose). NOT_FOUND when the word is not in the
+	// list, INVALID_ARGUMENT for an unknown grade. Permission: dictionary:word:read.
+	SubmitReview(ctx context.Context, in *SubmitReviewRequest, opts ...grpc.CallOption) (*SubmitReviewResponse, error)
+	// AddReviewBonus raises the daily limits of the review for the next 24 hours by the given numbers, without
+	// touching the settings; a grant while a bonus runs adds up and renews the 24 hours. INVALID_ARGUMENT when a number
+	// is negative or above 9999, or both are 0. Permission: dictionary:word:read.
+	AddReviewBonus(ctx context.Context, in *AddReviewBonusRequest, opts ...grpc.CallOption) (*AddReviewBonusResponse, error)
+	// OptimizeReviewParameters fits the FSRS parameters to the review history of the user and stores them when they
+	// predict better than the defaults (restore_defaults = true forgets them instead). FAILED_PRECONDITION when there are too few
+	// reviews, RESOURCE_EXHAUSTED when called again within a minute or while another run is going.
+	// Permission: dictionary:word:read.
+	OptimizeReviewParameters(ctx context.Context, in *OptimizeReviewParametersRequest, opts ...grpc.CallOption) (*OptimizeReviewParametersResponse, error)
 	// GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
 	GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error)
 	// UpdateSettings changes them (all fields are written; only the ones that differ are stored). Fails with
 	// INVALID_ARGUMENT when a value is out of range or no dictionary stays enabled.
 	// Permission: dictionary:settings:write.
 	UpdateSettings(ctx context.Context, in *UpdateSettingsRequest, opts ...grpc.CallOption) (*UpdateSettingsResponse, error)
+	// GetUserQuota returns what a user stores (content, images, audio), the limits an administrator set for the
+	// user and the limits in effect. NOT_FOUND for an unknown user. Permission: dictionary:settings:read.
+	GetUserQuota(ctx context.Context, in *GetUserQuotaRequest, opts ...grpc.CallOption) (*GetUserQuotaResponse, error)
+	// SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
+	// for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
+	SetUserQuota(ctx context.Context, in *SetUserQuotaRequest, opts ...grpc.CallOption) (*SetUserQuotaResponse, error)
+	// GetMyStorage returns what the user stores and the limit of each kind, own limit included.
+	// Permission: dictionary:word:read.
+	GetMyStorage(ctx context.Context, in *GetMyStorageRequest, opts ...grpc.CallOption) (*GetMyStorageResponse, error)
 	// GetMySettings returns the preferences of the user together with the settings of the system, which
 	// tell what the user may choose from. Permission: dictionary:word:read.
 	GetMySettings(ctx context.Context, in *GetMySettingsRequest, opts ...grpc.CallOption) (*GetMySettingsResponse, error)
@@ -146,6 +239,16 @@ func (c *dictionaryServiceClient) ListSavedWords(ctx context.Context, in *ListSa
 	return out, nil
 }
 
+func (c *dictionaryServiceClient) CheckSavedWords(ctx context.Context, in *CheckSavedWordsRequest, opts ...grpc.CallOption) (*CheckSavedWordsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CheckSavedWordsResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_CheckSavedWords_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dictionaryServiceClient) DeleteSavedWord(ctx context.Context, in *DeleteSavedWordRequest, opts ...grpc.CallOption) (*DeleteSavedWordResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteSavedWordResponse)
@@ -176,10 +279,119 @@ func (c *dictionaryServiceClient) CreateDeckLink(ctx context.Context, in *Create
 	return out, nil
 }
 
+func (c *dictionaryServiceClient) StartExport(ctx context.Context, in *StartExportRequest, opts ...grpc.CallOption) (*StartExportResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StartExportResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_StartExport_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) GetExport(ctx context.Context, in *GetExportRequest, opts ...grpc.CallOption) (*GetExportResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetExportResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_GetExport_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) CancelExport(ctx context.Context, in *CancelExportRequest, opts ...grpc.CallOption) (*CancelExportResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CancelExportResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_CancelExport_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) CreateExportPartLink(ctx context.Context, in *CreateExportPartLinkRequest, opts ...grpc.CallOption) (*CreateExportPartLinkResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateExportPartLinkResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_CreateExportPartLink_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dictionaryServiceClient) DownloadDeck(ctx context.Context, in *DownloadDeckRequest, opts ...grpc.CallOption) (*DownloadDeckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DownloadDeckResponse)
 	err := c.cc.Invoke(ctx, DictionaryService_DownloadDeck_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) DownloadExportPart(ctx context.Context, in *DownloadExportPartRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[DownloadChunk], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &DictionaryService_ServiceDesc.Streams[0], DictionaryService_DownloadExportPart_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[DownloadExportPartRequest, DownloadChunk]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type DictionaryService_DownloadExportPartClient = grpc.ServerStreamingClient[DownloadChunk]
+
+func (c *dictionaryServiceClient) ListCategories(ctx context.Context, in *ListCategoriesRequest, opts ...grpc.CallOption) (*ListCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListCategoriesResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_ListCategories_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateCategoryResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_CreateCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) RenameCategory(ctx context.Context, in *RenameCategoryRequest, opts ...grpc.CallOption) (*RenameCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RenameCategoryResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_RenameCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) DeleteCategory(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*DeleteCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteCategoryResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_DeleteCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) UpdateWordCategories(ctx context.Context, in *UpdateWordCategoriesRequest, opts ...grpc.CallOption) (*UpdateWordCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateWordCategoriesResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_UpdateWordCategories_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -216,6 +428,66 @@ func (c *dictionaryServiceClient) GetImage(ctx context.Context, in *GetImageRequ
 	return out, nil
 }
 
+func (c *dictionaryServiceClient) UploadAudio(ctx context.Context, in *UploadAudioRequest, opts ...grpc.CallOption) (*UploadAudioResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UploadAudioResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_UploadAudio_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) GetAudio(ctx context.Context, in *GetAudioRequest, opts ...grpc.CallOption) (*GetAudioResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAudioResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_GetAudio_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) GetReviewQueue(ctx context.Context, in *GetReviewQueueRequest, opts ...grpc.CallOption) (*GetReviewQueueResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetReviewQueueResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_GetReviewQueue_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) SubmitReview(ctx context.Context, in *SubmitReviewRequest, opts ...grpc.CallOption) (*SubmitReviewResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SubmitReviewResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_SubmitReview_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) AddReviewBonus(ctx context.Context, in *AddReviewBonusRequest, opts ...grpc.CallOption) (*AddReviewBonusResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddReviewBonusResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_AddReviewBonus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) OptimizeReviewParameters(ctx context.Context, in *OptimizeReviewParametersRequest, opts ...grpc.CallOption) (*OptimizeReviewParametersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OptimizeReviewParametersResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_OptimizeReviewParameters_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dictionaryServiceClient) GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetSettingsResponse)
@@ -230,6 +502,36 @@ func (c *dictionaryServiceClient) UpdateSettings(ctx context.Context, in *Update
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateSettingsResponse)
 	err := c.cc.Invoke(ctx, DictionaryService_UpdateSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) GetUserQuota(ctx context.Context, in *GetUserQuotaRequest, opts ...grpc.CallOption) (*GetUserQuotaResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserQuotaResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_GetUserQuota_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) SetUserQuota(ctx context.Context, in *SetUserQuotaRequest, opts ...grpc.CallOption) (*SetUserQuotaResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetUserQuotaResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_SetUserQuota_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) GetMyStorage(ctx context.Context, in *GetMyStorageRequest, opts ...grpc.CallOption) (*GetMyStorageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMyStorageResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_GetMyStorage_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -275,6 +577,9 @@ type DictionaryServiceServer interface {
 	// ListSavedWords lists the words of the list, newest first: the new ones and the exported ones that were
 	// kept (remove after export is off). Permission: dictionary:word:read.
 	ListSavedWords(context.Context, *ListSavedWordsRequest) (*ListSavedWordsResponse, error)
+	// CheckSavedWords tells which of up to 100 words are in the list of the user, with their categories: the lookup
+	// marks the words that are saved without reading the whole list. Permission: dictionary:word:read.
+	CheckSavedWords(context.Context, *CheckSavedWordsRequest) (*CheckSavedWordsResponse, error)
 	// DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
 	DeleteSavedWord(context.Context, *DeleteSavedWordRequest) (*DeleteSavedWordResponse, error)
 	// ExportAnki builds an Anki deck (.apkg) from the new words (or all of the list, see scope) and marks
@@ -287,10 +592,46 @@ type DictionaryServiceServer interface {
 	// can import it from a link ("download link" of AnkiMobile). A link of the same user created
 	// earlier is replaced. Permission: dictionary:word:write.
 	CreateDeckLink(context.Context, *CreateDeckLinkRequest) (*CreateDeckLinkResponse, error)
+	// StartExport starts a job that packs a list that is too long for ExportAnki (EXPORT_USE_JOB) in parts,
+	// each a deck file of at most the size limit, and marks the words of a part exported when the part is
+	// done. The words are the new ones (or all, see scope), of the category or of no category. One job at a
+	// time per user: another one fails with EXPORT_JOB_ACTIVE. Permission: dictionary:word:write.
+	StartExport(context.Context, *StartExportRequest) (*StartExportResponse, error)
+	// GetExport returns the state of a job and its parts so far. The id "latest" (or empty) is the job started
+	// last by the user. NOT_FOUND when there is none. Permission: dictionary:word:write.
+	GetExport(context.Context, *GetExportRequest) (*GetExportResponse, error)
+	// CancelExport stops a queued or running job; the parts made so far stay downloadable until the job
+	// expires. Permission: dictionary:word:write.
+	CancelExport(context.Context, *CancelExportRequest) (*CancelExportResponse, error)
+	// CreateExportPartLink makes the download link of a part of a job (the same anonymous download as
+	// CreateDeckLink, but it works many times until the job expires). Permission: dictionary:word:write.
+	CreateExportPartLink(context.Context, *CreateExportPartLinkRequest) (*CreateExportPartLinkResponse, error)
 	// DownloadDeck returns the deck of a link and burns the link (it works once). It is called by the
 	// gateway for the anonymous download request, so it takes a service token (client credentials)
 	// and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
 	DownloadDeck(context.Context, *DownloadDeckRequest) (*DownloadDeckResponse, error)
+	// DownloadExportPart streams the part of an export job (see CreateExportPartLink) in chunks of at most 256 KiB, so
+	// a part larger than a gRPC message travels without being held whole: the first chunk carries filename and size,
+	// the next ones only data. Like DownloadDeck it takes a service token (the gateway). NOT_FOUND when the token is
+	// unknown or expired.
+	// buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+	DownloadExportPart(*DownloadExportPartRequest, grpc.ServerStreamingServer[DownloadChunk]) error
+	// ListCategories lists the categories of the user (by name) with their word counts. Permission: dictionary:word:read.
+	ListCategories(context.Context, *ListCategoriesRequest) (*ListCategoriesResponse, error)
+	// CreateCategory adds a category. Fails with ALREADY_EXISTS (CATEGORY_EXISTS) for a name the user has (case-insensitive),
+	// RESOURCE_EXHAUSTED (CATEGORY_LIMIT_REACHED) at 50 categories and INVALID_ARGUMENT for a name of 0 or more
+	// than 40 characters. Permission: dictionary:word:write.
+	CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
+	// RenameCategory renames one. NOT_FOUND for an unknown id, ALREADY_EXISTS (CATEGORY_EXISTS) for a name in use.
+	// Permission: dictionary:word:write.
+	RenameCategory(context.Context, *RenameCategoryRequest) (*RenameCategoryResponse, error)
+	// DeleteCategory deletes the category only; its words stay in the list. NOT_FOUND for an unknown id.
+	// Permission: dictionary:word:write.
+	DeleteCategory(context.Context, *DeleteCategoryRequest) (*DeleteCategoryResponse, error)
+	// UpdateWordCategories adds the words to some categories and takes them out of others, in one step. It does not
+	// touch the card or the exported flag. NOT_FOUND for an unknown category; words that are not in the list are
+	// ignored. Permission: dictionary:word:write.
+	UpdateWordCategories(context.Context, *UpdateWordCategoriesRequest) (*UpdateWordCategoriesResponse, error)
 	// RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
 	// when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
 	RemoveExportedWords(context.Context, *RemoveExportedWordsRequest) (*RemoveExportedWordsResponse, error)
@@ -303,12 +644,46 @@ type DictionaryServiceServer interface {
 	// GetImage returns an image of the user (NOT_FOUND for an unknown id or one of another user).
 	// Permission: dictionary:word:read.
 	GetImage(context.Context, *GetImageRequest) (*GetImageResponse, error)
+	// UploadAudio stores an audio file of a card (mp3, ogg, wav or m4a), as it is: it is not re-encoded. The
+	// card refers to it in audio_uk / audio_us as dictaud:<id>. The same file of the same user gets the same
+	// id. Fails with INVALID_ARGUMENT (AUDIO_UNSUPPORTED, AUDIO_TOO_LARGE), RESOURCE_EXHAUSTED
+	// (AUDIO_QUOTA_EXCEEDED) or FAILED_PRECONDITION (AUDIO_DISABLED, no files directory).
+	// Permission: dictionary:word:write.
+	UploadAudio(context.Context, *UploadAudioRequest) (*UploadAudioResponse, error)
+	// GetAudio returns an audio file of the user (NOT_FOUND for an unknown id or one of another user).
+	// Permission: dictionary:word:read.
+	GetAudio(context.Context, *GetAudioRequest) (*GetAudioResponse, error)
+	// GetReviewQueue returns the cards to review: the ones that are due first (earliest due first), then new
+	// words (oldest first) up to the daily limit of the user, cut to limit cards. Only words still in the list.
+	// Permission: dictionary:word:read.
+	GetReviewQueue(context.Context, *GetReviewQueueRequest) (*GetReviewQueueResponse, error)
+	// SubmitReview grades a card and schedules its next review (SM-2 or FSRS, as the user chose). NOT_FOUND when the word is not in the
+	// list, INVALID_ARGUMENT for an unknown grade. Permission: dictionary:word:read.
+	SubmitReview(context.Context, *SubmitReviewRequest) (*SubmitReviewResponse, error)
+	// AddReviewBonus raises the daily limits of the review for the next 24 hours by the given numbers, without
+	// touching the settings; a grant while a bonus runs adds up and renews the 24 hours. INVALID_ARGUMENT when a number
+	// is negative or above 9999, or both are 0. Permission: dictionary:word:read.
+	AddReviewBonus(context.Context, *AddReviewBonusRequest) (*AddReviewBonusResponse, error)
+	// OptimizeReviewParameters fits the FSRS parameters to the review history of the user and stores them when they
+	// predict better than the defaults (restore_defaults = true forgets them instead). FAILED_PRECONDITION when there are too few
+	// reviews, RESOURCE_EXHAUSTED when called again within a minute or while another run is going.
+	// Permission: dictionary:word:read.
+	OptimizeReviewParameters(context.Context, *OptimizeReviewParametersRequest) (*OptimizeReviewParametersResponse, error)
 	// GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
 	GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error)
 	// UpdateSettings changes them (all fields are written; only the ones that differ are stored). Fails with
 	// INVALID_ARGUMENT when a value is out of range or no dictionary stays enabled.
 	// Permission: dictionary:settings:write.
 	UpdateSettings(context.Context, *UpdateSettingsRequest) (*UpdateSettingsResponse, error)
+	// GetUserQuota returns what a user stores (content, images, audio), the limits an administrator set for the
+	// user and the limits in effect. NOT_FOUND for an unknown user. Permission: dictionary:settings:read.
+	GetUserQuota(context.Context, *GetUserQuotaRequest) (*GetUserQuotaResponse, error)
+	// SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
+	// for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
+	SetUserQuota(context.Context, *SetUserQuotaRequest) (*SetUserQuotaResponse, error)
+	// GetMyStorage returns what the user stores and the limit of each kind, own limit included.
+	// Permission: dictionary:word:read.
+	GetMyStorage(context.Context, *GetMyStorageRequest) (*GetMyStorageResponse, error)
 	// GetMySettings returns the preferences of the user together with the settings of the system, which
 	// tell what the user may choose from. Permission: dictionary:word:read.
 	GetMySettings(context.Context, *GetMySettingsRequest) (*GetMySettingsResponse, error)
@@ -338,6 +713,9 @@ func (UnimplementedDictionaryServiceServer) SaveWord(context.Context, *SaveWordR
 func (UnimplementedDictionaryServiceServer) ListSavedWords(context.Context, *ListSavedWordsRequest) (*ListSavedWordsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSavedWords not implemented")
 }
+func (UnimplementedDictionaryServiceServer) CheckSavedWords(context.Context, *CheckSavedWordsRequest) (*CheckSavedWordsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckSavedWords not implemented")
+}
 func (UnimplementedDictionaryServiceServer) DeleteSavedWord(context.Context, *DeleteSavedWordRequest) (*DeleteSavedWordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSavedWord not implemented")
 }
@@ -347,8 +725,38 @@ func (UnimplementedDictionaryServiceServer) ExportAnki(context.Context, *ExportA
 func (UnimplementedDictionaryServiceServer) CreateDeckLink(context.Context, *CreateDeckLinkRequest) (*CreateDeckLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDeckLink not implemented")
 }
+func (UnimplementedDictionaryServiceServer) StartExport(context.Context, *StartExportRequest) (*StartExportResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StartExport not implemented")
+}
+func (UnimplementedDictionaryServiceServer) GetExport(context.Context, *GetExportRequest) (*GetExportResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetExport not implemented")
+}
+func (UnimplementedDictionaryServiceServer) CancelExport(context.Context, *CancelExportRequest) (*CancelExportResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelExport not implemented")
+}
+func (UnimplementedDictionaryServiceServer) CreateExportPartLink(context.Context, *CreateExportPartLinkRequest) (*CreateExportPartLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateExportPartLink not implemented")
+}
 func (UnimplementedDictionaryServiceServer) DownloadDeck(context.Context, *DownloadDeckRequest) (*DownloadDeckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownloadDeck not implemented")
+}
+func (UnimplementedDictionaryServiceServer) DownloadExportPart(*DownloadExportPartRequest, grpc.ServerStreamingServer[DownloadChunk]) error {
+	return status.Errorf(codes.Unimplemented, "method DownloadExportPart not implemented")
+}
+func (UnimplementedDictionaryServiceServer) ListCategories(context.Context, *ListCategoriesRequest) (*ListCategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
+}
+func (UnimplementedDictionaryServiceServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
+}
+func (UnimplementedDictionaryServiceServer) RenameCategory(context.Context, *RenameCategoryRequest) (*RenameCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RenameCategory not implemented")
+}
+func (UnimplementedDictionaryServiceServer) DeleteCategory(context.Context, *DeleteCategoryRequest) (*DeleteCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCategory not implemented")
+}
+func (UnimplementedDictionaryServiceServer) UpdateWordCategories(context.Context, *UpdateWordCategoriesRequest) (*UpdateWordCategoriesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateWordCategories not implemented")
 }
 func (UnimplementedDictionaryServiceServer) RemoveExportedWords(context.Context, *RemoveExportedWordsRequest) (*RemoveExportedWordsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveExportedWords not implemented")
@@ -359,11 +767,38 @@ func (UnimplementedDictionaryServiceServer) UploadImage(context.Context, *Upload
 func (UnimplementedDictionaryServiceServer) GetImage(context.Context, *GetImageRequest) (*GetImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetImage not implemented")
 }
+func (UnimplementedDictionaryServiceServer) UploadAudio(context.Context, *UploadAudioRequest) (*UploadAudioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UploadAudio not implemented")
+}
+func (UnimplementedDictionaryServiceServer) GetAudio(context.Context, *GetAudioRequest) (*GetAudioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAudio not implemented")
+}
+func (UnimplementedDictionaryServiceServer) GetReviewQueue(context.Context, *GetReviewQueueRequest) (*GetReviewQueueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReviewQueue not implemented")
+}
+func (UnimplementedDictionaryServiceServer) SubmitReview(context.Context, *SubmitReviewRequest) (*SubmitReviewResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitReview not implemented")
+}
+func (UnimplementedDictionaryServiceServer) AddReviewBonus(context.Context, *AddReviewBonusRequest) (*AddReviewBonusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddReviewBonus not implemented")
+}
+func (UnimplementedDictionaryServiceServer) OptimizeReviewParameters(context.Context, *OptimizeReviewParametersRequest) (*OptimizeReviewParametersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OptimizeReviewParameters not implemented")
+}
 func (UnimplementedDictionaryServiceServer) GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSettings not implemented")
 }
 func (UnimplementedDictionaryServiceServer) UpdateSettings(context.Context, *UpdateSettingsRequest) (*UpdateSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSettings not implemented")
+}
+func (UnimplementedDictionaryServiceServer) GetUserQuota(context.Context, *GetUserQuotaRequest) (*GetUserQuotaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserQuota not implemented")
+}
+func (UnimplementedDictionaryServiceServer) SetUserQuota(context.Context, *SetUserQuotaRequest) (*SetUserQuotaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserQuota not implemented")
+}
+func (UnimplementedDictionaryServiceServer) GetMyStorage(context.Context, *GetMyStorageRequest) (*GetMyStorageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMyStorage not implemented")
 }
 func (UnimplementedDictionaryServiceServer) GetMySettings(context.Context, *GetMySettingsRequest) (*GetMySettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMySettings not implemented")
@@ -464,6 +899,24 @@ func _DictionaryService_ListSavedWords_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DictionaryService_CheckSavedWords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckSavedWordsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).CheckSavedWords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_CheckSavedWords_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).CheckSavedWords(ctx, req.(*CheckSavedWordsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DictionaryService_DeleteSavedWord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteSavedWordRequest)
 	if err := dec(in); err != nil {
@@ -518,6 +971,78 @@ func _DictionaryService_CreateDeckLink_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DictionaryService_StartExport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartExportRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).StartExport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_StartExport_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).StartExport(ctx, req.(*StartExportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_GetExport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetExportRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).GetExport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_GetExport_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).GetExport(ctx, req.(*GetExportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_CancelExport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelExportRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).CancelExport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_CancelExport_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).CancelExport(ctx, req.(*CancelExportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_CreateExportPartLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateExportPartLinkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).CreateExportPartLink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_CreateExportPartLink_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).CreateExportPartLink(ctx, req.(*CreateExportPartLinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DictionaryService_DownloadDeck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DownloadDeckRequest)
 	if err := dec(in); err != nil {
@@ -532,6 +1057,107 @@ func _DictionaryService_DownloadDeck_Handler(srv interface{}, ctx context.Contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DictionaryServiceServer).DownloadDeck(ctx, req.(*DownloadDeckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_DownloadExportPart_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DownloadExportPartRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DictionaryServiceServer).DownloadExportPart(m, &grpc.GenericServerStream[DownloadExportPartRequest, DownloadChunk]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type DictionaryService_DownloadExportPartServer = grpc.ServerStreamingServer[DownloadChunk]
+
+func _DictionaryService_ListCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).ListCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_ListCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).ListCategories(ctx, req.(*ListCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).CreateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_CreateCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_RenameCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RenameCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).RenameCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_RenameCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).RenameCategory(ctx, req.(*RenameCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_DeleteCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).DeleteCategory(ctx, req.(*DeleteCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_UpdateWordCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateWordCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).UpdateWordCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_UpdateWordCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).UpdateWordCategories(ctx, req.(*UpdateWordCategoriesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -590,6 +1216,114 @@ func _DictionaryService_GetImage_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DictionaryService_UploadAudio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UploadAudioRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).UploadAudio(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_UploadAudio_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).UploadAudio(ctx, req.(*UploadAudioRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_GetAudio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAudioRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).GetAudio(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_GetAudio_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).GetAudio(ctx, req.(*GetAudioRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_GetReviewQueue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReviewQueueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).GetReviewQueue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_GetReviewQueue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).GetReviewQueue(ctx, req.(*GetReviewQueueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_SubmitReview_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitReviewRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).SubmitReview(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_SubmitReview_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).SubmitReview(ctx, req.(*SubmitReviewRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_AddReviewBonus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddReviewBonusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).AddReviewBonus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_AddReviewBonus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).AddReviewBonus(ctx, req.(*AddReviewBonusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_OptimizeReviewParameters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OptimizeReviewParametersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).OptimizeReviewParameters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_OptimizeReviewParameters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).OptimizeReviewParameters(ctx, req.(*OptimizeReviewParametersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DictionaryService_GetSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSettingsRequest)
 	if err := dec(in); err != nil {
@@ -622,6 +1356,60 @@ func _DictionaryService_UpdateSettings_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DictionaryServiceServer).UpdateSettings(ctx, req.(*UpdateSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_GetUserQuota_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserQuotaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).GetUserQuota(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_GetUserQuota_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).GetUserQuota(ctx, req.(*GetUserQuotaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_SetUserQuota_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserQuotaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).SetUserQuota(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_SetUserQuota_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).SetUserQuota(ctx, req.(*SetUserQuotaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_GetMyStorage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMyStorageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).GetMyStorage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_GetMyStorage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).GetMyStorage(ctx, req.(*GetMyStorageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -686,6 +1474,10 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DictionaryService_ListSavedWords_Handler,
 		},
 		{
+			MethodName: "CheckSavedWords",
+			Handler:    _DictionaryService_CheckSavedWords_Handler,
+		},
+		{
 			MethodName: "DeleteSavedWord",
 			Handler:    _DictionaryService_DeleteSavedWord_Handler,
 		},
@@ -698,8 +1490,44 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DictionaryService_CreateDeckLink_Handler,
 		},
 		{
+			MethodName: "StartExport",
+			Handler:    _DictionaryService_StartExport_Handler,
+		},
+		{
+			MethodName: "GetExport",
+			Handler:    _DictionaryService_GetExport_Handler,
+		},
+		{
+			MethodName: "CancelExport",
+			Handler:    _DictionaryService_CancelExport_Handler,
+		},
+		{
+			MethodName: "CreateExportPartLink",
+			Handler:    _DictionaryService_CreateExportPartLink_Handler,
+		},
+		{
 			MethodName: "DownloadDeck",
 			Handler:    _DictionaryService_DownloadDeck_Handler,
+		},
+		{
+			MethodName: "ListCategories",
+			Handler:    _DictionaryService_ListCategories_Handler,
+		},
+		{
+			MethodName: "CreateCategory",
+			Handler:    _DictionaryService_CreateCategory_Handler,
+		},
+		{
+			MethodName: "RenameCategory",
+			Handler:    _DictionaryService_RenameCategory_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _DictionaryService_DeleteCategory_Handler,
+		},
+		{
+			MethodName: "UpdateWordCategories",
+			Handler:    _DictionaryService_UpdateWordCategories_Handler,
 		},
 		{
 			MethodName: "RemoveExportedWords",
@@ -714,12 +1542,48 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DictionaryService_GetImage_Handler,
 		},
 		{
+			MethodName: "UploadAudio",
+			Handler:    _DictionaryService_UploadAudio_Handler,
+		},
+		{
+			MethodName: "GetAudio",
+			Handler:    _DictionaryService_GetAudio_Handler,
+		},
+		{
+			MethodName: "GetReviewQueue",
+			Handler:    _DictionaryService_GetReviewQueue_Handler,
+		},
+		{
+			MethodName: "SubmitReview",
+			Handler:    _DictionaryService_SubmitReview_Handler,
+		},
+		{
+			MethodName: "AddReviewBonus",
+			Handler:    _DictionaryService_AddReviewBonus_Handler,
+		},
+		{
+			MethodName: "OptimizeReviewParameters",
+			Handler:    _DictionaryService_OptimizeReviewParameters_Handler,
+		},
+		{
 			MethodName: "GetSettings",
 			Handler:    _DictionaryService_GetSettings_Handler,
 		},
 		{
 			MethodName: "UpdateSettings",
 			Handler:    _DictionaryService_UpdateSettings_Handler,
+		},
+		{
+			MethodName: "GetUserQuota",
+			Handler:    _DictionaryService_GetUserQuota_Handler,
+		},
+		{
+			MethodName: "SetUserQuota",
+			Handler:    _DictionaryService_SetUserQuota_Handler,
+		},
+		{
+			MethodName: "GetMyStorage",
+			Handler:    _DictionaryService_GetMyStorage_Handler,
 		},
 		{
 			MethodName: "GetMySettings",
@@ -730,6 +1594,12 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DictionaryService_UpdateMySettings_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "DownloadExportPart",
+			Handler:       _DictionaryService_DownloadExportPart_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "dictionary/v1/dictionary.proto",
 }

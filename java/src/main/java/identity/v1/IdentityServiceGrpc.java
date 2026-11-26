@@ -237,6 +237,37 @@ public final class IdentityServiceGrpc {
     return getSetUserDisabledMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DeleteUserRequest,
+      identity.v1.Identity.DeleteUserResponse> getDeleteUserMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteUser",
+      requestType = identity.v1.Identity.DeleteUserRequest.class,
+      responseType = identity.v1.Identity.DeleteUserResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.DeleteUserRequest,
+      identity.v1.Identity.DeleteUserResponse> getDeleteUserMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.DeleteUserRequest, identity.v1.Identity.DeleteUserResponse> getDeleteUserMethod;
+    if ((getDeleteUserMethod = IdentityServiceGrpc.getDeleteUserMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getDeleteUserMethod = IdentityServiceGrpc.getDeleteUserMethod) == null) {
+          IdentityServiceGrpc.getDeleteUserMethod = getDeleteUserMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.DeleteUserRequest, identity.v1.Identity.DeleteUserResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteUser"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteUserRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteUserResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("DeleteUser"))
+              .build();
+        }
+      }
+    }
+    return getDeleteUserMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.SetUserPasswordRequest,
       identity.v1.Identity.SetUserPasswordResponse> getSetUserPasswordMethod;
 
@@ -514,6 +545,161 @@ public final class IdentityServiceGrpc {
       }
     }
     return getSetMyAvatarMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.ChangeMyPasswordRequest,
+      identity.v1.Identity.ChangeMyPasswordResponse> getChangeMyPasswordMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ChangeMyPassword",
+      requestType = identity.v1.Identity.ChangeMyPasswordRequest.class,
+      responseType = identity.v1.Identity.ChangeMyPasswordResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.ChangeMyPasswordRequest,
+      identity.v1.Identity.ChangeMyPasswordResponse> getChangeMyPasswordMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.ChangeMyPasswordRequest, identity.v1.Identity.ChangeMyPasswordResponse> getChangeMyPasswordMethod;
+    if ((getChangeMyPasswordMethod = IdentityServiceGrpc.getChangeMyPasswordMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getChangeMyPasswordMethod = IdentityServiceGrpc.getChangeMyPasswordMethod) == null) {
+          IdentityServiceGrpc.getChangeMyPasswordMethod = getChangeMyPasswordMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.ChangeMyPasswordRequest, identity.v1.Identity.ChangeMyPasswordResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ChangeMyPassword"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ChangeMyPasswordRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ChangeMyPasswordResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("ChangeMyPassword"))
+              .build();
+        }
+      }
+    }
+    return getChangeMyPasswordMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetMyMFARequest,
+      identity.v1.Identity.GetMyMFAResponse> getGetMyMFAMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetMyMFA",
+      requestType = identity.v1.Identity.GetMyMFARequest.class,
+      responseType = identity.v1.Identity.GetMyMFAResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.GetMyMFARequest,
+      identity.v1.Identity.GetMyMFAResponse> getGetMyMFAMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.GetMyMFARequest, identity.v1.Identity.GetMyMFAResponse> getGetMyMFAMethod;
+    if ((getGetMyMFAMethod = IdentityServiceGrpc.getGetMyMFAMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getGetMyMFAMethod = IdentityServiceGrpc.getGetMyMFAMethod) == null) {
+          IdentityServiceGrpc.getGetMyMFAMethod = getGetMyMFAMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.GetMyMFARequest, identity.v1.Identity.GetMyMFAResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetMyMFA"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetMyMFARequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.GetMyMFAResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("GetMyMFA"))
+              .build();
+        }
+      }
+    }
+    return getGetMyMFAMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.BeginMyMFARequest,
+      identity.v1.Identity.BeginMyMFAResponse> getBeginMyMFAMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "BeginMyMFA",
+      requestType = identity.v1.Identity.BeginMyMFARequest.class,
+      responseType = identity.v1.Identity.BeginMyMFAResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.BeginMyMFARequest,
+      identity.v1.Identity.BeginMyMFAResponse> getBeginMyMFAMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.BeginMyMFARequest, identity.v1.Identity.BeginMyMFAResponse> getBeginMyMFAMethod;
+    if ((getBeginMyMFAMethod = IdentityServiceGrpc.getBeginMyMFAMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getBeginMyMFAMethod = IdentityServiceGrpc.getBeginMyMFAMethod) == null) {
+          IdentityServiceGrpc.getBeginMyMFAMethod = getBeginMyMFAMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.BeginMyMFARequest, identity.v1.Identity.BeginMyMFAResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BeginMyMFA"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.BeginMyMFARequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.BeginMyMFAResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("BeginMyMFA"))
+              .build();
+        }
+      }
+    }
+    return getBeginMyMFAMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.ConfirmMyMFARequest,
+      identity.v1.Identity.ConfirmMyMFAResponse> getConfirmMyMFAMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ConfirmMyMFA",
+      requestType = identity.v1.Identity.ConfirmMyMFARequest.class,
+      responseType = identity.v1.Identity.ConfirmMyMFAResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.ConfirmMyMFARequest,
+      identity.v1.Identity.ConfirmMyMFAResponse> getConfirmMyMFAMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.ConfirmMyMFARequest, identity.v1.Identity.ConfirmMyMFAResponse> getConfirmMyMFAMethod;
+    if ((getConfirmMyMFAMethod = IdentityServiceGrpc.getConfirmMyMFAMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getConfirmMyMFAMethod = IdentityServiceGrpc.getConfirmMyMFAMethod) == null) {
+          IdentityServiceGrpc.getConfirmMyMFAMethod = getConfirmMyMFAMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.ConfirmMyMFARequest, identity.v1.Identity.ConfirmMyMFAResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ConfirmMyMFA"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ConfirmMyMFARequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ConfirmMyMFAResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("ConfirmMyMFA"))
+              .build();
+        }
+      }
+    }
+    return getConfirmMyMFAMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DisableMyMFARequest,
+      identity.v1.Identity.DisableMyMFAResponse> getDisableMyMFAMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DisableMyMFA",
+      requestType = identity.v1.Identity.DisableMyMFARequest.class,
+      responseType = identity.v1.Identity.DisableMyMFAResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.DisableMyMFARequest,
+      identity.v1.Identity.DisableMyMFAResponse> getDisableMyMFAMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.DisableMyMFARequest, identity.v1.Identity.DisableMyMFAResponse> getDisableMyMFAMethod;
+    if ((getDisableMyMFAMethod = IdentityServiceGrpc.getDisableMyMFAMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getDisableMyMFAMethod = IdentityServiceGrpc.getDisableMyMFAMethod) == null) {
+          IdentityServiceGrpc.getDisableMyMFAMethod = getDisableMyMFAMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.DisableMyMFARequest, identity.v1.Identity.DisableMyMFAResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DisableMyMFA"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DisableMyMFARequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DisableMyMFAResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("DisableMyMFA"))
+              .build();
+        }
+      }
+    }
+    return getDisableMyMFAMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetMyUserSettingsRequest,
@@ -1468,6 +1654,16 @@ public final class IdentityServiceGrpc {
     }
 
     /**
+     * <pre>
+     * DeleteUser deletes the account (soft: see DeleteUserRequest).
+     * </pre>
+     */
+    default void deleteUser(identity.v1.Identity.DeleteUserRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteUserResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteUserMethod(), responseObserver);
+    }
+
+    /**
      */
     default void setUserPassword(identity.v1.Identity.SetUserPasswordRequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserPasswordResponse> responseObserver) {
@@ -1546,6 +1742,58 @@ public final class IdentityServiceGrpc {
     default void setMyAvatar(identity.v1.Identity.SetMyAvatarRequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetMyAvatarMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ChangeMyPassword checks the current password and sets a new one (the password policy applies). Like SetUserPassword it
+     * ends every session and token of the user, the caller's too: the user signs in again.
+     * </pre>
+     */
+    default void changeMyPassword(identity.v1.Identity.ChangeMyPasswordRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ChangeMyPasswordResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getChangeMyPasswordMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The own multi-factor authentication (the same steps as the account page of the sign in app). GetMyMFA only says whether it is on.
+     * </pre>
+     */
+    default void getMyMFA(identity.v1.Identity.GetMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetMyMFAResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMyMFAMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * BeginMyMFA starts the setup: it returns the QR code and the key of the pending enrollment (created on the first call,
+     * the same ones after). Refused when MFA is already on.
+     * </pre>
+     */
+    default void beginMyMFA(identity.v1.Identity.BeginMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.BeginMyMFAResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBeginMyMFAMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ConfirmMyMFA checks the first code of the authenticator app, turns MFA on and returns the recovery codes (shown once).
+     * </pre>
+     */
+    default void confirmMyMFA(identity.v1.Identity.ConfirmMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ConfirmMyMFAResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getConfirmMyMFAMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
+     * </pre>
+     */
+    default void disableMyMFA(identity.v1.Identity.DisableMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DisableMyMFAResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDisableMyMFAMethod(), responseObserver);
     }
 
     /**
@@ -1877,6 +2125,17 @@ public final class IdentityServiceGrpc {
     }
 
     /**
+     * <pre>
+     * DeleteUser deletes the account (soft: see DeleteUserRequest).
+     * </pre>
+     */
+    public void deleteUser(identity.v1.Identity.DeleteUserRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteUserResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteUserMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
      */
     public void setUserPassword(identity.v1.Identity.SetUserPasswordRequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserPasswordResponse> responseObserver) {
@@ -1964,6 +2223,63 @@ public final class IdentityServiceGrpc {
         io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSetMyAvatarMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ChangeMyPassword checks the current password and sets a new one (the password policy applies). Like SetUserPassword it
+     * ends every session and token of the user, the caller's too: the user signs in again.
+     * </pre>
+     */
+    public void changeMyPassword(identity.v1.Identity.ChangeMyPasswordRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ChangeMyPasswordResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getChangeMyPasswordMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The own multi-factor authentication (the same steps as the account page of the sign in app). GetMyMFA only says whether it is on.
+     * </pre>
+     */
+    public void getMyMFA(identity.v1.Identity.GetMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.GetMyMFAResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetMyMFAMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * BeginMyMFA starts the setup: it returns the QR code and the key of the pending enrollment (created on the first call,
+     * the same ones after). Refused when MFA is already on.
+     * </pre>
+     */
+    public void beginMyMFA(identity.v1.Identity.BeginMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.BeginMyMFAResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getBeginMyMFAMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ConfirmMyMFA checks the first code of the authenticator app, turns MFA on and returns the recovery codes (shown once).
+     * </pre>
+     */
+    public void confirmMyMFA(identity.v1.Identity.ConfirmMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ConfirmMyMFAResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getConfirmMyMFAMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
+     * </pre>
+     */
+    public void disableMyMFA(identity.v1.Identity.DisableMyMFARequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DisableMyMFAResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDisableMyMFAMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -2299,6 +2615,16 @@ public final class IdentityServiceGrpc {
     }
 
     /**
+     * <pre>
+     * DeleteUser deletes the account (soft: see DeleteUserRequest).
+     * </pre>
+     */
+    public identity.v1.Identity.DeleteUserResponse deleteUser(identity.v1.Identity.DeleteUserRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteUserMethod(), getCallOptions(), request);
+    }
+
+    /**
      */
     public identity.v1.Identity.SetUserPasswordResponse setUserPassword(identity.v1.Identity.SetUserPasswordRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -2377,6 +2703,58 @@ public final class IdentityServiceGrpc {
     public identity.v1.Identity.SetMyAvatarResponse setMyAvatar(identity.v1.Identity.SetMyAvatarRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSetMyAvatarMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ChangeMyPassword checks the current password and sets a new one (the password policy applies). Like SetUserPassword it
+     * ends every session and token of the user, the caller's too: the user signs in again.
+     * </pre>
+     */
+    public identity.v1.Identity.ChangeMyPasswordResponse changeMyPassword(identity.v1.Identity.ChangeMyPasswordRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getChangeMyPasswordMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * The own multi-factor authentication (the same steps as the account page of the sign in app). GetMyMFA only says whether it is on.
+     * </pre>
+     */
+    public identity.v1.Identity.GetMyMFAResponse getMyMFA(identity.v1.Identity.GetMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetMyMFAMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * BeginMyMFA starts the setup: it returns the QR code and the key of the pending enrollment (created on the first call,
+     * the same ones after). Refused when MFA is already on.
+     * </pre>
+     */
+    public identity.v1.Identity.BeginMyMFAResponse beginMyMFA(identity.v1.Identity.BeginMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getBeginMyMFAMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ConfirmMyMFA checks the first code of the authenticator app, turns MFA on and returns the recovery codes (shown once).
+     * </pre>
+     */
+    public identity.v1.Identity.ConfirmMyMFAResponse confirmMyMFA(identity.v1.Identity.ConfirmMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getConfirmMyMFAMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
+     * </pre>
+     */
+    public identity.v1.Identity.DisableMyMFAResponse disableMyMFA(identity.v1.Identity.DisableMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDisableMyMFAMethod(), getCallOptions(), request);
     }
 
     /**
@@ -2692,6 +3070,17 @@ public final class IdentityServiceGrpc {
     }
 
     /**
+     * <pre>
+     * DeleteUser deletes the account (soft: see DeleteUserRequest).
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.DeleteUserResponse> deleteUser(
+        identity.v1.Identity.DeleteUserRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteUserMethod(), getCallOptions()), request);
+    }
+
+    /**
      */
     public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.SetUserPasswordResponse> setUserPassword(
         identity.v1.Identity.SetUserPasswordRequest request) {
@@ -2779,6 +3168,63 @@ public final class IdentityServiceGrpc {
         identity.v1.Identity.SetMyAvatarRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSetMyAvatarMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * ChangeMyPassword checks the current password and sets a new one (the password policy applies). Like SetUserPassword it
+     * ends every session and token of the user, the caller's too: the user signs in again.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.ChangeMyPasswordResponse> changeMyPassword(
+        identity.v1.Identity.ChangeMyPasswordRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getChangeMyPasswordMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * The own multi-factor authentication (the same steps as the account page of the sign in app). GetMyMFA only says whether it is on.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.GetMyMFAResponse> getMyMFA(
+        identity.v1.Identity.GetMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetMyMFAMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * BeginMyMFA starts the setup: it returns the QR code and the key of the pending enrollment (created on the first call,
+     * the same ones after). Refused when MFA is already on.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.BeginMyMFAResponse> beginMyMFA(
+        identity.v1.Identity.BeginMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getBeginMyMFAMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * ConfirmMyMFA checks the first code of the authenticator app, turns MFA on and returns the recovery codes (shown once).
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.ConfirmMyMFAResponse> confirmMyMFA(
+        identity.v1.Identity.ConfirmMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getConfirmMyMFAMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.DisableMyMFAResponse> disableMyMFA(
+        identity.v1.Identity.DisableMyMFARequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDisableMyMFAMethod(), getCallOptions()), request);
     }
 
     /**
@@ -3038,42 +3484,48 @@ public final class IdentityServiceGrpc {
   private static final int METHODID_LIST_USERS = 4;
   private static final int METHODID_CREATE_USER = 5;
   private static final int METHODID_SET_USER_DISABLED = 6;
-  private static final int METHODID_SET_USER_PASSWORD = 7;
-  private static final int METHODID_SEND_PASSWORD_RESET = 8;
-  private static final int METHODID_UPDATE_USER = 9;
-  private static final int METHODID_SET_USER_AVATAR = 10;
-  private static final int METHODID_SEND_WELCOME = 11;
-  private static final int METHODID_GET_USER_STATS = 12;
-  private static final int METHODID_GET_ME = 13;
-  private static final int METHODID_UPDATE_ME = 14;
-  private static final int METHODID_SET_MY_AVATAR = 15;
-  private static final int METHODID_GET_MY_USER_SETTINGS = 16;
-  private static final int METHODID_PUT_MY_USER_SETTINGS = 17;
-  private static final int METHODID_CREATE_ROLE = 18;
-  private static final int METHODID_SET_ROLE_PERMISSIONS = 19;
-  private static final int METHODID_LIST_ROLES = 20;
-  private static final int METHODID_UPDATE_ROLE = 21;
-  private static final int METHODID_DELETE_ROLE = 22;
-  private static final int METHODID_LIST_PERMISSIONS = 23;
-  private static final int METHODID_CREATE_PERMISSION = 24;
-  private static final int METHODID_UPDATE_PERMISSION = 25;
-  private static final int METHODID_DELETE_PERMISSION = 26;
-  private static final int METHODID_ASSIGN_ROLE = 27;
-  private static final int METHODID_REVOKE_ROLE = 28;
-  private static final int METHODID_CREATE_CLIENT = 29;
-  private static final int METHODID_UPDATE_CLIENT = 30;
-  private static final int METHODID_SET_CLIENT_DISABLED = 31;
-  private static final int METHODID_DELETE_CLIENT = 32;
-  private static final int METHODID_ROTATE_CLIENT_SECRET = 33;
-  private static final int METHODID_LIST_CLIENTS = 34;
-  private static final int METHODID_SET_EXCHANGE_POLICY = 35;
-  private static final int METHODID_LIST_EXCHANGE_POLICIES = 36;
-  private static final int METHODID_GET_USER_MFA = 37;
-  private static final int METHODID_SET_USER_MFA = 38;
-  private static final int METHODID_ENFORCE_USER_MFA = 39;
-  private static final int METHODID_RESET_USER_MFA = 40;
-  private static final int METHODID_GET_UISTYLE = 41;
-  private static final int METHODID_SET_UISTYLE = 42;
+  private static final int METHODID_DELETE_USER = 7;
+  private static final int METHODID_SET_USER_PASSWORD = 8;
+  private static final int METHODID_SEND_PASSWORD_RESET = 9;
+  private static final int METHODID_UPDATE_USER = 10;
+  private static final int METHODID_SET_USER_AVATAR = 11;
+  private static final int METHODID_SEND_WELCOME = 12;
+  private static final int METHODID_GET_USER_STATS = 13;
+  private static final int METHODID_GET_ME = 14;
+  private static final int METHODID_UPDATE_ME = 15;
+  private static final int METHODID_SET_MY_AVATAR = 16;
+  private static final int METHODID_CHANGE_MY_PASSWORD = 17;
+  private static final int METHODID_GET_MY_MFA = 18;
+  private static final int METHODID_BEGIN_MY_MFA = 19;
+  private static final int METHODID_CONFIRM_MY_MFA = 20;
+  private static final int METHODID_DISABLE_MY_MFA = 21;
+  private static final int METHODID_GET_MY_USER_SETTINGS = 22;
+  private static final int METHODID_PUT_MY_USER_SETTINGS = 23;
+  private static final int METHODID_CREATE_ROLE = 24;
+  private static final int METHODID_SET_ROLE_PERMISSIONS = 25;
+  private static final int METHODID_LIST_ROLES = 26;
+  private static final int METHODID_UPDATE_ROLE = 27;
+  private static final int METHODID_DELETE_ROLE = 28;
+  private static final int METHODID_LIST_PERMISSIONS = 29;
+  private static final int METHODID_CREATE_PERMISSION = 30;
+  private static final int METHODID_UPDATE_PERMISSION = 31;
+  private static final int METHODID_DELETE_PERMISSION = 32;
+  private static final int METHODID_ASSIGN_ROLE = 33;
+  private static final int METHODID_REVOKE_ROLE = 34;
+  private static final int METHODID_CREATE_CLIENT = 35;
+  private static final int METHODID_UPDATE_CLIENT = 36;
+  private static final int METHODID_SET_CLIENT_DISABLED = 37;
+  private static final int METHODID_DELETE_CLIENT = 38;
+  private static final int METHODID_ROTATE_CLIENT_SECRET = 39;
+  private static final int METHODID_LIST_CLIENTS = 40;
+  private static final int METHODID_SET_EXCHANGE_POLICY = 41;
+  private static final int METHODID_LIST_EXCHANGE_POLICIES = 42;
+  private static final int METHODID_GET_USER_MFA = 43;
+  private static final int METHODID_SET_USER_MFA = 44;
+  private static final int METHODID_ENFORCE_USER_MFA = 45;
+  private static final int METHODID_RESET_USER_MFA = 46;
+  private static final int METHODID_GET_UISTYLE = 47;
+  private static final int METHODID_SET_UISTYLE = 48;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -3120,6 +3572,10 @@ public final class IdentityServiceGrpc {
           serviceImpl.setUserDisabled((identity.v1.Identity.SetUserDisabledRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserDisabledResponse>) responseObserver);
           break;
+        case METHODID_DELETE_USER:
+          serviceImpl.deleteUser((identity.v1.Identity.DeleteUserRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteUserResponse>) responseObserver);
+          break;
         case METHODID_SET_USER_PASSWORD:
           serviceImpl.setUserPassword((identity.v1.Identity.SetUserPasswordRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserPasswordResponse>) responseObserver);
@@ -3155,6 +3611,26 @@ public final class IdentityServiceGrpc {
         case METHODID_SET_MY_AVATAR:
           serviceImpl.setMyAvatar((identity.v1.Identity.SetMyAvatarRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.SetMyAvatarResponse>) responseObserver);
+          break;
+        case METHODID_CHANGE_MY_PASSWORD:
+          serviceImpl.changeMyPassword((identity.v1.Identity.ChangeMyPasswordRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.ChangeMyPasswordResponse>) responseObserver);
+          break;
+        case METHODID_GET_MY_MFA:
+          serviceImpl.getMyMFA((identity.v1.Identity.GetMyMFARequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.GetMyMFAResponse>) responseObserver);
+          break;
+        case METHODID_BEGIN_MY_MFA:
+          serviceImpl.beginMyMFA((identity.v1.Identity.BeginMyMFARequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.BeginMyMFAResponse>) responseObserver);
+          break;
+        case METHODID_CONFIRM_MY_MFA:
+          serviceImpl.confirmMyMFA((identity.v1.Identity.ConfirmMyMFARequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.ConfirmMyMFAResponse>) responseObserver);
+          break;
+        case METHODID_DISABLE_MY_MFA:
+          serviceImpl.disableMyMFA((identity.v1.Identity.DisableMyMFARequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.DisableMyMFAResponse>) responseObserver);
           break;
         case METHODID_GET_MY_USER_SETTINGS:
           serviceImpl.getMyUserSettings((identity.v1.Identity.GetMyUserSettingsRequest) request,
@@ -3332,6 +3808,13 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.SetUserDisabledResponse>(
                 service, METHODID_SET_USER_DISABLED)))
         .addMethod(
+          getDeleteUserMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.DeleteUserRequest,
+              identity.v1.Identity.DeleteUserResponse>(
+                service, METHODID_DELETE_USER)))
+        .addMethod(
           getSetUserPasswordMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -3394,6 +3877,41 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.SetMyAvatarRequest,
               identity.v1.Identity.SetMyAvatarResponse>(
                 service, METHODID_SET_MY_AVATAR)))
+        .addMethod(
+          getChangeMyPasswordMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.ChangeMyPasswordRequest,
+              identity.v1.Identity.ChangeMyPasswordResponse>(
+                service, METHODID_CHANGE_MY_PASSWORD)))
+        .addMethod(
+          getGetMyMFAMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.GetMyMFARequest,
+              identity.v1.Identity.GetMyMFAResponse>(
+                service, METHODID_GET_MY_MFA)))
+        .addMethod(
+          getBeginMyMFAMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.BeginMyMFARequest,
+              identity.v1.Identity.BeginMyMFAResponse>(
+                service, METHODID_BEGIN_MY_MFA)))
+        .addMethod(
+          getConfirmMyMFAMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.ConfirmMyMFARequest,
+              identity.v1.Identity.ConfirmMyMFAResponse>(
+                service, METHODID_CONFIRM_MY_MFA)))
+        .addMethod(
+          getDisableMyMFAMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.DisableMyMFARequest,
+              identity.v1.Identity.DisableMyMFAResponse>(
+                service, METHODID_DISABLE_MY_MFA)))
         .addMethod(
           getGetMyUserSettingsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -3638,6 +4156,7 @@ public final class IdentityServiceGrpc {
               .addMethod(getListUsersMethod())
               .addMethod(getCreateUserMethod())
               .addMethod(getSetUserDisabledMethod())
+              .addMethod(getDeleteUserMethod())
               .addMethod(getSetUserPasswordMethod())
               .addMethod(getSendPasswordResetMethod())
               .addMethod(getUpdateUserMethod())
@@ -3647,6 +4166,11 @@ public final class IdentityServiceGrpc {
               .addMethod(getGetMeMethod())
               .addMethod(getUpdateMeMethod())
               .addMethod(getSetMyAvatarMethod())
+              .addMethod(getChangeMyPasswordMethod())
+              .addMethod(getGetMyMFAMethod())
+              .addMethod(getBeginMyMFAMethod())
+              .addMethod(getConfirmMyMFAMethod())
+              .addMethod(getDisableMyMFAMethod())
               .addMethod(getGetMyUserSettingsMethod())
               .addMethod(getPutMyUserSettingsMethod())
               .addMethod(getCreateRoleMethod())

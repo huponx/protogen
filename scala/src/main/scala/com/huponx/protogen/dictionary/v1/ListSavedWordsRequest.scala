@@ -12,12 +12,19 @@ package com.huponx.protogen.dictionary.v1
   * @param query
   *   Only the words that contain this text (case-insensitive, matched on the word, not on the card).
   *   Empty = all words. At most 100 characters. The totals of the response ignore it.
+  * @param categoryId
+  *   Only the words of this category; empty = no filter. The id "uncategorized" means uncategorized = true (a query
+  *   string has no bool). The totals of the response follow the filter.
+  * @param uncategorized
+  *   Only the words that have no category (category_id is then ignored).
   */
 @SerialVersionUID(0L)
 final case class ListSavedWordsRequest(
     pageSize: _root_.scala.Int = 0,
     pageToken: _root_.scala.Predef.String = "",
     query: _root_.scala.Predef.String = "",
+    categoryId: _root_.scala.Predef.String = "",
+    uncategorized: _root_.scala.Boolean = false,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListSavedWordsRequest] {
     @transient
@@ -43,6 +50,20 @@ final case class ListSavedWordsRequest(
         val __value = query
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
+        }
+      };
+      
+      {
+        val __value = categoryId
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(40, __value)
+        }
+      };
+      
+      {
+        val __value = uncategorized
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(50, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -76,11 +97,25 @@ final case class ListSavedWordsRequest(
           _output__.writeString(30, __v)
         }
       };
+      {
+        val __v = categoryId
+        if (!__v.isEmpty) {
+          _output__.writeString(40, __v)
+        }
+      };
+      {
+        val __v = uncategorized
+        if (__v != false) {
+          _output__.writeBool(50, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withPageSize(__v: _root_.scala.Int): ListSavedWordsRequest = copy(pageSize = __v)
     def withPageToken(__v: _root_.scala.Predef.String): ListSavedWordsRequest = copy(pageToken = __v)
     def withQuery(__v: _root_.scala.Predef.String): ListSavedWordsRequest = copy(query = __v)
+    def withCategoryId(__v: _root_.scala.Predef.String): ListSavedWordsRequest = copy(categoryId = __v)
+    def withUncategorized(__v: _root_.scala.Boolean): ListSavedWordsRequest = copy(uncategorized = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -97,6 +132,14 @@ final case class ListSavedWordsRequest(
           val __t = query
           if (__t != "") __t else null
         }
+        case 40 => {
+          val __t = categoryId
+          if (__t != "") __t else null
+        }
+        case 50 => {
+          val __t = uncategorized
+          if (__t != false) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -105,6 +148,8 @@ final case class ListSavedWordsRequest(
         case 10 => _root_.scalapb.descriptors.PInt(pageSize)
         case 20 => _root_.scalapb.descriptors.PString(pageToken)
         case 30 => _root_.scalapb.descriptors.PString(query)
+        case 40 => _root_.scalapb.descriptors.PString(categoryId)
+        case 50 => _root_.scalapb.descriptors.PBoolean(uncategorized)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -118,6 +163,8 @@ object ListSavedWordsRequest extends scalapb.GeneratedMessageCompanion[com.hupon
     var __pageSize: _root_.scala.Int = 0
     var __pageToken: _root_.scala.Predef.String = ""
     var __query: _root_.scala.Predef.String = ""
+    var __categoryId: _root_.scala.Predef.String = ""
+    var __uncategorized: _root_.scala.Boolean = false
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -130,6 +177,10 @@ object ListSavedWordsRequest extends scalapb.GeneratedMessageCompanion[com.hupon
           __pageToken = _input__.readStringRequireUtf8()
         case 242 =>
           __query = _input__.readStringRequireUtf8()
+        case 322 =>
+          __categoryId = _input__.readStringRequireUtf8()
+        case 400 =>
+          __uncategorized = _input__.readBool()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -141,6 +192,8 @@ object ListSavedWordsRequest extends scalapb.GeneratedMessageCompanion[com.hupon
         pageSize = __pageSize,
         pageToken = __pageToken,
         query = __query,
+        categoryId = __categoryId,
+        uncategorized = __uncategorized,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -150,7 +203,9 @@ object ListSavedWordsRequest extends scalapb.GeneratedMessageCompanion[com.hupon
       com.huponx.protogen.dictionary.v1.ListSavedWordsRequest(
         pageSize = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Int]).getOrElse(0),
         pageToken = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        query = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        query = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        categoryId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        uncategorized = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -162,24 +217,34 @@ object ListSavedWordsRequest extends scalapb.GeneratedMessageCompanion[com.hupon
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.ListSavedWordsRequest(
     pageSize = 0,
     pageToken = "",
-    query = ""
+    query = "",
+    categoryId = "",
+    uncategorized = false
   )
   implicit class ListSavedWordsRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ListSavedWordsRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.ListSavedWordsRequest](_l) {
     def pageSize: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.pageSize)((c_, f_) => c_.copy(pageSize = f_))
     def pageToken: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.pageToken)((c_, f_) => c_.copy(pageToken = f_))
     def query: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.query)((c_, f_) => c_.copy(query = f_))
+    def categoryId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.categoryId)((c_, f_) => c_.copy(categoryId = f_))
+    def uncategorized: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.uncategorized)((c_, f_) => c_.copy(uncategorized = f_))
   }
   final val PAGE_SIZE_FIELD_NUMBER = 10
   final val PAGE_TOKEN_FIELD_NUMBER = 20
   final val QUERY_FIELD_NUMBER = 30
+  final val CATEGORY_ID_FIELD_NUMBER = 40
+  final val UNCATEGORIZED_FIELD_NUMBER = 50
   def of(
     pageSize: _root_.scala.Int,
     pageToken: _root_.scala.Predef.String,
-    query: _root_.scala.Predef.String
+    query: _root_.scala.Predef.String,
+    categoryId: _root_.scala.Predef.String,
+    uncategorized: _root_.scala.Boolean
   ): _root_.com.huponx.protogen.dictionary.v1.ListSavedWordsRequest = _root_.com.huponx.protogen.dictionary.v1.ListSavedWordsRequest(
     pageSize,
     pageToken,
-    query
+    query,
+    categoryId,
+    uncategorized
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.ListSavedWordsRequest])
 }

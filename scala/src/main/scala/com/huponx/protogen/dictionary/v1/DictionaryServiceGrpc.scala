@@ -47,6 +47,16 @@ object DictionaryServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(3)))
       .build()
   
+  val METHOD_CHECK_SAVED_WORDS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest, com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "CheckSavedWords"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(4)))
+      .build()
+  
   val METHOD_DELETE_SAVED_WORD: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest, com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse] =
     _root_.io.grpc.MethodDescriptor.newBuilder()
       .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -54,7 +64,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(4)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(5)))
       .build()
   
   val METHOD_EXPORT_ANKI: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.ExportAnkiRequest, com.huponx.protogen.dictionary.v1.ExportAnkiResponse] =
@@ -64,7 +74,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ExportAnkiRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ExportAnkiResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(5)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(6)))
       .build()
   
   val METHOD_CREATE_DECK_LINK: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest, com.huponx.protogen.dictionary.v1.CreateDeckLinkResponse] =
@@ -74,7 +84,47 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateDeckLinkResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(6)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(7)))
+      .build()
+  
+  val METHOD_START_EXPORT: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.StartExportRequest, com.huponx.protogen.dictionary.v1.StartExportResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "StartExport"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.StartExportRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.StartExportResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(8)))
+      .build()
+  
+  val METHOD_GET_EXPORT: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetExportRequest, com.huponx.protogen.dictionary.v1.GetExportResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "GetExport"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetExportRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetExportResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(9)))
+      .build()
+  
+  val METHOD_CANCEL_EXPORT: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CancelExportRequest, com.huponx.protogen.dictionary.v1.CancelExportResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "CancelExport"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CancelExportRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CancelExportResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(10)))
+      .build()
+  
+  val METHOD_CREATE_EXPORT_PART_LINK: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest, com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "CreateExportPartLink"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(11)))
       .build()
   
   val METHOD_DOWNLOAD_DECK: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DownloadDeckRequest, com.huponx.protogen.dictionary.v1.DownloadDeckResponse] =
@@ -84,7 +134,67 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadDeckRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadDeckResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(7)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(12)))
+      .build()
+  
+  val METHOD_DOWNLOAD_EXPORT_PART: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DownloadExportPartRequest, com.huponx.protogen.dictionary.v1.DownloadChunk] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "DownloadExportPart"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadExportPartRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadChunk])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
+      .build()
+  
+  val METHOD_LIST_CATEGORIES: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.ListCategoriesRequest, com.huponx.protogen.dictionary.v1.ListCategoriesResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "ListCategories"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListCategoriesRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListCategoriesResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
+      .build()
+  
+  val METHOD_CREATE_CATEGORY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CreateCategoryRequest, com.huponx.protogen.dictionary.v1.CreateCategoryResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "CreateCategory"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateCategoryRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateCategoryResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(15)))
+      .build()
+  
+  val METHOD_RENAME_CATEGORY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.RenameCategoryRequest, com.huponx.protogen.dictionary.v1.RenameCategoryResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "RenameCategory"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RenameCategoryRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RenameCategoryResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(16)))
+      .build()
+  
+  val METHOD_DELETE_CATEGORY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DeleteCategoryRequest, com.huponx.protogen.dictionary.v1.DeleteCategoryResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "DeleteCategory"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteCategoryRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteCategoryResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(17)))
+      .build()
+  
+  val METHOD_UPDATE_WORD_CATEGORIES: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest, com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "UpdateWordCategories"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(18)))
       .build()
   
   val METHOD_REMOVE_EXPORTED_WORDS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest, com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse] =
@@ -94,7 +204,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(8)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(19)))
       .build()
   
   val METHOD_UPLOAD_IMAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UploadImageRequest, com.huponx.protogen.dictionary.v1.UploadImageResponse] =
@@ -104,7 +214,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadImageRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadImageResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(9)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(20)))
       .build()
   
   val METHOD_GET_IMAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetImageRequest, com.huponx.protogen.dictionary.v1.GetImageResponse] =
@@ -114,7 +224,67 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetImageRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetImageResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(10)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(21)))
+      .build()
+  
+  val METHOD_UPLOAD_AUDIO: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UploadAudioRequest, com.huponx.protogen.dictionary.v1.UploadAudioResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "UploadAudio"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadAudioRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadAudioResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(22)))
+      .build()
+  
+  val METHOD_GET_AUDIO: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetAudioRequest, com.huponx.protogen.dictionary.v1.GetAudioResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "GetAudio"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetAudioRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetAudioResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(23)))
+      .build()
+  
+  val METHOD_GET_REVIEW_QUEUE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetReviewQueueRequest, com.huponx.protogen.dictionary.v1.GetReviewQueueResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "GetReviewQueue"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetReviewQueueRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetReviewQueueResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(24)))
+      .build()
+  
+  val METHOD_SUBMIT_REVIEW: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.SubmitReviewRequest, com.huponx.protogen.dictionary.v1.SubmitReviewResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "SubmitReview"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SubmitReviewRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SubmitReviewResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(25)))
+      .build()
+  
+  val METHOD_ADD_REVIEW_BONUS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.AddReviewBonusRequest, com.huponx.protogen.dictionary.v1.AddReviewBonusResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "AddReviewBonus"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.AddReviewBonusRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.AddReviewBonusResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(26)))
+      .build()
+  
+  val METHOD_OPTIMIZE_REVIEW_PARAMETERS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest, com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "OptimizeReviewParameters"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(27)))
       .build()
   
   val METHOD_GET_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetSettingsRequest, com.huponx.protogen.dictionary.v1.GetSettingsResponse] =
@@ -124,7 +294,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(11)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(28)))
       .build()
   
   val METHOD_UPDATE_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateSettingsRequest, com.huponx.protogen.dictionary.v1.UpdateSettingsResponse] =
@@ -134,7 +304,37 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(12)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(29)))
+      .build()
+  
+  val METHOD_GET_USER_QUOTA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetUserQuotaRequest, com.huponx.protogen.dictionary.v1.GetUserQuotaResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "GetUserQuota"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetUserQuotaRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetUserQuotaResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(30)))
+      .build()
+  
+  val METHOD_SET_USER_QUOTA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.SetUserQuotaRequest, com.huponx.protogen.dictionary.v1.SetUserQuotaResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "SetUserQuota"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SetUserQuotaRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(31)))
+      .build()
+  
+  val METHOD_GET_MY_STORAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetMyStorageRequest, com.huponx.protogen.dictionary.v1.GetMyStorageResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "GetMyStorage"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMyStorageRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMyStorageResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(32)))
       .build()
   
   val METHOD_GET_MY_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetMySettingsRequest, com.huponx.protogen.dictionary.v1.GetMySettingsResponse] =
@@ -144,7 +344,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMySettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMySettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(33)))
       .build()
   
   val METHOD_UPDATE_MY_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateMySettingsRequest, com.huponx.protogen.dictionary.v1.UpdateMySettingsResponse] =
@@ -154,7 +354,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateMySettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateMySettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(34)))
       .build()
   
   val SERVICE: _root_.io.grpc.ServiceDescriptor =
@@ -164,15 +364,35 @@ object DictionaryServiceGrpc {
       .addMethod(METHOD_LOOKUP_WORDS)
       .addMethod(METHOD_SAVE_WORD)
       .addMethod(METHOD_LIST_SAVED_WORDS)
+      .addMethod(METHOD_CHECK_SAVED_WORDS)
       .addMethod(METHOD_DELETE_SAVED_WORD)
       .addMethod(METHOD_EXPORT_ANKI)
       .addMethod(METHOD_CREATE_DECK_LINK)
+      .addMethod(METHOD_START_EXPORT)
+      .addMethod(METHOD_GET_EXPORT)
+      .addMethod(METHOD_CANCEL_EXPORT)
+      .addMethod(METHOD_CREATE_EXPORT_PART_LINK)
       .addMethod(METHOD_DOWNLOAD_DECK)
+      .addMethod(METHOD_DOWNLOAD_EXPORT_PART)
+      .addMethod(METHOD_LIST_CATEGORIES)
+      .addMethod(METHOD_CREATE_CATEGORY)
+      .addMethod(METHOD_RENAME_CATEGORY)
+      .addMethod(METHOD_DELETE_CATEGORY)
+      .addMethod(METHOD_UPDATE_WORD_CATEGORIES)
       .addMethod(METHOD_REMOVE_EXPORTED_WORDS)
       .addMethod(METHOD_UPLOAD_IMAGE)
       .addMethod(METHOD_GET_IMAGE)
+      .addMethod(METHOD_UPLOAD_AUDIO)
+      .addMethod(METHOD_GET_AUDIO)
+      .addMethod(METHOD_GET_REVIEW_QUEUE)
+      .addMethod(METHOD_SUBMIT_REVIEW)
+      .addMethod(METHOD_ADD_REVIEW_BONUS)
+      .addMethod(METHOD_OPTIMIZE_REVIEW_PARAMETERS)
       .addMethod(METHOD_GET_SETTINGS)
       .addMethod(METHOD_UPDATE_SETTINGS)
+      .addMethod(METHOD_GET_USER_QUOTA)
+      .addMethod(METHOD_SET_USER_QUOTA)
+      .addMethod(METHOD_GET_MY_STORAGE)
       .addMethod(METHOD_GET_MY_SETTINGS)
       .addMethod(METHOD_UPDATE_MY_SETTINGS)
       .build()
@@ -198,6 +418,10 @@ object DictionaryServiceGrpc {
       * kept (remove after export is off). Permission: dictionary:word:read.
       */
     def listSavedWords(request: com.huponx.protogen.dictionary.v1.ListSavedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListSavedWordsResponse]
+    /** CheckSavedWords tells which of up to 100 words are in the list of the user, with their categories: the lookup
+      * marks the words that are saved without reading the whole list. Permission: dictionary:word:read.
+      */
+    def checkSavedWords(request: com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse]
     /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse]
@@ -213,11 +437,57 @@ object DictionaryServiceGrpc {
       * earlier is replaced. Permission: dictionary:word:write.
       */
     def createDeckLink(request: com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CreateDeckLinkResponse]
+    /** StartExport starts a job that packs a list that is too long for ExportAnki (EXPORT_USE_JOB) in parts,
+      * each a deck file of at most the size limit, and marks the words of a part exported when the part is
+      * done. The words are the new ones (or all, see scope), of the category or of no category. One job at a
+      * time per user: another one fails with EXPORT_JOB_ACTIVE. Permission: dictionary:word:write.
+      */
+    def startExport(request: com.huponx.protogen.dictionary.v1.StartExportRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.StartExportResponse]
+    /** GetExport returns the state of a job and its parts so far. The id "latest" (or empty) is the job started
+      * last by the user. NOT_FOUND when there is none. Permission: dictionary:word:write.
+      */
+    def getExport(request: com.huponx.protogen.dictionary.v1.GetExportRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetExportResponse]
+    /** CancelExport stops a queued or running job; the parts made so far stay downloadable until the job
+      * expires. Permission: dictionary:word:write.
+      */
+    def cancelExport(request: com.huponx.protogen.dictionary.v1.CancelExportRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CancelExportResponse]
+    /** CreateExportPartLink makes the download link of a part of a job (the same anonymous download as
+      * CreateDeckLink, but it works many times until the job expires). Permission: dictionary:word:write.
+      */
+    def createExportPartLink(request: com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse]
     /** DownloadDeck returns the deck of a link and burns the link (it works once). It is called by the
       * gateway for the anonymous download request, so it takes a service token (client credentials)
       * and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
       */
     def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DownloadDeckResponse]
+    /** DownloadExportPart streams the part of an export job (see CreateExportPartLink) in chunks of at most 256 KiB, so
+      * a part larger than a gRPC message travels without being held whole: the first chunk carries filename and size,
+      * the next ones only data. Like DownloadDeck it takes a service token (the gateway). NOT_FOUND when the token is
+      * unknown or expired.
+      * buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+      */
+    def downloadExportPart(request: com.huponx.protogen.dictionary.v1.DownloadExportPartRequest, responseObserver: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.DownloadChunk]): _root_.scala.Unit
+    /** ListCategories lists the categories of the user (by name) with their word counts. Permission: dictionary:word:read.
+      */
+    def listCategories(request: com.huponx.protogen.dictionary.v1.ListCategoriesRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListCategoriesResponse]
+    /** CreateCategory adds a category. Fails with ALREADY_EXISTS (CATEGORY_EXISTS) for a name the user has (case-insensitive),
+      * RESOURCE_EXHAUSTED (CATEGORY_LIMIT_REACHED) at 50 categories and INVALID_ARGUMENT for a name of 0 or more
+      * than 40 characters. Permission: dictionary:word:write.
+      */
+    def createCategory(request: com.huponx.protogen.dictionary.v1.CreateCategoryRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CreateCategoryResponse]
+    /** RenameCategory renames one. NOT_FOUND for an unknown id, ALREADY_EXISTS (CATEGORY_EXISTS) for a name in use.
+      * Permission: dictionary:word:write.
+      */
+    def renameCategory(request: com.huponx.protogen.dictionary.v1.RenameCategoryRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.RenameCategoryResponse]
+    /** DeleteCategory deletes the category only; its words stay in the list. NOT_FOUND for an unknown id.
+      * Permission: dictionary:word:write.
+      */
+    def deleteCategory(request: com.huponx.protogen.dictionary.v1.DeleteCategoryRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DeleteCategoryResponse]
+    /** UpdateWordCategories adds the words to some categories and takes them out of others, in one step. It does not
+      * touch the card or the exported flag. NOT_FOUND for an unknown category; words that are not in the list are
+      * ignored. Permission: dictionary:word:write.
+      */
+    def updateWordCategories(request: com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse]
     /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
       * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
       */
@@ -233,6 +503,37 @@ object DictionaryServiceGrpc {
       * Permission: dictionary:word:read.
       */
     def getImage(request: com.huponx.protogen.dictionary.v1.GetImageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetImageResponse]
+    /** UploadAudio stores an audio file of a card (mp3, ogg, wav or m4a), as it is: it is not re-encoded. The
+      * card refers to it in audio_uk / audio_us as dictaud:&lt;id&gt;. The same file of the same user gets the same
+      * id. Fails with INVALID_ARGUMENT (AUDIO_UNSUPPORTED, AUDIO_TOO_LARGE), RESOURCE_EXHAUSTED
+      * (AUDIO_QUOTA_EXCEEDED) or FAILED_PRECONDITION (AUDIO_DISABLED, no files directory).
+      * Permission: dictionary:word:write.
+      */
+    def uploadAudio(request: com.huponx.protogen.dictionary.v1.UploadAudioRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UploadAudioResponse]
+    /** GetAudio returns an audio file of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    def getAudio(request: com.huponx.protogen.dictionary.v1.GetAudioRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetAudioResponse]
+    /** GetReviewQueue returns the cards to review: the ones that are due first (earliest due first), then new
+      * words (oldest first) up to the daily limit of the user, cut to limit cards. Only words still in the list.
+      * Permission: dictionary:word:read.
+      */
+    def getReviewQueue(request: com.huponx.protogen.dictionary.v1.GetReviewQueueRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetReviewQueueResponse]
+    /** SubmitReview grades a card and schedules its next review (SM-2 or FSRS, as the user chose). NOT_FOUND when the word is not in the
+      * list, INVALID_ARGUMENT for an unknown grade. Permission: dictionary:word:read.
+      */
+    def submitReview(request: com.huponx.protogen.dictionary.v1.SubmitReviewRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SubmitReviewResponse]
+    /** AddReviewBonus raises the daily limits of the review for the next 24 hours by the given numbers, without
+      * touching the settings; a grant while a bonus runs adds up and renews the 24 hours. INVALID_ARGUMENT when a number
+      * is negative or above 9999, or both are 0. Permission: dictionary:word:read.
+      */
+    def addReviewBonus(request: com.huponx.protogen.dictionary.v1.AddReviewBonusRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.AddReviewBonusResponse]
+    /** OptimizeReviewParameters fits the FSRS parameters to the review history of the user and stores them when they
+      * predict better than the defaults (restore_defaults = true forgets them instead). FAILED_PRECONDITION when there are too few
+      * reviews, RESOURCE_EXHAUSTED when called again within a minute or while another run is going.
+      * Permission: dictionary:word:read.
+      */
+    def optimizeReviewParameters(request: com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse]
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
       */
     def getSettings(request: com.huponx.protogen.dictionary.v1.GetSettingsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetSettingsResponse]
@@ -241,6 +542,18 @@ object DictionaryServiceGrpc {
       * Permission: dictionary:settings:write.
       */
     def updateSettings(request: com.huponx.protogen.dictionary.v1.UpdateSettingsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UpdateSettingsResponse]
+    /** GetUserQuota returns what a user stores (content, images, audio), the limits an administrator set for the
+      * user and the limits in effect. NOT_FOUND for an unknown user. Permission: dictionary:settings:read.
+      */
+    def getUserQuota(request: com.huponx.protogen.dictionary.v1.GetUserQuotaRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetUserQuotaResponse]
+    /** SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
+      * for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
+      */
+    def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse]
+    /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
+      * Permission: dictionary:word:read.
+      */
+    def getMyStorage(request: com.huponx.protogen.dictionary.v1.GetMyStorageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetMyStorageResponse]
     /** GetMySettings returns the preferences of the user together with the settings of the system, which
       * tell what the user may choose from. Permission: dictionary:word:read.
       */
@@ -283,6 +596,12 @@ object DictionaryServiceGrpc {
             executionContext)
         }))
       .addMethod(
+        METHOD_CHECK_SAVED_WORDS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse]) => {
+          serviceImpl.checkSavedWords(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
         METHOD_DELETE_SAVED_WORD,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse]) => {
           serviceImpl.deleteSavedWord(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
@@ -301,9 +620,68 @@ object DictionaryServiceGrpc {
             executionContext)
         }))
       .addMethod(
+        METHOD_START_EXPORT,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.StartExportRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.StartExportResponse]) => {
+          serviceImpl.startExport(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_EXPORT,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetExportRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetExportResponse]) => {
+          serviceImpl.getExport(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_CANCEL_EXPORT,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.CancelExportRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.CancelExportResponse]) => {
+          serviceImpl.cancelExport(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_CREATE_EXPORT_PART_LINK,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse]) => {
+          serviceImpl.createExportPartLink(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
         METHOD_DOWNLOAD_DECK,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.DownloadDeckResponse]) => {
           serviceImpl.downloadDeck(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_DOWNLOAD_EXPORT_PART,
+        _root_.io.grpc.stub.ServerCalls.asyncServerStreamingCall((request: com.huponx.protogen.dictionary.v1.DownloadExportPartRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.DownloadChunk]) => {
+          serviceImpl.downloadExportPart(request, observer)
+        }))
+      .addMethod(
+        METHOD_LIST_CATEGORIES,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.ListCategoriesRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.ListCategoriesResponse]) => {
+          serviceImpl.listCategories(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_CREATE_CATEGORY,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.CreateCategoryRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.CreateCategoryResponse]) => {
+          serviceImpl.createCategory(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_RENAME_CATEGORY,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.RenameCategoryRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.RenameCategoryResponse]) => {
+          serviceImpl.renameCategory(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_DELETE_CATEGORY,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.DeleteCategoryRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.DeleteCategoryResponse]) => {
+          serviceImpl.deleteCategory(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_UPDATE_WORD_CATEGORIES,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse]) => {
+          serviceImpl.updateWordCategories(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
       .addMethod(
@@ -325,6 +703,42 @@ object DictionaryServiceGrpc {
             executionContext)
         }))
       .addMethod(
+        METHOD_UPLOAD_AUDIO,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.UploadAudioRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.UploadAudioResponse]) => {
+          serviceImpl.uploadAudio(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_AUDIO,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetAudioRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetAudioResponse]) => {
+          serviceImpl.getAudio(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_REVIEW_QUEUE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetReviewQueueRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetReviewQueueResponse]) => {
+          serviceImpl.getReviewQueue(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_SUBMIT_REVIEW,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.SubmitReviewRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.SubmitReviewResponse]) => {
+          serviceImpl.submitReview(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_ADD_REVIEW_BONUS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.AddReviewBonusRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.AddReviewBonusResponse]) => {
+          serviceImpl.addReviewBonus(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_OPTIMIZE_REVIEW_PARAMETERS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse]) => {
+          serviceImpl.optimizeReviewParameters(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
         METHOD_GET_SETTINGS,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetSettingsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetSettingsResponse]) => {
           serviceImpl.getSettings(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
@@ -334,6 +748,24 @@ object DictionaryServiceGrpc {
         METHOD_UPDATE_SETTINGS,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.UpdateSettingsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.UpdateSettingsResponse]) => {
           serviceImpl.updateSettings(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_USER_QUOTA,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetUserQuotaRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetUserQuotaResponse]) => {
+          serviceImpl.getUserQuota(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_SET_USER_QUOTA,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse]) => {
+          serviceImpl.setUserQuota(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_MY_STORAGE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetMyStorageRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetMyStorageResponse]) => {
+          serviceImpl.getMyStorage(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
       .addMethod(
@@ -372,6 +804,10 @@ object DictionaryServiceGrpc {
       * kept (remove after export is off). Permission: dictionary:word:read.
       */
     def listSavedWords(request: com.huponx.protogen.dictionary.v1.ListSavedWordsRequest): com.huponx.protogen.dictionary.v1.ListSavedWordsResponse
+    /** CheckSavedWords tells which of up to 100 words are in the list of the user, with their categories: the lookup
+      * marks the words that are saved without reading the whole list. Permission: dictionary:word:read.
+      */
+    def checkSavedWords(request: com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest): com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse
     /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse
@@ -387,11 +823,57 @@ object DictionaryServiceGrpc {
       * earlier is replaced. Permission: dictionary:word:write.
       */
     def createDeckLink(request: com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest): com.huponx.protogen.dictionary.v1.CreateDeckLinkResponse
+    /** StartExport starts a job that packs a list that is too long for ExportAnki (EXPORT_USE_JOB) in parts,
+      * each a deck file of at most the size limit, and marks the words of a part exported when the part is
+      * done. The words are the new ones (or all, see scope), of the category or of no category. One job at a
+      * time per user: another one fails with EXPORT_JOB_ACTIVE. Permission: dictionary:word:write.
+      */
+    def startExport(request: com.huponx.protogen.dictionary.v1.StartExportRequest): com.huponx.protogen.dictionary.v1.StartExportResponse
+    /** GetExport returns the state of a job and its parts so far. The id "latest" (or empty) is the job started
+      * last by the user. NOT_FOUND when there is none. Permission: dictionary:word:write.
+      */
+    def getExport(request: com.huponx.protogen.dictionary.v1.GetExportRequest): com.huponx.protogen.dictionary.v1.GetExportResponse
+    /** CancelExport stops a queued or running job; the parts made so far stay downloadable until the job
+      * expires. Permission: dictionary:word:write.
+      */
+    def cancelExport(request: com.huponx.protogen.dictionary.v1.CancelExportRequest): com.huponx.protogen.dictionary.v1.CancelExportResponse
+    /** CreateExportPartLink makes the download link of a part of a job (the same anonymous download as
+      * CreateDeckLink, but it works many times until the job expires). Permission: dictionary:word:write.
+      */
+    def createExportPartLink(request: com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest): com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse
     /** DownloadDeck returns the deck of a link and burns the link (it works once). It is called by the
       * gateway for the anonymous download request, so it takes a service token (client credentials)
       * and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
       */
     def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): com.huponx.protogen.dictionary.v1.DownloadDeckResponse
+    /** DownloadExportPart streams the part of an export job (see CreateExportPartLink) in chunks of at most 256 KiB, so
+      * a part larger than a gRPC message travels without being held whole: the first chunk carries filename and size,
+      * the next ones only data. Like DownloadDeck it takes a service token (the gateway). NOT_FOUND when the token is
+      * unknown or expired.
+      * buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+      */
+    def downloadExportPart(request: com.huponx.protogen.dictionary.v1.DownloadExportPartRequest): scala.collection.Iterator[com.huponx.protogen.dictionary.v1.DownloadChunk]
+    /** ListCategories lists the categories of the user (by name) with their word counts. Permission: dictionary:word:read.
+      */
+    def listCategories(request: com.huponx.protogen.dictionary.v1.ListCategoriesRequest): com.huponx.protogen.dictionary.v1.ListCategoriesResponse
+    /** CreateCategory adds a category. Fails with ALREADY_EXISTS (CATEGORY_EXISTS) for a name the user has (case-insensitive),
+      * RESOURCE_EXHAUSTED (CATEGORY_LIMIT_REACHED) at 50 categories and INVALID_ARGUMENT for a name of 0 or more
+      * than 40 characters. Permission: dictionary:word:write.
+      */
+    def createCategory(request: com.huponx.protogen.dictionary.v1.CreateCategoryRequest): com.huponx.protogen.dictionary.v1.CreateCategoryResponse
+    /** RenameCategory renames one. NOT_FOUND for an unknown id, ALREADY_EXISTS (CATEGORY_EXISTS) for a name in use.
+      * Permission: dictionary:word:write.
+      */
+    def renameCategory(request: com.huponx.protogen.dictionary.v1.RenameCategoryRequest): com.huponx.protogen.dictionary.v1.RenameCategoryResponse
+    /** DeleteCategory deletes the category only; its words stay in the list. NOT_FOUND for an unknown id.
+      * Permission: dictionary:word:write.
+      */
+    def deleteCategory(request: com.huponx.protogen.dictionary.v1.DeleteCategoryRequest): com.huponx.protogen.dictionary.v1.DeleteCategoryResponse
+    /** UpdateWordCategories adds the words to some categories and takes them out of others, in one step. It does not
+      * touch the card or the exported flag. NOT_FOUND for an unknown category; words that are not in the list are
+      * ignored. Permission: dictionary:word:write.
+      */
+    def updateWordCategories(request: com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest): com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse
     /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
       * when the user answers "remove them" after remove after export came on. Permission: dictionary:word:write.
       */
@@ -407,6 +889,37 @@ object DictionaryServiceGrpc {
       * Permission: dictionary:word:read.
       */
     def getImage(request: com.huponx.protogen.dictionary.v1.GetImageRequest): com.huponx.protogen.dictionary.v1.GetImageResponse
+    /** UploadAudio stores an audio file of a card (mp3, ogg, wav or m4a), as it is: it is not re-encoded. The
+      * card refers to it in audio_uk / audio_us as dictaud:&lt;id&gt;. The same file of the same user gets the same
+      * id. Fails with INVALID_ARGUMENT (AUDIO_UNSUPPORTED, AUDIO_TOO_LARGE), RESOURCE_EXHAUSTED
+      * (AUDIO_QUOTA_EXCEEDED) or FAILED_PRECONDITION (AUDIO_DISABLED, no files directory).
+      * Permission: dictionary:word:write.
+      */
+    def uploadAudio(request: com.huponx.protogen.dictionary.v1.UploadAudioRequest): com.huponx.protogen.dictionary.v1.UploadAudioResponse
+    /** GetAudio returns an audio file of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    def getAudio(request: com.huponx.protogen.dictionary.v1.GetAudioRequest): com.huponx.protogen.dictionary.v1.GetAudioResponse
+    /** GetReviewQueue returns the cards to review: the ones that are due first (earliest due first), then new
+      * words (oldest first) up to the daily limit of the user, cut to limit cards. Only words still in the list.
+      * Permission: dictionary:word:read.
+      */
+    def getReviewQueue(request: com.huponx.protogen.dictionary.v1.GetReviewQueueRequest): com.huponx.protogen.dictionary.v1.GetReviewQueueResponse
+    /** SubmitReview grades a card and schedules its next review (SM-2 or FSRS, as the user chose). NOT_FOUND when the word is not in the
+      * list, INVALID_ARGUMENT for an unknown grade. Permission: dictionary:word:read.
+      */
+    def submitReview(request: com.huponx.protogen.dictionary.v1.SubmitReviewRequest): com.huponx.protogen.dictionary.v1.SubmitReviewResponse
+    /** AddReviewBonus raises the daily limits of the review for the next 24 hours by the given numbers, without
+      * touching the settings; a grant while a bonus runs adds up and renews the 24 hours. INVALID_ARGUMENT when a number
+      * is negative or above 9999, or both are 0. Permission: dictionary:word:read.
+      */
+    def addReviewBonus(request: com.huponx.protogen.dictionary.v1.AddReviewBonusRequest): com.huponx.protogen.dictionary.v1.AddReviewBonusResponse
+    /** OptimizeReviewParameters fits the FSRS parameters to the review history of the user and stores them when they
+      * predict better than the defaults (restore_defaults = true forgets them instead). FAILED_PRECONDITION when there are too few
+      * reviews, RESOURCE_EXHAUSTED when called again within a minute or while another run is going.
+      * Permission: dictionary:word:read.
+      */
+    def optimizeReviewParameters(request: com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest): com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
       */
     def getSettings(request: com.huponx.protogen.dictionary.v1.GetSettingsRequest): com.huponx.protogen.dictionary.v1.GetSettingsResponse
@@ -415,6 +928,18 @@ object DictionaryServiceGrpc {
       * Permission: dictionary:settings:write.
       */
     def updateSettings(request: com.huponx.protogen.dictionary.v1.UpdateSettingsRequest): com.huponx.protogen.dictionary.v1.UpdateSettingsResponse
+    /** GetUserQuota returns what a user stores (content, images, audio), the limits an administrator set for the
+      * user and the limits in effect. NOT_FOUND for an unknown user. Permission: dictionary:settings:read.
+      */
+    def getUserQuota(request: com.huponx.protogen.dictionary.v1.GetUserQuotaRequest): com.huponx.protogen.dictionary.v1.GetUserQuotaResponse
+    /** SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
+      * for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
+      */
+    def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): com.huponx.protogen.dictionary.v1.SetUserQuotaResponse
+    /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
+      * Permission: dictionary:word:read.
+      */
+    def getMyStorage(request: com.huponx.protogen.dictionary.v1.GetMyStorageRequest): com.huponx.protogen.dictionary.v1.GetMyStorageResponse
     /** GetMySettings returns the preferences of the user together with the settings of the system, which
       * tell what the user may choose from. Permission: dictionary:word:read.
       */
@@ -454,6 +979,13 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LIST_SAVED_WORDS, options, request)
     }
     
+    /** CheckSavedWords tells which of up to 100 words are in the list of the user, with their categories: the lookup
+      * marks the words that are saved without reading the whole list. Permission: dictionary:word:read.
+      */
+    override def checkSavedWords(request: com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest): com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_CHECK_SAVED_WORDS, options, request)
+    }
+    
     /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     override def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse = {
@@ -478,12 +1010,88 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_CREATE_DECK_LINK, options, request)
     }
     
+    /** StartExport starts a job that packs a list that is too long for ExportAnki (EXPORT_USE_JOB) in parts,
+      * each a deck file of at most the size limit, and marks the words of a part exported when the part is
+      * done. The words are the new ones (or all, see scope), of the category or of no category. One job at a
+      * time per user: another one fails with EXPORT_JOB_ACTIVE. Permission: dictionary:word:write.
+      */
+    override def startExport(request: com.huponx.protogen.dictionary.v1.StartExportRequest): com.huponx.protogen.dictionary.v1.StartExportResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_START_EXPORT, options, request)
+    }
+    
+    /** GetExport returns the state of a job and its parts so far. The id "latest" (or empty) is the job started
+      * last by the user. NOT_FOUND when there is none. Permission: dictionary:word:write.
+      */
+    override def getExport(request: com.huponx.protogen.dictionary.v1.GetExportRequest): com.huponx.protogen.dictionary.v1.GetExportResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_EXPORT, options, request)
+    }
+    
+    /** CancelExport stops a queued or running job; the parts made so far stay downloadable until the job
+      * expires. Permission: dictionary:word:write.
+      */
+    override def cancelExport(request: com.huponx.protogen.dictionary.v1.CancelExportRequest): com.huponx.protogen.dictionary.v1.CancelExportResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_CANCEL_EXPORT, options, request)
+    }
+    
+    /** CreateExportPartLink makes the download link of a part of a job (the same anonymous download as
+      * CreateDeckLink, but it works many times until the job expires). Permission: dictionary:word:write.
+      */
+    override def createExportPartLink(request: com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest): com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_CREATE_EXPORT_PART_LINK, options, request)
+    }
+    
     /** DownloadDeck returns the deck of a link and burns the link (it works once). It is called by the
       * gateway for the anonymous download request, so it takes a service token (client credentials)
       * and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
       */
     override def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): com.huponx.protogen.dictionary.v1.DownloadDeckResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_DOWNLOAD_DECK, options, request)
+    }
+    
+    /** DownloadExportPart streams the part of an export job (see CreateExportPartLink) in chunks of at most 256 KiB, so
+      * a part larger than a gRPC message travels without being held whole: the first chunk carries filename and size,
+      * the next ones only data. Like DownloadDeck it takes a service token (the gateway). NOT_FOUND when the token is
+      * unknown or expired.
+      * buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+      */
+    override def downloadExportPart(request: com.huponx.protogen.dictionary.v1.DownloadExportPartRequest): scala.collection.Iterator[com.huponx.protogen.dictionary.v1.DownloadChunk] = {
+      _root_.scalapb.grpc.ClientCalls.blockingServerStreamingCall(channel, METHOD_DOWNLOAD_EXPORT_PART, options, request)
+    }
+    
+    /** ListCategories lists the categories of the user (by name) with their word counts. Permission: dictionary:word:read.
+      */
+    override def listCategories(request: com.huponx.protogen.dictionary.v1.ListCategoriesRequest): com.huponx.protogen.dictionary.v1.ListCategoriesResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LIST_CATEGORIES, options, request)
+    }
+    
+    /** CreateCategory adds a category. Fails with ALREADY_EXISTS (CATEGORY_EXISTS) for a name the user has (case-insensitive),
+      * RESOURCE_EXHAUSTED (CATEGORY_LIMIT_REACHED) at 50 categories and INVALID_ARGUMENT for a name of 0 or more
+      * than 40 characters. Permission: dictionary:word:write.
+      */
+    override def createCategory(request: com.huponx.protogen.dictionary.v1.CreateCategoryRequest): com.huponx.protogen.dictionary.v1.CreateCategoryResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_CREATE_CATEGORY, options, request)
+    }
+    
+    /** RenameCategory renames one. NOT_FOUND for an unknown id, ALREADY_EXISTS (CATEGORY_EXISTS) for a name in use.
+      * Permission: dictionary:word:write.
+      */
+    override def renameCategory(request: com.huponx.protogen.dictionary.v1.RenameCategoryRequest): com.huponx.protogen.dictionary.v1.RenameCategoryResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_RENAME_CATEGORY, options, request)
+    }
+    
+    /** DeleteCategory deletes the category only; its words stay in the list. NOT_FOUND for an unknown id.
+      * Permission: dictionary:word:write.
+      */
+    override def deleteCategory(request: com.huponx.protogen.dictionary.v1.DeleteCategoryRequest): com.huponx.protogen.dictionary.v1.DeleteCategoryResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_DELETE_CATEGORY, options, request)
+    }
+    
+    /** UpdateWordCategories adds the words to some categories and takes them out of others, in one step. It does not
+      * touch the card or the exported flag. NOT_FOUND for an unknown category; words that are not in the list are
+      * ignored. Permission: dictionary:word:write.
+      */
+    override def updateWordCategories(request: com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest): com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_UPDATE_WORD_CATEGORIES, options, request)
     }
     
     /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
@@ -510,6 +1118,55 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_IMAGE, options, request)
     }
     
+    /** UploadAudio stores an audio file of a card (mp3, ogg, wav or m4a), as it is: it is not re-encoded. The
+      * card refers to it in audio_uk / audio_us as dictaud:&lt;id&gt;. The same file of the same user gets the same
+      * id. Fails with INVALID_ARGUMENT (AUDIO_UNSUPPORTED, AUDIO_TOO_LARGE), RESOURCE_EXHAUSTED
+      * (AUDIO_QUOTA_EXCEEDED) or FAILED_PRECONDITION (AUDIO_DISABLED, no files directory).
+      * Permission: dictionary:word:write.
+      */
+    override def uploadAudio(request: com.huponx.protogen.dictionary.v1.UploadAudioRequest): com.huponx.protogen.dictionary.v1.UploadAudioResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_UPLOAD_AUDIO, options, request)
+    }
+    
+    /** GetAudio returns an audio file of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    override def getAudio(request: com.huponx.protogen.dictionary.v1.GetAudioRequest): com.huponx.protogen.dictionary.v1.GetAudioResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_AUDIO, options, request)
+    }
+    
+    /** GetReviewQueue returns the cards to review: the ones that are due first (earliest due first), then new
+      * words (oldest first) up to the daily limit of the user, cut to limit cards. Only words still in the list.
+      * Permission: dictionary:word:read.
+      */
+    override def getReviewQueue(request: com.huponx.protogen.dictionary.v1.GetReviewQueueRequest): com.huponx.protogen.dictionary.v1.GetReviewQueueResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_REVIEW_QUEUE, options, request)
+    }
+    
+    /** SubmitReview grades a card and schedules its next review (SM-2 or FSRS, as the user chose). NOT_FOUND when the word is not in the
+      * list, INVALID_ARGUMENT for an unknown grade. Permission: dictionary:word:read.
+      */
+    override def submitReview(request: com.huponx.protogen.dictionary.v1.SubmitReviewRequest): com.huponx.protogen.dictionary.v1.SubmitReviewResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SUBMIT_REVIEW, options, request)
+    }
+    
+    /** AddReviewBonus raises the daily limits of the review for the next 24 hours by the given numbers, without
+      * touching the settings; a grant while a bonus runs adds up and renews the 24 hours. INVALID_ARGUMENT when a number
+      * is negative or above 9999, or both are 0. Permission: dictionary:word:read.
+      */
+    override def addReviewBonus(request: com.huponx.protogen.dictionary.v1.AddReviewBonusRequest): com.huponx.protogen.dictionary.v1.AddReviewBonusResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_ADD_REVIEW_BONUS, options, request)
+    }
+    
+    /** OptimizeReviewParameters fits the FSRS parameters to the review history of the user and stores them when they
+      * predict better than the defaults (restore_defaults = true forgets them instead). FAILED_PRECONDITION when there are too few
+      * reviews, RESOURCE_EXHAUSTED when called again within a minute or while another run is going.
+      * Permission: dictionary:word:read.
+      */
+    override def optimizeReviewParameters(request: com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest): com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_OPTIMIZE_REVIEW_PARAMETERS, options, request)
+    }
+    
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
       */
     override def getSettings(request: com.huponx.protogen.dictionary.v1.GetSettingsRequest): com.huponx.protogen.dictionary.v1.GetSettingsResponse = {
@@ -522,6 +1179,27 @@ object DictionaryServiceGrpc {
       */
     override def updateSettings(request: com.huponx.protogen.dictionary.v1.UpdateSettingsRequest): com.huponx.protogen.dictionary.v1.UpdateSettingsResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_UPDATE_SETTINGS, options, request)
+    }
+    
+    /** GetUserQuota returns what a user stores (content, images, audio), the limits an administrator set for the
+      * user and the limits in effect. NOT_FOUND for an unknown user. Permission: dictionary:settings:read.
+      */
+    override def getUserQuota(request: com.huponx.protogen.dictionary.v1.GetUserQuotaRequest): com.huponx.protogen.dictionary.v1.GetUserQuotaResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_USER_QUOTA, options, request)
+    }
+    
+    /** SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
+      * for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
+      */
+    override def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): com.huponx.protogen.dictionary.v1.SetUserQuotaResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SET_USER_QUOTA, options, request)
+    }
+    
+    /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
+      * Permission: dictionary:word:read.
+      */
+    override def getMyStorage(request: com.huponx.protogen.dictionary.v1.GetMyStorageRequest): com.huponx.protogen.dictionary.v1.GetMyStorageResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_MY_STORAGE, options, request)
     }
     
     /** GetMySettings returns the preferences of the user together with the settings of the system, which
@@ -570,6 +1248,13 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LIST_SAVED_WORDS, options, request)
     }
     
+    /** CheckSavedWords tells which of up to 100 words are in the list of the user, with their categories: the lookup
+      * marks the words that are saved without reading the whole list. Permission: dictionary:word:read.
+      */
+    override def checkSavedWords(request: com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_CHECK_SAVED_WORDS, options, request)
+    }
+    
     /** DeleteSavedWord removes a word of the list. Permission: dictionary:word:write.
       */
     override def deleteSavedWord(request: com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse] = {
@@ -594,12 +1279,88 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_CREATE_DECK_LINK, options, request)
     }
     
+    /** StartExport starts a job that packs a list that is too long for ExportAnki (EXPORT_USE_JOB) in parts,
+      * each a deck file of at most the size limit, and marks the words of a part exported when the part is
+      * done. The words are the new ones (or all, see scope), of the category or of no category. One job at a
+      * time per user: another one fails with EXPORT_JOB_ACTIVE. Permission: dictionary:word:write.
+      */
+    override def startExport(request: com.huponx.protogen.dictionary.v1.StartExportRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.StartExportResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_START_EXPORT, options, request)
+    }
+    
+    /** GetExport returns the state of a job and its parts so far. The id "latest" (or empty) is the job started
+      * last by the user. NOT_FOUND when there is none. Permission: dictionary:word:write.
+      */
+    override def getExport(request: com.huponx.protogen.dictionary.v1.GetExportRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetExportResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_EXPORT, options, request)
+    }
+    
+    /** CancelExport stops a queued or running job; the parts made so far stay downloadable until the job
+      * expires. Permission: dictionary:word:write.
+      */
+    override def cancelExport(request: com.huponx.protogen.dictionary.v1.CancelExportRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CancelExportResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_CANCEL_EXPORT, options, request)
+    }
+    
+    /** CreateExportPartLink makes the download link of a part of a job (the same anonymous download as
+      * CreateDeckLink, but it works many times until the job expires). Permission: dictionary:word:write.
+      */
+    override def createExportPartLink(request: com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_CREATE_EXPORT_PART_LINK, options, request)
+    }
+    
     /** DownloadDeck returns the deck of a link and burns the link (it works once). It is called by the
       * gateway for the anonymous download request, so it takes a service token (client credentials)
       * and refuses user tokens. NOT_FOUND when the token is unknown, used or expired.
       */
     override def downloadDeck(request: com.huponx.protogen.dictionary.v1.DownloadDeckRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DownloadDeckResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_DOWNLOAD_DECK, options, request)
+    }
+    
+    /** DownloadExportPart streams the part of an export job (see CreateExportPartLink) in chunks of at most 256 KiB, so
+      * a part larger than a gRPC message travels without being held whole: the first chunk carries filename and size,
+      * the next ones only data. Like DownloadDeck it takes a service token (the gateway). NOT_FOUND when the token is
+      * unknown or expired.
+      * buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
+      */
+    override def downloadExportPart(request: com.huponx.protogen.dictionary.v1.DownloadExportPartRequest, responseObserver: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.DownloadChunk]): _root_.scala.Unit = {
+      _root_.scalapb.grpc.ClientCalls.asyncServerStreamingCall(channel, METHOD_DOWNLOAD_EXPORT_PART, options, request, responseObserver)
+    }
+    
+    /** ListCategories lists the categories of the user (by name) with their word counts. Permission: dictionary:word:read.
+      */
+    override def listCategories(request: com.huponx.protogen.dictionary.v1.ListCategoriesRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListCategoriesResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LIST_CATEGORIES, options, request)
+    }
+    
+    /** CreateCategory adds a category. Fails with ALREADY_EXISTS (CATEGORY_EXISTS) for a name the user has (case-insensitive),
+      * RESOURCE_EXHAUSTED (CATEGORY_LIMIT_REACHED) at 50 categories and INVALID_ARGUMENT for a name of 0 or more
+      * than 40 characters. Permission: dictionary:word:write.
+      */
+    override def createCategory(request: com.huponx.protogen.dictionary.v1.CreateCategoryRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.CreateCategoryResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_CREATE_CATEGORY, options, request)
+    }
+    
+    /** RenameCategory renames one. NOT_FOUND for an unknown id, ALREADY_EXISTS (CATEGORY_EXISTS) for a name in use.
+      * Permission: dictionary:word:write.
+      */
+    override def renameCategory(request: com.huponx.protogen.dictionary.v1.RenameCategoryRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.RenameCategoryResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_RENAME_CATEGORY, options, request)
+    }
+    
+    /** DeleteCategory deletes the category only; its words stay in the list. NOT_FOUND for an unknown id.
+      * Permission: dictionary:word:write.
+      */
+    override def deleteCategory(request: com.huponx.protogen.dictionary.v1.DeleteCategoryRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.DeleteCategoryResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_DELETE_CATEGORY, options, request)
+    }
+    
+    /** UpdateWordCategories adds the words to some categories and takes them out of others, in one step. It does not
+      * touch the card or the exported flag. NOT_FOUND for an unknown category; words that are not in the list are
+      * ignored. Permission: dictionary:word:write.
+      */
+    override def updateWordCategories(request: com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_UPDATE_WORD_CATEGORIES, options, request)
     }
     
     /** RemoveExportedWords takes the exported words out of the list (the new ones stay). The dict app calls it
@@ -626,6 +1387,55 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_IMAGE, options, request)
     }
     
+    /** UploadAudio stores an audio file of a card (mp3, ogg, wav or m4a), as it is: it is not re-encoded. The
+      * card refers to it in audio_uk / audio_us as dictaud:&lt;id&gt;. The same file of the same user gets the same
+      * id. Fails with INVALID_ARGUMENT (AUDIO_UNSUPPORTED, AUDIO_TOO_LARGE), RESOURCE_EXHAUSTED
+      * (AUDIO_QUOTA_EXCEEDED) or FAILED_PRECONDITION (AUDIO_DISABLED, no files directory).
+      * Permission: dictionary:word:write.
+      */
+    override def uploadAudio(request: com.huponx.protogen.dictionary.v1.UploadAudioRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UploadAudioResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_UPLOAD_AUDIO, options, request)
+    }
+    
+    /** GetAudio returns an audio file of the user (NOT_FOUND for an unknown id or one of another user).
+      * Permission: dictionary:word:read.
+      */
+    override def getAudio(request: com.huponx.protogen.dictionary.v1.GetAudioRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetAudioResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_AUDIO, options, request)
+    }
+    
+    /** GetReviewQueue returns the cards to review: the ones that are due first (earliest due first), then new
+      * words (oldest first) up to the daily limit of the user, cut to limit cards. Only words still in the list.
+      * Permission: dictionary:word:read.
+      */
+    override def getReviewQueue(request: com.huponx.protogen.dictionary.v1.GetReviewQueueRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetReviewQueueResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_REVIEW_QUEUE, options, request)
+    }
+    
+    /** SubmitReview grades a card and schedules its next review (SM-2 or FSRS, as the user chose). NOT_FOUND when the word is not in the
+      * list, INVALID_ARGUMENT for an unknown grade. Permission: dictionary:word:read.
+      */
+    override def submitReview(request: com.huponx.protogen.dictionary.v1.SubmitReviewRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SubmitReviewResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SUBMIT_REVIEW, options, request)
+    }
+    
+    /** AddReviewBonus raises the daily limits of the review for the next 24 hours by the given numbers, without
+      * touching the settings; a grant while a bonus runs adds up and renews the 24 hours. INVALID_ARGUMENT when a number
+      * is negative or above 9999, or both are 0. Permission: dictionary:word:read.
+      */
+    override def addReviewBonus(request: com.huponx.protogen.dictionary.v1.AddReviewBonusRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.AddReviewBonusResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_ADD_REVIEW_BONUS, options, request)
+    }
+    
+    /** OptimizeReviewParameters fits the FSRS parameters to the review history of the user and stores them when they
+      * predict better than the defaults (restore_defaults = true forgets them instead). FAILED_PRECONDITION when there are too few
+      * reviews, RESOURCE_EXHAUSTED when called again within a minute or while another run is going.
+      * Permission: dictionary:word:read.
+      */
+    override def optimizeReviewParameters(request: com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_OPTIMIZE_REVIEW_PARAMETERS, options, request)
+    }
+    
     /** GetSettings returns the settings of the whole system. Permission: dictionary:settings:read.
       */
     override def getSettings(request: com.huponx.protogen.dictionary.v1.GetSettingsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetSettingsResponse] = {
@@ -638,6 +1448,27 @@ object DictionaryServiceGrpc {
       */
     override def updateSettings(request: com.huponx.protogen.dictionary.v1.UpdateSettingsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.UpdateSettingsResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_UPDATE_SETTINGS, options, request)
+    }
+    
+    /** GetUserQuota returns what a user stores (content, images, audio), the limits an administrator set for the
+      * user and the limits in effect. NOT_FOUND for an unknown user. Permission: dictionary:settings:read.
+      */
+    override def getUserQuota(request: com.huponx.protogen.dictionary.v1.GetUserQuotaRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetUserQuotaResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_USER_QUOTA, options, request)
+    }
+    
+    /** SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
+      * for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
+      */
+    override def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SET_USER_QUOTA, options, request)
+    }
+    
+    /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
+      * Permission: dictionary:word:read.
+      */
+    override def getMyStorage(request: com.huponx.protogen.dictionary.v1.GetMyStorageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.GetMyStorageResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_MY_STORAGE, options, request)
     }
     
     /** GetMySettings returns the preferences of the user together with the settings of the system, which

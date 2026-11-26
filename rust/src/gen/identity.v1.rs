@@ -208,6 +208,20 @@ pub struct SetUserDisabledRequest {
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SetUserDisabledResponse {
 }
+/// The account is disabled, loses its sessions, tokens, roles, MFA and settings, and its email and name are
+/// anonymized (the email can be registered again) at once; the data of the services (dictionary words, files) is
+/// deleted in the background and the row after a grace period. Idempotent: deleting a deleted user succeeds.
+/// FAILED_PRECONDITION for the user of the calling token and for the last user holding the admin role. There is no undo.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteUserRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeleteUserResponse {
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetUserPasswordRequest {
@@ -312,6 +326,71 @@ pub struct SetMyAvatarRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SetMyAvatarResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeMyPasswordRequest {
+    #[prost(string, tag="10")]
+    pub current_password: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub new_password: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ChangeMyPasswordResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetMyMfaRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetMyMfaResponse {
+    #[prost(bool, tag="10")]
+    pub enabled: bool,
+    /// MFA is required for the account: it cannot be turned off.
+    #[prost(bool, tag="20")]
+    pub forced: bool,
+    #[prost(int32, tag="30")]
+    pub recovery_codes_left: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct BeginMyMfaRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BeginMyMfaResponse {
+    /// A data URL of the QR code and the key to type.
+    #[prost(string, tag="10")]
+    pub qr: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub secret: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ConfirmMyMfaRequest {
+    #[prost(string, tag="10")]
+    pub code: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ConfirmMyMfaResponse {
+    #[prost(string, repeated, tag="10")]
+    pub recovery_codes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DisableMyMfaRequest {
+    #[prost(string, tag="10")]
+    pub password: ::prost::alloc::string::String,
+    /// A code of the authenticator app or a recovery code.
+    #[prost(string, tag="20")]
+    pub code: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DisableMyMfaResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

@@ -84,6 +84,15 @@ pub struct SavedWord {
     /// deletes it; saving it again makes it new.
     #[prost(bool, tag="60")]
     pub exported: bool,
+    /// Ids of the categories of the word.
+    #[prost(string, repeated, tag="70")]
+    pub category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// RFC 3339: when the word is due for its next review. Empty for a new word (never reviewed).
+    #[prost(string, tag="80")]
+    pub next_review_at: ::prost::alloc::string::String,
+    /// The word is in the learning steps (not yet graduated to the long intervals).
+    #[prost(bool, tag="90")]
+    pub learning: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -96,6 +105,9 @@ pub struct SaveWordRequest {
     pub audio_uk: ::prost::alloc::string::String,
     #[prost(string, tag="40")]
     pub audio_us: ::prost::alloc::string::String,
+    /// Categories to add the word to. Only adds: the ones the word already has stay.
+    #[prost(string, repeated, tag="50")]
+    pub category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -117,6 +129,13 @@ pub struct ListSavedWordsRequest {
     /// Empty = all words. At most 100 characters. The totals of the response ignore it.
     #[prost(string, tag="30")]
     pub query: ::prost::alloc::string::String,
+    /// Only the words of this category; empty = no filter. The id "uncategorized" means uncategorized = true (a query
+    /// string has no bool). The totals of the response follow the filter.
+    #[prost(string, tag="40")]
+    pub category_id: ::prost::alloc::string::String,
+    /// Only the words that have no category (category_id is then ignored).
+    #[prost(bool, tag="50")]
+    pub uncategorized: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -132,6 +151,10 @@ pub struct ListSavedWordsResponse {
     /// How many of them are new (never exported).
     #[prost(int32, tag="40")]
     pub new_total: i32,
+    /// The count is bounded so its cost does not grow with the list: when true, new_total (and total when a
+    /// category filter is set) is a lower bound, "10000+". The unfiltered total is always exact.
+    #[prost(bool, tag="50")]
+    pub counts_capped: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -152,6 +175,16 @@ pub struct ExportAnkiRequest {
     /// Default: new words only.
     #[prost(enumeration="ExportScope", tag="20")]
     pub scope: i32,
+    /// Only the words of this category; empty (with uncategorized false) = every word.
+    #[prost(string, tag="30")]
+    pub category_id: ::prost::alloc::string::String,
+    /// Only the words that have no category.
+    #[prost(bool, tag="40")]
+    pub uncategorized: bool,
+    /// Export exactly these words: category_id, uncategorized and scope are then ignored and exported words are
+    /// packed again. At most as many as the list may hold; words not in the list are skipped.
+    #[prost(string, repeated, tag="50")]
+    pub words: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -175,6 +208,16 @@ pub struct CreateDeckLinkRequest {
     /// Default: new words only.
     #[prost(enumeration="ExportScope", tag="20")]
     pub scope: i32,
+    /// Only the words of this category; empty (with uncategorized false) = every word.
+    #[prost(string, tag="30")]
+    pub category_id: ::prost::alloc::string::String,
+    /// Only the words that have no category.
+    #[prost(bool, tag="40")]
+    pub uncategorized: bool,
+    /// Export exactly these words: category_id, uncategorized and scope are then ignored and exported words are
+    /// packed again. At most as many as the list may hold; words not in the list are skipped.
+    #[prost(string, repeated, tag="50")]
+    pub words: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -220,6 +263,24 @@ pub struct DownloadDeckResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DownloadExportPartRequest {
+    #[prost(string, tag="10")]
+    pub token: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DownloadChunk {
+    /// Only in the first chunk.
+    #[prost(string, tag="10")]
+    pub filename: ::prost::alloc::string::String,
+    /// Size of the whole file in bytes; only in the first chunk.
+    #[prost(int64, tag="20")]
+    pub size: i64,
+    #[prost(bytes="vec", tag="30")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UploadImageRequest {
     /// MIME type the client claims; the service checks the bytes, not this.
     #[prost(string, tag="10")]
@@ -248,11 +309,260 @@ pub struct GetImageResponse {
     #[prost(bytes="vec", tag="20")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UploadAudioRequest {
+    /// MIME type the client claims; the service checks the bytes, not this.
+    #[prost(string, tag="10")]
+    pub content_type: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="20")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UploadAudioResponse {
+    /// UUID; the card refers to the audio as dictaud:<id>.
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAudioRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAudioResponse {
+    #[prost(string, tag="10")]
+    pub content_type: ::prost::alloc::string::String,
+    #[prost(bytes="vec", tag="20")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReviewCard {
+    #[prost(string, tag="10")]
+    pub word: ::prost::alloc::string::String,
+    /// The card as HTML, like SavedWord.content.
+    #[prost(string, tag="20")]
+    pub content: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub audio_uk: ::prost::alloc::string::String,
+    #[prost(string, tag="40")]
+    pub audio_us: ::prost::alloc::string::String,
+    /// The word was never reviewed.
+    #[prost(bool, tag="50")]
+    pub is_new: bool,
+    /// Seconds until the next review after Again, Hard, Good and Easy (in this order).
+    #[prost(int64, repeated, tag="60")]
+    pub grade_intervals_seconds: ::prost::alloc::vec::Vec<i64>,
+    /// The card is being learned (after Again or Hard); is_new stays for words never reviewed, the two exclude each other.
+    #[prost(bool, tag="70")]
+    pub learning: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetReviewQueueRequest {
+    /// Cards to return; 0 takes the default (50), at most 200.
+    #[prost(int32, tag="10")]
+    pub limit: i32,
+    /// Only the words of this category; empty (with uncategorized false) = every word; the id "uncategorized" means
+    /// uncategorized = true (a query string has no bool). The daily limit of new
+    /// words stays one for all categories.
+    #[prost(string, tag="20")]
+    pub category_id: ::prost::alloc::string::String,
+    /// Only the words that have no category.
+    #[prost(bool, tag="30")]
+    pub uncategorized: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetReviewQueueResponse {
+    #[prost(message, repeated, tag="10")]
+    pub cards: ::prost::alloc::vec::Vec<ReviewCard>,
+    /// Review cards (not in learning) due now, and new cards still allowed today, before the cut to limit.
+    #[prost(int32, tag="20")]
+    pub due_count: i32,
+    #[prost(int32, tag="30")]
+    pub new_count: i32,
+    /// Words in the list.
+    #[prost(int32, tag="40")]
+    pub total_count: i32,
+    /// RFC 3339: when the next card that is not due yet comes due; empty when there is none.
+    #[prost(string, tag="50")]
+    pub next_due_at: ::prost::alloc::string::String,
+    /// Cards being learned (after Again or Hard) that are due now.
+    #[prost(int32, tag="60")]
+    pub learning_count: i32,
+    /// New words, and due plus learning cards, that are left but held back by the daily limits (with the bonus).
+    #[prost(int32, tag="70")]
+    pub new_held: i32,
+    #[prost(int32, tag="80")]
+    pub due_held: i32,
+    /// A count reached its cap (10000) and is a lower bound: show "10000+".
+    #[prost(bool, tag="90")]
+    pub counts_capped: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AddReviewBonusRequest {
+    /// New words and review cards to add to today's limits (0 to 9999 each, at least one above 0).
+    #[prost(int32, tag="10")]
+    pub new_words: i32,
+    #[prost(int32, tag="20")]
+    pub reviews: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddReviewBonusResponse {
+    /// The whole bonus now in effect and when it ends (RFC 3339).
+    #[prost(int32, tag="10")]
+    pub extra_new: i32,
+    #[prost(int32, tag="20")]
+    pub extra_reviews: i32,
+    #[prost(string, tag="30")]
+    pub expires_at: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SubmitReviewRequest {
+    #[prost(string, tag="10")]
+    pub word: ::prost::alloc::string::String,
+    #[prost(enumeration="ReviewGrade", tag="20")]
+    pub grade: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SubmitReviewResponse {
+    /// RFC 3339.
+    #[prost(string, tag="10")]
+    pub due_at: ::prost::alloc::string::String,
+    #[prost(int64, tag="20")]
+    pub interval_seconds: i64,
+    /// Seconds until the next review after Again, Hard, Good and Easy of the card as it is now.
+    #[prost(int64, repeated, tag="30")]
+    pub grade_intervals_seconds: ::prost::alloc::vec::Vec<i64>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct OptimizeReviewParametersRequest {
+    /// Forget the fitted parameters (back to the defaults) instead of fitting.
+    #[prost(bool, tag="10")]
+    pub restore_defaults: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct OptimizeReviewParametersResponse {
+    /// The fitted parameters were stored (they beat the defaults on the held-out reviews).
+    #[prost(bool, tag="10")]
+    pub applied: bool,
+    /// Reviews the fit used.
+    #[prost(int32, tag="20")]
+    pub review_count: i32,
+    /// Log-loss of the default and of the fitted parameters on the held-out reviews (lower is better).
+    #[prost(float, tag="30")]
+    pub loss_default: f32,
+    #[prost(float, tag="40")]
+    pub loss_trained: f32,
+    /// RFC 3339; empty when never fitted.
+    #[prost(string, tag="50")]
+    pub trained_at: ::prost::alloc::string::String,
+    /// Why the parameters were not applied.
+    #[prost(string, tag="60")]
+    pub reason: ::prost::alloc::string::String,
+}
+/// Category groups saved words; a word may be in several.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Category {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+    /// Words of the list in the category, and how many are new (never exported).
+    #[prost(int32, tag="30")]
+    pub total: i32,
+    #[prost(int32, tag="40")]
+    pub new_total: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ListCategoriesRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListCategoriesResponse {
+    #[prost(message, repeated, tag="10")]
+    pub categories: ::prost::alloc::vec::Vec<Category>,
+    /// Words in no category (total, new): for the "Uncategorized" filter.
+    #[prost(int32, tag="20")]
+    pub uncategorized_total: i32,
+    #[prost(int32, tag="30")]
+    pub uncategorized_new_total: i32,
+    /// Every count is bounded: when true, at least one total or new_total is a lower bound, "10000+".
+    #[prost(bool, tag="40")]
+    pub counts_capped: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateCategoryRequest {
+    #[prost(string, tag="10")]
+    pub name: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateCategoryResponse {
+    #[prost(message, optional, tag="10")]
+    pub category: ::core::option::Option<Category>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RenameCategoryRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RenameCategoryResponse {
+    #[prost(message, optional, tag="10")]
+    pub category: ::core::option::Option<Category>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteCategoryRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeleteCategoryResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateWordCategoriesRequest {
+    #[prost(string, repeated, tag="10")]
+    pub words: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="20")]
+    pub add_category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="30")]
+    pub remove_category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UpdateWordCategoriesResponse {
+    /// Words that were in the list.
+    #[prost(int32, tag="10")]
+    pub updated: i32,
+}
 /// Settings of the whole system, edited by an administrator.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Settings {
-    /// Pending (not yet exported) words one user may keep.
+    /// Words one user may keep in the list, from 1 to 1,000,000 (the words that are exported and left the list do not
+    /// count). Long lists are listed, counted and exported in pages and parts, see ListSavedWords and StartExport.
     #[prost(int32, tag="10")]
     pub max_saved_words: i32,
     /// Anki deck download (ExportAnki).
@@ -272,6 +582,52 @@ pub struct Settings {
     /// Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
     #[prost(int32, tag="70")]
     pub exported_retention_hours: i32,
+    /// Categories one user may have (1 to 200, 50 until chosen); 0 from a service that predates it.
+    #[prost(int32, tag="80")]
+    pub max_categories: i32,
+    /// Longest category name, in characters (1 to 100, 40 until chosen); 0 from a service that predates it.
+    #[prost(int32, tag="90")]
+    pub max_category_name_length: i32,
+    /// Largest .apkg of a synchronous export (ExportAnki, CreateDeckLink), in bytes: from 64 KiB to
+    /// export_max_bytes_ceiling. 0 from a client that predates it keeps the current value.
+    #[prost(int32, tag="100")]
+    pub export_max_bytes: i32,
+    /// Largest part of an export job (StartExport), in bytes: from 64 KiB to export_part_max_bytes_ceiling.
+    /// 0 from a client that predates it keeps the current value.
+    #[prost(int32, tag="110")]
+    pub export_part_max_bytes: i32,
+    /// The ceilings of the two sizes above: the configuration of the deployment. Read only, ignored on update.
+    #[prost(int32, tag="120")]
+    pub export_max_bytes_ceiling: i32,
+    #[prost(int32, tag="130")]
+    pub export_part_max_bytes_ceiling: i32,
+    /// Most words a synchronous export (ExportAnki, CreateDeckLink) packs, from 1 to 5000; a longer list is refused
+    /// with EXPORT_USE_JOB and has to be exported in parts (StartExport). It bounds the memory of one request.
+    /// 0 from a client that predates it keeps the current value.
+    #[prost(int32, tag="140")]
+    pub export_sync_max_words: i32,
+    /// Largest content of one word, in bytes: from 1 KiB to max_content_bytes_ceiling (64 KiB until chosen).
+    /// 0 from a client that predates it keeps the current value.
+    #[prost(int32, tag="150")]
+    pub max_content_bytes: i32,
+    /// What one user may keep, in bytes: the content of the words in the list, the images and the audio files. Each
+    /// goes up to its ceiling; a user can have an own limit (SetUserQuota). 0 from a client that predates it keeps
+    /// the current value.
+    #[prost(int64, tag="160")]
+    pub content_user_quota: i64,
+    #[prost(int64, tag="170")]
+    pub image_user_quota: i64,
+    #[prost(int64, tag="180")]
+    pub audio_user_quota: i64,
+    /// The ceilings of the four sizes above: the configuration of the deployment. Read only, ignored on update.
+    #[prost(int32, tag="190")]
+    pub max_content_bytes_ceiling: i32,
+    #[prost(int64, tag="200")]
+    pub content_user_quota_ceiling: i64,
+    #[prost(int64, tag="210")]
+    pub image_user_quota_ceiling: i64,
+    #[prost(int64, tag="220")]
+    pub audio_user_quota_ceiling: i64,
 }
 /// Preferences of one user. They only narrow what Settings allows.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -301,6 +657,18 @@ pub struct UserSettings {
     /// keep their identity, so importing a deck again updates them (the deck name must stay the same).
     #[prost(bool, tag="80")]
     pub fresh_deck: bool,
+    /// New words the review shows per 24 hours (0 to 100; 0: no new words).
+    #[prost(int32, tag="90")]
+    pub review_new_per_day: i32,
+    /// Review cards (due and learning) the review shows per 24 hours (0 to 9999; 0: none).
+    #[prost(int32, tag="100")]
+    pub review_max_per_day: i32,
+    /// The algorithm that schedules the review: "sm2" or "fsrs"; empty is "sm2".
+    #[prost(string, tag="110")]
+    pub review_algorithm: ::prost::alloc::string::String,
+    /// FSRS: the chance (in percent, 70 to 97) to remember a card on the day it is due; 0 is 90.
+    #[prost(int32, tag="120")]
+    pub desired_retention: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -324,6 +692,78 @@ pub struct UpdateSettingsResponse {
     #[prost(message, optional, tag="10")]
     pub settings: ::core::option::Option<Settings>,
 }
+/// StorageQuota is a size in bytes per kind of storage.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct StorageQuota {
+    #[prost(int64, tag="10")]
+    pub content: i64,
+    #[prost(int64, tag="20")]
+    pub image: i64,
+    #[prost(int64, tag="30")]
+    pub audio: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetUserQuotaRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetUserQuotaResponse {
+    /// What the user stores now.
+    #[prost(message, optional, tag="10")]
+    pub used: ::core::option::Option<StorageQuota>,
+    /// The limits set for this user; 0 for a kind without one (the system setting applies).
+    #[prost(message, optional, tag="20")]
+    pub r#override: ::core::option::Option<StorageQuota>,
+    /// The limits in effect: the override, else the system setting.
+    #[prost(message, optional, tag="30")]
+    pub effective: ::core::option::Option<StorageQuota>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetUserQuotaRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+    /// The own limits of the user; 0 or absent removes the limit of that kind.
+    #[prost(message, optional, tag="20")]
+    pub quotas: ::core::option::Option<StorageQuota>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SetUserQuotaResponse {
+    #[prost(message, optional, tag="10")]
+    pub used: ::core::option::Option<StorageQuota>,
+    #[prost(message, optional, tag="20")]
+    pub r#override: ::core::option::Option<StorageQuota>,
+    #[prost(message, optional, tag="30")]
+    pub effective: ::core::option::Option<StorageQuota>,
+}
+/// StorageUsage is what is stored and the limit of it, in bytes.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct StorageUsage {
+    #[prost(int64, tag="10")]
+    pub used: i64,
+    #[prost(int64, tag="20")]
+    pub limit: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetMyStorageRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetMyStorageResponse {
+    #[prost(message, optional, tag="10")]
+    pub content: ::core::option::Option<StorageUsage>,
+    #[prost(message, optional, tag="20")]
+    pub image: ::core::option::Option<StorageUsage>,
+    #[prost(message, optional, tag="30")]
+    pub audio: ::core::option::Option<StorageUsage>,
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetMySettingsRequest {
@@ -335,6 +775,12 @@ pub struct GetMySettingsResponse {
     pub user: ::core::option::Option<UserSettings>,
     #[prost(message, optional, tag="20")]
     pub system: ::core::option::Option<Settings>,
+    /// RFC 3339: when the FSRS parameters of the user were last fitted and applied; empty when they are the defaults.
+    #[prost(string, tag="30")]
+    pub fsrs_trained_at: ::prost::alloc::string::String,
+    /// Reviews that fit used.
+    #[prost(int32, tag="40")]
+    pub fsrs_review_count: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -349,6 +795,141 @@ pub struct UpdateMySettingsResponse {
     pub user: ::core::option::Option<UserSettings>,
     #[prost(message, optional, tag="20")]
     pub system: ::core::option::Option<Settings>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StartExportRequest {
+    #[prost(string, tag="10")]
+    pub deck_name: ::prost::alloc::string::String,
+    #[prost(enumeration="ExportScope", tag="20")]
+    pub scope: i32,
+    /// Only the words of this category; the id "uncategorized" (or uncategorized = true) keeps the words in none.
+    #[prost(string, tag="30")]
+    pub category_id: ::prost::alloc::string::String,
+    #[prost(bool, tag="40")]
+    pub uncategorized: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StartExportResponse {
+    #[prost(message, optional, tag="10")]
+    pub job: ::core::option::Option<ExportJob>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetExportRequest {
+    /// A job id, or "latest" (also empty).
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetExportResponse {
+    #[prost(message, optional, tag="10")]
+    pub job: ::core::option::Option<ExportJob>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CancelExportRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CancelExportResponse {
+    #[prost(message, optional, tag="10")]
+    pub job: ::core::option::Option<ExportJob>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateExportPartLinkRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    /// The part number, from 1.
+    #[prost(int32, tag="20")]
+    pub n: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateExportPartLinkResponse {
+    #[prost(string, tag="10")]
+    pub token: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub filename: ::prost::alloc::string::String,
+    #[prost(int32, tag="30")]
+    pub word_count: i32,
+    /// RFC 3339: when the link stops working (the job expires).
+    #[prost(string, tag="40")]
+    pub expires_at: ::prost::alloc::string::String,
+}
+/// ExportJob is the state of an export job.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportJob {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    /// queued, running, done, failed or cancelled.
+    #[prost(string, tag="20")]
+    pub status: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub deck_name: ::prost::alloc::string::String,
+    /// Words the job packs (known once it runs; 0 before), and how many it has packed.
+    #[prost(int32, tag="40")]
+    pub total: i32,
+    #[prost(int32, tag="50")]
+    pub built: i32,
+    /// Words of the part being built that are done so far (an estimate, 0 between parts); built + building is the
+    /// progress to show.
+    #[prost(int32, tag="110")]
+    pub building: i32,
+    #[prost(message, repeated, tag="60")]
+    pub parts: ::prost::alloc::vec::Vec<ExportPart>,
+    /// Why a failed job failed.
+    #[prost(string, tag="70")]
+    pub error: ::prost::alloc::string::String,
+    #[prost(string, tag="80")]
+    pub created_at: ::prost::alloc::string::String,
+    #[prost(string, tag="90")]
+    pub finished_at: ::prost::alloc::string::String,
+    /// When the job and its files are deleted.
+    #[prost(string, tag="100")]
+    pub expires_at: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportPart {
+    /// From 1.
+    #[prost(int32, tag="10")]
+    pub n: i32,
+    #[prost(string, tag="20")]
+    pub filename: ::prost::alloc::string::String,
+    #[prost(int32, tag="30")]
+    pub word_count: i32,
+    /// Bytes of the file.
+    #[prost(int32, tag="40")]
+    pub size: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckSavedWordsRequest {
+    /// At most 100; they are normalized like the words of SaveWord, so a word that is not valid is simply not saved.
+    #[prost(string, repeated, tag="10")]
+    pub words: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckSavedWordsResponse {
+    /// The words of the request that are in the list (normalized), each with the ids of its categories.
+    #[prost(message, repeated, tag="10")]
+    pub words: ::prost::alloc::vec::Vec<SavedWordRef>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SavedWordRef {
+    #[prost(string, tag="10")]
+    pub word: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="20")]
+    pub category_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Dictionary selects the source of a lookup.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -411,6 +992,41 @@ impl ExportScope {
             "EXPORT_SCOPE_UNSPECIFIED" => Some(Self::Unspecified),
             "EXPORT_SCOPE_NEW" => Some(Self::New),
             "EXPORT_SCOPE_ALL" => Some(Self::All),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum ReviewGrade {
+    Unspecified = 0,
+    Again = 1,
+    Hard = 2,
+    Good = 3,
+    Easy = 4,
+}
+impl ReviewGrade {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            ReviewGrade::Unspecified => "REVIEW_GRADE_UNSPECIFIED",
+            ReviewGrade::Again => "REVIEW_GRADE_AGAIN",
+            ReviewGrade::Hard => "REVIEW_GRADE_HARD",
+            ReviewGrade::Good => "REVIEW_GRADE_GOOD",
+            ReviewGrade::Easy => "REVIEW_GRADE_EASY",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "REVIEW_GRADE_UNSPECIFIED" => Some(Self::Unspecified),
+            "REVIEW_GRADE_AGAIN" => Some(Self::Again),
+            "REVIEW_GRADE_HARD" => Some(Self::Hard),
+            "REVIEW_GRADE_GOOD" => Some(Self::Good),
+            "REVIEW_GRADE_EASY" => Some(Self::Easy),
             _ => None,
         }
     }

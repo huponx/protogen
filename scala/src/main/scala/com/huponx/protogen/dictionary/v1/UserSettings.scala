@@ -21,6 +21,14 @@ package com.huponx.protogen.dictionary.v1
   * @param freshDeck
   *   Every export is a new deck for Anki: importing it again adds copies of the cards. Off (the default): the cards
   *   keep their identity, so importing a deck again updates them (the deck name must stay the same).
+  * @param reviewNewPerDay
+  *   New words the review shows per 24 hours (0 to 100; 0: no new words).
+  * @param reviewMaxPerDay
+  *   Review cards (due and learning) the review shows per 24 hours (0 to 9999; 0: none).
+  * @param reviewAlgorithm
+  *   The algorithm that schedules the review: "sm2" or "fsrs"; empty is "sm2".
+  * @param desiredRetention
+  *   FSRS: the chance (in percent, 70 to 97) to remember a card on the day it is due; 0 is 90.
   */
 @SerialVersionUID(0L)
 final case class UserSettings(
@@ -32,6 +40,10 @@ final case class UserSettings(
     removeAfterExport: _root_.scala.Boolean = false,
     removeAcknowledged: _root_.scala.Boolean = false,
     freshDeck: _root_.scala.Boolean = false,
+    reviewNewPerDay: _root_.scala.Int = 0,
+    reviewMaxPerDay: _root_.scala.Int = 0,
+    reviewAlgorithm: _root_.scala.Predef.String = "",
+    desiredRetention: _root_.scala.Int = 0,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[UserSettings] {
     @transient
@@ -92,6 +104,34 @@ final case class UserSettings(
         val __value = freshDeck
         if (__value != false) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(80, __value)
+        }
+      };
+      
+      {
+        val __value = reviewNewPerDay
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(90, __value)
+        }
+      };
+      
+      {
+        val __value = reviewMaxPerDay
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(100, __value)
+        }
+      };
+      
+      {
+        val __value = reviewAlgorithm
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(110, __value)
+        }
+      };
+      
+      {
+        val __value = desiredRetention
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(120, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -155,6 +195,30 @@ final case class UserSettings(
           _output__.writeBool(80, __v)
         }
       };
+      {
+        val __v = reviewNewPerDay
+        if (__v != 0) {
+          _output__.writeInt32(90, __v)
+        }
+      };
+      {
+        val __v = reviewMaxPerDay
+        if (__v != 0) {
+          _output__.writeInt32(100, __v)
+        }
+      };
+      {
+        val __v = reviewAlgorithm
+        if (!__v.isEmpty) {
+          _output__.writeString(110, __v)
+        }
+      };
+      {
+        val __v = desiredRetention
+        if (__v != 0) {
+          _output__.writeInt32(120, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withEnglishEnabled(__v: _root_.scala.Boolean): UserSettings = copy(englishEnabled = __v)
@@ -165,6 +229,10 @@ final case class UserSettings(
     def withRemoveAfterExport(__v: _root_.scala.Boolean): UserSettings = copy(removeAfterExport = __v)
     def withRemoveAcknowledged(__v: _root_.scala.Boolean): UserSettings = copy(removeAcknowledged = __v)
     def withFreshDeck(__v: _root_.scala.Boolean): UserSettings = copy(freshDeck = __v)
+    def withReviewNewPerDay(__v: _root_.scala.Int): UserSettings = copy(reviewNewPerDay = __v)
+    def withReviewMaxPerDay(__v: _root_.scala.Int): UserSettings = copy(reviewMaxPerDay = __v)
+    def withReviewAlgorithm(__v: _root_.scala.Predef.String): UserSettings = copy(reviewAlgorithm = __v)
+    def withDesiredRetention(__v: _root_.scala.Int): UserSettings = copy(desiredRetention = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -201,6 +269,22 @@ final case class UserSettings(
           val __t = freshDeck
           if (__t != false) __t else null
         }
+        case 90 => {
+          val __t = reviewNewPerDay
+          if (__t != 0) __t else null
+        }
+        case 100 => {
+          val __t = reviewMaxPerDay
+          if (__t != 0) __t else null
+        }
+        case 110 => {
+          val __t = reviewAlgorithm
+          if (__t != "") __t else null
+        }
+        case 120 => {
+          val __t = desiredRetention
+          if (__t != 0) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -214,6 +298,10 @@ final case class UserSettings(
         case 60 => _root_.scalapb.descriptors.PBoolean(removeAfterExport)
         case 70 => _root_.scalapb.descriptors.PBoolean(removeAcknowledged)
         case 80 => _root_.scalapb.descriptors.PBoolean(freshDeck)
+        case 90 => _root_.scalapb.descriptors.PInt(reviewNewPerDay)
+        case 100 => _root_.scalapb.descriptors.PInt(reviewMaxPerDay)
+        case 110 => _root_.scalapb.descriptors.PString(reviewAlgorithm)
+        case 120 => _root_.scalapb.descriptors.PInt(desiredRetention)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -232,6 +320,10 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     var __removeAfterExport: _root_.scala.Boolean = false
     var __removeAcknowledged: _root_.scala.Boolean = false
     var __freshDeck: _root_.scala.Boolean = false
+    var __reviewNewPerDay: _root_.scala.Int = 0
+    var __reviewMaxPerDay: _root_.scala.Int = 0
+    var __reviewAlgorithm: _root_.scala.Predef.String = ""
+    var __desiredRetention: _root_.scala.Int = 0
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -254,6 +346,14 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
           __removeAcknowledged = _input__.readBool()
         case 640 =>
           __freshDeck = _input__.readBool()
+        case 720 =>
+          __reviewNewPerDay = _input__.readInt32()
+        case 800 =>
+          __reviewMaxPerDay = _input__.readInt32()
+        case 882 =>
+          __reviewAlgorithm = _input__.readStringRequireUtf8()
+        case 960 =>
+          __desiredRetention = _input__.readInt32()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -270,6 +370,10 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
         removeAfterExport = __removeAfterExport,
         removeAcknowledged = __removeAcknowledged,
         freshDeck = __freshDeck,
+        reviewNewPerDay = __reviewNewPerDay,
+        reviewMaxPerDay = __reviewMaxPerDay,
+        reviewAlgorithm = __reviewAlgorithm,
+        desiredRetention = __desiredRetention,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -284,12 +388,16 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
         maxLookupWords = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Int]).getOrElse(0),
         removeAfterExport = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         removeAcknowledged = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        freshDeck = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        freshDeck = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        reviewNewPerDay = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        reviewMaxPerDay = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        reviewAlgorithm = __fieldsMap.get(scalaDescriptor.findFieldByNumber(110).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        desiredRetention = __fieldsMap.get(scalaDescriptor.findFieldByNumber(120).get).map(_.as[_root_.scala.Int]).getOrElse(0)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(26)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(26)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(52)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(52)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
@@ -305,7 +413,11 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     maxLookupWords = 0,
     removeAfterExport = false,
     removeAcknowledged = false,
-    freshDeck = false
+    freshDeck = false,
+    reviewNewPerDay = 0,
+    reviewMaxPerDay = 0,
+    reviewAlgorithm = "",
+    desiredRetention = 0
   )
   implicit class UserSettingsLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings](_l) {
     def englishEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishEnabled)((c_, f_) => c_.copy(englishEnabled = f_))
@@ -316,6 +428,10 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     def removeAfterExport: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.removeAfterExport)((c_, f_) => c_.copy(removeAfterExport = f_))
     def removeAcknowledged: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.removeAcknowledged)((c_, f_) => c_.copy(removeAcknowledged = f_))
     def freshDeck: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.freshDeck)((c_, f_) => c_.copy(freshDeck = f_))
+    def reviewNewPerDay: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.reviewNewPerDay)((c_, f_) => c_.copy(reviewNewPerDay = f_))
+    def reviewMaxPerDay: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.reviewMaxPerDay)((c_, f_) => c_.copy(reviewMaxPerDay = f_))
+    def reviewAlgorithm: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.reviewAlgorithm)((c_, f_) => c_.copy(reviewAlgorithm = f_))
+    def desiredRetention: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.desiredRetention)((c_, f_) => c_.copy(desiredRetention = f_))
   }
   final val ENGLISH_ENABLED_FIELD_NUMBER = 10
   final val ENGLISH_VI_ENABLED_FIELD_NUMBER = 20
@@ -325,6 +441,10 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
   final val REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60
   final val REMOVE_ACKNOWLEDGED_FIELD_NUMBER = 70
   final val FRESH_DECK_FIELD_NUMBER = 80
+  final val REVIEW_NEW_PER_DAY_FIELD_NUMBER = 90
+  final val REVIEW_MAX_PER_DAY_FIELD_NUMBER = 100
+  final val REVIEW_ALGORITHM_FIELD_NUMBER = 110
+  final val DESIRED_RETENTION_FIELD_NUMBER = 120
   def of(
     englishEnabled: _root_.scala.Boolean,
     englishViEnabled: _root_.scala.Boolean,
@@ -333,7 +453,11 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     maxLookupWords: _root_.scala.Int,
     removeAfterExport: _root_.scala.Boolean,
     removeAcknowledged: _root_.scala.Boolean,
-    freshDeck: _root_.scala.Boolean
+    freshDeck: _root_.scala.Boolean,
+    reviewNewPerDay: _root_.scala.Int,
+    reviewMaxPerDay: _root_.scala.Int,
+    reviewAlgorithm: _root_.scala.Predef.String,
+    desiredRetention: _root_.scala.Int
   ): _root_.com.huponx.protogen.dictionary.v1.UserSettings = _root_.com.huponx.protogen.dictionary.v1.UserSettings(
     englishEnabled,
     englishViEnabled,
@@ -342,7 +466,11 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     maxLookupWords,
     removeAfterExport,
     removeAcknowledged,
-    freshDeck
+    freshDeck,
+    reviewNewPerDay,
+    reviewMaxPerDay,
+    reviewAlgorithm,
+    desiredRetention
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.UserSettings])
 }

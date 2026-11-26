@@ -9,11 +9,21 @@ package com.huponx.protogen.dictionary.v1
   *   Default "My Words".
   * @param scope
   *   Default: new words only.
+  * @param categoryId
+  *   Only the words of this category; empty (with uncategorized false) = every word.
+  * @param uncategorized
+  *   Only the words that have no category.
+  * @param words
+  *   Export exactly these words: category_id, uncategorized and scope are then ignored and exported words are
+  *   packed again. At most as many as the list may hold; words not in the list are skipped.
   */
 @SerialVersionUID(0L)
 final case class ExportAnkiRequest(
     deckName: _root_.scala.Predef.String = "",
     scope: com.huponx.protogen.dictionary.v1.ExportScope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED,
+    categoryId: _root_.scala.Predef.String = "",
+    uncategorized: _root_.scala.Boolean = false,
+    words: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ExportAnkiRequest] {
     @transient
@@ -34,6 +44,24 @@ final case class ExportAnkiRequest(
           __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(20, __value)
         }
       };
+      
+      {
+        val __value = categoryId
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
+        }
+      };
+      
+      {
+        val __value = uncategorized
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(40, __value)
+        }
+      };
+      words.foreach { __item =>
+        val __value = __item
+        __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(50, __value)
+      }
       __size += unknownFields.serializedSize
       __size
     }
@@ -59,10 +87,32 @@ final case class ExportAnkiRequest(
           _output__.writeEnum(20, __v)
         }
       };
+      {
+        val __v = categoryId
+        if (!__v.isEmpty) {
+          _output__.writeString(30, __v)
+        }
+      };
+      {
+        val __v = uncategorized
+        if (__v != false) {
+          _output__.writeBool(40, __v)
+        }
+      };
+      words.foreach { __v =>
+        val __m = __v
+        _output__.writeString(50, __m)
+      };
       unknownFields.writeTo(_output__)
     }
     def withDeckName(__v: _root_.scala.Predef.String): ExportAnkiRequest = copy(deckName = __v)
     def withScope(__v: com.huponx.protogen.dictionary.v1.ExportScope): ExportAnkiRequest = copy(scope = __v)
+    def withCategoryId(__v: _root_.scala.Predef.String): ExportAnkiRequest = copy(categoryId = __v)
+    def withUncategorized(__v: _root_.scala.Boolean): ExportAnkiRequest = copy(uncategorized = __v)
+    def clearWords = copy(words = _root_.scala.Seq.empty)
+    def addWords(__vs: _root_.scala.Predef.String *): ExportAnkiRequest = addAllWords(__vs)
+    def addAllWords(__vs: Iterable[_root_.scala.Predef.String]): ExportAnkiRequest = copy(words = words ++ __vs)
+    def withWords(__v: _root_.scala.Seq[_root_.scala.Predef.String]): ExportAnkiRequest = copy(words = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -75,6 +125,15 @@ final case class ExportAnkiRequest(
           val __t = scope.javaValueDescriptor
           if (__t.getNumber() != 0) __t else null
         }
+        case 30 => {
+          val __t = categoryId
+          if (__t != "") __t else null
+        }
+        case 40 => {
+          val __t = uncategorized
+          if (__t != false) __t else null
+        }
+        case 50 => words
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -82,6 +141,9 @@ final case class ExportAnkiRequest(
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(deckName)
         case 20 => _root_.scalapb.descriptors.PEnum(scope.scalaValueDescriptor)
+        case 30 => _root_.scalapb.descriptors.PString(categoryId)
+        case 40 => _root_.scalapb.descriptors.PBoolean(uncategorized)
+        case 50 => _root_.scalapb.descriptors.PRepeated(words.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -94,6 +156,9 @@ object ExportAnkiRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.ExportAnkiRequest = {
     var __deckName: _root_.scala.Predef.String = ""
     var __scope: com.huponx.protogen.dictionary.v1.ExportScope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED
+    var __categoryId: _root_.scala.Predef.String = ""
+    var __uncategorized: _root_.scala.Boolean = false
+    val __words: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -104,6 +169,12 @@ object ExportAnkiRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
           __deckName = _input__.readStringRequireUtf8()
         case 160 =>
           __scope = com.huponx.protogen.dictionary.v1.ExportScope.fromValue(_input__.readEnum())
+        case 242 =>
+          __categoryId = _input__.readStringRequireUtf8()
+        case 320 =>
+          __uncategorized = _input__.readBool()
+        case 402 =>
+          __words += _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -114,6 +185,9 @@ object ExportAnkiRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
     com.huponx.protogen.dictionary.v1.ExportAnkiRequest(
         deckName = __deckName,
         scope = __scope,
+        categoryId = __categoryId,
+        uncategorized = __uncategorized,
+        words = __words.result(),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -122,7 +196,10 @@ object ExportAnkiRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.ExportAnkiRequest(
         deckName = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        scope = com.huponx.protogen.dictionary.v1.ExportScope.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED.scalaValueDescriptor).number)
+        scope = com.huponx.protogen.dictionary.v1.ExportScope.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED.scalaValueDescriptor).number),
+        categoryId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        uncategorized = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        words = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -137,20 +214,35 @@ object ExportAnkiRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
   }
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.ExportAnkiRequest(
     deckName = "",
-    scope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED
+    scope = com.huponx.protogen.dictionary.v1.ExportScope.EXPORT_SCOPE_UNSPECIFIED,
+    categoryId = "",
+    uncategorized = false,
+    words = _root_.scala.Seq.empty
   )
   implicit class ExportAnkiRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ExportAnkiRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.ExportAnkiRequest](_l) {
     def deckName: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.deckName)((c_, f_) => c_.copy(deckName = f_))
     def scope: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ExportScope] = field(_.scope)((c_, f_) => c_.copy(scope = f_))
+    def categoryId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.categoryId)((c_, f_) => c_.copy(categoryId = f_))
+    def uncategorized: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.uncategorized)((c_, f_) => c_.copy(uncategorized = f_))
+    def words: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.words)((c_, f_) => c_.copy(words = f_))
   }
   final val DECK_NAME_FIELD_NUMBER = 10
   final val SCOPE_FIELD_NUMBER = 20
+  final val CATEGORY_ID_FIELD_NUMBER = 30
+  final val UNCATEGORIZED_FIELD_NUMBER = 40
+  final val WORDS_FIELD_NUMBER = 50
   def of(
     deckName: _root_.scala.Predef.String,
-    scope: com.huponx.protogen.dictionary.v1.ExportScope
+    scope: com.huponx.protogen.dictionary.v1.ExportScope,
+    categoryId: _root_.scala.Predef.String,
+    uncategorized: _root_.scala.Boolean,
+    words: _root_.scala.Seq[_root_.scala.Predef.String]
   ): _root_.com.huponx.protogen.dictionary.v1.ExportAnkiRequest = _root_.com.huponx.protogen.dictionary.v1.ExportAnkiRequest(
     deckName,
-    scope
+    scope,
+    categoryId,
+    uncategorized,
+    words
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.ExportAnkiRequest])
 }

@@ -64,8 +64,8 @@ object GetMeRequest extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(27)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(27)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(29)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(29)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)

@@ -8,7 +8,8 @@ package com.huponx.protogen.dictionary.v1
 /** Settings of the whole system, edited by an administrator.
   *
   * @param maxSavedWords
-  *   Pending (not yet exported) words one user may keep.
+  *   Words one user may keep in the list, from 1 to 1,000,000 (the words that are exported and left the list do not
+  *   count). Long lists are listed, counted and exported in pages and parts, see ListSavedWords and StartExport.
   * @param allowExportDeck
   *   Anki deck download (ExportAnki).
   * @param allowExportLink
@@ -19,6 +20,31 @@ package com.huponx.protogen.dictionary.v1
   *   An export takes the words out of the list (a user can still turn it off for themself).
   * @param exportedRetentionHours
   *   Hours a word that left the list is kept before the cleanup deletes it (1 to 8760).
+  * @param maxCategories
+  *   Categories one user may have (1 to 200, 50 until chosen); 0 from a service that predates it.
+  * @param maxCategoryNameLength
+  *   Longest category name, in characters (1 to 100, 40 until chosen); 0 from a service that predates it.
+  * @param exportMaxBytes
+  *   Largest .apkg of a synchronous export (ExportAnki, CreateDeckLink), in bytes: from 64 KiB to
+  *   export_max_bytes_ceiling. 0 from a client that predates it keeps the current value.
+  * @param exportPartMaxBytes
+  *   Largest part of an export job (StartExport), in bytes: from 64 KiB to export_part_max_bytes_ceiling.
+  *   0 from a client that predates it keeps the current value.
+  * @param exportMaxBytesCeiling
+  *   The ceilings of the two sizes above: the configuration of the deployment. Read only, ignored on update.
+  * @param exportSyncMaxWords
+  *   Most words a synchronous export (ExportAnki, CreateDeckLink) packs, from 1 to 5000; a longer list is refused
+  *   with EXPORT_USE_JOB and has to be exported in parts (StartExport). It bounds the memory of one request.
+  *   0 from a client that predates it keeps the current value.
+  * @param maxContentBytes
+  *   Largest content of one word, in bytes: from 1 KiB to max_content_bytes_ceiling (64 KiB until chosen).
+  *   0 from a client that predates it keeps the current value.
+  * @param contentUserQuota
+  *   What one user may keep, in bytes: the content of the words in the list, the images and the audio files. Each
+  *   goes up to its ceiling; a user can have an own limit (SetUserQuota). 0 from a client that predates it keeps
+  *   the current value.
+  * @param maxContentBytesCeiling
+  *   The ceilings of the four sizes above: the configuration of the deployment. Read only, ignored on update.
   */
 @SerialVersionUID(0L)
 final case class Settings(
@@ -29,6 +55,21 @@ final case class Settings(
     englishViEnabled: _root_.scala.Boolean = false,
     removeAfterExport: _root_.scala.Boolean = false,
     exportedRetentionHours: _root_.scala.Int = 0,
+    maxCategories: _root_.scala.Int = 0,
+    maxCategoryNameLength: _root_.scala.Int = 0,
+    exportMaxBytes: _root_.scala.Int = 0,
+    exportPartMaxBytes: _root_.scala.Int = 0,
+    exportMaxBytesCeiling: _root_.scala.Int = 0,
+    exportPartMaxBytesCeiling: _root_.scala.Int = 0,
+    exportSyncMaxWords: _root_.scala.Int = 0,
+    maxContentBytes: _root_.scala.Int = 0,
+    contentUserQuota: _root_.scala.Long = 0L,
+    imageUserQuota: _root_.scala.Long = 0L,
+    audioUserQuota: _root_.scala.Long = 0L,
+    maxContentBytesCeiling: _root_.scala.Int = 0,
+    contentUserQuotaCeiling: _root_.scala.Long = 0L,
+    imageUserQuotaCeiling: _root_.scala.Long = 0L,
+    audioUserQuotaCeiling: _root_.scala.Long = 0L,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[Settings] {
     @transient
@@ -82,6 +123,111 @@ final case class Settings(
         val __value = exportedRetentionHours
         if (__value != 0) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(70, __value)
+        }
+      };
+      
+      {
+        val __value = maxCategories
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(80, __value)
+        }
+      };
+      
+      {
+        val __value = maxCategoryNameLength
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(90, __value)
+        }
+      };
+      
+      {
+        val __value = exportMaxBytes
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(100, __value)
+        }
+      };
+      
+      {
+        val __value = exportPartMaxBytes
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(110, __value)
+        }
+      };
+      
+      {
+        val __value = exportMaxBytesCeiling
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(120, __value)
+        }
+      };
+      
+      {
+        val __value = exportPartMaxBytesCeiling
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(130, __value)
+        }
+      };
+      
+      {
+        val __value = exportSyncMaxWords
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(140, __value)
+        }
+      };
+      
+      {
+        val __value = maxContentBytes
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(150, __value)
+        }
+      };
+      
+      {
+        val __value = contentUserQuota
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(160, __value)
+        }
+      };
+      
+      {
+        val __value = imageUserQuota
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(170, __value)
+        }
+      };
+      
+      {
+        val __value = audioUserQuota
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(180, __value)
+        }
+      };
+      
+      {
+        val __value = maxContentBytesCeiling
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(190, __value)
+        }
+      };
+      
+      {
+        val __value = contentUserQuotaCeiling
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(200, __value)
+        }
+      };
+      
+      {
+        val __value = imageUserQuotaCeiling
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(210, __value)
+        }
+      };
+      
+      {
+        val __value = audioUserQuotaCeiling
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(220, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -139,6 +285,96 @@ final case class Settings(
           _output__.writeInt32(70, __v)
         }
       };
+      {
+        val __v = maxCategories
+        if (__v != 0) {
+          _output__.writeInt32(80, __v)
+        }
+      };
+      {
+        val __v = maxCategoryNameLength
+        if (__v != 0) {
+          _output__.writeInt32(90, __v)
+        }
+      };
+      {
+        val __v = exportMaxBytes
+        if (__v != 0) {
+          _output__.writeInt32(100, __v)
+        }
+      };
+      {
+        val __v = exportPartMaxBytes
+        if (__v != 0) {
+          _output__.writeInt32(110, __v)
+        }
+      };
+      {
+        val __v = exportMaxBytesCeiling
+        if (__v != 0) {
+          _output__.writeInt32(120, __v)
+        }
+      };
+      {
+        val __v = exportPartMaxBytesCeiling
+        if (__v != 0) {
+          _output__.writeInt32(130, __v)
+        }
+      };
+      {
+        val __v = exportSyncMaxWords
+        if (__v != 0) {
+          _output__.writeInt32(140, __v)
+        }
+      };
+      {
+        val __v = maxContentBytes
+        if (__v != 0) {
+          _output__.writeInt32(150, __v)
+        }
+      };
+      {
+        val __v = contentUserQuota
+        if (__v != 0L) {
+          _output__.writeInt64(160, __v)
+        }
+      };
+      {
+        val __v = imageUserQuota
+        if (__v != 0L) {
+          _output__.writeInt64(170, __v)
+        }
+      };
+      {
+        val __v = audioUserQuota
+        if (__v != 0L) {
+          _output__.writeInt64(180, __v)
+        }
+      };
+      {
+        val __v = maxContentBytesCeiling
+        if (__v != 0) {
+          _output__.writeInt32(190, __v)
+        }
+      };
+      {
+        val __v = contentUserQuotaCeiling
+        if (__v != 0L) {
+          _output__.writeInt64(200, __v)
+        }
+      };
+      {
+        val __v = imageUserQuotaCeiling
+        if (__v != 0L) {
+          _output__.writeInt64(210, __v)
+        }
+      };
+      {
+        val __v = audioUserQuotaCeiling
+        if (__v != 0L) {
+          _output__.writeInt64(220, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withMaxSavedWords(__v: _root_.scala.Int): Settings = copy(maxSavedWords = __v)
@@ -148,6 +384,21 @@ final case class Settings(
     def withEnglishViEnabled(__v: _root_.scala.Boolean): Settings = copy(englishViEnabled = __v)
     def withRemoveAfterExport(__v: _root_.scala.Boolean): Settings = copy(removeAfterExport = __v)
     def withExportedRetentionHours(__v: _root_.scala.Int): Settings = copy(exportedRetentionHours = __v)
+    def withMaxCategories(__v: _root_.scala.Int): Settings = copy(maxCategories = __v)
+    def withMaxCategoryNameLength(__v: _root_.scala.Int): Settings = copy(maxCategoryNameLength = __v)
+    def withExportMaxBytes(__v: _root_.scala.Int): Settings = copy(exportMaxBytes = __v)
+    def withExportPartMaxBytes(__v: _root_.scala.Int): Settings = copy(exportPartMaxBytes = __v)
+    def withExportMaxBytesCeiling(__v: _root_.scala.Int): Settings = copy(exportMaxBytesCeiling = __v)
+    def withExportPartMaxBytesCeiling(__v: _root_.scala.Int): Settings = copy(exportPartMaxBytesCeiling = __v)
+    def withExportSyncMaxWords(__v: _root_.scala.Int): Settings = copy(exportSyncMaxWords = __v)
+    def withMaxContentBytes(__v: _root_.scala.Int): Settings = copy(maxContentBytes = __v)
+    def withContentUserQuota(__v: _root_.scala.Long): Settings = copy(contentUserQuota = __v)
+    def withImageUserQuota(__v: _root_.scala.Long): Settings = copy(imageUserQuota = __v)
+    def withAudioUserQuota(__v: _root_.scala.Long): Settings = copy(audioUserQuota = __v)
+    def withMaxContentBytesCeiling(__v: _root_.scala.Int): Settings = copy(maxContentBytesCeiling = __v)
+    def withContentUserQuotaCeiling(__v: _root_.scala.Long): Settings = copy(contentUserQuotaCeiling = __v)
+    def withImageUserQuotaCeiling(__v: _root_.scala.Long): Settings = copy(imageUserQuotaCeiling = __v)
+    def withAudioUserQuotaCeiling(__v: _root_.scala.Long): Settings = copy(audioUserQuotaCeiling = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -180,6 +431,66 @@ final case class Settings(
           val __t = exportedRetentionHours
           if (__t != 0) __t else null
         }
+        case 80 => {
+          val __t = maxCategories
+          if (__t != 0) __t else null
+        }
+        case 90 => {
+          val __t = maxCategoryNameLength
+          if (__t != 0) __t else null
+        }
+        case 100 => {
+          val __t = exportMaxBytes
+          if (__t != 0) __t else null
+        }
+        case 110 => {
+          val __t = exportPartMaxBytes
+          if (__t != 0) __t else null
+        }
+        case 120 => {
+          val __t = exportMaxBytesCeiling
+          if (__t != 0) __t else null
+        }
+        case 130 => {
+          val __t = exportPartMaxBytesCeiling
+          if (__t != 0) __t else null
+        }
+        case 140 => {
+          val __t = exportSyncMaxWords
+          if (__t != 0) __t else null
+        }
+        case 150 => {
+          val __t = maxContentBytes
+          if (__t != 0) __t else null
+        }
+        case 160 => {
+          val __t = contentUserQuota
+          if (__t != 0L) __t else null
+        }
+        case 170 => {
+          val __t = imageUserQuota
+          if (__t != 0L) __t else null
+        }
+        case 180 => {
+          val __t = audioUserQuota
+          if (__t != 0L) __t else null
+        }
+        case 190 => {
+          val __t = maxContentBytesCeiling
+          if (__t != 0) __t else null
+        }
+        case 200 => {
+          val __t = contentUserQuotaCeiling
+          if (__t != 0L) __t else null
+        }
+        case 210 => {
+          val __t = imageUserQuotaCeiling
+          if (__t != 0L) __t else null
+        }
+        case 220 => {
+          val __t = audioUserQuotaCeiling
+          if (__t != 0L) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -192,6 +503,21 @@ final case class Settings(
         case 50 => _root_.scalapb.descriptors.PBoolean(englishViEnabled)
         case 60 => _root_.scalapb.descriptors.PBoolean(removeAfterExport)
         case 70 => _root_.scalapb.descriptors.PInt(exportedRetentionHours)
+        case 80 => _root_.scalapb.descriptors.PInt(maxCategories)
+        case 90 => _root_.scalapb.descriptors.PInt(maxCategoryNameLength)
+        case 100 => _root_.scalapb.descriptors.PInt(exportMaxBytes)
+        case 110 => _root_.scalapb.descriptors.PInt(exportPartMaxBytes)
+        case 120 => _root_.scalapb.descriptors.PInt(exportMaxBytesCeiling)
+        case 130 => _root_.scalapb.descriptors.PInt(exportPartMaxBytesCeiling)
+        case 140 => _root_.scalapb.descriptors.PInt(exportSyncMaxWords)
+        case 150 => _root_.scalapb.descriptors.PInt(maxContentBytes)
+        case 160 => _root_.scalapb.descriptors.PLong(contentUserQuota)
+        case 170 => _root_.scalapb.descriptors.PLong(imageUserQuota)
+        case 180 => _root_.scalapb.descriptors.PLong(audioUserQuota)
+        case 190 => _root_.scalapb.descriptors.PInt(maxContentBytesCeiling)
+        case 200 => _root_.scalapb.descriptors.PLong(contentUserQuotaCeiling)
+        case 210 => _root_.scalapb.descriptors.PLong(imageUserQuotaCeiling)
+        case 220 => _root_.scalapb.descriptors.PLong(audioUserQuotaCeiling)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -209,6 +535,21 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     var __englishViEnabled: _root_.scala.Boolean = false
     var __removeAfterExport: _root_.scala.Boolean = false
     var __exportedRetentionHours: _root_.scala.Int = 0
+    var __maxCategories: _root_.scala.Int = 0
+    var __maxCategoryNameLength: _root_.scala.Int = 0
+    var __exportMaxBytes: _root_.scala.Int = 0
+    var __exportPartMaxBytes: _root_.scala.Int = 0
+    var __exportMaxBytesCeiling: _root_.scala.Int = 0
+    var __exportPartMaxBytesCeiling: _root_.scala.Int = 0
+    var __exportSyncMaxWords: _root_.scala.Int = 0
+    var __maxContentBytes: _root_.scala.Int = 0
+    var __contentUserQuota: _root_.scala.Long = 0L
+    var __imageUserQuota: _root_.scala.Long = 0L
+    var __audioUserQuota: _root_.scala.Long = 0L
+    var __maxContentBytesCeiling: _root_.scala.Int = 0
+    var __contentUserQuotaCeiling: _root_.scala.Long = 0L
+    var __imageUserQuotaCeiling: _root_.scala.Long = 0L
+    var __audioUserQuotaCeiling: _root_.scala.Long = 0L
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -229,6 +570,36 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
           __removeAfterExport = _input__.readBool()
         case 560 =>
           __exportedRetentionHours = _input__.readInt32()
+        case 640 =>
+          __maxCategories = _input__.readInt32()
+        case 720 =>
+          __maxCategoryNameLength = _input__.readInt32()
+        case 800 =>
+          __exportMaxBytes = _input__.readInt32()
+        case 880 =>
+          __exportPartMaxBytes = _input__.readInt32()
+        case 960 =>
+          __exportMaxBytesCeiling = _input__.readInt32()
+        case 1040 =>
+          __exportPartMaxBytesCeiling = _input__.readInt32()
+        case 1120 =>
+          __exportSyncMaxWords = _input__.readInt32()
+        case 1200 =>
+          __maxContentBytes = _input__.readInt32()
+        case 1280 =>
+          __contentUserQuota = _input__.readInt64()
+        case 1360 =>
+          __imageUserQuota = _input__.readInt64()
+        case 1440 =>
+          __audioUserQuota = _input__.readInt64()
+        case 1520 =>
+          __maxContentBytesCeiling = _input__.readInt32()
+        case 1600 =>
+          __contentUserQuotaCeiling = _input__.readInt64()
+        case 1680 =>
+          __imageUserQuotaCeiling = _input__.readInt64()
+        case 1760 =>
+          __audioUserQuotaCeiling = _input__.readInt64()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -244,6 +615,21 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         englishViEnabled = __englishViEnabled,
         removeAfterExport = __removeAfterExport,
         exportedRetentionHours = __exportedRetentionHours,
+        maxCategories = __maxCategories,
+        maxCategoryNameLength = __maxCategoryNameLength,
+        exportMaxBytes = __exportMaxBytes,
+        exportPartMaxBytes = __exportPartMaxBytes,
+        exportMaxBytesCeiling = __exportMaxBytesCeiling,
+        exportPartMaxBytesCeiling = __exportPartMaxBytesCeiling,
+        exportSyncMaxWords = __exportSyncMaxWords,
+        maxContentBytes = __maxContentBytes,
+        contentUserQuota = __contentUserQuota,
+        imageUserQuota = __imageUserQuota,
+        audioUserQuota = __audioUserQuota,
+        maxContentBytesCeiling = __maxContentBytesCeiling,
+        contentUserQuotaCeiling = __contentUserQuotaCeiling,
+        imageUserQuotaCeiling = __imageUserQuotaCeiling,
+        audioUserQuotaCeiling = __audioUserQuotaCeiling,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -257,12 +643,27 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         englishEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         englishViEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         removeAfterExport = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        exportedRetentionHours = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Int]).getOrElse(0)
+        exportedRetentionHours = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        maxCategories = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        maxCategoryNameLength = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        exportMaxBytes = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        exportPartMaxBytes = __fieldsMap.get(scalaDescriptor.findFieldByNumber(110).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        exportMaxBytesCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(120).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        exportPartMaxBytesCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(130).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        exportSyncMaxWords = __fieldsMap.get(scalaDescriptor.findFieldByNumber(140).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        maxContentBytes = __fieldsMap.get(scalaDescriptor.findFieldByNumber(150).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        contentUserQuota = __fieldsMap.get(scalaDescriptor.findFieldByNumber(160).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        imageUserQuota = __fieldsMap.get(scalaDescriptor.findFieldByNumber(170).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        audioUserQuota = __fieldsMap.get(scalaDescriptor.findFieldByNumber(180).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        maxContentBytesCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(190).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        contentUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(200).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        imageUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(210).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        audioUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(220).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(25)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(25)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(51)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(51)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -273,7 +674,22 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     englishEnabled = false,
     englishViEnabled = false,
     removeAfterExport = false,
-    exportedRetentionHours = 0
+    exportedRetentionHours = 0,
+    maxCategories = 0,
+    maxCategoryNameLength = 0,
+    exportMaxBytes = 0,
+    exportPartMaxBytes = 0,
+    exportMaxBytesCeiling = 0,
+    exportPartMaxBytesCeiling = 0,
+    exportSyncMaxWords = 0,
+    maxContentBytes = 0,
+    contentUserQuota = 0L,
+    imageUserQuota = 0L,
+    audioUserQuota = 0L,
+    maxContentBytesCeiling = 0,
+    contentUserQuotaCeiling = 0L,
+    imageUserQuotaCeiling = 0L,
+    audioUserQuotaCeiling = 0L
   )
   implicit class SettingsLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Settings]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.Settings](_l) {
     def maxSavedWords: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxSavedWords)((c_, f_) => c_.copy(maxSavedWords = f_))
@@ -283,6 +699,21 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     def englishViEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishViEnabled)((c_, f_) => c_.copy(englishViEnabled = f_))
     def removeAfterExport: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.removeAfterExport)((c_, f_) => c_.copy(removeAfterExport = f_))
     def exportedRetentionHours: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportedRetentionHours)((c_, f_) => c_.copy(exportedRetentionHours = f_))
+    def maxCategories: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxCategories)((c_, f_) => c_.copy(maxCategories = f_))
+    def maxCategoryNameLength: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxCategoryNameLength)((c_, f_) => c_.copy(maxCategoryNameLength = f_))
+    def exportMaxBytes: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportMaxBytes)((c_, f_) => c_.copy(exportMaxBytes = f_))
+    def exportPartMaxBytes: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportPartMaxBytes)((c_, f_) => c_.copy(exportPartMaxBytes = f_))
+    def exportMaxBytesCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportMaxBytesCeiling)((c_, f_) => c_.copy(exportMaxBytesCeiling = f_))
+    def exportPartMaxBytesCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportPartMaxBytesCeiling)((c_, f_) => c_.copy(exportPartMaxBytesCeiling = f_))
+    def exportSyncMaxWords: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportSyncMaxWords)((c_, f_) => c_.copy(exportSyncMaxWords = f_))
+    def maxContentBytes: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxContentBytes)((c_, f_) => c_.copy(maxContentBytes = f_))
+    def contentUserQuota: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.contentUserQuota)((c_, f_) => c_.copy(contentUserQuota = f_))
+    def imageUserQuota: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.imageUserQuota)((c_, f_) => c_.copy(imageUserQuota = f_))
+    def audioUserQuota: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.audioUserQuota)((c_, f_) => c_.copy(audioUserQuota = f_))
+    def maxContentBytesCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxContentBytesCeiling)((c_, f_) => c_.copy(maxContentBytesCeiling = f_))
+    def contentUserQuotaCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.contentUserQuotaCeiling)((c_, f_) => c_.copy(contentUserQuotaCeiling = f_))
+    def imageUserQuotaCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.imageUserQuotaCeiling)((c_, f_) => c_.copy(imageUserQuotaCeiling = f_))
+    def audioUserQuotaCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.audioUserQuotaCeiling)((c_, f_) => c_.copy(audioUserQuotaCeiling = f_))
   }
   final val MAX_SAVED_WORDS_FIELD_NUMBER = 10
   final val ALLOW_EXPORT_DECK_FIELD_NUMBER = 20
@@ -291,6 +722,21 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
   final val ENGLISH_VI_ENABLED_FIELD_NUMBER = 50
   final val REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60
   final val EXPORTED_RETENTION_HOURS_FIELD_NUMBER = 70
+  final val MAX_CATEGORIES_FIELD_NUMBER = 80
+  final val MAX_CATEGORY_NAME_LENGTH_FIELD_NUMBER = 90
+  final val EXPORT_MAX_BYTES_FIELD_NUMBER = 100
+  final val EXPORT_PART_MAX_BYTES_FIELD_NUMBER = 110
+  final val EXPORT_MAX_BYTES_CEILING_FIELD_NUMBER = 120
+  final val EXPORT_PART_MAX_BYTES_CEILING_FIELD_NUMBER = 130
+  final val EXPORT_SYNC_MAX_WORDS_FIELD_NUMBER = 140
+  final val MAX_CONTENT_BYTES_FIELD_NUMBER = 150
+  final val CONTENT_USER_QUOTA_FIELD_NUMBER = 160
+  final val IMAGE_USER_QUOTA_FIELD_NUMBER = 170
+  final val AUDIO_USER_QUOTA_FIELD_NUMBER = 180
+  final val MAX_CONTENT_BYTES_CEILING_FIELD_NUMBER = 190
+  final val CONTENT_USER_QUOTA_CEILING_FIELD_NUMBER = 200
+  final val IMAGE_USER_QUOTA_CEILING_FIELD_NUMBER = 210
+  final val AUDIO_USER_QUOTA_CEILING_FIELD_NUMBER = 220
   def of(
     maxSavedWords: _root_.scala.Int,
     allowExportDeck: _root_.scala.Boolean,
@@ -298,7 +744,22 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     englishEnabled: _root_.scala.Boolean,
     englishViEnabled: _root_.scala.Boolean,
     removeAfterExport: _root_.scala.Boolean,
-    exportedRetentionHours: _root_.scala.Int
+    exportedRetentionHours: _root_.scala.Int,
+    maxCategories: _root_.scala.Int,
+    maxCategoryNameLength: _root_.scala.Int,
+    exportMaxBytes: _root_.scala.Int,
+    exportPartMaxBytes: _root_.scala.Int,
+    exportMaxBytesCeiling: _root_.scala.Int,
+    exportPartMaxBytesCeiling: _root_.scala.Int,
+    exportSyncMaxWords: _root_.scala.Int,
+    maxContentBytes: _root_.scala.Int,
+    contentUserQuota: _root_.scala.Long,
+    imageUserQuota: _root_.scala.Long,
+    audioUserQuota: _root_.scala.Long,
+    maxContentBytesCeiling: _root_.scala.Int,
+    contentUserQuotaCeiling: _root_.scala.Long,
+    imageUserQuotaCeiling: _root_.scala.Long,
+    audioUserQuotaCeiling: _root_.scala.Long
   ): _root_.com.huponx.protogen.dictionary.v1.Settings = _root_.com.huponx.protogen.dictionary.v1.Settings(
     maxSavedWords,
     allowExportDeck,
@@ -306,7 +767,22 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     englishEnabled,
     englishViEnabled,
     removeAfterExport,
-    exportedRetentionHours
+    exportedRetentionHours,
+    maxCategories,
+    maxCategoryNameLength,
+    exportMaxBytes,
+    exportPartMaxBytes,
+    exportMaxBytesCeiling,
+    exportPartMaxBytesCeiling,
+    exportSyncMaxWords,
+    maxContentBytes,
+    contentUserQuota,
+    imageUserQuota,
+    audioUserQuota,
+    maxContentBytesCeiling,
+    contentUserQuotaCeiling,
+    imageUserQuotaCeiling,
+    audioUserQuotaCeiling
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.Settings])
 }

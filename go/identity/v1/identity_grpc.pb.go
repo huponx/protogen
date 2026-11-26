@@ -26,6 +26,7 @@ const (
 	IdentityService_ListUsers_FullMethodName            = "/identity.v1.IdentityService/ListUsers"
 	IdentityService_CreateUser_FullMethodName           = "/identity.v1.IdentityService/CreateUser"
 	IdentityService_SetUserDisabled_FullMethodName      = "/identity.v1.IdentityService/SetUserDisabled"
+	IdentityService_DeleteUser_FullMethodName           = "/identity.v1.IdentityService/DeleteUser"
 	IdentityService_SetUserPassword_FullMethodName      = "/identity.v1.IdentityService/SetUserPassword"
 	IdentityService_SendPasswordReset_FullMethodName    = "/identity.v1.IdentityService/SendPasswordReset"
 	IdentityService_UpdateUser_FullMethodName           = "/identity.v1.IdentityService/UpdateUser"
@@ -35,6 +36,11 @@ const (
 	IdentityService_GetMe_FullMethodName                = "/identity.v1.IdentityService/GetMe"
 	IdentityService_UpdateMe_FullMethodName             = "/identity.v1.IdentityService/UpdateMe"
 	IdentityService_SetMyAvatar_FullMethodName          = "/identity.v1.IdentityService/SetMyAvatar"
+	IdentityService_ChangeMyPassword_FullMethodName     = "/identity.v1.IdentityService/ChangeMyPassword"
+	IdentityService_GetMyMFA_FullMethodName             = "/identity.v1.IdentityService/GetMyMFA"
+	IdentityService_BeginMyMFA_FullMethodName           = "/identity.v1.IdentityService/BeginMyMFA"
+	IdentityService_ConfirmMyMFA_FullMethodName         = "/identity.v1.IdentityService/ConfirmMyMFA"
+	IdentityService_DisableMyMFA_FullMethodName         = "/identity.v1.IdentityService/DisableMyMFA"
 	IdentityService_GetMyUserSettings_FullMethodName    = "/identity.v1.IdentityService/GetMyUserSettings"
 	IdentityService_PutMyUserSettings_FullMethodName    = "/identity.v1.IdentityService/PutMyUserSettings"
 	IdentityService_CreateRole_FullMethodName           = "/identity.v1.IdentityService/CreateRole"
@@ -83,6 +89,8 @@ type IdentityServiceClient interface {
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	SetUserDisabled(ctx context.Context, in *SetUserDisabledRequest, opts ...grpc.CallOption) (*SetUserDisabledResponse, error)
+	// DeleteUser deletes the account (soft: see DeleteUserRequest).
+	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
 	SetUserPassword(ctx context.Context, in *SetUserPasswordRequest, opts ...grpc.CallOption) (*SetUserPasswordResponse, error)
 	SendPasswordReset(ctx context.Context, in *SendPasswordResetRequest, opts ...grpc.CallOption) (*SendPasswordResetResponse, error)
 	// UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
@@ -100,6 +108,18 @@ type IdentityServiceClient interface {
 	// UpdateMe changes the own name and locale; an empty field keeps the current value.
 	UpdateMe(ctx context.Context, in *UpdateMeRequest, opts ...grpc.CallOption) (*UpdateMeResponse, error)
 	SetMyAvatar(ctx context.Context, in *SetMyAvatarRequest, opts ...grpc.CallOption) (*SetMyAvatarResponse, error)
+	// ChangeMyPassword checks the current password and sets a new one (the password policy applies). Like SetUserPassword it
+	// ends every session and token of the user, the caller's too: the user signs in again.
+	ChangeMyPassword(ctx context.Context, in *ChangeMyPasswordRequest, opts ...grpc.CallOption) (*ChangeMyPasswordResponse, error)
+	// The own multi-factor authentication (the same steps as the account page of the sign in app). GetMyMFA only says whether it is on.
+	GetMyMFA(ctx context.Context, in *GetMyMFARequest, opts ...grpc.CallOption) (*GetMyMFAResponse, error)
+	// BeginMyMFA starts the setup: it returns the QR code and the key of the pending enrollment (created on the first call,
+	// the same ones after). Refused when MFA is already on.
+	BeginMyMFA(ctx context.Context, in *BeginMyMFARequest, opts ...grpc.CallOption) (*BeginMyMFAResponse, error)
+	// ConfirmMyMFA checks the first code of the authenticator app, turns MFA on and returns the recovery codes (shown once).
+	ConfirmMyMFA(ctx context.Context, in *ConfirmMyMFARequest, opts ...grpc.CallOption) (*ConfirmMyMFAResponse, error)
+	// DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
+	DisableMyMFA(ctx context.Context, in *DisableMyMFARequest, opts ...grpc.CallOption) (*DisableMyMFAResponse, error)
 	// The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
 	// identity stores without looking inside; the application validates what it writes. Same rules as
 	// the other "me" methods (user token, no permission). Called by the application on behalf of the
@@ -222,6 +242,16 @@ func (c *identityServiceClient) SetUserDisabled(ctx context.Context, in *SetUser
 	return out, nil
 }
 
+func (c *identityServiceClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteUserResponse)
+	err := c.cc.Invoke(ctx, IdentityService_DeleteUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *identityServiceClient) SetUserPassword(ctx context.Context, in *SetUserPasswordRequest, opts ...grpc.CallOption) (*SetUserPasswordResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SetUserPasswordResponse)
@@ -306,6 +336,56 @@ func (c *identityServiceClient) SetMyAvatar(ctx context.Context, in *SetMyAvatar
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SetMyAvatarResponse)
 	err := c.cc.Invoke(ctx, IdentityService_SetMyAvatar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ChangeMyPassword(ctx context.Context, in *ChangeMyPasswordRequest, opts ...grpc.CallOption) (*ChangeMyPasswordResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ChangeMyPasswordResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ChangeMyPassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) GetMyMFA(ctx context.Context, in *GetMyMFARequest, opts ...grpc.CallOption) (*GetMyMFAResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMyMFAResponse)
+	err := c.cc.Invoke(ctx, IdentityService_GetMyMFA_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) BeginMyMFA(ctx context.Context, in *BeginMyMFARequest, opts ...grpc.CallOption) (*BeginMyMFAResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BeginMyMFAResponse)
+	err := c.cc.Invoke(ctx, IdentityService_BeginMyMFA_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ConfirmMyMFA(ctx context.Context, in *ConfirmMyMFARequest, opts ...grpc.CallOption) (*ConfirmMyMFAResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ConfirmMyMFAResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ConfirmMyMFA_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) DisableMyMFA(ctx context.Context, in *DisableMyMFARequest, opts ...grpc.CallOption) (*DisableMyMFAResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DisableMyMFAResponse)
+	err := c.cc.Invoke(ctx, IdentityService_DisableMyMFA_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -601,6 +681,8 @@ type IdentityServiceServer interface {
 	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	SetUserDisabled(context.Context, *SetUserDisabledRequest) (*SetUserDisabledResponse, error)
+	// DeleteUser deletes the account (soft: see DeleteUserRequest).
+	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
 	SetUserPassword(context.Context, *SetUserPasswordRequest) (*SetUserPasswordResponse, error)
 	SendPasswordReset(context.Context, *SendPasswordResetRequest) (*SendPasswordResetResponse, error)
 	// UpdateUser changes the name and the locale. SetUserAvatar stores (or clears) the picture.
@@ -618,6 +700,18 @@ type IdentityServiceServer interface {
 	// UpdateMe changes the own name and locale; an empty field keeps the current value.
 	UpdateMe(context.Context, *UpdateMeRequest) (*UpdateMeResponse, error)
 	SetMyAvatar(context.Context, *SetMyAvatarRequest) (*SetMyAvatarResponse, error)
+	// ChangeMyPassword checks the current password and sets a new one (the password policy applies). Like SetUserPassword it
+	// ends every session and token of the user, the caller's too: the user signs in again.
+	ChangeMyPassword(context.Context, *ChangeMyPasswordRequest) (*ChangeMyPasswordResponse, error)
+	// The own multi-factor authentication (the same steps as the account page of the sign in app). GetMyMFA only says whether it is on.
+	GetMyMFA(context.Context, *GetMyMFARequest) (*GetMyMFAResponse, error)
+	// BeginMyMFA starts the setup: it returns the QR code and the key of the pending enrollment (created on the first call,
+	// the same ones after). Refused when MFA is already on.
+	BeginMyMFA(context.Context, *BeginMyMFARequest) (*BeginMyMFAResponse, error)
+	// ConfirmMyMFA checks the first code of the authenticator app, turns MFA on and returns the recovery codes (shown once).
+	ConfirmMyMFA(context.Context, *ConfirmMyMFARequest) (*ConfirmMyMFAResponse, error)
+	// DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
+	DisableMyMFA(context.Context, *DisableMyMFARequest) (*DisableMyMFAResponse, error)
 	// The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
 	// identity stores without looking inside; the application validates what it writes. Same rules as
 	// the other "me" methods (user token, no permission). Called by the application on behalf of the
@@ -691,6 +785,9 @@ func (UnimplementedIdentityServiceServer) CreateUser(context.Context, *CreateUse
 func (UnimplementedIdentityServiceServer) SetUserDisabled(context.Context, *SetUserDisabledRequest) (*SetUserDisabledResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserDisabled not implemented")
 }
+func (UnimplementedIdentityServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
 func (UnimplementedIdentityServiceServer) SetUserPassword(context.Context, *SetUserPasswordRequest) (*SetUserPasswordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserPassword not implemented")
 }
@@ -717,6 +814,21 @@ func (UnimplementedIdentityServiceServer) UpdateMe(context.Context, *UpdateMeReq
 }
 func (UnimplementedIdentityServiceServer) SetMyAvatar(context.Context, *SetMyAvatarRequest) (*SetMyAvatarResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetMyAvatar not implemented")
+}
+func (UnimplementedIdentityServiceServer) ChangeMyPassword(context.Context, *ChangeMyPasswordRequest) (*ChangeMyPasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeMyPassword not implemented")
+}
+func (UnimplementedIdentityServiceServer) GetMyMFA(context.Context, *GetMyMFARequest) (*GetMyMFAResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMyMFA not implemented")
+}
+func (UnimplementedIdentityServiceServer) BeginMyMFA(context.Context, *BeginMyMFARequest) (*BeginMyMFAResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BeginMyMFA not implemented")
+}
+func (UnimplementedIdentityServiceServer) ConfirmMyMFA(context.Context, *ConfirmMyMFARequest) (*ConfirmMyMFAResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConfirmMyMFA not implemented")
+}
+func (UnimplementedIdentityServiceServer) DisableMyMFA(context.Context, *DisableMyMFARequest) (*DisableMyMFAResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DisableMyMFA not implemented")
 }
 func (UnimplementedIdentityServiceServer) GetMyUserSettings(context.Context, *GetMyUserSettingsRequest) (*GetMyUserSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyUserSettings not implemented")
@@ -946,6 +1058,24 @@ func _IdentityService_SetUserDisabled_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _IdentityService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).DeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_DeleteUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).DeleteUser(ctx, req.(*DeleteUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _IdentityService_SetUserPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetUserPasswordRequest)
 	if err := dec(in); err != nil {
@@ -1104,6 +1234,96 @@ func _IdentityService_SetMyAvatar_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).SetMyAvatar(ctx, req.(*SetMyAvatarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ChangeMyPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeMyPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ChangeMyPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ChangeMyPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ChangeMyPassword(ctx, req.(*ChangeMyPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_GetMyMFA_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMyMFARequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).GetMyMFA(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_GetMyMFA_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).GetMyMFA(ctx, req.(*GetMyMFARequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_BeginMyMFA_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BeginMyMFARequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).BeginMyMFA(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_BeginMyMFA_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).BeginMyMFA(ctx, req.(*BeginMyMFARequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ConfirmMyMFA_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfirmMyMFARequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ConfirmMyMFA(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ConfirmMyMFA_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ConfirmMyMFA(ctx, req.(*ConfirmMyMFARequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_DisableMyMFA_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DisableMyMFARequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).DisableMyMFA(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_DisableMyMFA_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).DisableMyMFA(ctx, req.(*DisableMyMFARequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1630,6 +1850,10 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _IdentityService_SetUserDisabled_Handler,
 		},
 		{
+			MethodName: "DeleteUser",
+			Handler:    _IdentityService_DeleteUser_Handler,
+		},
+		{
 			MethodName: "SetUserPassword",
 			Handler:    _IdentityService_SetUserPassword_Handler,
 		},
@@ -1664,6 +1888,26 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetMyAvatar",
 			Handler:    _IdentityService_SetMyAvatar_Handler,
+		},
+		{
+			MethodName: "ChangeMyPassword",
+			Handler:    _IdentityService_ChangeMyPassword_Handler,
+		},
+		{
+			MethodName: "GetMyMFA",
+			Handler:    _IdentityService_GetMyMFA_Handler,
+		},
+		{
+			MethodName: "BeginMyMFA",
+			Handler:    _IdentityService_BeginMyMFA_Handler,
+		},
+		{
+			MethodName: "ConfirmMyMFA",
+			Handler:    _IdentityService_ConfirmMyMFA_Handler,
+		},
+		{
+			MethodName: "DisableMyMFA",
+			Handler:    _IdentityService_DisableMyMFA_Handler,
 		},
 		{
 			MethodName: "GetMyUserSettings",
