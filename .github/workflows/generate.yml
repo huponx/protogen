@@ -19,7 +19,7 @@ on:
       langs:
         description: Languages to generate, space separated (re-run only the ones that failed)
         required: false
-        default: "go java scala rust"
+        default: "go java scala rust ts"
 
 permissions:
   contents: read
@@ -82,7 +82,7 @@ jobs:
 
           # To add a language: add it here, add protos/buf.gen.<lang>.yaml, a
           # build file under <lang>/, and a case in huponx/actions lang-setup + lang-compile.
-          all="go java scala rust"
+          all="go java scala rust ts"
           wanted="${INPUT_LANGS:-${all}}"
           [ "${EVENT}" = "repository_dispatch" ] && wanted="${all}"
           langs=""
@@ -142,6 +142,7 @@ jobs:
             java) marker=java/pom.xml ;;
             scala) marker=scala/build.sbt ;;
             rust) marker=rust/Cargo.toml ;;
+            ts) marker=ts/package.json ;;
             *) echo "::error::unknown language ${LANG_NAME}"; exit 1 ;;
           esac
           if [ ! -f "${marker}" ]; then
@@ -394,5 +395,79 @@ jobs:
           else
             echo "### maven ${LANG_NAME}: FAILED" >> "${GITHUB_STEP_SUMMARY}"
             echo "::error title=maven ${LANG_NAME}::deploy of ${coords} failed; see the log"
+            exit 1
+          fi
+
+  # Internal npm publish (GitHub Packages) of @huponx/protogen (the ts language). Same rules as publish-maven: only
+  # when `publish` generated, merged and tagged ts; GitHub Packages never overwrites a version.
+  publish-npm:
+    name: publish npm (ts)
+    needs: [meta, publish]
+    if: always() && needs.meta.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: write
+    env:
+      PROTO_REF: ${{ needs.meta.outputs.proto_ref }}
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Download publish result
+        uses: actions/download-artifact@v7
+        continue-on-error: true
+        with:
+          name: result
+          path: result
+
+      - name: Decide
+        id: decide
+        run: |
+          set -euo pipefail
+          status=""
+          if [ -f result/result.json ]; then
+            status="$(jq -r '.langs.ts.status // empty' result/result.json)"
+          fi
+          case "${status}" in
+            success|exists) echo "publish=true" >> "${GITHUB_OUTPUT}" ;;
+            *)
+              echo "publish=false" >> "${GITHUB_OUTPUT}"
+              echo "### npm ts: skipped (stubs result: ${status:-none})" >> "${GITHUB_STEP_SUMMARY}"
+              ;;
+          esac
+
+      # The tag was created by `publish` on the merge commit.
+      - uses: actions/checkout@v5
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          ref: refs/tags/ts/${{ needs.meta.outputs.proto_ref }}
+
+      - uses: actions/setup-node@v5
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          node-version: "20"
+          registry-url: https://npm.pkg.github.com
+          scope: "@huponx"
+
+      - name: Publish
+        if: steps.decide.outputs.publish == 'true'
+        working-directory: ts
+        run: |
+          set -uo pipefail
+          version="${PROTO_REF#v}"
+          # the version of the package is the proto release; nothing is committed
+          npm version "${version}" --no-git-tag-version --allow-same-version
+          set +e
+          npm publish 2>&1 | tee ../publish.log
+          rc="${PIPESTATUS[0]}"
+          set -e
+          coords="@huponx/protogen@${version}"
+          if [ "${rc}" -eq 0 ]; then
+            echo "### npm ts: published \`${coords}\`" >> "${GITHUB_STEP_SUMMARY}"
+          elif grep -qiE 'cannot publish over|already exists|E409|409' ../publish.log; then
+            echo "### npm ts: \`${coords}\` already published (not overwritten)" >> "${GITHUB_STEP_SUMMARY}"
+          else
+            echo "### npm ts: FAILED" >> "${GITHUB_STEP_SUMMARY}"
+            echo "::error title=npm ts::publish of ${coords} failed; see the log"
             exit 1
           fi
