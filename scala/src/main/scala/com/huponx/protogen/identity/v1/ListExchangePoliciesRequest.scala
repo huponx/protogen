@@ -5,24 +5,9 @@
 
 package com.huponx.protogen.identity.v1
 
-/** @param clientId
-  *   Only the policies of this client (exact).
-  * @param query
-  *   Policies whose client_id, audience or max_scope contains this text (case insensitive).
-  * @param audience
-  *   Policies whose audience contains this text (case insensitive). All filters are combined with AND.
-  * @param pageSize
-  *   Default 50, at most 200.
-  * @param pageToken
-  *   The next_page_token of the previous page. Policies are ordered by client_id, then audience.
-  */
 @SerialVersionUID(0L)
 final case class ListExchangePoliciesRequest(
     clientId: _root_.scala.Predef.String = "",
-    query: _root_.scala.Predef.String = "",
-    audience: _root_.scala.Predef.String = "",
-    pageSize: _root_.scala.Int = 0,
-    pageToken: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListExchangePoliciesRequest] {
     @transient
@@ -34,34 +19,6 @@ final case class ListExchangePoliciesRequest(
         val __value = clientId
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(10, __value)
-        }
-      };
-      
-      {
-        val __value = query
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(20, __value)
-        }
-      };
-      
-      {
-        val __value = audience
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
-        }
-      };
-      
-      {
-        val __value = pageSize
-        if (__value != 0) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(40, __value)
-        }
-      };
-      
-      {
-        val __value = pageToken
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(50, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -83,37 +40,9 @@ final case class ListExchangePoliciesRequest(
           _output__.writeString(10, __v)
         }
       };
-      {
-        val __v = query
-        if (!__v.isEmpty) {
-          _output__.writeString(20, __v)
-        }
-      };
-      {
-        val __v = audience
-        if (!__v.isEmpty) {
-          _output__.writeString(30, __v)
-        }
-      };
-      {
-        val __v = pageSize
-        if (__v != 0) {
-          _output__.writeInt32(40, __v)
-        }
-      };
-      {
-        val __v = pageToken
-        if (!__v.isEmpty) {
-          _output__.writeString(50, __v)
-        }
-      };
       unknownFields.writeTo(_output__)
     }
     def withClientId(__v: _root_.scala.Predef.String): ListExchangePoliciesRequest = copy(clientId = __v)
-    def withQuery(__v: _root_.scala.Predef.String): ListExchangePoliciesRequest = copy(query = __v)
-    def withAudience(__v: _root_.scala.Predef.String): ListExchangePoliciesRequest = copy(audience = __v)
-    def withPageSize(__v: _root_.scala.Int): ListExchangePoliciesRequest = copy(pageSize = __v)
-    def withPageToken(__v: _root_.scala.Predef.String): ListExchangePoliciesRequest = copy(pageToken = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -122,32 +51,12 @@ final case class ListExchangePoliciesRequest(
           val __t = clientId
           if (__t != "") __t else null
         }
-        case 20 => {
-          val __t = query
-          if (__t != "") __t else null
-        }
-        case 30 => {
-          val __t = audience
-          if (__t != "") __t else null
-        }
-        case 40 => {
-          val __t = pageSize
-          if (__t != 0) __t else null
-        }
-        case 50 => {
-          val __t = pageToken
-          if (__t != "") __t else null
-        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(clientId)
-        case 20 => _root_.scalapb.descriptors.PString(query)
-        case 30 => _root_.scalapb.descriptors.PString(audience)
-        case 40 => _root_.scalapb.descriptors.PInt(pageSize)
-        case 50 => _root_.scalapb.descriptors.PString(pageToken)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -159,10 +68,6 @@ object ListExchangePoliciesRequest extends scalapb.GeneratedMessageCompanion[com
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ListExchangePoliciesRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.ListExchangePoliciesRequest = {
     var __clientId: _root_.scala.Predef.String = ""
-    var __query: _root_.scala.Predef.String = ""
-    var __audience: _root_.scala.Predef.String = ""
-    var __pageSize: _root_.scala.Int = 0
-    var __pageToken: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -171,14 +76,6 @@ object ListExchangePoliciesRequest extends scalapb.GeneratedMessageCompanion[com
         case 0 => _done__ = true
         case 82 =>
           __clientId = _input__.readStringRequireUtf8()
-        case 162 =>
-          __query = _input__.readStringRequireUtf8()
-        case 242 =>
-          __audience = _input__.readStringRequireUtf8()
-        case 320 =>
-          __pageSize = _input__.readInt32()
-        case 402 =>
-          __pageToken = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -188,10 +85,6 @@ object ListExchangePoliciesRequest extends scalapb.GeneratedMessageCompanion[com
     }
     com.huponx.protogen.identity.v1.ListExchangePoliciesRequest(
         clientId = __clientId,
-        query = __query,
-        audience = __audience,
-        pageSize = __pageSize,
-        pageToken = __pageToken,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -199,50 +92,26 @@ object ListExchangePoliciesRequest extends scalapb.GeneratedMessageCompanion[com
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.identity.v1.ListExchangePoliciesRequest(
-        clientId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        query = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        audience = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        pageSize = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Int]).getOrElse(0),
-        pageToken = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        clientId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(90)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(90)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(40)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(40)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.ListExchangePoliciesRequest(
-    clientId = "",
-    query = "",
-    audience = "",
-    pageSize = 0,
-    pageToken = ""
+    clientId = ""
   )
   implicit class ListExchangePoliciesRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.ListExchangePoliciesRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.ListExchangePoliciesRequest](_l) {
     def clientId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.clientId)((c_, f_) => c_.copy(clientId = f_))
-    def query: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.query)((c_, f_) => c_.copy(query = f_))
-    def audience: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.audience)((c_, f_) => c_.copy(audience = f_))
-    def pageSize: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.pageSize)((c_, f_) => c_.copy(pageSize = f_))
-    def pageToken: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.pageToken)((c_, f_) => c_.copy(pageToken = f_))
   }
   final val CLIENT_ID_FIELD_NUMBER = 10
-  final val QUERY_FIELD_NUMBER = 20
-  final val AUDIENCE_FIELD_NUMBER = 30
-  final val PAGE_SIZE_FIELD_NUMBER = 40
-  final val PAGE_TOKEN_FIELD_NUMBER = 50
   def of(
-    clientId: _root_.scala.Predef.String,
-    query: _root_.scala.Predef.String,
-    audience: _root_.scala.Predef.String,
-    pageSize: _root_.scala.Int,
-    pageToken: _root_.scala.Predef.String
+    clientId: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.identity.v1.ListExchangePoliciesRequest = _root_.com.huponx.protogen.identity.v1.ListExchangePoliciesRequest(
-    clientId,
-    query,
-    audience,
-    pageSize,
-    pageToken
+    clientId
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.ListExchangePoliciesRequest])
 }

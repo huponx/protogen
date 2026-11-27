@@ -1,0 +1,18 @@
+{
+  "collection": "ms_protogen_21c7a348",
+  "failed_files": [],
+  "indexed_chunks": 0,
+  "indexed_files": 1,
+  "last_completed_at": "2026-11-26T03:13:43.272335Z",
+  "last_started_at": "2026-11-26T03:13:40.270723Z",
+  "last_success_at": "2026-11-26T03:13:43.272335Z",
+  "milvus_uri": "~/.memsearch/milvus.db",
+  "operation": "index",
+  "paths": [
+    "/Users/hupham/workspaces/personal/t-projects/protogen/.memsearch/memory"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "total_files": 1,
+  "updated_at": "2026-11-26T03:13:43.272335Z"
+}

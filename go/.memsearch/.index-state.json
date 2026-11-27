@@ -1,0 +1,18 @@
+{
+  "collection": "ms_go_30e9591d",
+  "failed_files": [],
+  "indexed_chunks": 0,
+  "indexed_files": 1,
+  "last_completed_at": "2026-11-27T06:19:50.821461Z",
+  "last_started_at": "2026-11-27T06:19:47.832928Z",
+  "last_success_at": "2026-11-27T06:19:50.821461Z",
+  "milvus_uri": "~/.memsearch/milvus.db",
+  "operation": "index",
+  "paths": [
+    "/Users/hupham/workspaces/personal/t-projects/protogen/go/.memsearch/memory"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "total_files": 1,
+  "updated_at": "2026-11-27T06:19:50.821461Z"
+}

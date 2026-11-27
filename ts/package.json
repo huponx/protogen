@@ -1,0 +1,29 @@
+{
+  "name": "@huponx/protogen",
+  "version": "0.0.0",
+  "description": "The permissions of the huponx services (generated from the permissions.proto files of huponx/protos)",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/permissions.ts"
+  },
+  "types": "./src/permissions.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "typescript": "~5.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huponx/protogen.git",
+    "directory": "ts"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}
