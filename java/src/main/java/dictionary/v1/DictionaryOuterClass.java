@@ -64800,350 +64800,376 @@ public final class DictionaryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\036dictionary/v1/dictionary.proto\022\rdictio" +
-      "nary.v1\"t\n\007Meaning\022\036\n\ndefinition\030\n \001(\tR\n" +
-      "definition\022\032\n\010examples\030\024 \003(\tR\010examples\022-" +
-      "\n\022machine_translated\030\036 \001(\010R\021machineTrans" +
-      "lated\"\210\002\n\004Word\022\022\n\004text\030\n \001(\tR\004text\022\032\n\010ph" +
-      "onetic\030\024 \001(\tR\010phonetic\022\037\n\013phonetic_uk\030\036 " +
-      "\001(\tR\nphoneticUk\022\037\n\013phonetic_us\030( \001(\tR\nph" +
-      "oneticUs\022\031\n\010audio_uk\0302 \001(\tR\007audioUk\022\031\n\010a" +
-      "udio_us\030< \001(\tR\007audioUs\022$\n\016part_of_speech" +
-      "\030F \003(\tR\014partOfSpeech\0222\n\010meanings\030P \003(\0132\026" +
-      ".dictionary.v1.MeaningR\010meanings\"b\n\021Look" +
-      "upWordRequest\022\022\n\004word\030\n \001(\tR\004word\0229\n\ndic" +
-      "tionary\030\024 \001(\0162\031.dictionary.v1.Dictionary" +
-      "R\ndictionary\"=\n\022LookupWordResponse\022\'\n\004wo" +
-      "rd\030\n \001(\0132\023.dictionary.v1.WordR\004word\"e\n\022L" +
-      "ookupWordsRequest\022\024\n\005words\030\n \003(\tR\005words\022" +
-      "9\n\ndictionary\030\024 \001(\0162\031.dictionary.v1.Dict" +
-      "ionaryR\ndictionary\"]\n\023LookupWordsRespons" +
-      "e\022)\n\005words\030\n \003(\0132\023.dictionary.v1.WordR\005w" +
-      "ords\022\033\n\tnot_found\030\024 \003(\tR\010notFound\"\217\002\n\tSa" +
-      "vedWord\022\022\n\004word\030\n \001(\tR\004word\022\030\n\007content\030\024" +
-      " \001(\tR\007content\022\031\n\010audio_uk\030\036 \001(\tR\007audioUk" +
-      "\022\031\n\010audio_us\030( \001(\tR\007audioUs\022\035\n\ncreated_a" +
-      "t\0302 \001(\tR\tcreatedAt\022\032\n\010exported\030< \001(\010R\010ex" +
-      "ported\022!\n\014category_ids\030F \003(\tR\013categoryId" +
-      "s\022$\n\016next_review_at\030P \001(\tR\014nextReviewAt\022" +
-      "\032\n\010learning\030Z \001(\010R\010learning\"\230\001\n\017SaveWord" +
-      "Request\022\022\n\004word\030\n \001(\tR\004word\022\030\n\007content\030\024" +
-      " \001(\tR\007content\022\031\n\010audio_uk\030\036 \001(\tR\007audioUk" +
-      "\022\031\n\010audio_us\030( \001(\tR\007audioUs\022!\n\014category_" +
-      "ids\0302 \003(\tR\013categoryIds\"3\n\020SaveWordRespon" +
-      "se\022\037\n\013saved_count\030\n \001(\005R\nsavedCount\"\260\001\n\025" +
-      "ListSavedWordsRequest\022\033\n\tpage_size\030\n \001(\005" +
-      "R\010pageSize\022\035\n\npage_token\030\024 \001(\tR\tpageToke" +
-      "n\022\024\n\005query\030\036 \001(\tR\005query\022\037\n\013category_id\030(" +
-      " \001(\tR\ncategoryId\022$\n\runcategorized\0302 \001(\010R" +
-      "\runcategorized\"\310\001\n\026ListSavedWordsRespons" +
-      "e\022.\n\005words\030\n \003(\0132\030.dictionary.v1.SavedWo" +
-      "rdR\005words\022&\n\017next_page_token\030\024 \001(\tR\rnext" +
-      "PageToken\022\024\n\005total\030\036 \001(\005R\005total\022\033\n\tnew_t" +
-      "otal\030( \001(\005R\010newTotal\022#\n\rcounts_capped\0302 " +
-      "\001(\010R\014countsCapped\",\n\026DeleteSavedWordRequ" +
-      "est\022\022\n\004word\030\n \001(\tR\004word\"\031\n\027DeleteSavedWo" +
-      "rdResponse\"\277\001\n\021ExportAnkiRequest\022\033\n\tdeck" +
-      "_name\030\n \001(\tR\010deckName\0220\n\005scope\030\024 \001(\0162\032.d" +
-      "ictionary.v1.ExportScopeR\005scope\022\037\n\013categ" +
-      "ory_id\030\036 \001(\tR\ncategoryId\022$\n\runcategorize" +
-      "d\030( \001(\010R\runcategorized\022\024\n\005words\0302 \003(\tR\005w" +
-      "ords\"c\n\022ExportAnkiResponse\022\032\n\010filename\030\n" +
-      " \001(\tR\010filename\022\022\n\004data\030\024 \001(\014R\004data\022\035\n\nwo" +
-      "rd_count\030\036 \001(\005R\twordCount\"\303\001\n\025CreateDeck" +
-      "LinkRequest\022\033\n\tdeck_name\030\n \001(\tR\010deckName" +
-      "\0220\n\005scope\030\024 \001(\0162\032.dictionary.v1.ExportSc" +
-      "opeR\005scope\022\037\n\013category_id\030\036 \001(\tR\ncategor" +
-      "yId\022$\n\runcategorized\030( \001(\010R\runcategorize" +
-      "d\022\024\n\005words\0302 \003(\tR\005words\"\034\n\032RemoveExporte" +
-      "dWordsRequest\"7\n\033RemoveExportedWordsResp" +
-      "onse\022\030\n\007removed\030\n \001(\005R\007removed\"\210\001\n\026Creat" +
-      "eDeckLinkResponse\022\024\n\005token\030\n \001(\tR\005token\022" +
-      "\032\n\010filename\030\024 \001(\tR\010filename\022\035\n\nword_coun" +
-      "t\030\036 \001(\005R\twordCount\022\035\n\nexpires_at\030( \001(\tR\t" +
-      "expiresAt\"+\n\023DownloadDeckRequest\022\024\n\005toke" +
-      "n\030\n \001(\tR\005token\"F\n\024DownloadDeckResponse\022\032" +
-      "\n\010filename\030\n \001(\tR\010filename\022\022\n\004data\030\024 \001(\014" +
-      "R\004data\"1\n\031DownloadExportPartRequest\022\024\n\005t" +
-      "oken\030\n \001(\tR\005token\"S\n\rDownloadChunk\022\032\n\010fi" +
-      "lename\030\n \001(\tR\010filename\022\022\n\004size\030\024 \001(\003R\004si" +
-      "ze\022\022\n\004data\030\036 \001(\014R\004data\"K\n\022UploadImageReq" +
-      "uest\022!\n\014content_type\030\n \001(\tR\013contentType\022" +
-      "\022\n\004data\030\024 \001(\014R\004data\"%\n\023UploadImageRespon" +
-      "se\022\016\n\002id\030\n \001(\tR\002id\"!\n\017GetImageRequest\022\016\n" +
-      "\002id\030\n \001(\tR\002id\"I\n\020GetImageResponse\022!\n\014con" +
-      "tent_type\030\n \001(\tR\013contentType\022\022\n\004data\030\024 \001" +
-      "(\014R\004data\"K\n\022UploadAudioRequest\022!\n\014conten" +
-      "t_type\030\n \001(\tR\013contentType\022\022\n\004data\030\024 \001(\014R" +
-      "\004data\"%\n\023UploadAudioResponse\022\016\n\002id\030\n \001(\t" +
-      "R\002id\"!\n\017GetAudioRequest\022\016\n\002id\030\n \001(\tR\002id\"" +
-      "I\n\020GetAudioResponse\022!\n\014content_type\030\n \001(" +
-      "\tR\013contentType\022\022\n\004data\030\024 \001(\014R\004data\"\333\001\n\nR" +
-      "eviewCard\022\022\n\004word\030\n \001(\tR\004word\022\030\n\007content" +
-      "\030\024 \001(\tR\007content\022\031\n\010audio_uk\030\036 \001(\tR\007audio" +
-      "Uk\022\031\n\010audio_us\030( \001(\tR\007audioUs\022\025\n\006is_new\030" +
-      "2 \001(\010R\005isNew\0226\n\027grade_intervals_seconds\030" +
-      "< \003(\003R\025gradeIntervalsSeconds\022\032\n\010learning" +
-      "\030F \001(\010R\010learning\"t\n\025GetReviewQueueReques" +
-      "t\022\024\n\005limit\030\n \001(\005R\005limit\022\037\n\013category_id\030\024" +
-      " \001(\tR\ncategoryId\022$\n\runcategorized\030\036 \001(\010R" +
-      "\runcategorized\"\306\002\n\026GetReviewQueueRespons" +
-      "e\022/\n\005cards\030\n \003(\0132\031.dictionary.v1.ReviewC" +
-      "ardR\005cards\022\033\n\tdue_count\030\024 \001(\005R\010dueCount\022" +
-      "\033\n\tnew_count\030\036 \001(\005R\010newCount\022\037\n\013total_co" +
-      "unt\030( \001(\005R\ntotalCount\022\036\n\013next_due_at\0302 \001" +
-      "(\tR\tnextDueAt\022%\n\016learning_count\030< \001(\005R\rl" +
-      "earningCount\022\031\n\010new_held\030F \001(\005R\007newHeld\022" +
-      "\031\n\010due_held\030P \001(\005R\007dueHeld\022#\n\rcounts_cap" +
-      "ped\030Z \001(\010R\014countsCapped\"N\n\025AddReviewBonu" +
-      "sRequest\022\033\n\tnew_words\030\n \001(\005R\010newWords\022\030\n" +
-      "\007reviews\030\024 \001(\005R\007reviews\"y\n\026AddReviewBonu" +
-      "sResponse\022\033\n\textra_new\030\n \001(\005R\010extraNew\022#" +
-      "\n\rextra_reviews\030\024 \001(\005R\014extraReviews\022\035\n\ne" +
-      "xpires_at\030\036 \001(\tR\texpiresAt\"[\n\023SubmitRevi" +
-      "ewRequest\022\022\n\004word\030\n \001(\tR\004word\0220\n\005grade\030\024" +
-      " \001(\0162\032.dictionary.v1.ReviewGradeR\005grade\"" +
-      "\220\001\n\024SubmitReviewResponse\022\025\n\006due_at\030\n \001(\t" +
-      "R\005dueAt\022)\n\020interval_seconds\030\024 \001(\003R\017inter" +
-      "valSeconds\0226\n\027grade_intervals_seconds\030\036 " +
-      "\003(\003R\025gradeIntervalsSeconds\"L\n\037OptimizeRe" +
-      "viewParametersRequest\022)\n\020restore_default" +
-      "s\030\n \001(\010R\017restoreDefaults\"\334\001\n OptimizeRev" +
-      "iewParametersResponse\022\030\n\007applied\030\n \001(\010R\007" +
-      "applied\022!\n\014review_count\030\024 \001(\005R\013reviewCou" +
-      "nt\022!\n\014loss_default\030\036 \001(\002R\013lossDefault\022!\n" +
-      "\014loss_trained\030( \001(\002R\013lossTrained\022\035\n\ntrai" +
-      "ned_at\0302 \001(\tR\ttrainedAt\022\026\n\006reason\030< \001(\tR" +
-      "\006reason\"a\n\010Category\022\016\n\002id\030\n \001(\tR\002id\022\022\n\004n" +
-      "ame\030\024 \001(\tR\004name\022\024\n\005total\030\036 \001(\005R\005total\022\033\n" +
-      "\tnew_total\030( \001(\005R\010newTotal\"\027\n\025ListCatego" +
-      "riesRequest\"\337\001\n\026ListCategoriesResponse\0227" +
-      "\n\ncategories\030\n \003(\0132\027.dictionary.v1.Categ" +
-      "oryR\ncategories\022/\n\023uncategorized_total\030\024" +
-      " \001(\005R\022uncategorizedTotal\0226\n\027uncategorize" +
-      "d_new_total\030\036 \001(\005R\025uncategorizedNewTotal" +
-      "\022#\n\rcounts_capped\030( \001(\010R\014countsCapped\"+\n" +
-      "\025CreateCategoryRequest\022\022\n\004name\030\n \001(\tR\004na" +
-      "me\"M\n\026CreateCategoryResponse\0223\n\010category" +
-      "\030\n \001(\0132\027.dictionary.v1.CategoryR\010categor" +
-      "y\";\n\025RenameCategoryRequest\022\016\n\002id\030\n \001(\tR\002" +
-      "id\022\022\n\004name\030\024 \001(\tR\004name\"M\n\026RenameCategory" +
-      "Response\0223\n\010category\030\n \001(\0132\027.dictionary." +
-      "v1.CategoryR\010category\"\'\n\025DeleteCategoryR" +
-      "equest\022\016\n\002id\030\n \001(\tR\002id\"\030\n\026DeleteCategory" +
-      "Response\"\215\001\n\033UpdateWordCategoriesRequest" +
-      "\022\024\n\005words\030\n \003(\tR\005words\022(\n\020add_category_i" +
-      "ds\030\024 \003(\tR\016addCategoryIds\022.\n\023remove_categ" +
-      "ory_ids\030\036 \003(\tR\021removeCategoryIds\"8\n\034Upda" +
-      "teWordCategoriesResponse\022\030\n\007updated\030\n \001(" +
-      "\005R\007updated\"\330\010\n\010Settings\022&\n\017max_saved_wor" +
-      "ds\030\n \001(\005R\rmaxSavedWords\022*\n\021allow_export_" +
-      "deck\030\024 \001(\010R\017allowExportDeck\022*\n\021allow_exp" +
-      "ort_link\030\036 \001(\010R\017allowExportLink\022\'\n\017engli" +
-      "sh_enabled\030( \001(\010R\016englishEnabled\022,\n\022engl" +
-      "ish_vi_enabled\0302 \001(\010R\020englishViEnabled\022." +
+      "nary.v1\032\026authz/v1/options.proto\"t\n\007Meani" +
+      "ng\022\036\n\ndefinition\030\n \001(\tR\ndefinition\022\032\n\010ex" +
+      "amples\030\024 \003(\tR\010examples\022-\n\022machine_transl" +
+      "ated\030\036 \001(\010R\021machineTranslated\"\210\002\n\004Word\022\022" +
+      "\n\004text\030\n \001(\tR\004text\022\032\n\010phonetic\030\024 \001(\tR\010ph" +
+      "onetic\022\037\n\013phonetic_uk\030\036 \001(\tR\nphoneticUk\022" +
+      "\037\n\013phonetic_us\030( \001(\tR\nphoneticUs\022\031\n\010audi" +
+      "o_uk\0302 \001(\tR\007audioUk\022\031\n\010audio_us\030< \001(\tR\007a" +
+      "udioUs\022$\n\016part_of_speech\030F \003(\tR\014partOfSp" +
+      "eech\0222\n\010meanings\030P \003(\0132\026.dictionary.v1.M" +
+      "eaningR\010meanings\"b\n\021LookupWordRequest\022\022\n" +
+      "\004word\030\n \001(\tR\004word\0229\n\ndictionary\030\024 \001(\0162\031." +
+      "dictionary.v1.DictionaryR\ndictionary\"=\n\022" +
+      "LookupWordResponse\022\'\n\004word\030\n \001(\0132\023.dicti" +
+      "onary.v1.WordR\004word\"e\n\022LookupWordsReques" +
+      "t\022\024\n\005words\030\n \003(\tR\005words\0229\n\ndictionary\030\024 " +
+      "\001(\0162\031.dictionary.v1.DictionaryR\ndictiona" +
+      "ry\"]\n\023LookupWordsResponse\022)\n\005words\030\n \003(\013" +
+      "2\023.dictionary.v1.WordR\005words\022\033\n\tnot_foun" +
+      "d\030\024 \003(\tR\010notFound\"\217\002\n\tSavedWord\022\022\n\004word\030" +
+      "\n \001(\tR\004word\022\030\n\007content\030\024 \001(\tR\007content\022\031\n" +
+      "\010audio_uk\030\036 \001(\tR\007audioUk\022\031\n\010audio_us\030( \001" +
+      "(\tR\007audioUs\022\035\n\ncreated_at\0302 \001(\tR\tcreated" +
+      "At\022\032\n\010exported\030< \001(\010R\010exported\022!\n\014catego" +
+      "ry_ids\030F \003(\tR\013categoryIds\022$\n\016next_review" +
+      "_at\030P \001(\tR\014nextReviewAt\022\032\n\010learning\030Z \001(" +
+      "\010R\010learning\"\230\001\n\017SaveWordRequest\022\022\n\004word\030" +
+      "\n \001(\tR\004word\022\030\n\007content\030\024 \001(\tR\007content\022\031\n" +
+      "\010audio_uk\030\036 \001(\tR\007audioUk\022\031\n\010audio_us\030( \001" +
+      "(\tR\007audioUs\022!\n\014category_ids\0302 \003(\tR\013categ" +
+      "oryIds\"3\n\020SaveWordResponse\022\037\n\013saved_coun" +
+      "t\030\n \001(\005R\nsavedCount\"\260\001\n\025ListSavedWordsRe" +
+      "quest\022\033\n\tpage_size\030\n \001(\005R\010pageSize\022\035\n\npa" +
+      "ge_token\030\024 \001(\tR\tpageToken\022\024\n\005query\030\036 \001(\t" +
+      "R\005query\022\037\n\013category_id\030( \001(\tR\ncategoryId" +
+      "\022$\n\runcategorized\0302 \001(\010R\runcategorized\"\310" +
+      "\001\n\026ListSavedWordsResponse\022.\n\005words\030\n \003(\013" +
+      "2\030.dictionary.v1.SavedWordR\005words\022&\n\017nex" +
+      "t_page_token\030\024 \001(\tR\rnextPageToken\022\024\n\005tot" +
+      "al\030\036 \001(\005R\005total\022\033\n\tnew_total\030( \001(\005R\010newT" +
+      "otal\022#\n\rcounts_capped\0302 \001(\010R\014countsCappe" +
+      "d\",\n\026DeleteSavedWordRequest\022\022\n\004word\030\n \001(" +
+      "\tR\004word\"\031\n\027DeleteSavedWordResponse\"\277\001\n\021E" +
+      "xportAnkiRequest\022\033\n\tdeck_name\030\n \001(\tR\010dec" +
+      "kName\0220\n\005scope\030\024 \001(\0162\032.dictionary.v1.Exp" +
+      "ortScopeR\005scope\022\037\n\013category_id\030\036 \001(\tR\nca" +
+      "tegoryId\022$\n\runcategorized\030( \001(\010R\runcateg" +
+      "orized\022\024\n\005words\0302 \003(\tR\005words\"c\n\022ExportAn" +
+      "kiResponse\022\032\n\010filename\030\n \001(\tR\010filename\022\022" +
+      "\n\004data\030\024 \001(\014R\004data\022\035\n\nword_count\030\036 \001(\005R\t" +
+      "wordCount\"\303\001\n\025CreateDeckLinkRequest\022\033\n\td" +
+      "eck_name\030\n \001(\tR\010deckName\0220\n\005scope\030\024 \001(\0162" +
+      "\032.dictionary.v1.ExportScopeR\005scope\022\037\n\013ca" +
+      "tegory_id\030\036 \001(\tR\ncategoryId\022$\n\runcategor" +
+      "ized\030( \001(\010R\runcategorized\022\024\n\005words\0302 \003(\t" +
+      "R\005words\"\034\n\032RemoveExportedWordsRequest\"7\n" +
+      "\033RemoveExportedWordsResponse\022\030\n\007removed\030" +
+      "\n \001(\005R\007removed\"\210\001\n\026CreateDeckLinkRespons" +
+      "e\022\024\n\005token\030\n \001(\tR\005token\022\032\n\010filename\030\024 \001(" +
+      "\tR\010filename\022\035\n\nword_count\030\036 \001(\005R\twordCou" +
+      "nt\022\035\n\nexpires_at\030( \001(\tR\texpiresAt\"+\n\023Dow" +
+      "nloadDeckRequest\022\024\n\005token\030\n \001(\tR\005token\"F" +
+      "\n\024DownloadDeckResponse\022\032\n\010filename\030\n \001(\t" +
+      "R\010filename\022\022\n\004data\030\024 \001(\014R\004data\"1\n\031Downlo" +
+      "adExportPartRequest\022\024\n\005token\030\n \001(\tR\005toke" +
+      "n\"S\n\rDownloadChunk\022\032\n\010filename\030\n \001(\tR\010fi" +
+      "lename\022\022\n\004size\030\024 \001(\003R\004size\022\022\n\004data\030\036 \001(\014" +
+      "R\004data\"K\n\022UploadImageRequest\022!\n\014content_" +
+      "type\030\n \001(\tR\013contentType\022\022\n\004data\030\024 \001(\014R\004d" +
+      "ata\"%\n\023UploadImageResponse\022\016\n\002id\030\n \001(\tR\002" +
+      "id\"!\n\017GetImageRequest\022\016\n\002id\030\n \001(\tR\002id\"I\n" +
+      "\020GetImageResponse\022!\n\014content_type\030\n \001(\tR" +
+      "\013contentType\022\022\n\004data\030\024 \001(\014R\004data\"K\n\022Uplo" +
+      "adAudioRequest\022!\n\014content_type\030\n \001(\tR\013co" +
+      "ntentType\022\022\n\004data\030\024 \001(\014R\004data\"%\n\023UploadA" +
+      "udioResponse\022\016\n\002id\030\n \001(\tR\002id\"!\n\017GetAudio" +
+      "Request\022\016\n\002id\030\n \001(\tR\002id\"I\n\020GetAudioRespo" +
+      "nse\022!\n\014content_type\030\n \001(\tR\013contentType\022\022" +
+      "\n\004data\030\024 \001(\014R\004data\"\333\001\n\nReviewCard\022\022\n\004wor" +
+      "d\030\n \001(\tR\004word\022\030\n\007content\030\024 \001(\tR\007content\022" +
+      "\031\n\010audio_uk\030\036 \001(\tR\007audioUk\022\031\n\010audio_us\030(" +
+      " \001(\tR\007audioUs\022\025\n\006is_new\0302 \001(\010R\005isNew\0226\n\027" +
+      "grade_intervals_seconds\030< \003(\003R\025gradeInte" +
+      "rvalsSeconds\022\032\n\010learning\030F \001(\010R\010learning" +
+      "\"t\n\025GetReviewQueueRequest\022\024\n\005limit\030\n \001(\005" +
+      "R\005limit\022\037\n\013category_id\030\024 \001(\tR\ncategoryId" +
+      "\022$\n\runcategorized\030\036 \001(\010R\runcategorized\"\306" +
+      "\002\n\026GetReviewQueueResponse\022/\n\005cards\030\n \003(\013" +
+      "2\031.dictionary.v1.ReviewCardR\005cards\022\033\n\tdu" +
+      "e_count\030\024 \001(\005R\010dueCount\022\033\n\tnew_count\030\036 \001" +
+      "(\005R\010newCount\022\037\n\013total_count\030( \001(\005R\ntotal" +
+      "Count\022\036\n\013next_due_at\0302 \001(\tR\tnextDueAt\022%\n" +
+      "\016learning_count\030< \001(\005R\rlearningCount\022\031\n\010" +
+      "new_held\030F \001(\005R\007newHeld\022\031\n\010due_held\030P \001(" +
+      "\005R\007dueHeld\022#\n\rcounts_capped\030Z \001(\010R\014count" +
+      "sCapped\"N\n\025AddReviewBonusRequest\022\033\n\tnew_" +
+      "words\030\n \001(\005R\010newWords\022\030\n\007reviews\030\024 \001(\005R\007" +
+      "reviews\"y\n\026AddReviewBonusResponse\022\033\n\text" +
+      "ra_new\030\n \001(\005R\010extraNew\022#\n\rextra_reviews\030" +
+      "\024 \001(\005R\014extraReviews\022\035\n\nexpires_at\030\036 \001(\tR" +
+      "\texpiresAt\"[\n\023SubmitReviewRequest\022\022\n\004wor" +
+      "d\030\n \001(\tR\004word\0220\n\005grade\030\024 \001(\0162\032.dictionar" +
+      "y.v1.ReviewGradeR\005grade\"\220\001\n\024SubmitReview" +
+      "Response\022\025\n\006due_at\030\n \001(\tR\005dueAt\022)\n\020inter" +
+      "val_seconds\030\024 \001(\003R\017intervalSeconds\0226\n\027gr" +
+      "ade_intervals_seconds\030\036 \003(\003R\025gradeInterv" +
+      "alsSeconds\"L\n\037OptimizeReviewParametersRe" +
+      "quest\022)\n\020restore_defaults\030\n \001(\010R\017restore" +
+      "Defaults\"\334\001\n OptimizeReviewParametersRes" +
+      "ponse\022\030\n\007applied\030\n \001(\010R\007applied\022!\n\014revie" +
+      "w_count\030\024 \001(\005R\013reviewCount\022!\n\014loss_defau" +
+      "lt\030\036 \001(\002R\013lossDefault\022!\n\014loss_trained\030( " +
+      "\001(\002R\013lossTrained\022\035\n\ntrained_at\0302 \001(\tR\ttr" +
+      "ainedAt\022\026\n\006reason\030< \001(\tR\006reason\"a\n\010Categ" +
+      "ory\022\016\n\002id\030\n \001(\tR\002id\022\022\n\004name\030\024 \001(\tR\004name\022" +
+      "\024\n\005total\030\036 \001(\005R\005total\022\033\n\tnew_total\030( \001(\005" +
+      "R\010newTotal\"\027\n\025ListCategoriesRequest\"\337\001\n\026" +
+      "ListCategoriesResponse\0227\n\ncategories\030\n \003" +
+      "(\0132\027.dictionary.v1.CategoryR\ncategories\022" +
+      "/\n\023uncategorized_total\030\024 \001(\005R\022uncategori" +
+      "zedTotal\0226\n\027uncategorized_new_total\030\036 \001(" +
+      "\005R\025uncategorizedNewTotal\022#\n\rcounts_cappe" +
+      "d\030( \001(\010R\014countsCapped\"+\n\025CreateCategoryR" +
+      "equest\022\022\n\004name\030\n \001(\tR\004name\"M\n\026CreateCate" +
+      "goryResponse\0223\n\010category\030\n \001(\0132\027.diction" +
+      "ary.v1.CategoryR\010category\";\n\025RenameCateg" +
+      "oryRequest\022\016\n\002id\030\n \001(\tR\002id\022\022\n\004name\030\024 \001(\t" +
+      "R\004name\"M\n\026RenameCategoryResponse\0223\n\010cate" +
+      "gory\030\n \001(\0132\027.dictionary.v1.CategoryR\010cat" +
+      "egory\"\'\n\025DeleteCategoryRequest\022\016\n\002id\030\n \001" +
+      "(\tR\002id\"\030\n\026DeleteCategoryResponse\"\215\001\n\033Upd" +
+      "ateWordCategoriesRequest\022\024\n\005words\030\n \003(\tR" +
+      "\005words\022(\n\020add_category_ids\030\024 \003(\tR\016addCat" +
+      "egoryIds\022.\n\023remove_category_ids\030\036 \003(\tR\021r" +
+      "emoveCategoryIds\"8\n\034UpdateWordCategories" +
+      "Response\022\030\n\007updated\030\n \001(\005R\007updated\"\330\010\n\010S" +
+      "ettings\022&\n\017max_saved_words\030\n \001(\005R\rmaxSav" +
+      "edWords\022*\n\021allow_export_deck\030\024 \001(\010R\017allo" +
+      "wExportDeck\022*\n\021allow_export_link\030\036 \001(\010R\017" +
+      "allowExportLink\022\'\n\017english_enabled\030( \001(\010" +
+      "R\016englishEnabled\022,\n\022english_vi_enabled\0302" +
+      " \001(\010R\020englishViEnabled\022.\n\023remove_after_e" +
+      "xport\030< \001(\010R\021removeAfterExport\0228\n\030export" +
+      "ed_retention_hours\030F \001(\005R\026exportedRetent" +
+      "ionHours\022%\n\016max_categories\030P \001(\005R\rmaxCat" +
+      "egories\0227\n\030max_category_name_length\030Z \001(" +
+      "\005R\025maxCategoryNameLength\022(\n\020export_max_b" +
+      "ytes\030d \001(\005R\016exportMaxBytes\0221\n\025export_par" +
+      "t_max_bytes\030n \001(\005R\022exportPartMaxBytes\0227\n" +
+      "\030export_max_bytes_ceiling\030x \001(\005R\025exportM" +
+      "axBytesCeiling\022A\n\035export_part_max_bytes_" +
+      "ceiling\030\202\001 \001(\005R\031exportPartMaxBytesCeilin" +
+      "g\0222\n\025export_sync_max_words\030\214\001 \001(\005R\022expor" +
+      "tSyncMaxWords\022+\n\021max_content_bytes\030\226\001 \001(" +
+      "\005R\017maxContentBytes\022-\n\022content_user_quota" +
+      "\030\240\001 \001(\003R\020contentUserQuota\022)\n\020image_user_" +
+      "quota\030\252\001 \001(\003R\016imageUserQuota\022)\n\020audio_us" +
+      "er_quota\030\264\001 \001(\003R\016audioUserQuota\022:\n\031max_c" +
+      "ontent_bytes_ceiling\030\276\001 \001(\005R\026maxContentB" +
+      "ytesCeiling\022<\n\032content_user_quota_ceilin" +
+      "g\030\310\001 \001(\003R\027contentUserQuotaCeiling\0228\n\030ima" +
+      "ge_user_quota_ceiling\030\322\001 \001(\003R\025imageUserQ" +
+      "uotaCeiling\0228\n\030audio_user_quota_ceiling\030" +
+      "\334\001 \001(\003R\025audioUserQuotaCeiling\"\250\004\n\014UserSe" +
+      "ttings\022\'\n\017english_enabled\030\n \001(\010R\016english" +
+      "Enabled\022,\n\022english_vi_enabled\030\024 \001(\010R\020eng" +
+      "lishViEnabled\022H\n\022default_dictionary\030\036 \001(" +
+      "\0162\031.dictionary.v1.DictionaryR\021defaultDic" +
+      "tionary\022\033\n\tdeck_name\030( \001(\tR\010deckName\022(\n\020" +
+      "max_lookup_words\0302 \001(\005R\016maxLookupWords\022." +
       "\n\023remove_after_export\030< \001(\010R\021removeAfter" +
-      "Export\0228\n\030exported_retention_hours\030F \001(\005" +
-      "R\026exportedRetentionHours\022%\n\016max_categori" +
-      "es\030P \001(\005R\rmaxCategories\0227\n\030max_category_" +
-      "name_length\030Z \001(\005R\025maxCategoryNameLength" +
-      "\022(\n\020export_max_bytes\030d \001(\005R\016exportMaxByt" +
-      "es\0221\n\025export_part_max_bytes\030n \001(\005R\022expor" +
-      "tPartMaxBytes\0227\n\030export_max_bytes_ceilin" +
-      "g\030x \001(\005R\025exportMaxBytesCeiling\022A\n\035export" +
-      "_part_max_bytes_ceiling\030\202\001 \001(\005R\031exportPa" +
-      "rtMaxBytesCeiling\0222\n\025export_sync_max_wor" +
-      "ds\030\214\001 \001(\005R\022exportSyncMaxWords\022+\n\021max_con" +
-      "tent_bytes\030\226\001 \001(\005R\017maxContentBytes\022-\n\022co" +
-      "ntent_user_quota\030\240\001 \001(\003R\020contentUserQuot" +
-      "a\022)\n\020image_user_quota\030\252\001 \001(\003R\016imageUserQ" +
-      "uota\022)\n\020audio_user_quota\030\264\001 \001(\003R\016audioUs" +
-      "erQuota\022:\n\031max_content_bytes_ceiling\030\276\001 " +
-      "\001(\005R\026maxContentBytesCeiling\022<\n\032content_u" +
-      "ser_quota_ceiling\030\310\001 \001(\003R\027contentUserQuo" +
-      "taCeiling\0228\n\030image_user_quota_ceiling\030\322\001" +
-      " \001(\003R\025imageUserQuotaCeiling\0228\n\030audio_use" +
-      "r_quota_ceiling\030\334\001 \001(\003R\025audioUserQuotaCe" +
-      "iling\"\250\004\n\014UserSettings\022\'\n\017english_enable" +
-      "d\030\n \001(\010R\016englishEnabled\022,\n\022english_vi_en" +
-      "abled\030\024 \001(\010R\020englishViEnabled\022H\n\022default" +
-      "_dictionary\030\036 \001(\0162\031.dictionary.v1.Dictio" +
-      "naryR\021defaultDictionary\022\033\n\tdeck_name\030( \001" +
-      "(\tR\010deckName\022(\n\020max_lookup_words\0302 \001(\005R\016" +
-      "maxLookupWords\022.\n\023remove_after_export\030< " +
-      "\001(\010R\021removeAfterExport\022/\n\023remove_acknowl" +
-      "edged\030F \001(\010R\022removeAcknowledged\022\035\n\nfresh" +
-      "_deck\030P \001(\010R\tfreshDeck\022+\n\022review_new_per" +
-      "_day\030Z \001(\005R\017reviewNewPerDay\022+\n\022review_ma" +
-      "x_per_day\030d \001(\005R\017reviewMaxPerDay\022)\n\020revi" +
-      "ew_algorithm\030n \001(\tR\017reviewAlgorithm\022+\n\021d" +
-      "esired_retention\030x \001(\005R\020desiredRetention" +
-      "\"\024\n\022GetSettingsRequest\"J\n\023GetSettingsRes" +
-      "ponse\0223\n\010settings\030\n \001(\0132\027.dictionary.v1." +
-      "SettingsR\010settings\"L\n\025UpdateSettingsRequ" +
-      "est\0223\n\010settings\030\n \001(\0132\027.dictionary.v1.Se" +
-      "ttingsR\010settings\"M\n\026UpdateSettingsRespon" +
-      "se\0223\n\010settings\030\n \001(\0132\027.dictionary.v1.Set" +
-      "tingsR\010settings\"T\n\014StorageQuota\022\030\n\007conte" +
-      "nt\030\n \001(\003R\007content\022\024\n\005image\030\024 \001(\003R\005image\022" +
-      "\024\n\005audio\030\036 \001(\003R\005audio\".\n\023GetUserQuotaReq" +
-      "uest\022\027\n\007user_id\030\n \001(\tR\006userId\"\273\001\n\024GetUse" +
-      "rQuotaResponse\022/\n\004used\030\n \001(\0132\033.dictionar" +
-      "y.v1.StorageQuotaR\004used\0227\n\010override\030\024 \001(" +
-      "\0132\033.dictionary.v1.StorageQuotaR\010override" +
-      "\0229\n\teffective\030\036 \001(\0132\033.dictionary.v1.Stor" +
-      "ageQuotaR\teffective\"c\n\023SetUserQuotaReque" +
-      "st\022\027\n\007user_id\030\n \001(\tR\006userId\0223\n\006quotas\030\024 " +
-      "\001(\0132\033.dictionary.v1.StorageQuotaR\006quotas" +
-      "\"\273\001\n\024SetUserQuotaResponse\022/\n\004used\030\n \001(\0132" +
-      "\033.dictionary.v1.StorageQuotaR\004used\0227\n\010ov" +
-      "erride\030\024 \001(\0132\033.dictionary.v1.StorageQuot" +
-      "aR\010override\0229\n\teffective\030\036 \001(\0132\033.diction" +
-      "ary.v1.StorageQuotaR\teffective\"8\n\014Storag" +
-      "eUsage\022\022\n\004used\030\n \001(\003R\004used\022\024\n\005limit\030\024 \001(" +
-      "\003R\005limit\"\025\n\023GetMyStorageRequest\"\263\001\n\024GetM" +
-      "yStorageResponse\0225\n\007content\030\n \001(\0132\033.dict" +
-      "ionary.v1.StorageUsageR\007content\0221\n\005image" +
-      "\030\024 \001(\0132\033.dictionary.v1.StorageUsageR\005ima" +
-      "ge\0221\n\005audio\030\036 \001(\0132\033.dictionary.v1.Storag" +
-      "eUsageR\005audio\"\026\n\024GetMySettingsRequest\"\315\001" +
-      "\n\025GetMySettingsResponse\022/\n\004user\030\n \001(\0132\033." +
-      "dictionary.v1.UserSettingsR\004user\022/\n\006syst" +
-      "em\030\024 \001(\0132\027.dictionary.v1.SettingsR\006syste" +
-      "m\022&\n\017fsrs_trained_at\030\036 \001(\tR\rfsrsTrainedA" +
-      "t\022*\n\021fsrs_review_count\030( \001(\005R\017fsrsReview" +
-      "Count\"J\n\027UpdateMySettingsRequest\022/\n\004user" +
-      "\030\n \001(\0132\033.dictionary.v1.UserSettingsR\004use" +
-      "r\"|\n\030UpdateMySettingsResponse\022/\n\004user\030\n " +
-      "\001(\0132\033.dictionary.v1.UserSettingsR\004user\022/" +
-      "\n\006system\030\024 \001(\0132\027.dictionary.v1.SettingsR" +
-      "\006system\"\252\001\n\022StartExportRequest\022\033\n\tdeck_n" +
-      "ame\030\n \001(\tR\010deckName\0220\n\005scope\030\024 \001(\0162\032.dic" +
-      "tionary.v1.ExportScopeR\005scope\022\037\n\013categor" +
-      "y_id\030\036 \001(\tR\ncategoryId\022$\n\runcategorized\030" +
-      "( \001(\010R\runcategorized\"A\n\023StartExportRespo" +
-      "nse\022*\n\003job\030\n \001(\0132\030.dictionary.v1.ExportJ" +
-      "obR\003job\"\"\n\020GetExportRequest\022\016\n\002id\030\n \001(\tR" +
-      "\002id\"?\n\021GetExportResponse\022*\n\003job\030\n \001(\0132\030." +
-      "dictionary.v1.ExportJobR\003job\"%\n\023CancelEx" +
-      "portRequest\022\016\n\002id\030\n \001(\tR\002id\"B\n\024CancelExp" +
-      "ortResponse\022*\n\003job\030\n \001(\0132\030.dictionary.v1" +
-      ".ExportJobR\003job\";\n\033CreateExportPartLinkR" +
-      "equest\022\016\n\002id\030\n \001(\tR\002id\022\014\n\001n\030\024 \001(\005R\001n\"\216\001\n" +
-      "\034CreateExportPartLinkResponse\022\024\n\005token\030\n" +
-      " \001(\tR\005token\022\032\n\010filename\030\024 \001(\tR\010filename\022" +
-      "\035\n\nword_count\030\036 \001(\005R\twordCount\022\035\n\nexpire" +
-      "s_at\030( \001(\tR\texpiresAt\"\276\002\n\tExportJob\022\016\n\002i" +
-      "d\030\n \001(\tR\002id\022\026\n\006status\030\024 \001(\tR\006status\022\033\n\td" +
-      "eck_name\030\036 \001(\tR\010deckName\022\024\n\005total\030( \001(\005R" +
-      "\005total\022\024\n\005built\0302 \001(\005R\005built\022\032\n\010building" +
-      "\030n \001(\005R\010building\022/\n\005parts\030< \003(\0132\031.dictio" +
-      "nary.v1.ExportPartR\005parts\022\024\n\005error\030F \001(\t" +
-      "R\005error\022\035\n\ncreated_at\030P \001(\tR\tcreatedAt\022\037" +
-      "\n\013finished_at\030Z \001(\tR\nfinishedAt\022\035\n\nexpir" +
-      "es_at\030d \001(\tR\texpiresAt\"i\n\nExportPart\022\014\n\001" +
-      "n\030\n \001(\005R\001n\022\032\n\010filename\030\024 \001(\tR\010filename\022\035" +
-      "\n\nword_count\030\036 \001(\005R\twordCount\022\022\n\004size\030( " +
-      "\001(\005R\004size\".\n\026CheckSavedWordsRequest\022\024\n\005w" +
-      "ords\030\n \003(\tR\005words\"L\n\027CheckSavedWordsResp" +
-      "onse\0221\n\005words\030\n \003(\0132\033.dictionary.v1.Save" +
-      "dWordRefR\005words\"E\n\014SavedWordRef\022\022\n\004word\030" +
-      "\n \001(\tR\004word\022!\n\014category_ids\030\024 \003(\tR\013categ" +
-      "oryIds*c\n\nDictionary\022\032\n\026DICTIONARY_UNSPE" +
-      "CIFIED\020\000\022\026\n\022DICTIONARY_ENGLISH\020\n\022!\n\035DICT" +
-      "IONARY_ENGLISH_VIETNAMESE\020\024*W\n\013ExportSco" +
-      "pe\022\034\n\030EXPORT_SCOPE_UNSPECIFIED\020\000\022\024\n\020EXPO" +
-      "RT_SCOPE_NEW\020\n\022\024\n\020EXPORT_SCOPE_ALL\020\024*\210\001\n" +
-      "\013ReviewGrade\022\034\n\030REVIEW_GRADE_UNSPECIFIED" +
-      "\020\000\022\026\n\022REVIEW_GRADE_AGAIN\020\001\022\025\n\021REVIEW_GRA" +
-      "DE_HARD\020\002\022\025\n\021REVIEW_GRADE_GOOD\020\003\022\025\n\021REVI" +
-      "EW_GRADE_EASY\020\0042\275\031\n\021DictionaryService\022Q\n" +
-      "\nLookupWord\022 .dictionary.v1.LookupWordRe" +
-      "quest\032!.dictionary.v1.LookupWordResponse" +
-      "\022T\n\013LookupWords\022!.dictionary.v1.LookupWo" +
-      "rdsRequest\032\".dictionary.v1.LookupWordsRe" +
-      "sponse\022K\n\010SaveWord\022\036.dictionary.v1.SaveW" +
+      "Export\022/\n\023remove_acknowledged\030F \001(\010R\022rem" +
+      "oveAcknowledged\022\035\n\nfresh_deck\030P \001(\010R\tfre" +
+      "shDeck\022+\n\022review_new_per_day\030Z \001(\005R\017revi" +
+      "ewNewPerDay\022+\n\022review_max_per_day\030d \001(\005R" +
+      "\017reviewMaxPerDay\022)\n\020review_algorithm\030n \001" +
+      "(\tR\017reviewAlgorithm\022+\n\021desired_retention" +
+      "\030x \001(\005R\020desiredRetention\"\024\n\022GetSettingsR" +
+      "equest\"J\n\023GetSettingsResponse\0223\n\010setting" +
+      "s\030\n \001(\0132\027.dictionary.v1.SettingsR\010settin" +
+      "gs\"L\n\025UpdateSettingsRequest\0223\n\010settings\030" +
+      "\n \001(\0132\027.dictionary.v1.SettingsR\010settings" +
+      "\"M\n\026UpdateSettingsResponse\0223\n\010settings\030\n" +
+      " \001(\0132\027.dictionary.v1.SettingsR\010settings\"" +
+      "T\n\014StorageQuota\022\030\n\007content\030\n \001(\003R\007conten" +
+      "t\022\024\n\005image\030\024 \001(\003R\005image\022\024\n\005audio\030\036 \001(\003R\005" +
+      "audio\".\n\023GetUserQuotaRequest\022\027\n\007user_id\030" +
+      "\n \001(\tR\006userId\"\273\001\n\024GetUserQuotaResponse\022/" +
+      "\n\004used\030\n \001(\0132\033.dictionary.v1.StorageQuot" +
+      "aR\004used\0227\n\010override\030\024 \001(\0132\033.dictionary.v" +
+      "1.StorageQuotaR\010override\0229\n\teffective\030\036 " +
+      "\001(\0132\033.dictionary.v1.StorageQuotaR\teffect" +
+      "ive\"c\n\023SetUserQuotaRequest\022\027\n\007user_id\030\n " +
+      "\001(\tR\006userId\0223\n\006quotas\030\024 \001(\0132\033.dictionary" +
+      ".v1.StorageQuotaR\006quotas\"\273\001\n\024SetUserQuot" +
+      "aResponse\022/\n\004used\030\n \001(\0132\033.dictionary.v1." +
+      "StorageQuotaR\004used\0227\n\010override\030\024 \001(\0132\033.d" +
+      "ictionary.v1.StorageQuotaR\010override\0229\n\te" +
+      "ffective\030\036 \001(\0132\033.dictionary.v1.StorageQu" +
+      "otaR\teffective\"8\n\014StorageUsage\022\022\n\004used\030\n" +
+      " \001(\003R\004used\022\024\n\005limit\030\024 \001(\003R\005limit\"\025\n\023GetM" +
+      "yStorageRequest\"\263\001\n\024GetMyStorageResponse" +
+      "\0225\n\007content\030\n \001(\0132\033.dictionary.v1.Storag" +
+      "eUsageR\007content\0221\n\005image\030\024 \001(\0132\033.diction" +
+      "ary.v1.StorageUsageR\005image\0221\n\005audio\030\036 \001(" +
+      "\0132\033.dictionary.v1.StorageUsageR\005audio\"\026\n" +
+      "\024GetMySettingsRequest\"\315\001\n\025GetMySettingsR" +
+      "esponse\022/\n\004user\030\n \001(\0132\033.dictionary.v1.Us" +
+      "erSettingsR\004user\022/\n\006system\030\024 \001(\0132\027.dicti" +
+      "onary.v1.SettingsR\006system\022&\n\017fsrs_traine" +
+      "d_at\030\036 \001(\tR\rfsrsTrainedAt\022*\n\021fsrs_review" +
+      "_count\030( \001(\005R\017fsrsReviewCount\"J\n\027UpdateM" +
+      "ySettingsRequest\022/\n\004user\030\n \001(\0132\033.diction" +
+      "ary.v1.UserSettingsR\004user\"|\n\030UpdateMySet" +
+      "tingsResponse\022/\n\004user\030\n \001(\0132\033.dictionary" +
+      ".v1.UserSettingsR\004user\022/\n\006system\030\024 \001(\0132\027" +
+      ".dictionary.v1.SettingsR\006system\"\252\001\n\022Star" +
+      "tExportRequest\022\033\n\tdeck_name\030\n \001(\tR\010deckN" +
+      "ame\0220\n\005scope\030\024 \001(\0162\032.dictionary.v1.Expor" +
+      "tScopeR\005scope\022\037\n\013category_id\030\036 \001(\tR\ncate" +
+      "goryId\022$\n\runcategorized\030( \001(\010R\runcategor" +
+      "ized\"A\n\023StartExportResponse\022*\n\003job\030\n \001(\013" +
+      "2\030.dictionary.v1.ExportJobR\003job\"\"\n\020GetEx" +
+      "portRequest\022\016\n\002id\030\n \001(\tR\002id\"?\n\021GetExport" +
+      "Response\022*\n\003job\030\n \001(\0132\030.dictionary.v1.Ex" +
+      "portJobR\003job\"%\n\023CancelExportRequest\022\016\n\002i" +
+      "d\030\n \001(\tR\002id\"B\n\024CancelExportResponse\022*\n\003j" +
+      "ob\030\n \001(\0132\030.dictionary.v1.ExportJobR\003job\"" +
+      ";\n\033CreateExportPartLinkRequest\022\016\n\002id\030\n \001" +
+      "(\tR\002id\022\014\n\001n\030\024 \001(\005R\001n\"\216\001\n\034CreateExportPar" +
+      "tLinkResponse\022\024\n\005token\030\n \001(\tR\005token\022\032\n\010f" +
+      "ilename\030\024 \001(\tR\010filename\022\035\n\nword_count\030\036 " +
+      "\001(\005R\twordCount\022\035\n\nexpires_at\030( \001(\tR\texpi" +
+      "resAt\"\276\002\n\tExportJob\022\016\n\002id\030\n \001(\tR\002id\022\026\n\006s" +
+      "tatus\030\024 \001(\tR\006status\022\033\n\tdeck_name\030\036 \001(\tR\010" +
+      "deckName\022\024\n\005total\030( \001(\005R\005total\022\024\n\005built\030" +
+      "2 \001(\005R\005built\022\032\n\010building\030n \001(\005R\010building" +
+      "\022/\n\005parts\030< \003(\0132\031.dictionary.v1.ExportPa" +
+      "rtR\005parts\022\024\n\005error\030F \001(\tR\005error\022\035\n\ncreat" +
+      "ed_at\030P \001(\tR\tcreatedAt\022\037\n\013finished_at\030Z " +
+      "\001(\tR\nfinishedAt\022\035\n\nexpires_at\030d \001(\tR\texp" +
+      "iresAt\"i\n\nExportPart\022\014\n\001n\030\n \001(\005R\001n\022\032\n\010fi" +
+      "lename\030\024 \001(\tR\010filename\022\035\n\nword_count\030\036 \001" +
+      "(\005R\twordCount\022\022\n\004size\030( \001(\005R\004size\".\n\026Che" +
+      "ckSavedWordsRequest\022\024\n\005words\030\n \003(\tR\005word" +
+      "s\"L\n\027CheckSavedWordsResponse\0221\n\005words\030\n " +
+      "\003(\0132\033.dictionary.v1.SavedWordRefR\005words\"" +
+      "E\n\014SavedWordRef\022\022\n\004word\030\n \001(\tR\004word\022!\n\014c" +
+      "ategory_ids\030\024 \003(\tR\013categoryIds*c\n\nDictio" +
+      "nary\022\032\n\026DICTIONARY_UNSPECIFIED\020\000\022\026\n\022DICT" +
+      "IONARY_ENGLISH\020\n\022!\n\035DICTIONARY_ENGLISH_V" +
+      "IETNAMESE\020\024*W\n\013ExportScope\022\034\n\030EXPORT_SCO" +
+      "PE_UNSPECIFIED\020\000\022\024\n\020EXPORT_SCOPE_NEW\020\n\022\024" +
+      "\n\020EXPORT_SCOPE_ALL\020\024*\210\001\n\013ReviewGrade\022\034\n\030" +
+      "REVIEW_GRADE_UNSPECIFIED\020\000\022\026\n\022REVIEW_GRA" +
+      "DE_AGAIN\020\001\022\025\n\021REVIEW_GRADE_HARD\020\002\022\025\n\021REV" +
+      "IEW_GRADE_GOOD\020\003\022\025\n\021REVIEW_GRADE_EASY\020\0042" +
+      "\220!\n\021DictionaryService\022m\n\nLookupWord\022 .di" +
+      "ctionary.v1.LookupWordRequest\032!.dictiona" +
+      "ry.v1.LookupWordResponse\"\032\322\363\030\026R\024dictiona" +
+      "ry:word:read\022p\n\013LookupWords\022!.dictionary" +
+      ".v1.LookupWordsRequest\032\".dictionary.v1.L" +
+      "ookupWordsResponse\"\032\322\363\030\026R\024dictionary:wor" +
+      "d:read\022h\n\010SaveWord\022\036.dictionary.v1.SaveW" +
       "ordRequest\032\037.dictionary.v1.SaveWordRespo" +
-      "nse\022]\n\016ListSavedWords\022$.dictionary.v1.Li" +
-      "stSavedWordsRequest\032%.dictionary.v1.List" +
-      "SavedWordsResponse\022`\n\017CheckSavedWords\022%." +
-      "dictionary.v1.CheckSavedWordsRequest\032&.d" +
-      "ictionary.v1.CheckSavedWordsResponse\022`\n\017" +
-      "DeleteSavedWord\022%.dictionary.v1.DeleteSa" +
-      "vedWordRequest\032&.dictionary.v1.DeleteSav" +
-      "edWordResponse\022Q\n\nExportAnki\022 .dictionar" +
-      "y.v1.ExportAnkiRequest\032!.dictionary.v1.E" +
-      "xportAnkiResponse\022]\n\016CreateDeckLink\022$.di" +
-      "ctionary.v1.CreateDeckLinkRequest\032%.dict" +
-      "ionary.v1.CreateDeckLinkResponse\022T\n\013Star" +
-      "tExport\022!.dictionary.v1.StartExportReque" +
-      "st\032\".dictionary.v1.StartExportResponse\022N" +
-      "\n\tGetExport\022\037.dictionary.v1.GetExportReq" +
-      "uest\032 .dictionary.v1.GetExportResponse\022W" +
-      "\n\014CancelExport\022\".dictionary.v1.CancelExp" +
-      "ortRequest\032#.dictionary.v1.CancelExportR" +
-      "esponse\022o\n\024CreateExportPartLink\022*.dictio" +
-      "nary.v1.CreateExportPartLinkRequest\032+.di" +
-      "ctionary.v1.CreateExportPartLinkResponse" +
-      "\022W\n\014DownloadDeck\022\".dictionary.v1.Downloa" +
-      "dDeckRequest\032#.dictionary.v1.DownloadDec" +
-      "kResponse\022^\n\022DownloadExportPart\022(.dictio" +
-      "nary.v1.DownloadExportPartRequest\032\034.dict" +
-      "ionary.v1.DownloadChunk0\001\022]\n\016ListCategor" +
-      "ies\022$.dictionary.v1.ListCategoriesReques" +
-      "t\032%.dictionary.v1.ListCategoriesResponse" +
-      "\022]\n\016CreateCategory\022$.dictionary.v1.Creat" +
-      "eCategoryRequest\032%.dictionary.v1.CreateC" +
-      "ategoryResponse\022]\n\016RenameCategory\022$.dict" +
-      "ionary.v1.RenameCategoryRequest\032%.dictio" +
-      "nary.v1.RenameCategoryResponse\022]\n\016Delete" +
-      "Category\022$.dictionary.v1.DeleteCategoryR" +
-      "equest\032%.dictionary.v1.DeleteCategoryRes" +
-      "ponse\022o\n\024UpdateWordCategories\022*.dictiona" +
-      "ry.v1.UpdateWordCategoriesRequest\032+.dict" +
-      "ionary.v1.UpdateWordCategoriesResponse\022l" +
-      "\n\023RemoveExportedWords\022).dictionary.v1.Re" +
-      "moveExportedWordsRequest\032*.dictionary.v1" +
-      ".RemoveExportedWordsResponse\022T\n\013UploadIm" +
-      "age\022!.dictionary.v1.UploadImageRequest\032\"" +
-      ".dictionary.v1.UploadImageResponse\022K\n\010Ge" +
-      "tImage\022\036.dictionary.v1.GetImageRequest\032\037" +
-      ".dictionary.v1.GetImageResponse\022T\n\013Uploa" +
-      "dAudio\022!.dictionary.v1.UploadAudioReques" +
-      "t\032\".dictionary.v1.UploadAudioResponse\022K\n" +
-      "\010GetAudio\022\036.dictionary.v1.GetAudioReques" +
-      "t\032\037.dictionary.v1.GetAudioResponse\022]\n\016Ge" +
-      "tReviewQueue\022$.dictionary.v1.GetReviewQu" +
-      "eueRequest\032%.dictionary.v1.GetReviewQueu" +
-      "eResponse\022W\n\014SubmitReview\022\".dictionary.v" +
-      "1.SubmitReviewRequest\032#.dictionary.v1.Su" +
-      "bmitReviewResponse\022]\n\016AddReviewBonus\022$.d" +
-      "ictionary.v1.AddReviewBonusRequest\032%.dic" +
-      "tionary.v1.AddReviewBonusResponse\022{\n\030Opt" +
-      "imizeReviewParameters\022..dictionary.v1.Op" +
-      "timizeReviewParametersRequest\032/.dictiona" +
-      "ry.v1.OptimizeReviewParametersResponse\022T" +
-      "\n\013GetSettings\022!.dictionary.v1.GetSetting" +
-      "sRequest\032\".dictionary.v1.GetSettingsResp" +
-      "onse\022]\n\016UpdateSettings\022$.dictionary.v1.U" +
-      "pdateSettingsRequest\032%.dictionary.v1.Upd" +
-      "ateSettingsResponse\022W\n\014GetUserQuota\022\".di" +
-      "ctionary.v1.GetUserQuotaRequest\032#.dictio" +
-      "nary.v1.GetUserQuotaResponse\022W\n\014SetUserQ" +
-      "uota\022\".dictionary.v1.SetUserQuotaRequest" +
-      "\032#.dictionary.v1.SetUserQuotaResponse\022W\n" +
-      "\014GetMyStorage\022\".dictionary.v1.GetMyStora" +
-      "geRequest\032#.dictionary.v1.GetMyStorageRe" +
-      "sponse\022Z\n\rGetMySettings\022#.dictionary.v1." +
-      "GetMySettingsRequest\032$.dictionary.v1.Get" +
-      "MySettingsResponse\022c\n\020UpdateMySettings\022&" +
-      ".dictionary.v1.UpdateMySettingsRequest\032\'" +
-      ".dictionary.v1.UpdateMySettingsResponseB" +
-      "7Z5github.com/huponx/protogen/dictionary" +
-      "/v1;dictionaryv1b\006proto3"
+      "nse\"\033\322\363\030\027R\025dictionary:word:write\022y\n\016List" +
+      "SavedWords\022$.dictionary.v1.ListSavedWord" +
+      "sRequest\032%.dictionary.v1.ListSavedWordsR" +
+      "esponse\"\032\322\363\030\026R\024dictionary:word:read\022|\n\017C" +
+      "heckSavedWords\022%.dictionary.v1.CheckSave" +
+      "dWordsRequest\032&.dictionary.v1.CheckSaved" +
+      "WordsResponse\"\032\322\363\030\026R\024dictionary:word:rea" +
+      "d\022}\n\017DeleteSavedWord\022%.dictionary.v1.Del" +
+      "eteSavedWordRequest\032&.dictionary.v1.Dele" +
+      "teSavedWordResponse\"\033\322\363\030\027R\025dictionary:wo" +
+      "rd:write\022n\n\nExportAnki\022 .dictionary.v1.E" +
+      "xportAnkiRequest\032!.dictionary.v1.ExportA" +
+      "nkiResponse\"\033\322\363\030\027R\025dictionary:word:write" +
+      "\022z\n\016CreateDeckLink\022$.dictionary.v1.Creat" +
+      "eDeckLinkRequest\032%.dictionary.v1.CreateD" +
+      "eckLinkResponse\"\033\322\363\030\027R\025dictionary:word:w" +
+      "rite\022q\n\013StartExport\022!.dictionary.v1.Star" +
+      "tExportRequest\032\".dictionary.v1.StartExpo" +
+      "rtResponse\"\033\322\363\030\027R\025dictionary:word:write\022" +
+      "k\n\tGetExport\022\037.dictionary.v1.GetExportRe" +
+      "quest\032 .dictionary.v1.GetExportResponse\"" +
+      "\033\322\363\030\027R\025dictionary:word:write\022t\n\014CancelEx" +
+      "port\022\".dictionary.v1.CancelExportRequest" +
+      "\032#.dictionary.v1.CancelExportResponse\"\033\322" +
+      "\363\030\027R\025dictionary:word:write\022\214\001\n\024CreateExp" +
+      "ortPartLink\022*.dictionary.v1.CreateExport" +
+      "PartLinkRequest\032+.dictionary.v1.CreateEx" +
+      "portPartLinkResponse\"\033\322\363\030\027R\025dictionary:w" +
+      "ord:write\022`\n\014DownloadDeck\022\".dictionary.v" +
+      "1.DownloadDeckRequest\032#.dictionary.v1.Do" +
+      "wnloadDeckResponse\"\007\322\363\030\003\360\001\001\022g\n\022DownloadE" +
+      "xportPart\022(.dictionary.v1.DownloadExport" +
+      "PartRequest\032\034.dictionary.v1.DownloadChun" +
+      "k\"\007\322\363\030\003\360\001\0010\001\022y\n\016ListCategories\022$.diction" +
+      "ary.v1.ListCategoriesRequest\032%.dictionar" +
+      "y.v1.ListCategoriesResponse\"\032\322\363\030\026R\024dicti" +
+      "onary:word:read\022z\n\016CreateCategory\022$.dict" +
+      "ionary.v1.CreateCategoryRequest\032%.dictio" +
+      "nary.v1.CreateCategoryResponse\"\033\322\363\030\027R\025di" +
+      "ctionary:word:write\022z\n\016RenameCategory\022$." +
+      "dictionary.v1.RenameCategoryRequest\032%.di" +
+      "ctionary.v1.RenameCategoryResponse\"\033\322\363\030\027" +
+      "R\025dictionary:word:write\022z\n\016DeleteCategor" +
+      "y\022$.dictionary.v1.DeleteCategoryRequest\032" +
+      "%.dictionary.v1.DeleteCategoryResponse\"\033" +
+      "\322\363\030\027R\025dictionary:word:write\022\214\001\n\024UpdateWo" +
+      "rdCategories\022*.dictionary.v1.UpdateWordC" +
+      "ategoriesRequest\032+.dictionary.v1.UpdateW" +
+      "ordCategoriesResponse\"\033\322\363\030\027R\025dictionary:" +
+      "word:write\022\211\001\n\023RemoveExportedWords\022).dic" +
+      "tionary.v1.RemoveExportedWordsRequest\032*." +
+      "dictionary.v1.RemoveExportedWordsRespons" +
+      "e\"\033\322\363\030\027R\025dictionary:word:write\022q\n\013Upload" +
+      "Image\022!.dictionary.v1.UploadImageRequest" +
+      "\032\".dictionary.v1.UploadImageResponse\"\033\322\363" +
+      "\030\027R\025dictionary:word:write\022g\n\010GetImage\022\036." +
+      "dictionary.v1.GetImageRequest\032\037.dictiona" +
+      "ry.v1.GetImageResponse\"\032\322\363\030\026R\024dictionary" +
+      ":word:read\022q\n\013UploadAudio\022!.dictionary.v" +
+      "1.UploadAudioRequest\032\".dictionary.v1.Upl" +
+      "oadAudioResponse\"\033\322\363\030\027R\025dictionary:word:" +
+      "write\022g\n\010GetAudio\022\036.dictionary.v1.GetAud" +
+      "ioRequest\032\037.dictionary.v1.GetAudioRespon" +
+      "se\"\032\322\363\030\026R\024dictionary:word:read\022y\n\016GetRev" +
+      "iewQueue\022$.dictionary.v1.GetReviewQueueR" +
+      "equest\032%.dictionary.v1.GetReviewQueueRes" +
+      "ponse\"\032\322\363\030\026R\024dictionary:word:read\022s\n\014Sub" +
+      "mitReview\022\".dictionary.v1.SubmitReviewRe" +
+      "quest\032#.dictionary.v1.SubmitReviewRespon" +
+      "se\"\032\322\363\030\026R\024dictionary:word:read\022y\n\016AddRev" +
+      "iewBonus\022$.dictionary.v1.AddReviewBonusR" +
+      "equest\032%.dictionary.v1.AddReviewBonusRes" +
+      "ponse\"\032\322\363\030\026R\024dictionary:word:read\022\227\001\n\030Op" +
+      "timizeReviewParameters\022..dictionary.v1.O" +
+      "ptimizeReviewParametersRequest\032/.diction" +
+      "ary.v1.OptimizeReviewParametersResponse\"" +
+      "\032\322\363\030\026R\024dictionary:word:read\022t\n\013GetSettin" +
+      "gs\022!.dictionary.v1.GetSettingsRequest\032\"." +
+      "dictionary.v1.GetSettingsResponse\"\036\322\363\030\032R" +
+      "\030dictionary:settings:read\022~\n\016UpdateSetti" +
+      "ngs\022$.dictionary.v1.UpdateSettingsReques" +
+      "t\032%.dictionary.v1.UpdateSettingsResponse" +
+      "\"\037\322\363\030\033R\031dictionary:settings:write\022w\n\014Get" +
+      "UserQuota\022\".dictionary.v1.GetUserQuotaRe" +
+      "quest\032#.dictionary.v1.GetUserQuotaRespon" +
+      "se\"\036\322\363\030\032R\030dictionary:settings:read\022x\n\014Se" +
+      "tUserQuota\022\".dictionary.v1.SetUserQuotaR" +
+      "equest\032#.dictionary.v1.SetUserQuotaRespo" +
+      "nse\"\037\322\363\030\033R\031dictionary:settings:write\022s\n\014" +
+      "GetMyStorage\022\".dictionary.v1.GetMyStorag" +
+      "eRequest\032#.dictionary.v1.GetMyStorageRes" +
+      "ponse\"\032\322\363\030\026R\024dictionary:word:read\022v\n\rGet" +
+      "MySettings\022#.dictionary.v1.GetMySettings" +
+      "Request\032$.dictionary.v1.GetMySettingsRes" +
+      "ponse\"\032\322\363\030\026R\024dictionary:word:read\022\177\n\020Upd" +
+      "ateMySettings\022&.dictionary.v1.UpdateMySe" +
+      "ttingsRequest\032\'.dictionary.v1.UpdateMySe" +
+      "ttingsResponse\"\032\322\363\030\026R\024dictionary:word:re" +
+      "adB7Z5github.com/huponx/protogen/diction" +
+      "ary/v1;dictionaryv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          authz.v1.Options.getDescriptor(),
         });
     internal_static_dictionary_v1_Meaning_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -65638,6 +65664,12 @@ public final class DictionaryOuterClass {
         internal_static_dictionary_v1_SavedWordRef_descriptor,
         new java.lang.String[] { "Word", "CategoryIds", });
     descriptor.resolveAllFeaturesImmutable();
+    authz.v1.Options.getDescriptor();
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(authz.v1.Options.rule);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -19,55 +19,57 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	IdentityService_Introspect_FullMethodName           = "/identity.v1.IdentityService/Introspect"
-	IdentityService_CheckPermission_FullMethodName      = "/identity.v1.IdentityService/CheckPermission"
-	IdentityService_RevokeToken_FullMethodName          = "/identity.v1.IdentityService/RevokeToken"
-	IdentityService_GetUser_FullMethodName              = "/identity.v1.IdentityService/GetUser"
-	IdentityService_ListUsers_FullMethodName            = "/identity.v1.IdentityService/ListUsers"
-	IdentityService_CreateUser_FullMethodName           = "/identity.v1.IdentityService/CreateUser"
-	IdentityService_SetUserDisabled_FullMethodName      = "/identity.v1.IdentityService/SetUserDisabled"
-	IdentityService_DeleteUser_FullMethodName           = "/identity.v1.IdentityService/DeleteUser"
-	IdentityService_SetUserPassword_FullMethodName      = "/identity.v1.IdentityService/SetUserPassword"
-	IdentityService_SendPasswordReset_FullMethodName    = "/identity.v1.IdentityService/SendPasswordReset"
-	IdentityService_UpdateUser_FullMethodName           = "/identity.v1.IdentityService/UpdateUser"
-	IdentityService_SetUserAvatar_FullMethodName        = "/identity.v1.IdentityService/SetUserAvatar"
-	IdentityService_SendWelcome_FullMethodName          = "/identity.v1.IdentityService/SendWelcome"
-	IdentityService_GetUserStats_FullMethodName         = "/identity.v1.IdentityService/GetUserStats"
-	IdentityService_GetMe_FullMethodName                = "/identity.v1.IdentityService/GetMe"
-	IdentityService_UpdateMe_FullMethodName             = "/identity.v1.IdentityService/UpdateMe"
-	IdentityService_SetMyAvatar_FullMethodName          = "/identity.v1.IdentityService/SetMyAvatar"
-	IdentityService_ChangeMyPassword_FullMethodName     = "/identity.v1.IdentityService/ChangeMyPassword"
-	IdentityService_GetMyMFA_FullMethodName             = "/identity.v1.IdentityService/GetMyMFA"
-	IdentityService_BeginMyMFA_FullMethodName           = "/identity.v1.IdentityService/BeginMyMFA"
-	IdentityService_ConfirmMyMFA_FullMethodName         = "/identity.v1.IdentityService/ConfirmMyMFA"
-	IdentityService_DisableMyMFA_FullMethodName         = "/identity.v1.IdentityService/DisableMyMFA"
-	IdentityService_GetMyUserSettings_FullMethodName    = "/identity.v1.IdentityService/GetMyUserSettings"
-	IdentityService_PutMyUserSettings_FullMethodName    = "/identity.v1.IdentityService/PutMyUserSettings"
-	IdentityService_CreateRole_FullMethodName           = "/identity.v1.IdentityService/CreateRole"
-	IdentityService_SetRolePermissions_FullMethodName   = "/identity.v1.IdentityService/SetRolePermissions"
-	IdentityService_ListRoles_FullMethodName            = "/identity.v1.IdentityService/ListRoles"
-	IdentityService_UpdateRole_FullMethodName           = "/identity.v1.IdentityService/UpdateRole"
-	IdentityService_DeleteRole_FullMethodName           = "/identity.v1.IdentityService/DeleteRole"
-	IdentityService_ListPermissions_FullMethodName      = "/identity.v1.IdentityService/ListPermissions"
-	IdentityService_CreatePermission_FullMethodName     = "/identity.v1.IdentityService/CreatePermission"
-	IdentityService_UpdatePermission_FullMethodName     = "/identity.v1.IdentityService/UpdatePermission"
-	IdentityService_DeletePermission_FullMethodName     = "/identity.v1.IdentityService/DeletePermission"
-	IdentityService_AssignRole_FullMethodName           = "/identity.v1.IdentityService/AssignRole"
-	IdentityService_RevokeRole_FullMethodName           = "/identity.v1.IdentityService/RevokeRole"
-	IdentityService_CreateClient_FullMethodName         = "/identity.v1.IdentityService/CreateClient"
-	IdentityService_UpdateClient_FullMethodName         = "/identity.v1.IdentityService/UpdateClient"
-	IdentityService_SetClientDisabled_FullMethodName    = "/identity.v1.IdentityService/SetClientDisabled"
-	IdentityService_DeleteClient_FullMethodName         = "/identity.v1.IdentityService/DeleteClient"
-	IdentityService_RotateClientSecret_FullMethodName   = "/identity.v1.IdentityService/RotateClientSecret"
-	IdentityService_ListClients_FullMethodName          = "/identity.v1.IdentityService/ListClients"
-	IdentityService_SetExchangePolicy_FullMethodName    = "/identity.v1.IdentityService/SetExchangePolicy"
-	IdentityService_ListExchangePolicies_FullMethodName = "/identity.v1.IdentityService/ListExchangePolicies"
-	IdentityService_GetUserMFA_FullMethodName           = "/identity.v1.IdentityService/GetUserMFA"
-	IdentityService_SetUserMFA_FullMethodName           = "/identity.v1.IdentityService/SetUserMFA"
-	IdentityService_EnforceUserMFA_FullMethodName       = "/identity.v1.IdentityService/EnforceUserMFA"
-	IdentityService_ResetUserMFA_FullMethodName         = "/identity.v1.IdentityService/ResetUserMFA"
-	IdentityService_GetUIStyle_FullMethodName           = "/identity.v1.IdentityService/GetUIStyle"
-	IdentityService_SetUIStyle_FullMethodName           = "/identity.v1.IdentityService/SetUIStyle"
+	IdentityService_Introspect_FullMethodName              = "/identity.v1.IdentityService/Introspect"
+	IdentityService_CheckPermission_FullMethodName         = "/identity.v1.IdentityService/CheckPermission"
+	IdentityService_RevokeToken_FullMethodName             = "/identity.v1.IdentityService/RevokeToken"
+	IdentityService_GetUser_FullMethodName                 = "/identity.v1.IdentityService/GetUser"
+	IdentityService_ListUsers_FullMethodName               = "/identity.v1.IdentityService/ListUsers"
+	IdentityService_CreateUser_FullMethodName              = "/identity.v1.IdentityService/CreateUser"
+	IdentityService_SetUserDisabled_FullMethodName         = "/identity.v1.IdentityService/SetUserDisabled"
+	IdentityService_DeleteUser_FullMethodName              = "/identity.v1.IdentityService/DeleteUser"
+	IdentityService_SetUserPassword_FullMethodName         = "/identity.v1.IdentityService/SetUserPassword"
+	IdentityService_SendPasswordReset_FullMethodName       = "/identity.v1.IdentityService/SendPasswordReset"
+	IdentityService_UpdateUser_FullMethodName              = "/identity.v1.IdentityService/UpdateUser"
+	IdentityService_SetUserAvatar_FullMethodName           = "/identity.v1.IdentityService/SetUserAvatar"
+	IdentityService_SendWelcome_FullMethodName             = "/identity.v1.IdentityService/SendWelcome"
+	IdentityService_ApproveUser_FullMethodName             = "/identity.v1.IdentityService/ApproveUser"
+	IdentityService_RejectUser_FullMethodName              = "/identity.v1.IdentityService/RejectUser"
+	IdentityService_GetUserStats_FullMethodName            = "/identity.v1.IdentityService/GetUserStats"
+	IdentityService_GetMe_FullMethodName                   = "/identity.v1.IdentityService/GetMe"
+	IdentityService_UpdateMe_FullMethodName                = "/identity.v1.IdentityService/UpdateMe"
+	IdentityService_SetMyAvatar_FullMethodName             = "/identity.v1.IdentityService/SetMyAvatar"
+	IdentityService_ChangeMyPassword_FullMethodName        = "/identity.v1.IdentityService/ChangeMyPassword"
+	IdentityService_GetMyMFA_FullMethodName                = "/identity.v1.IdentityService/GetMyMFA"
+	IdentityService_BeginMyMFA_FullMethodName              = "/identity.v1.IdentityService/BeginMyMFA"
+	IdentityService_ConfirmMyMFA_FullMethodName            = "/identity.v1.IdentityService/ConfirmMyMFA"
+	IdentityService_DisableMyMFA_FullMethodName            = "/identity.v1.IdentityService/DisableMyMFA"
+	IdentityService_GetMyUserSettings_FullMethodName       = "/identity.v1.IdentityService/GetMyUserSettings"
+	IdentityService_PutMyUserSettings_FullMethodName       = "/identity.v1.IdentityService/PutMyUserSettings"
+	IdentityService_CreateRole_FullMethodName              = "/identity.v1.IdentityService/CreateRole"
+	IdentityService_SetRolePermissions_FullMethodName      = "/identity.v1.IdentityService/SetRolePermissions"
+	IdentityService_ListRoles_FullMethodName               = "/identity.v1.IdentityService/ListRoles"
+	IdentityService_UpdateRole_FullMethodName              = "/identity.v1.IdentityService/UpdateRole"
+	IdentityService_DeleteRole_FullMethodName              = "/identity.v1.IdentityService/DeleteRole"
+	IdentityService_ListPermissions_FullMethodName         = "/identity.v1.IdentityService/ListPermissions"
+	IdentityService_RegisterPermissions_FullMethodName     = "/identity.v1.IdentityService/RegisterPermissions"
+	IdentityService_AssignRole_FullMethodName              = "/identity.v1.IdentityService/AssignRole"
+	IdentityService_RevokeRole_FullMethodName              = "/identity.v1.IdentityService/RevokeRole"
+	IdentityService_CreateClient_FullMethodName            = "/identity.v1.IdentityService/CreateClient"
+	IdentityService_UpdateClient_FullMethodName            = "/identity.v1.IdentityService/UpdateClient"
+	IdentityService_SetClientDisabled_FullMethodName       = "/identity.v1.IdentityService/SetClientDisabled"
+	IdentityService_DeleteClient_FullMethodName            = "/identity.v1.IdentityService/DeleteClient"
+	IdentityService_RotateClientSecret_FullMethodName      = "/identity.v1.IdentityService/RotateClientSecret"
+	IdentityService_ListClients_FullMethodName             = "/identity.v1.IdentityService/ListClients"
+	IdentityService_SetExchangePolicy_FullMethodName       = "/identity.v1.IdentityService/SetExchangePolicy"
+	IdentityService_ListExchangePolicies_FullMethodName    = "/identity.v1.IdentityService/ListExchangePolicies"
+	IdentityService_GetUserMFA_FullMethodName              = "/identity.v1.IdentityService/GetUserMFA"
+	IdentityService_SetUserMFA_FullMethodName              = "/identity.v1.IdentityService/SetUserMFA"
+	IdentityService_EnforceUserMFA_FullMethodName          = "/identity.v1.IdentityService/EnforceUserMFA"
+	IdentityService_ResetUserMFA_FullMethodName            = "/identity.v1.IdentityService/ResetUserMFA"
+	IdentityService_GetUIStyle_FullMethodName              = "/identity.v1.IdentityService/GetUIStyle"
+	IdentityService_SetUIStyle_FullMethodName              = "/identity.v1.IdentityService/SetUIStyle"
+	IdentityService_GetRegistrationSettings_FullMethodName = "/identity.v1.IdentityService/GetRegistrationSettings"
+	IdentityService_SetRegistrationSettings_FullMethodName = "/identity.v1.IdentityService/SetRegistrationSettings"
 )
 
 // IdentityServiceClient is the client API for IdentityService service.
@@ -99,6 +101,11 @@ type IdentityServiceClient interface {
 	// SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
 	// user who has no password yet (status PENDING).
 	SendWelcome(ctx context.Context, in *SendWelcomeRequest, opts ...grpc.CallOption) (*SendWelcomeResponse, error)
+	// ApproveUser accepts a self-registered user (status PENDING_APPROVAL): the welcome mail with the link to set the
+	// password goes out. RejectUser deletes the user and tells them by mail (the address may register again).
+	// Permission: identity:user:approve.
+	ApproveUser(ctx context.Context, in *ApproveUserRequest, opts ...grpc.CallOption) (*ApproveUserResponse, error)
+	RejectUser(ctx context.Context, in *RejectUserRequest, opts ...grpc.CallOption) (*RejectUserResponse, error)
 	// Counts of users by status, MFA and activity.
 	GetUserStats(ctx context.Context, in *GetUserStatsRequest, opts ...grpc.CallOption) (*GetUserStatsResponse, error)
 	// The signed-in user's own profile. Any user with a user token may call them (no permission):
@@ -132,13 +139,13 @@ type IdentityServiceClient interface {
 	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
-	// The catalog of permissions roles can be given (wildcards are entries too).
+	// The catalog of permissions roles can be given, read only: services define them in their permissions.proto and
+	// register them at start. The wildcards that cover them are listed too (generated, not stored).
 	ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error)
-	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
-	// UpdatePermission changes the description; the name is the key.
-	UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error)
-	// DeletePermission fails while a role holds the permission.
-	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error)
+	// RegisterPermissions is called by a service at start with everything it declares in its permissions.proto:
+	// identity inserts, updates, renames and retires the permissions of that service in one transaction. A service
+	// may only name permissions of its own namespace ("dictionary:*" from the dictionary).
+	RegisterPermissions(ctx context.Context, in *RegisterPermissionsRequest, opts ...grpc.CallOption) (*RegisterPermissionsResponse, error)
 	AssignRole(ctx context.Context, in *AssignRoleRequest, opts ...grpc.CallOption) (*AssignRoleResponse, error)
 	RevokeRole(ctx context.Context, in *RevokeRoleRequest, opts ...grpc.CallOption) (*RevokeRoleResponse, error)
 	// Clients. Permission: identity:client:read for List, identity:client:write for the others.
@@ -162,6 +169,10 @@ type IdentityServiceClient interface {
 	// /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
 	GetUIStyle(ctx context.Context, in *GetUIStyleRequest, opts ...grpc.CallOption) (*GetUIStyleResponse, error)
 	SetUIStyle(ctx context.Context, in *SetUIStyleRequest, opts ...grpc.CallOption) (*SetUIStyleResponse, error)
+	// Self-registration settings. GetRegistrationSettings: identity:settings:read. SetRegistrationSettings:
+	// identity:settings:write.
+	GetRegistrationSettings(ctx context.Context, in *GetRegistrationSettingsRequest, opts ...grpc.CallOption) (*GetRegistrationSettingsResponse, error)
+	SetRegistrationSettings(ctx context.Context, in *SetRegistrationSettingsRequest, opts ...grpc.CallOption) (*SetRegistrationSettingsResponse, error)
 }
 
 type identityServiceClient struct {
@@ -296,6 +307,26 @@ func (c *identityServiceClient) SendWelcome(ctx context.Context, in *SendWelcome
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SendWelcomeResponse)
 	err := c.cc.Invoke(ctx, IdentityService_SendWelcome_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ApproveUser(ctx context.Context, in *ApproveUserRequest, opts ...grpc.CallOption) (*ApproveUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ApproveUserResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ApproveUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) RejectUser(ctx context.Context, in *RejectUserRequest, opts ...grpc.CallOption) (*RejectUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RejectUserResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RejectUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -472,30 +503,10 @@ func (c *identityServiceClient) ListPermissions(ctx context.Context, in *ListPer
 	return out, nil
 }
 
-func (c *identityServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
+func (c *identityServiceClient) RegisterPermissions(ctx context.Context, in *RegisterPermissionsRequest, opts ...grpc.CallOption) (*RegisterPermissionsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreatePermissionResponse)
-	err := c.cc.Invoke(ctx, IdentityService_CreatePermission_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *identityServiceClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdatePermissionResponse)
-	err := c.cc.Invoke(ctx, IdentityService_UpdatePermission_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *identityServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*DeletePermissionResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeletePermissionResponse)
-	err := c.cc.Invoke(ctx, IdentityService_DeletePermission_FullMethodName, in, out, cOpts...)
+	out := new(RegisterPermissionsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RegisterPermissions_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -662,6 +673,26 @@ func (c *identityServiceClient) SetUIStyle(ctx context.Context, in *SetUIStyleRe
 	return out, nil
 }
 
+func (c *identityServiceClient) GetRegistrationSettings(ctx context.Context, in *GetRegistrationSettingsRequest, opts ...grpc.CallOption) (*GetRegistrationSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRegistrationSettingsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_GetRegistrationSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) SetRegistrationSettings(ctx context.Context, in *SetRegistrationSettingsRequest, opts ...grpc.CallOption) (*SetRegistrationSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetRegistrationSettingsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_SetRegistrationSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // IdentityServiceServer is the server API for IdentityService service.
 // All implementations must embed UnimplementedIdentityServiceServer
 // for forward compatibility.
@@ -691,6 +722,11 @@ type IdentityServiceServer interface {
 	// SendWelcome (re)sends the welcome mail with a link to set the first password. Only for a
 	// user who has no password yet (status PENDING).
 	SendWelcome(context.Context, *SendWelcomeRequest) (*SendWelcomeResponse, error)
+	// ApproveUser accepts a self-registered user (status PENDING_APPROVAL): the welcome mail with the link to set the
+	// password goes out. RejectUser deletes the user and tells them by mail (the address may register again).
+	// Permission: identity:user:approve.
+	ApproveUser(context.Context, *ApproveUserRequest) (*ApproveUserResponse, error)
+	RejectUser(context.Context, *RejectUserRequest) (*RejectUserResponse, error)
 	// Counts of users by status, MFA and activity.
 	GetUserStats(context.Context, *GetUserStatsRequest) (*GetUserStatsResponse, error)
 	// The signed-in user's own profile. Any user with a user token may call them (no permission):
@@ -724,13 +760,13 @@ type IdentityServiceServer interface {
 	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
-	// The catalog of permissions roles can be given (wildcards are entries too).
+	// The catalog of permissions roles can be given, read only: services define them in their permissions.proto and
+	// register them at start. The wildcards that cover them are listed too (generated, not stored).
 	ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error)
-	CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error)
-	// UpdatePermission changes the description; the name is the key.
-	UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error)
-	// DeletePermission fails while a role holds the permission.
-	DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error)
+	// RegisterPermissions is called by a service at start with everything it declares in its permissions.proto:
+	// identity inserts, updates, renames and retires the permissions of that service in one transaction. A service
+	// may only name permissions of its own namespace ("dictionary:*" from the dictionary).
+	RegisterPermissions(context.Context, *RegisterPermissionsRequest) (*RegisterPermissionsResponse, error)
 	AssignRole(context.Context, *AssignRoleRequest) (*AssignRoleResponse, error)
 	RevokeRole(context.Context, *RevokeRoleRequest) (*RevokeRoleResponse, error)
 	// Clients. Permission: identity:client:read for List, identity:client:write for the others.
@@ -754,6 +790,10 @@ type IdentityServiceServer interface {
 	// /auth-api/ui-style instead. SetUIStyle. Permission: identity:settings:write.
 	GetUIStyle(context.Context, *GetUIStyleRequest) (*GetUIStyleResponse, error)
 	SetUIStyle(context.Context, *SetUIStyleRequest) (*SetUIStyleResponse, error)
+	// Self-registration settings. GetRegistrationSettings: identity:settings:read. SetRegistrationSettings:
+	// identity:settings:write.
+	GetRegistrationSettings(context.Context, *GetRegistrationSettingsRequest) (*GetRegistrationSettingsResponse, error)
+	SetRegistrationSettings(context.Context, *SetRegistrationSettingsRequest) (*SetRegistrationSettingsResponse, error)
 	mustEmbedUnimplementedIdentityServiceServer()
 }
 
@@ -802,6 +842,12 @@ func (UnimplementedIdentityServiceServer) SetUserAvatar(context.Context, *SetUse
 }
 func (UnimplementedIdentityServiceServer) SendWelcome(context.Context, *SendWelcomeRequest) (*SendWelcomeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendWelcome not implemented")
+}
+func (UnimplementedIdentityServiceServer) ApproveUser(context.Context, *ApproveUserRequest) (*ApproveUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApproveUser not implemented")
+}
+func (UnimplementedIdentityServiceServer) RejectUser(context.Context, *RejectUserRequest) (*RejectUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RejectUser not implemented")
 }
 func (UnimplementedIdentityServiceServer) GetUserStats(context.Context, *GetUserStatsRequest) (*GetUserStatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserStats not implemented")
@@ -854,14 +900,8 @@ func (UnimplementedIdentityServiceServer) DeleteRole(context.Context, *DeleteRol
 func (UnimplementedIdentityServiceServer) ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListPermissions not implemented")
 }
-func (UnimplementedIdentityServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
-}
-func (UnimplementedIdentityServiceServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdatePermission not implemented")
-}
-func (UnimplementedIdentityServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*DeletePermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeletePermission not implemented")
+func (UnimplementedIdentityServiceServer) RegisterPermissions(context.Context, *RegisterPermissionsRequest) (*RegisterPermissionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterPermissions not implemented")
 }
 func (UnimplementedIdentityServiceServer) AssignRole(context.Context, *AssignRoleRequest) (*AssignRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignRole not implemented")
@@ -910,6 +950,12 @@ func (UnimplementedIdentityServiceServer) GetUIStyle(context.Context, *GetUIStyl
 }
 func (UnimplementedIdentityServiceServer) SetUIStyle(context.Context, *SetUIStyleRequest) (*SetUIStyleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUIStyle not implemented")
+}
+func (UnimplementedIdentityServiceServer) GetRegistrationSettings(context.Context, *GetRegistrationSettingsRequest) (*GetRegistrationSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRegistrationSettings not implemented")
+}
+func (UnimplementedIdentityServiceServer) SetRegistrationSettings(context.Context, *SetRegistrationSettingsRequest) (*SetRegistrationSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRegistrationSettings not implemented")
 }
 func (UnimplementedIdentityServiceServer) mustEmbedUnimplementedIdentityServiceServer() {}
 func (UnimplementedIdentityServiceServer) testEmbeddedByValue()                         {}
@@ -1162,6 +1208,42 @@ func _IdentityService_SendWelcome_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).SendWelcome(ctx, req.(*SendWelcomeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ApproveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApproveUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ApproveUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ApproveUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ApproveUser(ctx, req.(*ApproveUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_RejectUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RejectUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).RejectUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_RejectUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).RejectUser(ctx, req.(*RejectUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1472,56 +1554,20 @@ func _IdentityService_ListPermissions_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _IdentityService_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatePermissionRequest)
+func _IdentityService_RegisterPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterPermissionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IdentityServiceServer).CreatePermission(ctx, in)
+		return srv.(IdentityServiceServer).RegisterPermissions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: IdentityService_CreatePermission_FullMethodName,
+		FullMethod: IdentityService_RegisterPermissions_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServiceServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _IdentityService_UpdatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdatePermissionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(IdentityServiceServer).UpdatePermission(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: IdentityService_UpdatePermission_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServiceServer).UpdatePermission(ctx, req.(*UpdatePermissionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _IdentityService_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeletePermissionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(IdentityServiceServer).DeletePermission(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: IdentityService_DeletePermission_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IdentityServiceServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
+		return srv.(IdentityServiceServer).RegisterPermissions(ctx, req.(*RegisterPermissionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1814,6 +1860,42 @@ func _IdentityService_SetUIStyle_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _IdentityService_GetRegistrationSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRegistrationSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).GetRegistrationSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_GetRegistrationSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).GetRegistrationSettings(ctx, req.(*GetRegistrationSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_SetRegistrationSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRegistrationSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).SetRegistrationSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_SetRegistrationSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).SetRegistrationSettings(ctx, req.(*SetRegistrationSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // IdentityService_ServiceDesc is the grpc.ServiceDesc for IdentityService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1872,6 +1954,14 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendWelcome",
 			Handler:    _IdentityService_SendWelcome_Handler,
+		},
+		{
+			MethodName: "ApproveUser",
+			Handler:    _IdentityService_ApproveUser_Handler,
+		},
+		{
+			MethodName: "RejectUser",
+			Handler:    _IdentityService_RejectUser_Handler,
 		},
 		{
 			MethodName: "GetUserStats",
@@ -1942,16 +2032,8 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _IdentityService_ListPermissions_Handler,
 		},
 		{
-			MethodName: "CreatePermission",
-			Handler:    _IdentityService_CreatePermission_Handler,
-		},
-		{
-			MethodName: "UpdatePermission",
-			Handler:    _IdentityService_UpdatePermission_Handler,
-		},
-		{
-			MethodName: "DeletePermission",
-			Handler:    _IdentityService_DeletePermission_Handler,
+			MethodName: "RegisterPermissions",
+			Handler:    _IdentityService_RegisterPermissions_Handler,
 		},
 		{
 			MethodName: "AssignRole",
@@ -2016,6 +2098,14 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetUIStyle",
 			Handler:    _IdentityService_SetUIStyle_Handler,
+		},
+		{
+			MethodName: "GetRegistrationSettings",
+			Handler:    _IdentityService_GetRegistrationSettings_Handler,
+		},
+		{
+			MethodName: "SetRegistrationSettings",
+			Handler:    _IdentityService_SetRegistrationSettings_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

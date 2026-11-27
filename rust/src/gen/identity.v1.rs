@@ -123,6 +123,9 @@ pub struct GetUserStatsResponse {
     /// Created since the start of this month (UTC).
     #[prost(int64, tag="100")]
     pub created_this_month: i64,
+    /// Self-registered, waiting for an administrator.
+    #[prost(int64, tag="110")]
+    pub awaiting_approval: i64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -287,6 +290,26 @@ pub struct SendWelcomeRequest {
 pub struct SendWelcomeResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ApproveUserRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ApproveUserResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RejectUserRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RejectUserResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetMeRequest {
 }
@@ -434,6 +457,10 @@ pub struct Role {
     /// How many users and clients hold the role (filled by ListRoles and the role responses); a role that is held cannot be deleted.
     #[prost(int64, tag="40")]
     pub assigned_count: i64,
+    /// The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+    /// cover nothing); they do nothing and may be removed.
+    #[prost(string, repeated, tag="50")]
+    pub retired_permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -528,6 +555,15 @@ pub struct Permission {
     /// How many roles hold it.
     #[prost(int64, tag="30")]
     pub role_count: i64,
+    /// The service that defines it ("identity"); empty for a wildcard.
+    #[prost(string, tag="40")]
+    pub service: ::prost::alloc::string::String,
+    /// A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+    #[prost(bool, tag="50")]
+    pub wildcard: bool,
+    /// Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
+    #[prost(bool, tag="60")]
+    pub retired: bool,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -554,46 +590,40 @@ pub struct ListPermissionsResponse {
     #[prost(int64, tag="30")]
     pub total: i64,
 }
+/// A permission a service declared, sent by RegisterPermissions.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreatePermissionRequest {
-    #[prost(message, optional, tag="10")]
-    pub permission: ::core::option::Option<Permission>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreatePermissionResponse {
-    #[prost(message, optional, tag="10")]
-    pub permission: ::core::option::Option<Permission>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdatePermissionRequest {
-    /// The name of the permission (the path parameter of the gateway is `permission`).
+pub struct PermissionDeclaration {
     #[prost(string, tag="10")]
     pub name: ::prost::alloc::string::String,
     #[prost(string, tag="20")]
-    pub permission: ::prost::alloc::string::String,
-    #[prost(string, tag="30")]
     pub description: ::prost::alloc::string::String,
+    /// The previous name: its role grants move to `name`.
+    #[prost(string, tag="30")]
+    pub renamed_from: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdatePermissionResponse {
-    #[prost(message, optional, tag="10")]
-    pub permission: ::core::option::Option<Permission>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeletePermissionRequest {
+pub struct RegisterPermissionsRequest {
+    /// The service that defines the permissions ("dictionary"); every name must start with "<service>:".
     #[prost(string, tag="10")]
-    pub name: ::prost::alloc::string::String,
-    #[prost(string, tag="20")]
-    pub permission: ::prost::alloc::string::String,
+    pub service: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag="20")]
+    pub permissions: ::prost::alloc::vec::Vec<PermissionDeclaration>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct DeletePermissionResponse {
+pub struct RegisterPermissionsResponse {
+    #[prost(int32, tag="10")]
+    pub inserted: i32,
+    #[prost(int32, tag="20")]
+    pub updated: i32,
+    #[prost(int32, tag="30")]
+    pub retired: i32,
+    #[prost(int32, tag="40")]
+    pub deleted: i32,
+    #[prost(int32, tag="50")]
+    pub renamed: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -907,10 +937,39 @@ pub struct SetUiStyleResponse {
     #[prost(map="string, string", tag="20")]
     pub ui_palettes: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetRegistrationSettingsRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetRegistrationSettingsResponse {
+    /// A self-registered user waits for an administrator (default true).
+    #[prost(bool, tag="10")]
+    pub requires_approval: bool,
+    /// IDENTITY_REGISTRATION_ENABLED of the server; read only. When false nobody can register at all.
+    #[prost(bool, tag="20")]
+    pub registration_enabled: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SetRegistrationSettingsRequest {
+    #[prost(bool, tag="10")]
+    pub requires_approval: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SetRegistrationSettingsResponse {
+    #[prost(bool, tag="10")]
+    pub requires_approval: bool,
+    #[prost(bool, tag="20")]
+    pub registration_enabled: bool,
+}
 // ---- users ----
 
-/// UserStatus is derived: DISABLED when the account is disabled, PENDING until the user has set
-/// a password (a new user must do it through the welcome mail), ACTIVE otherwise.
+/// UserStatus is derived: DISABLED when the account is disabled, PENDING_APPROVAL while a self-registered
+/// user waits for an administrator, PENDING until the user has set a password (a new user must do it
+/// through the welcome mail), ACTIVE otherwise.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum UserStatus {
@@ -918,6 +977,7 @@ pub enum UserStatus {
     Pending = 10,
     Active = 20,
     Disabled = 30,
+    PendingApproval = 40,
 }
 impl UserStatus {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -930,6 +990,7 @@ impl UserStatus {
             UserStatus::Pending => "USER_STATUS_PENDING",
             UserStatus::Active => "USER_STATUS_ACTIVE",
             UserStatus::Disabled => "USER_STATUS_DISABLED",
+            UserStatus::PendingApproval => "USER_STATUS_PENDING_APPROVAL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -939,6 +1000,7 @@ impl UserStatus {
             "USER_STATUS_PENDING" => Some(Self::Pending),
             "USER_STATUS_ACTIVE" => Some(Self::Active),
             "USER_STATUS_DISABLED" => Some(Self::Disabled),
+            "USER_STATUS_PENDING_APPROVAL" => Some(Self::PendingApproval),
             _ => None,
         }
     }

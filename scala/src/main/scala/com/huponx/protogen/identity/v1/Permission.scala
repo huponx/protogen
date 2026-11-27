@@ -9,12 +9,21 @@ package com.huponx.protogen.identity.v1
   *   Colon separated segments ("identity:user:read"); "*" is a wildcard (see Role.permissions).
   * @param roleCount
   *   How many roles hold it.
+  * @param service
+  *   The service that defines it ("identity"); empty for a wildcard.
+  * @param wildcard
+  *   A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+  * @param retired
+  *   Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
   */
 @SerialVersionUID(0L)
 final case class Permission(
     name: _root_.scala.Predef.String = "",
     description: _root_.scala.Predef.String = "",
     roleCount: _root_.scala.Long = 0L,
+    service: _root_.scala.Predef.String = "",
+    wildcard: _root_.scala.Boolean = false,
+    retired: _root_.scala.Boolean = false,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[Permission] {
     @transient
@@ -40,6 +49,27 @@ final case class Permission(
         val __value = roleCount
         if (__value != 0L) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(30, __value)
+        }
+      };
+      
+      {
+        val __value = service
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(40, __value)
+        }
+      };
+      
+      {
+        val __value = wildcard
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(50, __value)
+        }
+      };
+      
+      {
+        val __value = retired
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(60, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -73,11 +103,32 @@ final case class Permission(
           _output__.writeInt64(30, __v)
         }
       };
+      {
+        val __v = service
+        if (!__v.isEmpty) {
+          _output__.writeString(40, __v)
+        }
+      };
+      {
+        val __v = wildcard
+        if (__v != false) {
+          _output__.writeBool(50, __v)
+        }
+      };
+      {
+        val __v = retired
+        if (__v != false) {
+          _output__.writeBool(60, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withName(__v: _root_.scala.Predef.String): Permission = copy(name = __v)
     def withDescription(__v: _root_.scala.Predef.String): Permission = copy(description = __v)
     def withRoleCount(__v: _root_.scala.Long): Permission = copy(roleCount = __v)
+    def withService(__v: _root_.scala.Predef.String): Permission = copy(service = __v)
+    def withWildcard(__v: _root_.scala.Boolean): Permission = copy(wildcard = __v)
+    def withRetired(__v: _root_.scala.Boolean): Permission = copy(retired = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -94,6 +145,18 @@ final case class Permission(
           val __t = roleCount
           if (__t != 0L) __t else null
         }
+        case 40 => {
+          val __t = service
+          if (__t != "") __t else null
+        }
+        case 50 => {
+          val __t = wildcard
+          if (__t != false) __t else null
+        }
+        case 60 => {
+          val __t = retired
+          if (__t != false) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -102,6 +165,9 @@ final case class Permission(
         case 10 => _root_.scalapb.descriptors.PString(name)
         case 20 => _root_.scalapb.descriptors.PString(description)
         case 30 => _root_.scalapb.descriptors.PLong(roleCount)
+        case 40 => _root_.scalapb.descriptors.PString(service)
+        case 50 => _root_.scalapb.descriptors.PBoolean(wildcard)
+        case 60 => _root_.scalapb.descriptors.PBoolean(retired)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -115,6 +181,9 @@ object Permission extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
     var __name: _root_.scala.Predef.String = ""
     var __description: _root_.scala.Predef.String = ""
     var __roleCount: _root_.scala.Long = 0L
+    var __service: _root_.scala.Predef.String = ""
+    var __wildcard: _root_.scala.Boolean = false
+    var __retired: _root_.scala.Boolean = false
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -127,6 +196,12 @@ object Permission extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
           __description = _input__.readStringRequireUtf8()
         case 240 =>
           __roleCount = _input__.readInt64()
+        case 322 =>
+          __service = _input__.readStringRequireUtf8()
+        case 400 =>
+          __wildcard = _input__.readBool()
+        case 480 =>
+          __retired = _input__.readBool()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -138,6 +213,9 @@ object Permission extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
         name = __name,
         description = __description,
         roleCount = __roleCount,
+        service = __service,
+        wildcard = __wildcard,
+        retired = __retired,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -147,36 +225,54 @@ object Permission extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
       com.huponx.protogen.identity.v1.Permission(
         name = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         description = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        roleCount = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
+        roleCount = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        service = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        wildcard = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        retired = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(60)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(60)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(64)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(64)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.Permission(
     name = "",
     description = "",
-    roleCount = 0L
+    roleCount = 0L,
+    service = "",
+    wildcard = false,
+    retired = false
   )
   implicit class PermissionLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.Permission]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.Permission](_l) {
     def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.name)((c_, f_) => c_.copy(name = f_))
     def description: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.description)((c_, f_) => c_.copy(description = f_))
     def roleCount: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.roleCount)((c_, f_) => c_.copy(roleCount = f_))
+    def service: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.service)((c_, f_) => c_.copy(service = f_))
+    def wildcard: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.wildcard)((c_, f_) => c_.copy(wildcard = f_))
+    def retired: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.retired)((c_, f_) => c_.copy(retired = f_))
   }
   final val NAME_FIELD_NUMBER = 10
   final val DESCRIPTION_FIELD_NUMBER = 20
   final val ROLE_COUNT_FIELD_NUMBER = 30
+  final val SERVICE_FIELD_NUMBER = 40
+  final val WILDCARD_FIELD_NUMBER = 50
+  final val RETIRED_FIELD_NUMBER = 60
   def of(
     name: _root_.scala.Predef.String,
     description: _root_.scala.Predef.String,
-    roleCount: _root_.scala.Long
+    roleCount: _root_.scala.Long,
+    service: _root_.scala.Predef.String,
+    wildcard: _root_.scala.Boolean,
+    retired: _root_.scala.Boolean
   ): _root_.com.huponx.protogen.identity.v1.Permission = _root_.com.huponx.protogen.identity.v1.Permission(
     name,
     description,
-    roleCount
+    roleCount,
+    service,
+    wildcard,
+    retired
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.Permission])
 }

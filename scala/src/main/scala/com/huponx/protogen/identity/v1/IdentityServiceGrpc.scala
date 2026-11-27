@@ -137,6 +137,26 @@ object IdentityServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(12)))
       .build()
   
+  val METHOD_APPROVE_USER: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.ApproveUserRequest, com.huponx.protogen.identity.v1.ApproveUserResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "ApproveUser"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ApproveUserRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ApproveUserResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
+      .build()
+  
+  val METHOD_REJECT_USER: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.RejectUserRequest, com.huponx.protogen.identity.v1.RejectUserResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "RejectUser"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.RejectUserRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.RejectUserResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
+      .build()
+  
   val METHOD_GET_USER_STATS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.GetUserStatsRequest, com.huponx.protogen.identity.v1.GetUserStatsResponse] =
     _root_.io.grpc.MethodDescriptor.newBuilder()
       .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -144,7 +164,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetUserStatsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetUserStatsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(15)))
       .build()
   
   val METHOD_GET_ME: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.GetMeRequest, com.huponx.protogen.identity.v1.GetMeResponse] =
@@ -154,7 +174,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetMeRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetMeResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(16)))
       .build()
   
   val METHOD_UPDATE_ME: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.UpdateMeRequest, com.huponx.protogen.identity.v1.UpdateMeResponse] =
@@ -164,7 +184,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.UpdateMeRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.UpdateMeResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(15)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(17)))
       .build()
   
   val METHOD_SET_MY_AVATAR: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.SetMyAvatarRequest, com.huponx.protogen.identity.v1.SetMyAvatarResponse] =
@@ -174,7 +194,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetMyAvatarRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetMyAvatarResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(16)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(18)))
       .build()
   
   val METHOD_CHANGE_MY_PASSWORD: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.ChangeMyPasswordRequest, com.huponx.protogen.identity.v1.ChangeMyPasswordResponse] =
@@ -184,7 +204,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ChangeMyPasswordRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ChangeMyPasswordResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(17)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(19)))
       .build()
   
   val METHOD_GET_MY_MFA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.GetMyMFARequest, com.huponx.protogen.identity.v1.GetMyMFAResponse] =
@@ -194,7 +214,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetMyMFARequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetMyMFAResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(18)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(20)))
       .build()
   
   val METHOD_BEGIN_MY_MFA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.BeginMyMFARequest, com.huponx.protogen.identity.v1.BeginMyMFAResponse] =
@@ -204,7 +224,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.BeginMyMFARequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.BeginMyMFAResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(19)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(21)))
       .build()
   
   val METHOD_CONFIRM_MY_MFA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.ConfirmMyMFARequest, com.huponx.protogen.identity.v1.ConfirmMyMFAResponse] =
@@ -214,7 +234,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ConfirmMyMFARequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ConfirmMyMFAResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(20)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(22)))
       .build()
   
   val METHOD_DISABLE_MY_MFA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.DisableMyMFARequest, com.huponx.protogen.identity.v1.DisableMyMFAResponse] =
@@ -224,7 +244,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.DisableMyMFARequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.DisableMyMFAResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(21)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(23)))
       .build()
   
   val METHOD_GET_MY_USER_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.GetMyUserSettingsRequest, com.huponx.protogen.identity.v1.GetMyUserSettingsResponse] =
@@ -234,7 +254,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetMyUserSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetMyUserSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(22)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(24)))
       .build()
   
   val METHOD_PUT_MY_USER_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.PutMyUserSettingsRequest, com.huponx.protogen.identity.v1.PutMyUserSettingsResponse] =
@@ -244,7 +264,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.PutMyUserSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.PutMyUserSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(23)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(25)))
       .build()
   
   val METHOD_CREATE_ROLE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.CreateRoleRequest, com.huponx.protogen.identity.v1.CreateRoleResponse] =
@@ -254,7 +274,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.CreateRoleRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.CreateRoleResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(24)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(26)))
       .build()
   
   val METHOD_SET_ROLE_PERMISSIONS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.SetRolePermissionsRequest, com.huponx.protogen.identity.v1.SetRolePermissionsResponse] =
@@ -264,7 +284,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetRolePermissionsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetRolePermissionsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(25)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(27)))
       .build()
   
   val METHOD_LIST_ROLES: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.ListRolesRequest, com.huponx.protogen.identity.v1.ListRolesResponse] =
@@ -274,7 +294,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ListRolesRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ListRolesResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(26)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(28)))
       .build()
   
   val METHOD_UPDATE_ROLE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.UpdateRoleRequest, com.huponx.protogen.identity.v1.UpdateRoleResponse] =
@@ -284,7 +304,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.UpdateRoleRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.UpdateRoleResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(27)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(29)))
       .build()
   
   val METHOD_DELETE_ROLE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.DeleteRoleRequest, com.huponx.protogen.identity.v1.DeleteRoleResponse] =
@@ -294,7 +314,7 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.DeleteRoleRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.DeleteRoleResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(28)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(30)))
       .build()
   
   val METHOD_LIST_PERMISSIONS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.ListPermissionsRequest, com.huponx.protogen.identity.v1.ListPermissionsResponse] =
@@ -304,36 +324,16 @@ object IdentityServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ListPermissionsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.ListPermissionsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(29)))
-      .build()
-  
-  val METHOD_CREATE_PERMISSION: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.CreatePermissionRequest, com.huponx.protogen.identity.v1.CreatePermissionResponse] =
-    _root_.io.grpc.MethodDescriptor.newBuilder()
-      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
-      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "CreatePermission"))
-      .setSampledToLocalTracing(true)
-      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.CreatePermissionRequest])
-      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.CreatePermissionResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(30)))
-      .build()
-  
-  val METHOD_UPDATE_PERMISSION: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.UpdatePermissionRequest, com.huponx.protogen.identity.v1.UpdatePermissionResponse] =
-    _root_.io.grpc.MethodDescriptor.newBuilder()
-      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
-      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "UpdatePermission"))
-      .setSampledToLocalTracing(true)
-      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.UpdatePermissionRequest])
-      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.UpdatePermissionResponse])
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(31)))
       .build()
   
-  val METHOD_DELETE_PERMISSION: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.DeletePermissionRequest, com.huponx.protogen.identity.v1.DeletePermissionResponse] =
+  val METHOD_REGISTER_PERMISSIONS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.RegisterPermissionsRequest, com.huponx.protogen.identity.v1.RegisterPermissionsResponse] =
     _root_.io.grpc.MethodDescriptor.newBuilder()
       .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
-      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "DeletePermission"))
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "RegisterPermissions"))
       .setSampledToLocalTracing(true)
-      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.DeletePermissionRequest])
-      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.DeletePermissionResponse])
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.RegisterPermissionsRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.RegisterPermissionsResponse])
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(32)))
       .build()
   
@@ -497,6 +497,26 @@ object IdentityServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(48)))
       .build()
   
+  val METHOD_GET_REGISTRATION_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest, com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "GetRegistrationSettings"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(49)))
+      .build()
+  
+  val METHOD_SET_REGISTRATION_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest, com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("identity.v1.IdentityService", "SetRegistrationSettings"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor.getServices().get(0).getMethods().get(50)))
+      .build()
+  
   val SERVICE: _root_.io.grpc.ServiceDescriptor =
     _root_.io.grpc.ServiceDescriptor.newBuilder("identity.v1.IdentityService")
       .setSchemaDescriptor(new _root_.scalapb.grpc.ConcreteProtoFileDescriptorSupplier(com.huponx.protogen.identity.v1.IdentityProto.javaDescriptor))
@@ -513,6 +533,8 @@ object IdentityServiceGrpc {
       .addMethod(METHOD_UPDATE_USER)
       .addMethod(METHOD_SET_USER_AVATAR)
       .addMethod(METHOD_SEND_WELCOME)
+      .addMethod(METHOD_APPROVE_USER)
+      .addMethod(METHOD_REJECT_USER)
       .addMethod(METHOD_GET_USER_STATS)
       .addMethod(METHOD_GET_ME)
       .addMethod(METHOD_UPDATE_ME)
@@ -530,9 +552,7 @@ object IdentityServiceGrpc {
       .addMethod(METHOD_UPDATE_ROLE)
       .addMethod(METHOD_DELETE_ROLE)
       .addMethod(METHOD_LIST_PERMISSIONS)
-      .addMethod(METHOD_CREATE_PERMISSION)
-      .addMethod(METHOD_UPDATE_PERMISSION)
-      .addMethod(METHOD_DELETE_PERMISSION)
+      .addMethod(METHOD_REGISTER_PERMISSIONS)
       .addMethod(METHOD_ASSIGN_ROLE)
       .addMethod(METHOD_REVOKE_ROLE)
       .addMethod(METHOD_CREATE_CLIENT)
@@ -549,6 +569,8 @@ object IdentityServiceGrpc {
       .addMethod(METHOD_RESET_USER_MFA)
       .addMethod(METHOD_GET_UISTYLE)
       .addMethod(METHOD_SET_UISTYLE)
+      .addMethod(METHOD_GET_REGISTRATION_SETTINGS)
+      .addMethod(METHOD_SET_REGISTRATION_SETTINGS)
       .build()
   
   /** IdentityService is the internal administration API of identity. The OAuth 2.0 and OpenID
@@ -585,6 +607,12 @@ object IdentityServiceGrpc {
       * user who has no password yet (status PENDING).
       */
     def sendWelcome(request: com.huponx.protogen.identity.v1.SendWelcomeRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SendWelcomeResponse]
+    /** ApproveUser accepts a self-registered user (status PENDING_APPROVAL): the welcome mail with the link to set the
+      * password goes out. RejectUser deletes the user and tells them by mail (the address may register again).
+      * Permission: identity:user:approve.
+      */
+    def approveUser(request: com.huponx.protogen.identity.v1.ApproveUserRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ApproveUserResponse]
+    def rejectUser(request: com.huponx.protogen.identity.v1.RejectUserRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.RejectUserResponse]
     /** Counts of users by status, MFA and activity.
       */
     def getUserStats(request: com.huponx.protogen.identity.v1.GetUserStatsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.GetUserStatsResponse]
@@ -628,16 +656,15 @@ object IdentityServiceGrpc {
     def listRoles(request: com.huponx.protogen.identity.v1.ListRolesRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ListRolesResponse]
     def updateRole(request: com.huponx.protogen.identity.v1.UpdateRoleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.UpdateRoleResponse]
     def deleteRole(request: com.huponx.protogen.identity.v1.DeleteRoleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.DeleteRoleResponse]
-    /** The catalog of permissions roles can be given (wildcards are entries too).
+    /** The catalog of permissions roles can be given, read only: services define them in their permissions.proto and
+      * register them at start. The wildcards that cover them are listed too (generated, not stored).
       */
     def listPermissions(request: com.huponx.protogen.identity.v1.ListPermissionsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ListPermissionsResponse]
-    def createPermission(request: com.huponx.protogen.identity.v1.CreatePermissionRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.CreatePermissionResponse]
-    /** UpdatePermission changes the description; the name is the key.
+    /** RegisterPermissions is called by a service at start with everything it declares in its permissions.proto:
+      * identity inserts, updates, renames and retires the permissions of that service in one transaction. A service
+      * may only name permissions of its own namespace ("dictionary:*" from the dictionary).
       */
-    def updatePermission(request: com.huponx.protogen.identity.v1.UpdatePermissionRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.UpdatePermissionResponse]
-    /** DeletePermission fails while a role holds the permission.
-      */
-    def deletePermission(request: com.huponx.protogen.identity.v1.DeletePermissionRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.DeletePermissionResponse]
+    def registerPermissions(request: com.huponx.protogen.identity.v1.RegisterPermissionsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.RegisterPermissionsResponse]
     def assignRole(request: com.huponx.protogen.identity.v1.AssignRoleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.AssignRoleResponse]
     def revokeRole(request: com.huponx.protogen.identity.v1.RevokeRoleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.RevokeRoleResponse]
     /** Clients. Permission: identity:client:read for List, identity:client:write for the others.
@@ -665,6 +692,11 @@ object IdentityServiceGrpc {
       */
     def getUIStyle(request: com.huponx.protogen.identity.v1.GetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.GetUIStyleResponse]
     def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetUIStyleResponse]
+    /** Self-registration settings. GetRegistrationSettings: identity:settings:read. SetRegistrationSettings:
+      * identity:settings:write.
+      */
+    def getRegistrationSettings(request: com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse]
+    def setRegistrationSettings(request: com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse]
   }
   
   object IdentityService extends _root_.scalapb.grpc.ServiceCompanion[IdentityService] {
@@ -749,6 +781,18 @@ object IdentityServiceGrpc {
         METHOD_SEND_WELCOME,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.SendWelcomeRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.SendWelcomeResponse]) => {
           serviceImpl.sendWelcome(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_APPROVE_USER,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.ApproveUserRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.ApproveUserResponse]) => {
+          serviceImpl.approveUser(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_REJECT_USER,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.RejectUserRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.RejectUserResponse]) => {
+          serviceImpl.rejectUser(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
       .addMethod(
@@ -854,21 +898,9 @@ object IdentityServiceGrpc {
             executionContext)
         }))
       .addMethod(
-        METHOD_CREATE_PERMISSION,
-        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.CreatePermissionRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.CreatePermissionResponse]) => {
-          serviceImpl.createPermission(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
-            executionContext)
-        }))
-      .addMethod(
-        METHOD_UPDATE_PERMISSION,
-        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.UpdatePermissionRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.UpdatePermissionResponse]) => {
-          serviceImpl.updatePermission(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
-            executionContext)
-        }))
-      .addMethod(
-        METHOD_DELETE_PERMISSION,
-        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.DeletePermissionRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.DeletePermissionResponse]) => {
-          serviceImpl.deletePermission(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+        METHOD_REGISTER_PERMISSIONS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.RegisterPermissionsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.RegisterPermissionsResponse]) => {
+          serviceImpl.registerPermissions(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
       .addMethod(
@@ -967,6 +999,18 @@ object IdentityServiceGrpc {
           serviceImpl.setUIStyle(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
+      .addMethod(
+        METHOD_GET_REGISTRATION_SETTINGS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse]) => {
+          serviceImpl.getRegistrationSettings(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_SET_REGISTRATION_SETTINGS,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse]) => {
+          serviceImpl.setRegistrationSettings(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
       .build()
   }
   
@@ -1004,6 +1048,12 @@ object IdentityServiceGrpc {
       * user who has no password yet (status PENDING).
       */
     def sendWelcome(request: com.huponx.protogen.identity.v1.SendWelcomeRequest): com.huponx.protogen.identity.v1.SendWelcomeResponse
+    /** ApproveUser accepts a self-registered user (status PENDING_APPROVAL): the welcome mail with the link to set the
+      * password goes out. RejectUser deletes the user and tells them by mail (the address may register again).
+      * Permission: identity:user:approve.
+      */
+    def approveUser(request: com.huponx.protogen.identity.v1.ApproveUserRequest): com.huponx.protogen.identity.v1.ApproveUserResponse
+    def rejectUser(request: com.huponx.protogen.identity.v1.RejectUserRequest): com.huponx.protogen.identity.v1.RejectUserResponse
     /** Counts of users by status, MFA and activity.
       */
     def getUserStats(request: com.huponx.protogen.identity.v1.GetUserStatsRequest): com.huponx.protogen.identity.v1.GetUserStatsResponse
@@ -1047,16 +1097,15 @@ object IdentityServiceGrpc {
     def listRoles(request: com.huponx.protogen.identity.v1.ListRolesRequest): com.huponx.protogen.identity.v1.ListRolesResponse
     def updateRole(request: com.huponx.protogen.identity.v1.UpdateRoleRequest): com.huponx.protogen.identity.v1.UpdateRoleResponse
     def deleteRole(request: com.huponx.protogen.identity.v1.DeleteRoleRequest): com.huponx.protogen.identity.v1.DeleteRoleResponse
-    /** The catalog of permissions roles can be given (wildcards are entries too).
+    /** The catalog of permissions roles can be given, read only: services define them in their permissions.proto and
+      * register them at start. The wildcards that cover them are listed too (generated, not stored).
       */
     def listPermissions(request: com.huponx.protogen.identity.v1.ListPermissionsRequest): com.huponx.protogen.identity.v1.ListPermissionsResponse
-    def createPermission(request: com.huponx.protogen.identity.v1.CreatePermissionRequest): com.huponx.protogen.identity.v1.CreatePermissionResponse
-    /** UpdatePermission changes the description; the name is the key.
+    /** RegisterPermissions is called by a service at start with everything it declares in its permissions.proto:
+      * identity inserts, updates, renames and retires the permissions of that service in one transaction. A service
+      * may only name permissions of its own namespace ("dictionary:*" from the dictionary).
       */
-    def updatePermission(request: com.huponx.protogen.identity.v1.UpdatePermissionRequest): com.huponx.protogen.identity.v1.UpdatePermissionResponse
-    /** DeletePermission fails while a role holds the permission.
-      */
-    def deletePermission(request: com.huponx.protogen.identity.v1.DeletePermissionRequest): com.huponx.protogen.identity.v1.DeletePermissionResponse
+    def registerPermissions(request: com.huponx.protogen.identity.v1.RegisterPermissionsRequest): com.huponx.protogen.identity.v1.RegisterPermissionsResponse
     def assignRole(request: com.huponx.protogen.identity.v1.AssignRoleRequest): com.huponx.protogen.identity.v1.AssignRoleResponse
     def revokeRole(request: com.huponx.protogen.identity.v1.RevokeRoleRequest): com.huponx.protogen.identity.v1.RevokeRoleResponse
     /** Clients. Permission: identity:client:read for List, identity:client:write for the others.
@@ -1084,6 +1133,11 @@ object IdentityServiceGrpc {
       */
     def getUIStyle(request: com.huponx.protogen.identity.v1.GetUIStyleRequest): com.huponx.protogen.identity.v1.GetUIStyleResponse
     def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): com.huponx.protogen.identity.v1.SetUIStyleResponse
+    /** Self-registration settings. GetRegistrationSettings: identity:settings:read. SetRegistrationSettings:
+      * identity:settings:write.
+      */
+    def getRegistrationSettings(request: com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest): com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse
+    def setRegistrationSettings(request: com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest): com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse
   }
   
   class IdentityServiceBlockingStub(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions = _root_.io.grpc.CallOptions.DEFAULT) extends _root_.io.grpc.stub.AbstractStub[IdentityServiceBlockingStub](channel, options) with IdentityServiceBlockingClient {
@@ -1152,6 +1206,18 @@ object IdentityServiceGrpc {
       */
     override def sendWelcome(request: com.huponx.protogen.identity.v1.SendWelcomeRequest): com.huponx.protogen.identity.v1.SendWelcomeResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SEND_WELCOME, options, request)
+    }
+    
+    /** ApproveUser accepts a self-registered user (status PENDING_APPROVAL): the welcome mail with the link to set the
+      * password goes out. RejectUser deletes the user and tells them by mail (the address may register again).
+      * Permission: identity:user:approve.
+      */
+    override def approveUser(request: com.huponx.protogen.identity.v1.ApproveUserRequest): com.huponx.protogen.identity.v1.ApproveUserResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_APPROVE_USER, options, request)
+    }
+    
+    override def rejectUser(request: com.huponx.protogen.identity.v1.RejectUserRequest): com.huponx.protogen.identity.v1.RejectUserResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_REJECT_USER, options, request)
     }
     
     /** Counts of users by status, MFA and activity.
@@ -1245,26 +1311,19 @@ object IdentityServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_DELETE_ROLE, options, request)
     }
     
-    /** The catalog of permissions roles can be given (wildcards are entries too).
+    /** The catalog of permissions roles can be given, read only: services define them in their permissions.proto and
+      * register them at start. The wildcards that cover them are listed too (generated, not stored).
       */
     override def listPermissions(request: com.huponx.protogen.identity.v1.ListPermissionsRequest): com.huponx.protogen.identity.v1.ListPermissionsResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LIST_PERMISSIONS, options, request)
     }
     
-    override def createPermission(request: com.huponx.protogen.identity.v1.CreatePermissionRequest): com.huponx.protogen.identity.v1.CreatePermissionResponse = {
-      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_CREATE_PERMISSION, options, request)
-    }
-    
-    /** UpdatePermission changes the description; the name is the key.
+    /** RegisterPermissions is called by a service at start with everything it declares in its permissions.proto:
+      * identity inserts, updates, renames and retires the permissions of that service in one transaction. A service
+      * may only name permissions of its own namespace ("dictionary:*" from the dictionary).
       */
-    override def updatePermission(request: com.huponx.protogen.identity.v1.UpdatePermissionRequest): com.huponx.protogen.identity.v1.UpdatePermissionResponse = {
-      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_UPDATE_PERMISSION, options, request)
-    }
-    
-    /** DeletePermission fails while a role holds the permission.
-      */
-    override def deletePermission(request: com.huponx.protogen.identity.v1.DeletePermissionRequest): com.huponx.protogen.identity.v1.DeletePermissionResponse = {
-      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_DELETE_PERMISSION, options, request)
+    override def registerPermissions(request: com.huponx.protogen.identity.v1.RegisterPermissionsRequest): com.huponx.protogen.identity.v1.RegisterPermissionsResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_REGISTER_PERMISSIONS, options, request)
     }
     
     override def assignRole(request: com.huponx.protogen.identity.v1.AssignRoleRequest): com.huponx.protogen.identity.v1.AssignRoleResponse = {
@@ -1342,6 +1401,17 @@ object IdentityServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SET_UISTYLE, options, request)
     }
     
+    /** Self-registration settings. GetRegistrationSettings: identity:settings:read. SetRegistrationSettings:
+      * identity:settings:write.
+      */
+    override def getRegistrationSettings(request: com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest): com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_REGISTRATION_SETTINGS, options, request)
+    }
+    
+    override def setRegistrationSettings(request: com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest): com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SET_REGISTRATION_SETTINGS, options, request)
+    }
+    
     override def build(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions): IdentityServiceBlockingStub = new IdentityServiceBlockingStub(channel, options)
   }
   
@@ -1411,6 +1481,18 @@ object IdentityServiceGrpc {
       */
     override def sendWelcome(request: com.huponx.protogen.identity.v1.SendWelcomeRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SendWelcomeResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SEND_WELCOME, options, request)
+    }
+    
+    /** ApproveUser accepts a self-registered user (status PENDING_APPROVAL): the welcome mail with the link to set the
+      * password goes out. RejectUser deletes the user and tells them by mail (the address may register again).
+      * Permission: identity:user:approve.
+      */
+    override def approveUser(request: com.huponx.protogen.identity.v1.ApproveUserRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ApproveUserResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_APPROVE_USER, options, request)
+    }
+    
+    override def rejectUser(request: com.huponx.protogen.identity.v1.RejectUserRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.RejectUserResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_REJECT_USER, options, request)
     }
     
     /** Counts of users by status, MFA and activity.
@@ -1504,26 +1586,19 @@ object IdentityServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_DELETE_ROLE, options, request)
     }
     
-    /** The catalog of permissions roles can be given (wildcards are entries too).
+    /** The catalog of permissions roles can be given, read only: services define them in their permissions.proto and
+      * register them at start. The wildcards that cover them are listed too (generated, not stored).
       */
     override def listPermissions(request: com.huponx.protogen.identity.v1.ListPermissionsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.ListPermissionsResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LIST_PERMISSIONS, options, request)
     }
     
-    override def createPermission(request: com.huponx.protogen.identity.v1.CreatePermissionRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.CreatePermissionResponse] = {
-      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_CREATE_PERMISSION, options, request)
-    }
-    
-    /** UpdatePermission changes the description; the name is the key.
+    /** RegisterPermissions is called by a service at start with everything it declares in its permissions.proto:
+      * identity inserts, updates, renames and retires the permissions of that service in one transaction. A service
+      * may only name permissions of its own namespace ("dictionary:*" from the dictionary).
       */
-    override def updatePermission(request: com.huponx.protogen.identity.v1.UpdatePermissionRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.UpdatePermissionResponse] = {
-      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_UPDATE_PERMISSION, options, request)
-    }
-    
-    /** DeletePermission fails while a role holds the permission.
-      */
-    override def deletePermission(request: com.huponx.protogen.identity.v1.DeletePermissionRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.DeletePermissionResponse] = {
-      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_DELETE_PERMISSION, options, request)
+    override def registerPermissions(request: com.huponx.protogen.identity.v1.RegisterPermissionsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.RegisterPermissionsResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_REGISTER_PERMISSIONS, options, request)
     }
     
     override def assignRole(request: com.huponx.protogen.identity.v1.AssignRoleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.AssignRoleResponse] = {
@@ -1599,6 +1674,17 @@ object IdentityServiceGrpc {
     
     override def setUIStyle(request: com.huponx.protogen.identity.v1.SetUIStyleRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetUIStyleResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SET_UISTYLE, options, request)
+    }
+    
+    /** Self-registration settings. GetRegistrationSettings: identity:settings:read. SetRegistrationSettings:
+      * identity:settings:write.
+      */
+    override def getRegistrationSettings(request: com.huponx.protogen.identity.v1.GetRegistrationSettingsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.GetRegistrationSettingsResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_REGISTRATION_SETTINGS, options, request)
+    }
+    
+    override def setRegistrationSettings(request: com.huponx.protogen.identity.v1.SetRegistrationSettingsRequest): scala.concurrent.Future[com.huponx.protogen.identity.v1.SetRegistrationSettingsResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SET_REGISTRATION_SETTINGS, options, request)
     }
     
     override def build(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions): IdentityServiceStub = new IdentityServiceStub(channel, options)
