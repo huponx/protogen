@@ -7,6 +7,7 @@
 package dictionaryv1
 
 import (
+	_ "github.com/huponx/protogen/go/authz/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -5120,7 +5121,7 @@ var File_dictionary_v1_dictionary_proto protoreflect.FileDescriptor
 
 const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\n" +
-	"\x1edictionary/v1/dictionary.proto\x12\rdictionary.v1\"t\n" +
+	"\x1edictionary/v1/dictionary.proto\x12\rdictionary.v1\x1a\x16authz/v1/options.proto\"t\n" +
 	"\aMeaning\x12\x1e\n" +
 	"\n" +
 	"definition\x18\n" +
@@ -5557,45 +5558,45 @@ const file_dictionary_v1_dictionary_proto_rawDesc = "" +
 	"\x12REVIEW_GRADE_AGAIN\x10\x01\x12\x15\n" +
 	"\x11REVIEW_GRADE_HARD\x10\x02\x12\x15\n" +
 	"\x11REVIEW_GRADE_GOOD\x10\x03\x12\x15\n" +
-	"\x11REVIEW_GRADE_EASY\x10\x042\xbd\x19\n" +
-	"\x11DictionaryService\x12Q\n" +
+	"\x11REVIEW_GRADE_EASY\x10\x042\x90!\n" +
+	"\x11DictionaryService\x12m\n" +
 	"\n" +
-	"LookupWord\x12 .dictionary.v1.LookupWordRequest\x1a!.dictionary.v1.LookupWordResponse\x12T\n" +
-	"\vLookupWords\x12!.dictionary.v1.LookupWordsRequest\x1a\".dictionary.v1.LookupWordsResponse\x12K\n" +
-	"\bSaveWord\x12\x1e.dictionary.v1.SaveWordRequest\x1a\x1f.dictionary.v1.SaveWordResponse\x12]\n" +
-	"\x0eListSavedWords\x12$.dictionary.v1.ListSavedWordsRequest\x1a%.dictionary.v1.ListSavedWordsResponse\x12`\n" +
-	"\x0fCheckSavedWords\x12%.dictionary.v1.CheckSavedWordsRequest\x1a&.dictionary.v1.CheckSavedWordsResponse\x12`\n" +
-	"\x0fDeleteSavedWord\x12%.dictionary.v1.DeleteSavedWordRequest\x1a&.dictionary.v1.DeleteSavedWordResponse\x12Q\n" +
+	"LookupWord\x12 .dictionary.v1.LookupWordRequest\x1a!.dictionary.v1.LookupWordResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12p\n" +
+	"\vLookupWords\x12!.dictionary.v1.LookupWordsRequest\x1a\".dictionary.v1.LookupWordsResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12h\n" +
+	"\bSaveWord\x12\x1e.dictionary.v1.SaveWordRequest\x1a\x1f.dictionary.v1.SaveWordResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12y\n" +
+	"\x0eListSavedWords\x12$.dictionary.v1.ListSavedWordsRequest\x1a%.dictionary.v1.ListSavedWordsResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12|\n" +
+	"\x0fCheckSavedWords\x12%.dictionary.v1.CheckSavedWordsRequest\x1a&.dictionary.v1.CheckSavedWordsResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12}\n" +
+	"\x0fDeleteSavedWord\x12%.dictionary.v1.DeleteSavedWordRequest\x1a&.dictionary.v1.DeleteSavedWordResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12n\n" +
 	"\n" +
-	"ExportAnki\x12 .dictionary.v1.ExportAnkiRequest\x1a!.dictionary.v1.ExportAnkiResponse\x12]\n" +
-	"\x0eCreateDeckLink\x12$.dictionary.v1.CreateDeckLinkRequest\x1a%.dictionary.v1.CreateDeckLinkResponse\x12T\n" +
-	"\vStartExport\x12!.dictionary.v1.StartExportRequest\x1a\".dictionary.v1.StartExportResponse\x12N\n" +
-	"\tGetExport\x12\x1f.dictionary.v1.GetExportRequest\x1a .dictionary.v1.GetExportResponse\x12W\n" +
-	"\fCancelExport\x12\".dictionary.v1.CancelExportRequest\x1a#.dictionary.v1.CancelExportResponse\x12o\n" +
-	"\x14CreateExportPartLink\x12*.dictionary.v1.CreateExportPartLinkRequest\x1a+.dictionary.v1.CreateExportPartLinkResponse\x12W\n" +
-	"\fDownloadDeck\x12\".dictionary.v1.DownloadDeckRequest\x1a#.dictionary.v1.DownloadDeckResponse\x12^\n" +
-	"\x12DownloadExportPart\x12(.dictionary.v1.DownloadExportPartRequest\x1a\x1c.dictionary.v1.DownloadChunk0\x01\x12]\n" +
-	"\x0eListCategories\x12$.dictionary.v1.ListCategoriesRequest\x1a%.dictionary.v1.ListCategoriesResponse\x12]\n" +
-	"\x0eCreateCategory\x12$.dictionary.v1.CreateCategoryRequest\x1a%.dictionary.v1.CreateCategoryResponse\x12]\n" +
-	"\x0eRenameCategory\x12$.dictionary.v1.RenameCategoryRequest\x1a%.dictionary.v1.RenameCategoryResponse\x12]\n" +
-	"\x0eDeleteCategory\x12$.dictionary.v1.DeleteCategoryRequest\x1a%.dictionary.v1.DeleteCategoryResponse\x12o\n" +
-	"\x14UpdateWordCategories\x12*.dictionary.v1.UpdateWordCategoriesRequest\x1a+.dictionary.v1.UpdateWordCategoriesResponse\x12l\n" +
-	"\x13RemoveExportedWords\x12).dictionary.v1.RemoveExportedWordsRequest\x1a*.dictionary.v1.RemoveExportedWordsResponse\x12T\n" +
-	"\vUploadImage\x12!.dictionary.v1.UploadImageRequest\x1a\".dictionary.v1.UploadImageResponse\x12K\n" +
-	"\bGetImage\x12\x1e.dictionary.v1.GetImageRequest\x1a\x1f.dictionary.v1.GetImageResponse\x12T\n" +
-	"\vUploadAudio\x12!.dictionary.v1.UploadAudioRequest\x1a\".dictionary.v1.UploadAudioResponse\x12K\n" +
-	"\bGetAudio\x12\x1e.dictionary.v1.GetAudioRequest\x1a\x1f.dictionary.v1.GetAudioResponse\x12]\n" +
-	"\x0eGetReviewQueue\x12$.dictionary.v1.GetReviewQueueRequest\x1a%.dictionary.v1.GetReviewQueueResponse\x12W\n" +
-	"\fSubmitReview\x12\".dictionary.v1.SubmitReviewRequest\x1a#.dictionary.v1.SubmitReviewResponse\x12]\n" +
-	"\x0eAddReviewBonus\x12$.dictionary.v1.AddReviewBonusRequest\x1a%.dictionary.v1.AddReviewBonusResponse\x12{\n" +
-	"\x18OptimizeReviewParameters\x12..dictionary.v1.OptimizeReviewParametersRequest\x1a/.dictionary.v1.OptimizeReviewParametersResponse\x12T\n" +
-	"\vGetSettings\x12!.dictionary.v1.GetSettingsRequest\x1a\".dictionary.v1.GetSettingsResponse\x12]\n" +
-	"\x0eUpdateSettings\x12$.dictionary.v1.UpdateSettingsRequest\x1a%.dictionary.v1.UpdateSettingsResponse\x12W\n" +
-	"\fGetUserQuota\x12\".dictionary.v1.GetUserQuotaRequest\x1a#.dictionary.v1.GetUserQuotaResponse\x12W\n" +
-	"\fSetUserQuota\x12\".dictionary.v1.SetUserQuotaRequest\x1a#.dictionary.v1.SetUserQuotaResponse\x12W\n" +
-	"\fGetMyStorage\x12\".dictionary.v1.GetMyStorageRequest\x1a#.dictionary.v1.GetMyStorageResponse\x12Z\n" +
-	"\rGetMySettings\x12#.dictionary.v1.GetMySettingsRequest\x1a$.dictionary.v1.GetMySettingsResponse\x12c\n" +
-	"\x10UpdateMySettings\x12&.dictionary.v1.UpdateMySettingsRequest\x1a'.dictionary.v1.UpdateMySettingsResponseB\xb3\x01\n" +
+	"ExportAnki\x12 .dictionary.v1.ExportAnkiRequest\x1a!.dictionary.v1.ExportAnkiResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12z\n" +
+	"\x0eCreateDeckLink\x12$.dictionary.v1.CreateDeckLinkRequest\x1a%.dictionary.v1.CreateDeckLinkResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12q\n" +
+	"\vStartExport\x12!.dictionary.v1.StartExportRequest\x1a\".dictionary.v1.StartExportResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12k\n" +
+	"\tGetExport\x12\x1f.dictionary.v1.GetExportRequest\x1a .dictionary.v1.GetExportResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12t\n" +
+	"\fCancelExport\x12\".dictionary.v1.CancelExportRequest\x1a#.dictionary.v1.CancelExportResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12\x8c\x01\n" +
+	"\x14CreateExportPartLink\x12*.dictionary.v1.CreateExportPartLinkRequest\x1a+.dictionary.v1.CreateExportPartLinkResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12`\n" +
+	"\fDownloadDeck\x12\".dictionary.v1.DownloadDeckRequest\x1a#.dictionary.v1.DownloadDeckResponse\"\a\xd2\xf3\x18\x03\xf0\x01\x01\x12g\n" +
+	"\x12DownloadExportPart\x12(.dictionary.v1.DownloadExportPartRequest\x1a\x1c.dictionary.v1.DownloadChunk\"\a\xd2\xf3\x18\x03\xf0\x01\x010\x01\x12y\n" +
+	"\x0eListCategories\x12$.dictionary.v1.ListCategoriesRequest\x1a%.dictionary.v1.ListCategoriesResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12z\n" +
+	"\x0eCreateCategory\x12$.dictionary.v1.CreateCategoryRequest\x1a%.dictionary.v1.CreateCategoryResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12z\n" +
+	"\x0eRenameCategory\x12$.dictionary.v1.RenameCategoryRequest\x1a%.dictionary.v1.RenameCategoryResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12z\n" +
+	"\x0eDeleteCategory\x12$.dictionary.v1.DeleteCategoryRequest\x1a%.dictionary.v1.DeleteCategoryResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12\x8c\x01\n" +
+	"\x14UpdateWordCategories\x12*.dictionary.v1.UpdateWordCategoriesRequest\x1a+.dictionary.v1.UpdateWordCategoriesResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12\x89\x01\n" +
+	"\x13RemoveExportedWords\x12).dictionary.v1.RemoveExportedWordsRequest\x1a*.dictionary.v1.RemoveExportedWordsResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12q\n" +
+	"\vUploadImage\x12!.dictionary.v1.UploadImageRequest\x1a\".dictionary.v1.UploadImageResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12g\n" +
+	"\bGetImage\x12\x1e.dictionary.v1.GetImageRequest\x1a\x1f.dictionary.v1.GetImageResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12q\n" +
+	"\vUploadAudio\x12!.dictionary.v1.UploadAudioRequest\x1a\".dictionary.v1.UploadAudioResponse\"\x1b\xd2\xf3\x18\x17R\x15dictionary:word:write\x12g\n" +
+	"\bGetAudio\x12\x1e.dictionary.v1.GetAudioRequest\x1a\x1f.dictionary.v1.GetAudioResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12y\n" +
+	"\x0eGetReviewQueue\x12$.dictionary.v1.GetReviewQueueRequest\x1a%.dictionary.v1.GetReviewQueueResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12s\n" +
+	"\fSubmitReview\x12\".dictionary.v1.SubmitReviewRequest\x1a#.dictionary.v1.SubmitReviewResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12y\n" +
+	"\x0eAddReviewBonus\x12$.dictionary.v1.AddReviewBonusRequest\x1a%.dictionary.v1.AddReviewBonusResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12\x97\x01\n" +
+	"\x18OptimizeReviewParameters\x12..dictionary.v1.OptimizeReviewParametersRequest\x1a/.dictionary.v1.OptimizeReviewParametersResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12t\n" +
+	"\vGetSettings\x12!.dictionary.v1.GetSettingsRequest\x1a\".dictionary.v1.GetSettingsResponse\"\x1e\xd2\xf3\x18\x1aR\x18dictionary:settings:read\x12~\n" +
+	"\x0eUpdateSettings\x12$.dictionary.v1.UpdateSettingsRequest\x1a%.dictionary.v1.UpdateSettingsResponse\"\x1f\xd2\xf3\x18\x1bR\x19dictionary:settings:write\x12w\n" +
+	"\fGetUserQuota\x12\".dictionary.v1.GetUserQuotaRequest\x1a#.dictionary.v1.GetUserQuotaResponse\"\x1e\xd2\xf3\x18\x1aR\x18dictionary:settings:read\x12x\n" +
+	"\fSetUserQuota\x12\".dictionary.v1.SetUserQuotaRequest\x1a#.dictionary.v1.SetUserQuotaResponse\"\x1f\xd2\xf3\x18\x1bR\x19dictionary:settings:write\x12s\n" +
+	"\fGetMyStorage\x12\".dictionary.v1.GetMyStorageRequest\x1a#.dictionary.v1.GetMyStorageResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12v\n" +
+	"\rGetMySettings\x12#.dictionary.v1.GetMySettingsRequest\x1a$.dictionary.v1.GetMySettingsResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:read\x12\x7f\n" +
+	"\x10UpdateMySettings\x12&.dictionary.v1.UpdateMySettingsRequest\x1a'.dictionary.v1.UpdateMySettingsResponse\"\x1a\xd2\xf3\x18\x16R\x14dictionary:word:readB\xb3\x01\n" +
 	"\x11com.dictionary.v1B\x0fDictionaryProtoP\x01Z8github.com/huponx/protogen/go/dictionary/v1;dictionaryv1\xa2\x02\x03DXX\xaa\x02\rDictionary.V1\xca\x02\rDictionary\\V1\xe2\x02\x19Dictionary\\V1\\GPBMetadata\xea\x02\x0eDictionary::V1b\x06proto3"
 
 var (

@@ -5,8 +5,9 @@
 
 package com.huponx.protogen.identity.v1
 
-/** UserStatus is derived: DISABLED when the account is disabled, PENDING until the user has set
-  * a password (a new user must do it through the welcome mail), ACTIVE otherwise.
+/** UserStatus is derived: DISABLED when the account is disabled, PENDING_APPROVAL while a self-registered
+  * user waits for an administrator, PENDING until the user has set a password (a new user must do it
+  * through the welcome mail), ACTIVE otherwise.
   */
 sealed abstract class UserStatus(val value: _root_.scala.Int) extends _root_.scalapb.GeneratedEnum {
   type EnumType = com.huponx.protogen.identity.v1.UserStatus
@@ -15,6 +16,7 @@ sealed abstract class UserStatus(val value: _root_.scala.Int) extends _root_.sca
   def isUserStatusPending: _root_.scala.Boolean = false
   def isUserStatusActive: _root_.scala.Boolean = false
   def isUserStatusDisabled: _root_.scala.Boolean = false
+  def isUserStatusPendingApproval: _root_.scala.Boolean = false
   def companion: _root_.scalapb.GeneratedEnumCompanion[UserStatus] = com.huponx.protogen.identity.v1.UserStatus
   final def asRecognized: _root_.scala.Option[com.huponx.protogen.identity.v1.UserStatus.Recognized] = if (isUnrecognized) _root_.scala.None else _root_.scala.Some(this.asInstanceOf[com.huponx.protogen.identity.v1.UserStatus.Recognized])
 }
@@ -52,13 +54,21 @@ object UserStatus extends _root_.scalapb.GeneratedEnumCompanion[UserStatus] {
   }
   
   @SerialVersionUID(0L)
+  case object USER_STATUS_PENDING_APPROVAL extends UserStatus(40) with UserStatus.Recognized {
+    val index = 4
+    val name = "USER_STATUS_PENDING_APPROVAL"
+    override def isUserStatusPendingApproval: _root_.scala.Boolean = true
+  }
+  
+  @SerialVersionUID(0L)
   final case class Unrecognized(unrecognizedValue: _root_.scala.Int) extends UserStatus(unrecognizedValue) with _root_.scalapb.UnrecognizedEnum
-  lazy val values: scala.collection.immutable.Seq[ValueType] = scala.collection.immutable.Seq(USER_STATUS_UNSPECIFIED, USER_STATUS_PENDING, USER_STATUS_ACTIVE, USER_STATUS_DISABLED)
+  lazy val values: scala.collection.immutable.Seq[ValueType] = scala.collection.immutable.Seq(USER_STATUS_UNSPECIFIED, USER_STATUS_PENDING, USER_STATUS_ACTIVE, USER_STATUS_DISABLED, USER_STATUS_PENDING_APPROVAL)
   def fromValue(__value: _root_.scala.Int): UserStatus = __value match {
     case 0 => USER_STATUS_UNSPECIFIED
     case 10 => USER_STATUS_PENDING
     case 20 => USER_STATUS_ACTIVE
     case 30 => USER_STATUS_DISABLED
+    case 40 => USER_STATUS_PENDING_APPROVAL
     case __other => Unrecognized(__other)
   }
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = IdentityProto.javaDescriptor.getEnumTypes().get(0)

@@ -27,8 +27,9 @@ public final class Identity {
   }
   /**
    * <pre>
-   * UserStatus is derived: DISABLED when the account is disabled, PENDING until the user has set
-   * a password (a new user must do it through the welcome mail), ACTIVE otherwise.
+   * UserStatus is derived: DISABLED when the account is disabled, PENDING_APPROVAL while a self-registered
+   * user waits for an administrator, PENDING until the user has set a password (a new user must do it
+   * through the welcome mail), ACTIVE otherwise.
    * </pre>
    *
    * Protobuf enum {@code identity.v1.UserStatus}
@@ -51,6 +52,10 @@ public final class Identity {
      * <code>USER_STATUS_DISABLED = 30;</code>
      */
     USER_STATUS_DISABLED(30),
+    /**
+     * <code>USER_STATUS_PENDING_APPROVAL = 40;</code>
+     */
+    USER_STATUS_PENDING_APPROVAL(40),
     UNRECOGNIZED(-1),
     ;
 
@@ -79,6 +84,10 @@ public final class Identity {
      * <code>USER_STATUS_DISABLED = 30;</code>
      */
     public static final int USER_STATUS_DISABLED_VALUE = 30;
+    /**
+     * <code>USER_STATUS_PENDING_APPROVAL = 40;</code>
+     */
+    public static final int USER_STATUS_PENDING_APPROVAL_VALUE = 40;
 
 
     public final int getNumber() {
@@ -109,6 +118,7 @@ public final class Identity {
         case 10: return USER_STATUS_PENDING;
         case 20: return USER_STATUS_ACTIVE;
         case 30: return USER_STATUS_DISABLED;
+        case 40: return USER_STATUS_PENDING_APPROVAL;
         default: return null;
       }
     }
@@ -6981,6 +6991,16 @@ public final class Identity {
      * @return The createdThisMonth.
      */
     long getCreatedThisMonth();
+
+    /**
+     * <pre>
+     * Self-registered, waiting for an administrator.
+     * </pre>
+     *
+     * <code>int64 awaiting_approval = 110 [json_name = "awaitingApproval"];</code>
+     * @return The awaitingApproval.
+     */
+    long getAwaitingApproval();
   }
   /**
    * <pre>
@@ -7149,6 +7169,21 @@ public final class Identity {
       return createdThisMonth_;
     }
 
+    public static final int AWAITING_APPROVAL_FIELD_NUMBER = 110;
+    private long awaitingApproval_ = 0L;
+    /**
+     * <pre>
+     * Self-registered, waiting for an administrator.
+     * </pre>
+     *
+     * <code>int64 awaiting_approval = 110 [json_name = "awaitingApproval"];</code>
+     * @return The awaitingApproval.
+     */
+    @java.lang.Override
+    public long getAwaitingApproval() {
+      return awaitingApproval_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -7192,6 +7227,9 @@ public final class Identity {
       }
       if (createdThisMonth_ != 0L) {
         output.writeInt64(100, createdThisMonth_);
+      }
+      if (awaitingApproval_ != 0L) {
+        output.writeInt64(110, awaitingApproval_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -7242,6 +7280,10 @@ public final class Identity {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(100, createdThisMonth_);
       }
+      if (awaitingApproval_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(110, awaitingApproval_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -7277,6 +7319,8 @@ public final class Identity {
           != other.getNeverSignedIn()) return false;
       if (getCreatedThisMonth()
           != other.getCreatedThisMonth()) return false;
+      if (getAwaitingApproval()
+          != other.getAwaitingApproval()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -7318,6 +7362,9 @@ public final class Identity {
       hash = (37 * hash) + CREATED_THIS_MONTH_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getCreatedThisMonth());
+      hash = (37 * hash) + AWAITING_APPROVAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAwaitingApproval());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -7463,6 +7510,7 @@ public final class Identity {
         signedIn30D_ = 0L;
         neverSignedIn_ = 0L;
         createdThisMonth_ = 0L;
+        awaitingApproval_ = 0L;
         return this;
       }
 
@@ -7526,6 +7574,9 @@ public final class Identity {
         if (((from_bitField0_ & 0x00000200) != 0)) {
           result.createdThisMonth_ = createdThisMonth_;
         }
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          result.awaitingApproval_ = awaitingApproval_;
+        }
       }
 
       @java.lang.Override
@@ -7569,6 +7620,9 @@ public final class Identity {
         }
         if (other.getCreatedThisMonth() != 0L) {
           setCreatedThisMonth(other.getCreatedThisMonth());
+        }
+        if (other.getAwaitingApproval() != 0L) {
+          setAwaitingApproval(other.getAwaitingApproval());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -7646,6 +7700,11 @@ public final class Identity {
                 bitField0_ |= 0x00000200;
                 break;
               } // case 800
+              case 880: {
+                awaitingApproval_ = input.readInt64();
+                bitField0_ |= 0x00000400;
+                break;
+              } // case 880
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -8027,6 +8086,50 @@ public final class Identity {
       public Builder clearCreatedThisMonth() {
         bitField0_ = (bitField0_ & ~0x00000200);
         createdThisMonth_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long awaitingApproval_ ;
+      /**
+       * <pre>
+       * Self-registered, waiting for an administrator.
+       * </pre>
+       *
+       * <code>int64 awaiting_approval = 110 [json_name = "awaitingApproval"];</code>
+       * @return The awaitingApproval.
+       */
+      @java.lang.Override
+      public long getAwaitingApproval() {
+        return awaitingApproval_;
+      }
+      /**
+       * <pre>
+       * Self-registered, waiting for an administrator.
+       * </pre>
+       *
+       * <code>int64 awaiting_approval = 110 [json_name = "awaitingApproval"];</code>
+       * @param value The awaitingApproval to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAwaitingApproval(long value) {
+
+        awaitingApproval_ = value;
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Self-registered, waiting for an administrator.
+       * </pre>
+       *
+       * <code>int64 awaiting_approval = 110 [json_name = "awaitingApproval"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAwaitingApproval() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        awaitingApproval_ = 0L;
         onChanged();
         return this;
       }
@@ -20694,6 +20797,1736 @@ public final class Identity {
 
   }
 
+  public interface ApproveUserRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.ApproveUserRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The userId.
+     */
+    java.lang.String getUserId();
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The bytes for userId.
+     */
+    com.google.protobuf.ByteString
+        getUserIdBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.ApproveUserRequest}
+   */
+  public static final class ApproveUserRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.ApproveUserRequest)
+      ApproveUserRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ApproveUserRequest.class.getName());
+    }
+    // Use ApproveUserRequest.newBuilder() to construct.
+    private ApproveUserRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ApproveUserRequest() {
+      userId_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_ApproveUserRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_ApproveUserRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.ApproveUserRequest.class, identity.v1.Identity.ApproveUserRequest.Builder.class);
+    }
+
+    public static final int USER_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object userId_ = "";
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The userId.
+     */
+    @java.lang.Override
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The bytes for userId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, userId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, userId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.ApproveUserRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.ApproveUserRequest other = (identity.v1.Identity.ApproveUserRequest) obj;
+
+      if (!getUserId()
+          .equals(other.getUserId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getUserId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.ApproveUserRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.ApproveUserRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ApproveUserRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.ApproveUserRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.ApproveUserRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.ApproveUserRequest)
+        identity.v1.Identity.ApproveUserRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_ApproveUserRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_ApproveUserRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.ApproveUserRequest.class, identity.v1.Identity.ApproveUserRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.ApproveUserRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        userId_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_ApproveUserRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ApproveUserRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.ApproveUserRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ApproveUserRequest build() {
+        identity.v1.Identity.ApproveUserRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ApproveUserRequest buildPartial() {
+        identity.v1.Identity.ApproveUserRequest result = new identity.v1.Identity.ApproveUserRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.ApproveUserRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userId_ = userId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.ApproveUserRequest) {
+          return mergeFrom((identity.v1.Identity.ApproveUserRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.ApproveUserRequest other) {
+        if (other == identity.v1.Identity.ApproveUserRequest.getDefaultInstance()) return this;
+        if (!other.getUserId().isEmpty()) {
+          userId_ = other.userId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                userId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object userId_ = "";
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return The userId.
+       */
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return The bytes for userId.
+       */
+      public com.google.protobuf.ByteString
+          getUserIdBytes() {
+        java.lang.Object ref = userId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        userId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserId() {
+        userId_ = getDefaultInstance().getUserId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @param value The bytes for userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        userId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.ApproveUserRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.ApproveUserRequest)
+    private static final identity.v1.Identity.ApproveUserRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.ApproveUserRequest();
+    }
+
+    public static identity.v1.Identity.ApproveUserRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ApproveUserRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ApproveUserRequest>() {
+      @java.lang.Override
+      public ApproveUserRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ApproveUserRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ApproveUserRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.ApproveUserRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ApproveUserResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.ApproveUserResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.ApproveUserResponse}
+   */
+  public static final class ApproveUserResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.ApproveUserResponse)
+      ApproveUserResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ApproveUserResponse.class.getName());
+    }
+    // Use ApproveUserResponse.newBuilder() to construct.
+    private ApproveUserResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ApproveUserResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_ApproveUserResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_ApproveUserResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.ApproveUserResponse.class, identity.v1.Identity.ApproveUserResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.ApproveUserResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.ApproveUserResponse other = (identity.v1.Identity.ApproveUserResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.ApproveUserResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.ApproveUserResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.ApproveUserResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.ApproveUserResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.ApproveUserResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.ApproveUserResponse)
+        identity.v1.Identity.ApproveUserResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_ApproveUserResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_ApproveUserResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.ApproveUserResponse.class, identity.v1.Identity.ApproveUserResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.ApproveUserResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_ApproveUserResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ApproveUserResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.ApproveUserResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ApproveUserResponse build() {
+        identity.v1.Identity.ApproveUserResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.ApproveUserResponse buildPartial() {
+        identity.v1.Identity.ApproveUserResponse result = new identity.v1.Identity.ApproveUserResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.ApproveUserResponse) {
+          return mergeFrom((identity.v1.Identity.ApproveUserResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.ApproveUserResponse other) {
+        if (other == identity.v1.Identity.ApproveUserResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.ApproveUserResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.ApproveUserResponse)
+    private static final identity.v1.Identity.ApproveUserResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.ApproveUserResponse();
+    }
+
+    public static identity.v1.Identity.ApproveUserResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ApproveUserResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ApproveUserResponse>() {
+      @java.lang.Override
+      public ApproveUserResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ApproveUserResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ApproveUserResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.ApproveUserResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RejectUserRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.RejectUserRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The userId.
+     */
+    java.lang.String getUserId();
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The bytes for userId.
+     */
+    com.google.protobuf.ByteString
+        getUserIdBytes();
+  }
+  /**
+   * Protobuf type {@code identity.v1.RejectUserRequest}
+   */
+  public static final class RejectUserRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.RejectUserRequest)
+      RejectUserRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        RejectUserRequest.class.getName());
+    }
+    // Use RejectUserRequest.newBuilder() to construct.
+    private RejectUserRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RejectUserRequest() {
+      userId_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_RejectUserRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_RejectUserRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.RejectUserRequest.class, identity.v1.Identity.RejectUserRequest.Builder.class);
+    }
+
+    public static final int USER_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object userId_ = "";
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The userId.
+     */
+    @java.lang.Override
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string user_id = 10 [json_name = "userId"];</code>
+     * @return The bytes for userId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, userId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, userId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.RejectUserRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.RejectUserRequest other = (identity.v1.Identity.RejectUserRequest) obj;
+
+      if (!getUserId()
+          .equals(other.getUserId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getUserId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.RejectUserRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.RejectUserRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.RejectUserRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.RejectUserRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.RejectUserRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.RejectUserRequest)
+        identity.v1.Identity.RejectUserRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_RejectUserRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_RejectUserRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.RejectUserRequest.class, identity.v1.Identity.RejectUserRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.RejectUserRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        userId_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_RejectUserRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.RejectUserRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.RejectUserRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.RejectUserRequest build() {
+        identity.v1.Identity.RejectUserRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.RejectUserRequest buildPartial() {
+        identity.v1.Identity.RejectUserRequest result = new identity.v1.Identity.RejectUserRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.RejectUserRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userId_ = userId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.RejectUserRequest) {
+          return mergeFrom((identity.v1.Identity.RejectUserRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.RejectUserRequest other) {
+        if (other == identity.v1.Identity.RejectUserRequest.getDefaultInstance()) return this;
+        if (!other.getUserId().isEmpty()) {
+          userId_ = other.userId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                userId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object userId_ = "";
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return The userId.
+       */
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return The bytes for userId.
+       */
+      public com.google.protobuf.ByteString
+          getUserIdBytes() {
+        java.lang.Object ref = userId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        userId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserId() {
+        userId_ = getDefaultInstance().getUserId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_id = 10 [json_name = "userId"];</code>
+       * @param value The bytes for userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        userId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.RejectUserRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.RejectUserRequest)
+    private static final identity.v1.Identity.RejectUserRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.RejectUserRequest();
+    }
+
+    public static identity.v1.Identity.RejectUserRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RejectUserRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RejectUserRequest>() {
+      @java.lang.Override
+      public RejectUserRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RejectUserRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RejectUserRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.RejectUserRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RejectUserResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.RejectUserResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.RejectUserResponse}
+   */
+  public static final class RejectUserResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.RejectUserResponse)
+      RejectUserResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        RejectUserResponse.class.getName());
+    }
+    // Use RejectUserResponse.newBuilder() to construct.
+    private RejectUserResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RejectUserResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_RejectUserResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_RejectUserResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.RejectUserResponse.class, identity.v1.Identity.RejectUserResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.RejectUserResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.RejectUserResponse other = (identity.v1.Identity.RejectUserResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.RejectUserResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.RejectUserResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.RejectUserResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.RejectUserResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.RejectUserResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.RejectUserResponse)
+        identity.v1.Identity.RejectUserResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_RejectUserResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_RejectUserResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.RejectUserResponse.class, identity.v1.Identity.RejectUserResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.RejectUserResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_RejectUserResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.RejectUserResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.RejectUserResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.RejectUserResponse build() {
+        identity.v1.Identity.RejectUserResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.RejectUserResponse buildPartial() {
+        identity.v1.Identity.RejectUserResponse result = new identity.v1.Identity.RejectUserResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.RejectUserResponse) {
+          return mergeFrom((identity.v1.Identity.RejectUserResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.RejectUserResponse other) {
+        if (other == identity.v1.Identity.RejectUserResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.RejectUserResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.RejectUserResponse)
+    private static final identity.v1.Identity.RejectUserResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.RejectUserResponse();
+    }
+
+    public static identity.v1.Identity.RejectUserResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RejectUserResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RejectUserResponse>() {
+      @java.lang.Override
+      public RejectUserResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RejectUserResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RejectUserResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.RejectUserResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface GetMeRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:identity.v1.GetMeRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -31368,6 +33201,51 @@ public final class Identity {
      * @return The assignedCount.
      */
     long getAssignedCount();
+
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @return A list containing the retiredPermissions.
+     */
+    java.util.List<java.lang.String>
+        getRetiredPermissionsList();
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @return The count of retiredPermissions.
+     */
+    int getRetiredPermissionsCount();
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @param index The index of the element to return.
+     * @return The retiredPermissions at the given index.
+     */
+    java.lang.String getRetiredPermissions(int index);
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the retiredPermissions at the given index.
+     */
+    com.google.protobuf.ByteString
+        getRetiredPermissionsBytes(int index);
   }
   /**
    * Protobuf type {@code identity.v1.Role}
@@ -31394,6 +33272,8 @@ public final class Identity {
       name_ = "";
       description_ = "";
       permissions_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      retiredPermissions_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
@@ -31556,6 +33436,63 @@ public final class Identity {
       return assignedCount_;
     }
 
+    public static final int RETIRED_PERMISSIONS_FIELD_NUMBER = 50;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList retiredPermissions_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @return A list containing the retiredPermissions.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getRetiredPermissionsList() {
+      return retiredPermissions_;
+    }
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @return The count of retiredPermissions.
+     */
+    public int getRetiredPermissionsCount() {
+      return retiredPermissions_.size();
+    }
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @param index The index of the element to return.
+     * @return The retiredPermissions at the given index.
+     */
+    public java.lang.String getRetiredPermissions(int index) {
+      return retiredPermissions_.get(index);
+    }
+    /**
+     * <pre>
+     * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+     * cover nothing); they do nothing and may be removed.
+     * </pre>
+     *
+     * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the retiredPermissions at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getRetiredPermissionsBytes(int index) {
+      return retiredPermissions_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -31581,6 +33518,9 @@ public final class Identity {
       }
       if (assignedCount_ != 0L) {
         output.writeInt64(40, assignedCount_);
+      }
+      for (int i = 0; i < retiredPermissions_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 50, retiredPermissions_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -31609,6 +33549,14 @@ public final class Identity {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(40, assignedCount_);
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < retiredPermissions_.size(); i++) {
+          dataSize += computeStringSizeNoTag(retiredPermissions_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getRetiredPermissionsList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -31632,6 +33580,8 @@ public final class Identity {
           .equals(other.getPermissionsList())) return false;
       if (getAssignedCount()
           != other.getAssignedCount()) return false;
+      if (!getRetiredPermissionsList()
+          .equals(other.getRetiredPermissionsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -31654,6 +33604,10 @@ public final class Identity {
       hash = (37 * hash) + ASSIGNED_COUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getAssignedCount());
+      if (getRetiredPermissionsCount() > 0) {
+        hash = (37 * hash) + RETIRED_PERMISSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getRetiredPermissionsList().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -31790,6 +33744,8 @@ public final class Identity {
         permissions_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
         assignedCount_ = 0L;
+        retiredPermissions_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
       }
 
@@ -31836,6 +33792,10 @@ public final class Identity {
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.assignedCount_ = assignedCount_;
         }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          retiredPermissions_.makeImmutable();
+          result.retiredPermissions_ = retiredPermissions_;
+        }
       }
 
       @java.lang.Override
@@ -31872,6 +33832,16 @@ public final class Identity {
         }
         if (other.getAssignedCount() != 0L) {
           setAssignedCount(other.getAssignedCount());
+        }
+        if (!other.retiredPermissions_.isEmpty()) {
+          if (retiredPermissions_.isEmpty()) {
+            retiredPermissions_ = other.retiredPermissions_;
+            bitField0_ |= 0x00000010;
+          } else {
+            ensureRetiredPermissionsIsMutable();
+            retiredPermissions_.addAll(other.retiredPermissions_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -31920,6 +33890,12 @@ public final class Identity {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 320
+              case 402: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureRetiredPermissionsIsMutable();
+                retiredPermissions_.add(s);
+                break;
+              } // case 402
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -32268,6 +34244,162 @@ public final class Identity {
       public Builder clearAssignedCount() {
         bitField0_ = (bitField0_ & ~0x00000008);
         assignedCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList retiredPermissions_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureRetiredPermissionsIsMutable() {
+        if (!retiredPermissions_.isModifiable()) {
+          retiredPermissions_ = new com.google.protobuf.LazyStringArrayList(retiredPermissions_);
+        }
+        bitField0_ |= 0x00000010;
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @return A list containing the retiredPermissions.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getRetiredPermissionsList() {
+        retiredPermissions_.makeImmutable();
+        return retiredPermissions_;
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @return The count of retiredPermissions.
+       */
+      public int getRetiredPermissionsCount() {
+        return retiredPermissions_.size();
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @param index The index of the element to return.
+       * @return The retiredPermissions at the given index.
+       */
+      public java.lang.String getRetiredPermissions(int index) {
+        return retiredPermissions_.get(index);
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the retiredPermissions at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getRetiredPermissionsBytes(int index) {
+        return retiredPermissions_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @param index The index to set the value at.
+       * @param value The retiredPermissions to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetiredPermissions(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureRetiredPermissionsIsMutable();
+        retiredPermissions_.set(index, value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @param value The retiredPermissions to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRetiredPermissions(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureRetiredPermissionsIsMutable();
+        retiredPermissions_.add(value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @param values The retiredPermissions to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllRetiredPermissions(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureRetiredPermissionsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, retiredPermissions_);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetiredPermissions() {
+        retiredPermissions_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000010);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
+       * cover nothing); they do nothing and may be removed.
+       * </pre>
+       *
+       * <code>repeated string retired_permissions = 50 [json_name = "retiredPermissions"];</code>
+       * @param value The bytes of the retiredPermissions to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRetiredPermissionsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureRetiredPermissionsIsMutable();
+        retiredPermissions_.add(value);
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -38973,6 +41105,46 @@ public final class Identity {
      * @return The roleCount.
      */
     long getRoleCount();
+
+    /**
+     * <pre>
+     * The service that defines it ("identity"); empty for a wildcard.
+     * </pre>
+     *
+     * <code>string service = 40 [json_name = "service"];</code>
+     * @return The service.
+     */
+    java.lang.String getService();
+    /**
+     * <pre>
+     * The service that defines it ("identity"); empty for a wildcard.
+     * </pre>
+     *
+     * <code>string service = 40 [json_name = "service"];</code>
+     * @return The bytes for service.
+     */
+    com.google.protobuf.ByteString
+        getServiceBytes();
+
+    /**
+     * <pre>
+     * A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+     * </pre>
+     *
+     * <code>bool wildcard = 50 [json_name = "wildcard"];</code>
+     * @return The wildcard.
+     */
+    boolean getWildcard();
+
+    /**
+     * <pre>
+     * Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
+     * </pre>
+     *
+     * <code>bool retired = 60 [json_name = "retired"];</code>
+     * @return The retired.
+     */
+    boolean getRetired();
   }
   /**
    * Protobuf type {@code identity.v1.Permission}
@@ -38998,6 +41170,7 @@ public final class Identity {
     private Permission() {
       name_ = "";
       description_ = "";
+      service_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -39114,6 +41287,83 @@ public final class Identity {
       return roleCount_;
     }
 
+    public static final int SERVICE_FIELD_NUMBER = 40;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object service_ = "";
+    /**
+     * <pre>
+     * The service that defines it ("identity"); empty for a wildcard.
+     * </pre>
+     *
+     * <code>string service = 40 [json_name = "service"];</code>
+     * @return The service.
+     */
+    @java.lang.Override
+    public java.lang.String getService() {
+      java.lang.Object ref = service_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        service_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The service that defines it ("identity"); empty for a wildcard.
+     * </pre>
+     *
+     * <code>string service = 40 [json_name = "service"];</code>
+     * @return The bytes for service.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getServiceBytes() {
+      java.lang.Object ref = service_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        service_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WILDCARD_FIELD_NUMBER = 50;
+    private boolean wildcard_ = false;
+    /**
+     * <pre>
+     * A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+     * </pre>
+     *
+     * <code>bool wildcard = 50 [json_name = "wildcard"];</code>
+     * @return The wildcard.
+     */
+    @java.lang.Override
+    public boolean getWildcard() {
+      return wildcard_;
+    }
+
+    public static final int RETIRED_FIELD_NUMBER = 60;
+    private boolean retired_ = false;
+    /**
+     * <pre>
+     * Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
+     * </pre>
+     *
+     * <code>bool retired = 60 [json_name = "retired"];</code>
+     * @return The retired.
+     */
+    @java.lang.Override
+    public boolean getRetired() {
+      return retired_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -39137,6 +41387,15 @@ public final class Identity {
       if (roleCount_ != 0L) {
         output.writeInt64(30, roleCount_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(service_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 40, service_);
+      }
+      if (wildcard_ != false) {
+        output.writeBool(50, wildcard_);
+      }
+      if (retired_ != false) {
+        output.writeBool(60, retired_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -39155,6 +41414,17 @@ public final class Identity {
       if (roleCount_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(30, roleCount_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(service_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(40, service_);
+      }
+      if (wildcard_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(50, wildcard_);
+      }
+      if (retired_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(60, retired_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -39177,6 +41447,12 @@ public final class Identity {
           .equals(other.getDescription())) return false;
       if (getRoleCount()
           != other.getRoleCount()) return false;
+      if (!getService()
+          .equals(other.getService())) return false;
+      if (getWildcard()
+          != other.getWildcard()) return false;
+      if (getRetired()
+          != other.getRetired()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -39195,6 +41471,14 @@ public final class Identity {
       hash = (37 * hash) + ROLE_COUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getRoleCount());
+      hash = (37 * hash) + SERVICE_FIELD_NUMBER;
+      hash = (53 * hash) + getService().hashCode();
+      hash = (37 * hash) + WILDCARD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getWildcard());
+      hash = (37 * hash) + RETIRED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRetired());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -39329,6 +41613,9 @@ public final class Identity {
         name_ = "";
         description_ = "";
         roleCount_ = 0L;
+        service_ = "";
+        wildcard_ = false;
+        retired_ = false;
         return this;
       }
 
@@ -39371,6 +41658,15 @@ public final class Identity {
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.roleCount_ = roleCount_;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.service_ = service_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.wildcard_ = wildcard_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.retired_ = retired_;
+        }
       }
 
       @java.lang.Override
@@ -39397,6 +41693,17 @@ public final class Identity {
         }
         if (other.getRoleCount() != 0L) {
           setRoleCount(other.getRoleCount());
+        }
+        if (!other.getService().isEmpty()) {
+          service_ = other.service_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (other.getWildcard() != false) {
+          setWildcard(other.getWildcard());
+        }
+        if (other.getRetired() != false) {
+          setRetired(other.getRetired());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -39439,6 +41746,21 @@ public final class Identity {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 240
+              case 322: {
+                service_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 322
+              case 400: {
+                wildcard_ = input.readBool();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 400
+              case 480: {
+                retired_ = input.readBool();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 480
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -39660,6 +41982,186 @@ public final class Identity {
       public Builder clearRoleCount() {
         bitField0_ = (bitField0_ & ~0x00000004);
         roleCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object service_ = "";
+      /**
+       * <pre>
+       * The service that defines it ("identity"); empty for a wildcard.
+       * </pre>
+       *
+       * <code>string service = 40 [json_name = "service"];</code>
+       * @return The service.
+       */
+      public java.lang.String getService() {
+        java.lang.Object ref = service_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          service_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The service that defines it ("identity"); empty for a wildcard.
+       * </pre>
+       *
+       * <code>string service = 40 [json_name = "service"];</code>
+       * @return The bytes for service.
+       */
+      public com.google.protobuf.ByteString
+          getServiceBytes() {
+        java.lang.Object ref = service_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          service_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The service that defines it ("identity"); empty for a wildcard.
+       * </pre>
+       *
+       * <code>string service = 40 [json_name = "service"];</code>
+       * @param value The service to set.
+       * @return This builder for chaining.
+       */
+      public Builder setService(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        service_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The service that defines it ("identity"); empty for a wildcard.
+       * </pre>
+       *
+       * <code>string service = 40 [json_name = "service"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearService() {
+        service_ = getDefaultInstance().getService();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The service that defines it ("identity"); empty for a wildcard.
+       * </pre>
+       *
+       * <code>string service = 40 [json_name = "service"];</code>
+       * @param value The bytes for service to set.
+       * @return This builder for chaining.
+       */
+      public Builder setServiceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        service_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private boolean wildcard_ ;
+      /**
+       * <pre>
+       * A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+       * </pre>
+       *
+       * <code>bool wildcard = 50 [json_name = "wildcard"];</code>
+       * @return The wildcard.
+       */
+      @java.lang.Override
+      public boolean getWildcard() {
+        return wildcard_;
+      }
+      /**
+       * <pre>
+       * A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+       * </pre>
+       *
+       * <code>bool wildcard = 50 [json_name = "wildcard"];</code>
+       * @param value The wildcard to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWildcard(boolean value) {
+
+        wildcard_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A generated wildcard ("identity:*:read"): not stored, listed so roles can be given it.
+       * </pre>
+       *
+       * <code>bool wildcard = 50 [json_name = "wildcard"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWildcard() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        wildcard_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean retired_ ;
+      /**
+       * <pre>
+       * Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
+       * </pre>
+       *
+       * <code>bool retired = 60 [json_name = "retired"];</code>
+       * @return The retired.
+       */
+      @java.lang.Override
+      public boolean getRetired() {
+        return retired_;
+      }
+      /**
+       * <pre>
+       * Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
+       * </pre>
+       *
+       * <code>bool retired = 60 [json_name = "retired"];</code>
+       * @param value The retired to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetired(boolean value) {
+
+        retired_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Removed from the code of its service but still held by a role: not enforced, not in tokens, hidden from the picker.
+       * </pre>
+       *
+       * <code>bool retired = 60 [json_name = "retired"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetired() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        retired_ = false;
         onChanged();
         return this;
       }
@@ -41554,1164 +44056,16 @@ public final class Identity {
 
   }
 
-  public interface CreatePermissionRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:identity.v1.CreatePermissionRequest)
+  public interface PermissionDeclarationOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.PermissionDeclaration)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return Whether the permission field is set.
-     */
-    boolean hasPermission();
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    identity.v1.Identity.Permission getPermission();
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     */
-    identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder();
-  }
-  /**
-   * Protobuf type {@code identity.v1.CreatePermissionRequest}
-   */
-  public static final class CreatePermissionRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:identity.v1.CreatePermissionRequest)
-      CreatePermissionRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 29,
-        /* patch= */ 3,
-        /* suffix= */ "",
-        CreatePermissionRequest.class.getName());
-    }
-    // Use CreatePermissionRequest.newBuilder() to construct.
-    private CreatePermissionRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private CreatePermissionRequest() {
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return identity.v1.Identity.internal_static_identity_v1_CreatePermissionRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return identity.v1.Identity.internal_static_identity_v1_CreatePermissionRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              identity.v1.Identity.CreatePermissionRequest.class, identity.v1.Identity.CreatePermissionRequest.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int PERMISSION_FIELD_NUMBER = 10;
-    private identity.v1.Identity.Permission permission_;
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return Whether the permission field is set.
-     */
-    @java.lang.Override
-    public boolean hasPermission() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    @java.lang.Override
-    public identity.v1.Identity.Permission getPermission() {
-      return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-    }
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     */
-    @java.lang.Override
-    public identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder() {
-      return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(10, getPermission());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getPermission());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof identity.v1.Identity.CreatePermissionRequest)) {
-        return super.equals(obj);
-      }
-      identity.v1.Identity.CreatePermissionRequest other = (identity.v1.Identity.CreatePermissionRequest) obj;
-
-      if (hasPermission() != other.hasPermission()) return false;
-      if (hasPermission()) {
-        if (!getPermission()
-            .equals(other.getPermission())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPermission()) {
-        hash = (37 * hash) + PERMISSION_FIELD_NUMBER;
-        hash = (53 * hash) + getPermission().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static identity.v1.Identity.CreatePermissionRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static identity.v1.Identity.CreatePermissionRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static identity.v1.Identity.CreatePermissionRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(identity.v1.Identity.CreatePermissionRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code identity.v1.CreatePermissionRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:identity.v1.CreatePermissionRequest)
-        identity.v1.Identity.CreatePermissionRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return identity.v1.Identity.internal_static_identity_v1_CreatePermissionRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return identity.v1.Identity.internal_static_identity_v1_CreatePermissionRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                identity.v1.Identity.CreatePermissionRequest.class, identity.v1.Identity.CreatePermissionRequest.Builder.class);
-      }
-
-      // Construct using identity.v1.Identity.CreatePermissionRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getPermissionFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        permission_ = null;
-        if (permissionBuilder_ != null) {
-          permissionBuilder_.dispose();
-          permissionBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return identity.v1.Identity.internal_static_identity_v1_CreatePermissionRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.CreatePermissionRequest getDefaultInstanceForType() {
-        return identity.v1.Identity.CreatePermissionRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.CreatePermissionRequest build() {
-        identity.v1.Identity.CreatePermissionRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.CreatePermissionRequest buildPartial() {
-        identity.v1.Identity.CreatePermissionRequest result = new identity.v1.Identity.CreatePermissionRequest(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(identity.v1.Identity.CreatePermissionRequest result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.permission_ = permissionBuilder_ == null
-              ? permission_
-              : permissionBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof identity.v1.Identity.CreatePermissionRequest) {
-          return mergeFrom((identity.v1.Identity.CreatePermissionRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(identity.v1.Identity.CreatePermissionRequest other) {
-        if (other == identity.v1.Identity.CreatePermissionRequest.getDefaultInstance()) return this;
-        if (other.hasPermission()) {
-          mergePermission(other.getPermission());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 82: {
-                input.readMessage(
-                    getPermissionFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 82
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private identity.v1.Identity.Permission permission_;
-      private com.google.protobuf.SingleFieldBuilder<
-          identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder> permissionBuilder_;
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       * @return Whether the permission field is set.
-       */
-      public boolean hasPermission() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       * @return The permission.
-       */
-      public identity.v1.Identity.Permission getPermission() {
-        if (permissionBuilder_ == null) {
-          return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-        } else {
-          return permissionBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder setPermission(identity.v1.Identity.Permission value) {
-        if (permissionBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          permission_ = value;
-        } else {
-          permissionBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder setPermission(
-          identity.v1.Identity.Permission.Builder builderForValue) {
-        if (permissionBuilder_ == null) {
-          permission_ = builderForValue.build();
-        } else {
-          permissionBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder mergePermission(identity.v1.Identity.Permission value) {
-        if (permissionBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            permission_ != null &&
-            permission_ != identity.v1.Identity.Permission.getDefaultInstance()) {
-            getPermissionBuilder().mergeFrom(value);
-          } else {
-            permission_ = value;
-          }
-        } else {
-          permissionBuilder_.mergeFrom(value);
-        }
-        if (permission_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder clearPermission() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        permission_ = null;
-        if (permissionBuilder_ != null) {
-          permissionBuilder_.dispose();
-          permissionBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public identity.v1.Identity.Permission.Builder getPermissionBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getPermissionFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder() {
-        if (permissionBuilder_ != null) {
-          return permissionBuilder_.getMessageOrBuilder();
-        } else {
-          return permission_ == null ?
-              identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-        }
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder> 
-          getPermissionFieldBuilder() {
-        if (permissionBuilder_ == null) {
-          permissionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder>(
-                  getPermission(),
-                  getParentForChildren(),
-                  isClean());
-          permission_ = null;
-        }
-        return permissionBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:identity.v1.CreatePermissionRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:identity.v1.CreatePermissionRequest)
-    private static final identity.v1.Identity.CreatePermissionRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new identity.v1.Identity.CreatePermissionRequest();
-    }
-
-    public static identity.v1.Identity.CreatePermissionRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<CreatePermissionRequest>
-        PARSER = new com.google.protobuf.AbstractParser<CreatePermissionRequest>() {
-      @java.lang.Override
-      public CreatePermissionRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<CreatePermissionRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CreatePermissionRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public identity.v1.Identity.CreatePermissionRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CreatePermissionResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:identity.v1.CreatePermissionResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return Whether the permission field is set.
-     */
-    boolean hasPermission();
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    identity.v1.Identity.Permission getPermission();
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     */
-    identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder();
-  }
-  /**
-   * Protobuf type {@code identity.v1.CreatePermissionResponse}
-   */
-  public static final class CreatePermissionResponse extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:identity.v1.CreatePermissionResponse)
-      CreatePermissionResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 29,
-        /* patch= */ 3,
-        /* suffix= */ "",
-        CreatePermissionResponse.class.getName());
-    }
-    // Use CreatePermissionResponse.newBuilder() to construct.
-    private CreatePermissionResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private CreatePermissionResponse() {
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return identity.v1.Identity.internal_static_identity_v1_CreatePermissionResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return identity.v1.Identity.internal_static_identity_v1_CreatePermissionResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              identity.v1.Identity.CreatePermissionResponse.class, identity.v1.Identity.CreatePermissionResponse.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int PERMISSION_FIELD_NUMBER = 10;
-    private identity.v1.Identity.Permission permission_;
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return Whether the permission field is set.
-     */
-    @java.lang.Override
-    public boolean hasPermission() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    @java.lang.Override
-    public identity.v1.Identity.Permission getPermission() {
-      return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-    }
-    /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     */
-    @java.lang.Override
-    public identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder() {
-      return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(10, getPermission());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getPermission());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof identity.v1.Identity.CreatePermissionResponse)) {
-        return super.equals(obj);
-      }
-      identity.v1.Identity.CreatePermissionResponse other = (identity.v1.Identity.CreatePermissionResponse) obj;
-
-      if (hasPermission() != other.hasPermission()) return false;
-      if (hasPermission()) {
-        if (!getPermission()
-            .equals(other.getPermission())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPermission()) {
-        hash = (37 * hash) + PERMISSION_FIELD_NUMBER;
-        hash = (53 * hash) + getPermission().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static identity.v1.Identity.CreatePermissionResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static identity.v1.Identity.CreatePermissionResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static identity.v1.Identity.CreatePermissionResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(identity.v1.Identity.CreatePermissionResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code identity.v1.CreatePermissionResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:identity.v1.CreatePermissionResponse)
-        identity.v1.Identity.CreatePermissionResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return identity.v1.Identity.internal_static_identity_v1_CreatePermissionResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return identity.v1.Identity.internal_static_identity_v1_CreatePermissionResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                identity.v1.Identity.CreatePermissionResponse.class, identity.v1.Identity.CreatePermissionResponse.Builder.class);
-      }
-
-      // Construct using identity.v1.Identity.CreatePermissionResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getPermissionFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        permission_ = null;
-        if (permissionBuilder_ != null) {
-          permissionBuilder_.dispose();
-          permissionBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return identity.v1.Identity.internal_static_identity_v1_CreatePermissionResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.CreatePermissionResponse getDefaultInstanceForType() {
-        return identity.v1.Identity.CreatePermissionResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.CreatePermissionResponse build() {
-        identity.v1.Identity.CreatePermissionResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.CreatePermissionResponse buildPartial() {
-        identity.v1.Identity.CreatePermissionResponse result = new identity.v1.Identity.CreatePermissionResponse(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(identity.v1.Identity.CreatePermissionResponse result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.permission_ = permissionBuilder_ == null
-              ? permission_
-              : permissionBuilder_.build();
-          to_bitField0_ |= 0x00000001;
-        }
-        result.bitField0_ |= to_bitField0_;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof identity.v1.Identity.CreatePermissionResponse) {
-          return mergeFrom((identity.v1.Identity.CreatePermissionResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(identity.v1.Identity.CreatePermissionResponse other) {
-        if (other == identity.v1.Identity.CreatePermissionResponse.getDefaultInstance()) return this;
-        if (other.hasPermission()) {
-          mergePermission(other.getPermission());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 82: {
-                input.readMessage(
-                    getPermissionFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 82
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private identity.v1.Identity.Permission permission_;
-      private com.google.protobuf.SingleFieldBuilder<
-          identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder> permissionBuilder_;
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       * @return Whether the permission field is set.
-       */
-      public boolean hasPermission() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       * @return The permission.
-       */
-      public identity.v1.Identity.Permission getPermission() {
-        if (permissionBuilder_ == null) {
-          return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-        } else {
-          return permissionBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder setPermission(identity.v1.Identity.Permission value) {
-        if (permissionBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          permission_ = value;
-        } else {
-          permissionBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder setPermission(
-          identity.v1.Identity.Permission.Builder builderForValue) {
-        if (permissionBuilder_ == null) {
-          permission_ = builderForValue.build();
-        } else {
-          permissionBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder mergePermission(identity.v1.Identity.Permission value) {
-        if (permissionBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            permission_ != null &&
-            permission_ != identity.v1.Identity.Permission.getDefaultInstance()) {
-            getPermissionBuilder().mergeFrom(value);
-          } else {
-            permission_ = value;
-          }
-        } else {
-          permissionBuilder_.mergeFrom(value);
-        }
-        if (permission_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder clearPermission() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        permission_ = null;
-        if (permissionBuilder_ != null) {
-          permissionBuilder_.dispose();
-          permissionBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public identity.v1.Identity.Permission.Builder getPermissionBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getPermissionFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder() {
-        if (permissionBuilder_ != null) {
-          return permissionBuilder_.getMessageOrBuilder();
-        } else {
-          return permission_ == null ?
-              identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-        }
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder> 
-          getPermissionFieldBuilder() {
-        if (permissionBuilder_ == null) {
-          permissionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder>(
-                  getPermission(),
-                  getParentForChildren(),
-                  isClean());
-          permission_ = null;
-        }
-        return permissionBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:identity.v1.CreatePermissionResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:identity.v1.CreatePermissionResponse)
-    private static final identity.v1.Identity.CreatePermissionResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new identity.v1.Identity.CreatePermissionResponse();
-    }
-
-    public static identity.v1.Identity.CreatePermissionResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<CreatePermissionResponse>
-        PARSER = new com.google.protobuf.AbstractParser<CreatePermissionResponse>() {
-      @java.lang.Override
-      public CreatePermissionResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<CreatePermissionResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CreatePermissionResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public identity.v1.Identity.CreatePermissionResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface UpdatePermissionRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:identity.v1.UpdatePermissionRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * The name of the permission (the path parameter of the gateway is `permission`).
-     * </pre>
-     *
      * <code>string name = 10 [json_name = "name"];</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
-     * <pre>
-     * The name of the permission (the path parameter of the gateway is `permission`).
-     * </pre>
-     *
      * <code>string name = 10 [json_name = "name"];</code>
      * @return The bytes for name.
      */
@@ -42719,36 +44073,48 @@ public final class Identity {
         getNameBytes();
 
     /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    java.lang.String getPermission();
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The bytes for permission.
-     */
-    com.google.protobuf.ByteString
-        getPermissionBytes();
-
-    /**
-     * <code>string description = 30 [json_name = "description"];</code>
+     * <code>string description = 20 [json_name = "description"];</code>
      * @return The description.
      */
     java.lang.String getDescription();
     /**
-     * <code>string description = 30 [json_name = "description"];</code>
+     * <code>string description = 20 [json_name = "description"];</code>
      * @return The bytes for description.
      */
     com.google.protobuf.ByteString
         getDescriptionBytes();
+
+    /**
+     * <pre>
+     * The previous name: its role grants move to `name`.
+     * </pre>
+     *
+     * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+     * @return The renamedFrom.
+     */
+    java.lang.String getRenamedFrom();
+    /**
+     * <pre>
+     * The previous name: its role grants move to `name`.
+     * </pre>
+     *
+     * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+     * @return The bytes for renamedFrom.
+     */
+    com.google.protobuf.ByteString
+        getRenamedFromBytes();
   }
   /**
-   * Protobuf type {@code identity.v1.UpdatePermissionRequest}
+   * <pre>
+   * A permission a service declared, sent by RegisterPermissions.
+   * </pre>
+   *
+   * Protobuf type {@code identity.v1.PermissionDeclaration}
    */
-  public static final class UpdatePermissionRequest extends
+  public static final class PermissionDeclaration extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:identity.v1.UpdatePermissionRequest)
-      UpdatePermissionRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:identity.v1.PermissionDeclaration)
+      PermissionDeclarationOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
       com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -42757,39 +44123,35 @@ public final class Identity {
         /* minor= */ 29,
         /* patch= */ 3,
         /* suffix= */ "",
-        UpdatePermissionRequest.class.getName());
+        PermissionDeclaration.class.getName());
     }
-    // Use UpdatePermissionRequest.newBuilder() to construct.
-    private UpdatePermissionRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    // Use PermissionDeclaration.newBuilder() to construct.
+    private PermissionDeclaration(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private UpdatePermissionRequest() {
+    private PermissionDeclaration() {
       name_ = "";
-      permission_ = "";
       description_ = "";
+      renamedFrom_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionRequest_descriptor;
+      return identity.v1.Identity.internal_static_identity_v1_PermissionDeclaration_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionRequest_fieldAccessorTable
+      return identity.v1.Identity.internal_static_identity_v1_PermissionDeclaration_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              identity.v1.Identity.UpdatePermissionRequest.class, identity.v1.Identity.UpdatePermissionRequest.Builder.class);
+              identity.v1.Identity.PermissionDeclaration.class, identity.v1.Identity.PermissionDeclaration.Builder.class);
     }
 
     public static final int NAME_FIELD_NUMBER = 10;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
     /**
-     * <pre>
-     * The name of the permission (the path parameter of the gateway is `permission`).
-     * </pre>
-     *
      * <code>string name = 10 [json_name = "name"];</code>
      * @return The name.
      */
@@ -42807,10 +44169,6 @@ public final class Identity {
       }
     }
     /**
-     * <pre>
-     * The name of the permission (the path parameter of the gateway is `permission`).
-     * </pre>
-     *
      * <code>string name = 10 [json_name = "name"];</code>
      * @return The bytes for name.
      */
@@ -42829,50 +44187,11 @@ public final class Identity {
       }
     }
 
-    public static final int PERMISSION_FIELD_NUMBER = 20;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object permission_ = "";
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    @java.lang.Override
-    public java.lang.String getPermission() {
-      java.lang.Object ref = permission_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        permission_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The bytes for permission.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPermissionBytes() {
-      java.lang.Object ref = permission_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        permission_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DESCRIPTION_FIELD_NUMBER = 30;
+    public static final int DESCRIPTION_FIELD_NUMBER = 20;
     @SuppressWarnings("serial")
     private volatile java.lang.Object description_ = "";
     /**
-     * <code>string description = 30 [json_name = "description"];</code>
+     * <code>string description = 20 [json_name = "description"];</code>
      * @return The description.
      */
     @java.lang.Override
@@ -42889,7 +44208,7 @@ public final class Identity {
       }
     }
     /**
-     * <code>string description = 30 [json_name = "description"];</code>
+     * <code>string description = 20 [json_name = "description"];</code>
      * @return The bytes for description.
      */
     @java.lang.Override
@@ -42901,6 +44220,53 @@ public final class Identity {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         description_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RENAMED_FROM_FIELD_NUMBER = 30;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object renamedFrom_ = "";
+    /**
+     * <pre>
+     * The previous name: its role grants move to `name`.
+     * </pre>
+     *
+     * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+     * @return The renamedFrom.
+     */
+    @java.lang.Override
+    public java.lang.String getRenamedFrom() {
+      java.lang.Object ref = renamedFrom_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        renamedFrom_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The previous name: its role grants move to `name`.
+     * </pre>
+     *
+     * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+     * @return The bytes for renamedFrom.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRenamedFromBytes() {
+      java.lang.Object ref = renamedFrom_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        renamedFrom_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -42924,11 +44290,11 @@ public final class Identity {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 10, name_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(permission_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 20, permission_);
-      }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 30, description_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, description_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(renamedFrom_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 30, renamedFrom_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -42942,11 +44308,11 @@ public final class Identity {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(10, name_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(permission_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, permission_);
-      }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(30, description_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, description_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(renamedFrom_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(30, renamedFrom_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -42958,17 +44324,17 @@ public final class Identity {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof identity.v1.Identity.UpdatePermissionRequest)) {
+      if (!(obj instanceof identity.v1.Identity.PermissionDeclaration)) {
         return super.equals(obj);
       }
-      identity.v1.Identity.UpdatePermissionRequest other = (identity.v1.Identity.UpdatePermissionRequest) obj;
+      identity.v1.Identity.PermissionDeclaration other = (identity.v1.Identity.PermissionDeclaration) obj;
 
       if (!getName()
           .equals(other.getName())) return false;
-      if (!getPermission()
-          .equals(other.getPermission())) return false;
       if (!getDescription()
           .equals(other.getDescription())) return false;
+      if (!getRenamedFrom()
+          .equals(other.getRenamedFrom())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -42982,53 +44348,53 @@ public final class Identity {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + PERMISSION_FIELD_NUMBER;
-      hash = (53 * hash) + getPermission().hashCode();
       hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
       hash = (53 * hash) + getDescription().hashCode();
+      hash = (37 * hash) + RENAMED_FROM_FIELD_NUMBER;
+      hash = (53 * hash) + getRenamedFrom().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(byte[] data)
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(java.io.InputStream input)
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -43036,26 +44402,26 @@ public final class Identity {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static identity.v1.Identity.UpdatePermissionRequest parseDelimitedFrom(java.io.InputStream input)
+    public static identity.v1.Identity.PermissionDeclaration parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static identity.v1.Identity.UpdatePermissionRequest parseDelimitedFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static identity.v1.Identity.UpdatePermissionRequest parseFrom(
+    public static identity.v1.Identity.PermissionDeclaration parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -43068,7 +44434,7 @@ public final class Identity {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(identity.v1.Identity.UpdatePermissionRequest prototype) {
+    public static Builder newBuilder(identity.v1.Identity.PermissionDeclaration prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -43084,26 +44450,30 @@ public final class Identity {
       return builder;
     }
     /**
-     * Protobuf type {@code identity.v1.UpdatePermissionRequest}
+     * <pre>
+     * A permission a service declared, sent by RegisterPermissions.
+     * </pre>
+     *
+     * Protobuf type {@code identity.v1.PermissionDeclaration}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:identity.v1.UpdatePermissionRequest)
-        identity.v1.Identity.UpdatePermissionRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:identity.v1.PermissionDeclaration)
+        identity.v1.Identity.PermissionDeclarationOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionRequest_descriptor;
+        return identity.v1.Identity.internal_static_identity_v1_PermissionDeclaration_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionRequest_fieldAccessorTable
+        return identity.v1.Identity.internal_static_identity_v1_PermissionDeclaration_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                identity.v1.Identity.UpdatePermissionRequest.class, identity.v1.Identity.UpdatePermissionRequest.Builder.class);
+                identity.v1.Identity.PermissionDeclaration.class, identity.v1.Identity.PermissionDeclaration.Builder.class);
       }
 
-      // Construct using identity.v1.Identity.UpdatePermissionRequest.newBuilder()
+      // Construct using identity.v1.Identity.PermissionDeclaration.newBuilder()
       private Builder() {
 
       }
@@ -43118,25 +44488,25 @@ public final class Identity {
         super.clear();
         bitField0_ = 0;
         name_ = "";
-        permission_ = "";
         description_ = "";
+        renamedFrom_ = "";
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionRequest_descriptor;
+        return identity.v1.Identity.internal_static_identity_v1_PermissionDeclaration_descriptor;
       }
 
       @java.lang.Override
-      public identity.v1.Identity.UpdatePermissionRequest getDefaultInstanceForType() {
-        return identity.v1.Identity.UpdatePermissionRequest.getDefaultInstance();
+      public identity.v1.Identity.PermissionDeclaration getDefaultInstanceForType() {
+        return identity.v1.Identity.PermissionDeclaration.getDefaultInstance();
       }
 
       @java.lang.Override
-      public identity.v1.Identity.UpdatePermissionRequest build() {
-        identity.v1.Identity.UpdatePermissionRequest result = buildPartial();
+      public identity.v1.Identity.PermissionDeclaration build() {
+        identity.v1.Identity.PermissionDeclaration result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -43144,50 +44514,50 @@ public final class Identity {
       }
 
       @java.lang.Override
-      public identity.v1.Identity.UpdatePermissionRequest buildPartial() {
-        identity.v1.Identity.UpdatePermissionRequest result = new identity.v1.Identity.UpdatePermissionRequest(this);
+      public identity.v1.Identity.PermissionDeclaration buildPartial() {
+        identity.v1.Identity.PermissionDeclaration result = new identity.v1.Identity.PermissionDeclaration(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(identity.v1.Identity.UpdatePermissionRequest result) {
+      private void buildPartial0(identity.v1.Identity.PermissionDeclaration result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.permission_ = permission_;
+          result.description_ = description_;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.description_ = description_;
+          result.renamedFrom_ = renamedFrom_;
         }
       }
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof identity.v1.Identity.UpdatePermissionRequest) {
-          return mergeFrom((identity.v1.Identity.UpdatePermissionRequest)other);
+        if (other instanceof identity.v1.Identity.PermissionDeclaration) {
+          return mergeFrom((identity.v1.Identity.PermissionDeclaration)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(identity.v1.Identity.UpdatePermissionRequest other) {
-        if (other == identity.v1.Identity.UpdatePermissionRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(identity.v1.Identity.PermissionDeclaration other) {
+        if (other == identity.v1.Identity.PermissionDeclaration.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (!other.getPermission().isEmpty()) {
-          permission_ = other.permission_;
+        if (!other.getDescription().isEmpty()) {
+          description_ = other.description_;
           bitField0_ |= 0x00000002;
           onChanged();
         }
-        if (!other.getDescription().isEmpty()) {
-          description_ = other.description_;
+        if (!other.getRenamedFrom().isEmpty()) {
+          renamedFrom_ = other.renamedFrom_;
           bitField0_ |= 0x00000004;
           onChanged();
         }
@@ -43223,12 +44593,12 @@ public final class Identity {
                 break;
               } // case 82
               case 162: {
-                permission_ = input.readStringRequireUtf8();
+                description_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 162
               case 242: {
-                description_ = input.readStringRequireUtf8();
+                renamedFrom_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 242
@@ -43251,10 +44621,6 @@ public final class Identity {
 
       private java.lang.Object name_ = "";
       /**
-       * <pre>
-       * The name of the permission (the path parameter of the gateway is `permission`).
-       * </pre>
-       *
        * <code>string name = 10 [json_name = "name"];</code>
        * @return The name.
        */
@@ -43271,10 +44637,6 @@ public final class Identity {
         }
       }
       /**
-       * <pre>
-       * The name of the permission (the path parameter of the gateway is `permission`).
-       * </pre>
-       *
        * <code>string name = 10 [json_name = "name"];</code>
        * @return The bytes for name.
        */
@@ -43292,10 +44654,6 @@ public final class Identity {
         }
       }
       /**
-       * <pre>
-       * The name of the permission (the path parameter of the gateway is `permission`).
-       * </pre>
-       *
        * <code>string name = 10 [json_name = "name"];</code>
        * @param value The name to set.
        * @return This builder for chaining.
@@ -43309,10 +44667,6 @@ public final class Identity {
         return this;
       }
       /**
-       * <pre>
-       * The name of the permission (the path parameter of the gateway is `permission`).
-       * </pre>
-       *
        * <code>string name = 10 [json_name = "name"];</code>
        * @return This builder for chaining.
        */
@@ -43323,10 +44677,6 @@ public final class Identity {
         return this;
       }
       /**
-       * <pre>
-       * The name of the permission (the path parameter of the gateway is `permission`).
-       * </pre>
-       *
        * <code>string name = 10 [json_name = "name"];</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
@@ -43341,81 +44691,9 @@ public final class Identity {
         return this;
       }
 
-      private java.lang.Object permission_ = "";
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @return The permission.
-       */
-      public java.lang.String getPermission() {
-        java.lang.Object ref = permission_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          permission_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @return The bytes for permission.
-       */
-      public com.google.protobuf.ByteString
-          getPermissionBytes() {
-        java.lang.Object ref = permission_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          permission_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @param value The permission to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPermission(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        permission_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPermission() {
-        permission_ = getDefaultInstance().getPermission();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @param value The bytes for permission to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPermissionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        permission_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object description_ = "";
       /**
-       * <code>string description = 30 [json_name = "description"];</code>
+       * <code>string description = 20 [json_name = "description"];</code>
        * @return The description.
        */
       public java.lang.String getDescription() {
@@ -43431,7 +44709,7 @@ public final class Identity {
         }
       }
       /**
-       * <code>string description = 30 [json_name = "description"];</code>
+       * <code>string description = 20 [json_name = "description"];</code>
        * @return The bytes for description.
        */
       public com.google.protobuf.ByteString
@@ -43448,7 +44726,7 @@ public final class Identity {
         }
       }
       /**
-       * <code>string description = 30 [json_name = "description"];</code>
+       * <code>string description = 20 [json_name = "description"];</code>
        * @param value The description to set.
        * @return This builder for chaining.
        */
@@ -43456,22 +44734,22 @@ public final class Identity {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         description_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>string description = 30 [json_name = "description"];</code>
+       * <code>string description = 20 [json_name = "description"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDescription() {
         description_ = getDefaultInstance().getDescription();
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>string description = 30 [json_name = "description"];</code>
+       * <code>string description = 20 [json_name = "description"];</code>
        * @param value The bytes for description to set.
        * @return This builder for chaining.
        */
@@ -43480,28 +44758,120 @@ public final class Identity {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         description_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object renamedFrom_ = "";
+      /**
+       * <pre>
+       * The previous name: its role grants move to `name`.
+       * </pre>
+       *
+       * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+       * @return The renamedFrom.
+       */
+      public java.lang.String getRenamedFrom() {
+        java.lang.Object ref = renamedFrom_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          renamedFrom_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The previous name: its role grants move to `name`.
+       * </pre>
+       *
+       * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+       * @return The bytes for renamedFrom.
+       */
+      public com.google.protobuf.ByteString
+          getRenamedFromBytes() {
+        java.lang.Object ref = renamedFrom_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          renamedFrom_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The previous name: its role grants move to `name`.
+       * </pre>
+       *
+       * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+       * @param value The renamedFrom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRenamedFrom(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        renamedFrom_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The previous name: its role grants move to `name`.
+       * </pre>
+       *
+       * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRenamedFrom() {
+        renamedFrom_ = getDefaultInstance().getRenamedFrom();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The previous name: its role grants move to `name`.
+       * </pre>
+       *
+       * <code>string renamed_from = 30 [json_name = "renamedFrom"];</code>
+       * @param value The bytes for renamedFrom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRenamedFromBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        renamedFrom_ = value;
         bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:identity.v1.UpdatePermissionRequest)
+      // @@protoc_insertion_point(builder_scope:identity.v1.PermissionDeclaration)
     }
 
-    // @@protoc_insertion_point(class_scope:identity.v1.UpdatePermissionRequest)
-    private static final identity.v1.Identity.UpdatePermissionRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:identity.v1.PermissionDeclaration)
+    private static final identity.v1.Identity.PermissionDeclaration DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new identity.v1.Identity.UpdatePermissionRequest();
+      DEFAULT_INSTANCE = new identity.v1.Identity.PermissionDeclaration();
     }
 
-    public static identity.v1.Identity.UpdatePermissionRequest getDefaultInstance() {
+    public static identity.v1.Identity.PermissionDeclaration getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<UpdatePermissionRequest>
-        PARSER = new com.google.protobuf.AbstractParser<UpdatePermissionRequest>() {
+    private static final com.google.protobuf.Parser<PermissionDeclaration>
+        PARSER = new com.google.protobuf.AbstractParser<PermissionDeclaration>() {
       @java.lang.Override
-      public UpdatePermissionRequest parsePartialFrom(
+      public PermissionDeclaration parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -43520,48 +44890,77 @@ public final class Identity {
       }
     };
 
-    public static com.google.protobuf.Parser<UpdatePermissionRequest> parser() {
+    public static com.google.protobuf.Parser<PermissionDeclaration> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<UpdatePermissionRequest> getParserForType() {
+    public com.google.protobuf.Parser<PermissionDeclaration> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public identity.v1.Identity.UpdatePermissionRequest getDefaultInstanceForType() {
+    public identity.v1.Identity.PermissionDeclaration getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface UpdatePermissionResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:identity.v1.UpdatePermissionResponse)
+  public interface RegisterPermissionsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.RegisterPermissionsRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return Whether the permission field is set.
+     * <pre>
+     * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+     * </pre>
+     *
+     * <code>string service = 10 [json_name = "service"];</code>
+     * @return The service.
      */
-    boolean hasPermission();
+    java.lang.String getService();
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return The permission.
+     * <pre>
+     * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+     * </pre>
+     *
+     * <code>string service = 10 [json_name = "service"];</code>
+     * @return The bytes for service.
      */
-    identity.v1.Identity.Permission getPermission();
+    com.google.protobuf.ByteString
+        getServiceBytes();
+
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
      */
-    identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder();
+    java.util.List<identity.v1.Identity.PermissionDeclaration> 
+        getPermissionsList();
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    identity.v1.Identity.PermissionDeclaration getPermissions(int index);
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    int getPermissionsCount();
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    java.util.List<? extends identity.v1.Identity.PermissionDeclarationOrBuilder> 
+        getPermissionsOrBuilderList();
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    identity.v1.Identity.PermissionDeclarationOrBuilder getPermissionsOrBuilder(
+        int index);
   }
   /**
-   * Protobuf type {@code identity.v1.UpdatePermissionResponse}
+   * Protobuf type {@code identity.v1.RegisterPermissionsRequest}
    */
-  public static final class UpdatePermissionResponse extends
+  public static final class RegisterPermissionsRequest extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:identity.v1.UpdatePermissionResponse)
-      UpdatePermissionResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:identity.v1.RegisterPermissionsRequest)
+      RegisterPermissionsRequestOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
       com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -43570,53 +44969,116 @@ public final class Identity {
         /* minor= */ 29,
         /* patch= */ 3,
         /* suffix= */ "",
-        UpdatePermissionResponse.class.getName());
+        RegisterPermissionsRequest.class.getName());
     }
-    // Use UpdatePermissionResponse.newBuilder() to construct.
-    private UpdatePermissionResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    // Use RegisterPermissionsRequest.newBuilder() to construct.
+    private RegisterPermissionsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private UpdatePermissionResponse() {
+    private RegisterPermissionsRequest() {
+      service_ = "";
+      permissions_ = java.util.Collections.emptyList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionResponse_descriptor;
+      return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionResponse_fieldAccessorTable
+      return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              identity.v1.Identity.UpdatePermissionResponse.class, identity.v1.Identity.UpdatePermissionResponse.Builder.class);
+              identity.v1.Identity.RegisterPermissionsRequest.class, identity.v1.Identity.RegisterPermissionsRequest.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int PERMISSION_FIELD_NUMBER = 10;
-    private identity.v1.Identity.Permission permission_;
+    public static final int SERVICE_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object service_ = "";
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return Whether the permission field is set.
+     * <pre>
+     * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+     * </pre>
+     *
+     * <code>string service = 10 [json_name = "service"];</code>
+     * @return The service.
      */
     @java.lang.Override
-    public boolean hasPermission() {
-      return ((bitField0_ & 0x00000001) != 0);
+    public java.lang.String getService() {
+      java.lang.Object ref = service_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        service_ = s;
+        return s;
+      }
     }
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-     * @return The permission.
+     * <pre>
+     * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+     * </pre>
+     *
+     * <code>string service = 10 [json_name = "service"];</code>
+     * @return The bytes for service.
      */
     @java.lang.Override
-    public identity.v1.Identity.Permission getPermission() {
-      return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
+    public com.google.protobuf.ByteString
+        getServiceBytes() {
+      java.lang.Object ref = service_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        service_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PERMISSIONS_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private java.util.List<identity.v1.Identity.PermissionDeclaration> permissions_;
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<identity.v1.Identity.PermissionDeclaration> getPermissionsList() {
+      return permissions_;
     }
     /**
-     * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
      */
     @java.lang.Override
-    public identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder() {
-      return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
+    public java.util.List<? extends identity.v1.Identity.PermissionDeclarationOrBuilder> 
+        getPermissionsOrBuilderList() {
+      return permissions_;
+    }
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    @java.lang.Override
+    public int getPermissionsCount() {
+      return permissions_.size();
+    }
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    @java.lang.Override
+    public identity.v1.Identity.PermissionDeclaration getPermissions(int index) {
+      return permissions_.get(index);
+    }
+    /**
+     * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+     */
+    @java.lang.Override
+    public identity.v1.Identity.PermissionDeclarationOrBuilder getPermissionsOrBuilder(
+        int index) {
+      return permissions_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -43633,8 +45095,11 @@ public final class Identity {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(10, getPermission());
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(service_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, service_);
+      }
+      for (int i = 0; i < permissions_.size(); i++) {
+        output.writeMessage(20, permissions_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -43645,9 +45110,12 @@ public final class Identity {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(service_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, service_);
+      }
+      for (int i = 0; i < permissions_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getPermission());
+          .computeMessageSize(20, permissions_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -43659,16 +45127,15 @@ public final class Identity {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof identity.v1.Identity.UpdatePermissionResponse)) {
+      if (!(obj instanceof identity.v1.Identity.RegisterPermissionsRequest)) {
         return super.equals(obj);
       }
-      identity.v1.Identity.UpdatePermissionResponse other = (identity.v1.Identity.UpdatePermissionResponse) obj;
+      identity.v1.Identity.RegisterPermissionsRequest other = (identity.v1.Identity.RegisterPermissionsRequest) obj;
 
-      if (hasPermission() != other.hasPermission()) return false;
-      if (hasPermission()) {
-        if (!getPermission()
-            .equals(other.getPermission())) return false;
-      }
+      if (!getService()
+          .equals(other.getService())) return false;
+      if (!getPermissionsList()
+          .equals(other.getPermissionsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -43680,53 +45147,55 @@ public final class Identity {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPermission()) {
-        hash = (37 * hash) + PERMISSION_FIELD_NUMBER;
-        hash = (53 * hash) + getPermission().hashCode();
+      hash = (37 * hash) + SERVICE_FIELD_NUMBER;
+      hash = (53 * hash) + getService().hashCode();
+      if (getPermissionsCount() > 0) {
+        hash = (37 * hash) + PERMISSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getPermissionsList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(byte[] data)
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(java.io.InputStream input)
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -43734,26 +45203,26 @@ public final class Identity {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static identity.v1.Identity.UpdatePermissionResponse parseDelimitedFrom(java.io.InputStream input)
+    public static identity.v1.Identity.RegisterPermissionsRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static identity.v1.Identity.UpdatePermissionResponse parseDelimitedFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static identity.v1.Identity.UpdatePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -43766,7 +45235,7 @@ public final class Identity {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(identity.v1.Identity.UpdatePermissionResponse prototype) {
+    public static Builder newBuilder(identity.v1.Identity.RegisterPermissionsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -43782,67 +45251,64 @@ public final class Identity {
       return builder;
     }
     /**
-     * Protobuf type {@code identity.v1.UpdatePermissionResponse}
+     * Protobuf type {@code identity.v1.RegisterPermissionsRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:identity.v1.UpdatePermissionResponse)
-        identity.v1.Identity.UpdatePermissionResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:identity.v1.RegisterPermissionsRequest)
+        identity.v1.Identity.RegisterPermissionsRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionResponse_descriptor;
+        return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionResponse_fieldAccessorTable
+        return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                identity.v1.Identity.UpdatePermissionResponse.class, identity.v1.Identity.UpdatePermissionResponse.Builder.class);
+                identity.v1.Identity.RegisterPermissionsRequest.class, identity.v1.Identity.RegisterPermissionsRequest.Builder.class);
       }
 
-      // Construct using identity.v1.Identity.UpdatePermissionResponse.newBuilder()
+      // Construct using identity.v1.Identity.RegisterPermissionsRequest.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage
-                .alwaysUseFieldBuilders) {
-          getPermissionFieldBuilder();
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        permission_ = null;
-        if (permissionBuilder_ != null) {
-          permissionBuilder_.dispose();
-          permissionBuilder_ = null;
+        service_ = "";
+        if (permissionsBuilder_ == null) {
+          permissions_ = java.util.Collections.emptyList();
+        } else {
+          permissions_ = null;
+          permissionsBuilder_.clear();
         }
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return identity.v1.Identity.internal_static_identity_v1_UpdatePermissionResponse_descriptor;
+        return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsRequest_descriptor;
       }
 
       @java.lang.Override
-      public identity.v1.Identity.UpdatePermissionResponse getDefaultInstanceForType() {
-        return identity.v1.Identity.UpdatePermissionResponse.getDefaultInstance();
+      public identity.v1.Identity.RegisterPermissionsRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.RegisterPermissionsRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public identity.v1.Identity.UpdatePermissionResponse build() {
-        identity.v1.Identity.UpdatePermissionResponse result = buildPartial();
+      public identity.v1.Identity.RegisterPermissionsRequest build() {
+        identity.v1.Identity.RegisterPermissionsRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -43850,39 +45316,75 @@ public final class Identity {
       }
 
       @java.lang.Override
-      public identity.v1.Identity.UpdatePermissionResponse buildPartial() {
-        identity.v1.Identity.UpdatePermissionResponse result = new identity.v1.Identity.UpdatePermissionResponse(this);
+      public identity.v1.Identity.RegisterPermissionsRequest buildPartial() {
+        identity.v1.Identity.RegisterPermissionsRequest result = new identity.v1.Identity.RegisterPermissionsRequest(this);
+        buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(identity.v1.Identity.UpdatePermissionResponse result) {
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.permission_ = permissionBuilder_ == null
-              ? permission_
-              : permissionBuilder_.build();
-          to_bitField0_ |= 0x00000001;
+      private void buildPartialRepeatedFields(identity.v1.Identity.RegisterPermissionsRequest result) {
+        if (permissionsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            permissions_ = java.util.Collections.unmodifiableList(permissions_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.permissions_ = permissions_;
+        } else {
+          result.permissions_ = permissionsBuilder_.build();
         }
-        result.bitField0_ |= to_bitField0_;
+      }
+
+      private void buildPartial0(identity.v1.Identity.RegisterPermissionsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.service_ = service_;
+        }
       }
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof identity.v1.Identity.UpdatePermissionResponse) {
-          return mergeFrom((identity.v1.Identity.UpdatePermissionResponse)other);
+        if (other instanceof identity.v1.Identity.RegisterPermissionsRequest) {
+          return mergeFrom((identity.v1.Identity.RegisterPermissionsRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(identity.v1.Identity.UpdatePermissionResponse other) {
-        if (other == identity.v1.Identity.UpdatePermissionResponse.getDefaultInstance()) return this;
-        if (other.hasPermission()) {
-          mergePermission(other.getPermission());
+      public Builder mergeFrom(identity.v1.Identity.RegisterPermissionsRequest other) {
+        if (other == identity.v1.Identity.RegisterPermissionsRequest.getDefaultInstance()) return this;
+        if (!other.getService().isEmpty()) {
+          service_ = other.service_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (permissionsBuilder_ == null) {
+          if (!other.permissions_.isEmpty()) {
+            if (permissions_.isEmpty()) {
+              permissions_ = other.permissions_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensurePermissionsIsMutable();
+              permissions_.addAll(other.permissions_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.permissions_.isEmpty()) {
+            if (permissionsBuilder_.isEmpty()) {
+              permissionsBuilder_.dispose();
+              permissionsBuilder_ = null;
+              permissions_ = other.permissions_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              permissionsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getPermissionsFieldBuilder() : null;
+            } else {
+              permissionsBuilder_.addAllMessages(other.permissions_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -43911,645 +45413,21 @@ public final class Identity {
                 done = true;
                 break;
               case 82: {
-                input.readMessage(
-                    getPermissionFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 82
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private identity.v1.Identity.Permission permission_;
-      private com.google.protobuf.SingleFieldBuilder<
-          identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder> permissionBuilder_;
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       * @return Whether the permission field is set.
-       */
-      public boolean hasPermission() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       * @return The permission.
-       */
-      public identity.v1.Identity.Permission getPermission() {
-        if (permissionBuilder_ == null) {
-          return permission_ == null ? identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-        } else {
-          return permissionBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder setPermission(identity.v1.Identity.Permission value) {
-        if (permissionBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          permission_ = value;
-        } else {
-          permissionBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder setPermission(
-          identity.v1.Identity.Permission.Builder builderForValue) {
-        if (permissionBuilder_ == null) {
-          permission_ = builderForValue.build();
-        } else {
-          permissionBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder mergePermission(identity.v1.Identity.Permission value) {
-        if (permissionBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            permission_ != null &&
-            permission_ != identity.v1.Identity.Permission.getDefaultInstance()) {
-            getPermissionBuilder().mergeFrom(value);
-          } else {
-            permission_ = value;
-          }
-        } else {
-          permissionBuilder_.mergeFrom(value);
-        }
-        if (permission_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public Builder clearPermission() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        permission_ = null;
-        if (permissionBuilder_ != null) {
-          permissionBuilder_.dispose();
-          permissionBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public identity.v1.Identity.Permission.Builder getPermissionBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getPermissionFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      public identity.v1.Identity.PermissionOrBuilder getPermissionOrBuilder() {
-        if (permissionBuilder_ != null) {
-          return permissionBuilder_.getMessageOrBuilder();
-        } else {
-          return permission_ == null ?
-              identity.v1.Identity.Permission.getDefaultInstance() : permission_;
-        }
-      }
-      /**
-       * <code>.identity.v1.Permission permission = 10 [json_name = "permission"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder> 
-          getPermissionFieldBuilder() {
-        if (permissionBuilder_ == null) {
-          permissionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              identity.v1.Identity.Permission, identity.v1.Identity.Permission.Builder, identity.v1.Identity.PermissionOrBuilder>(
-                  getPermission(),
-                  getParentForChildren(),
-                  isClean());
-          permission_ = null;
-        }
-        return permissionBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:identity.v1.UpdatePermissionResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:identity.v1.UpdatePermissionResponse)
-    private static final identity.v1.Identity.UpdatePermissionResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new identity.v1.Identity.UpdatePermissionResponse();
-    }
-
-    public static identity.v1.Identity.UpdatePermissionResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<UpdatePermissionResponse>
-        PARSER = new com.google.protobuf.AbstractParser<UpdatePermissionResponse>() {
-      @java.lang.Override
-      public UpdatePermissionResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<UpdatePermissionResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<UpdatePermissionResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public identity.v1.Identity.UpdatePermissionResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface DeletePermissionRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:identity.v1.DeletePermissionRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string name = 10 [json_name = "name"];</code>
-     * @return The name.
-     */
-    java.lang.String getName();
-    /**
-     * <code>string name = 10 [json_name = "name"];</code>
-     * @return The bytes for name.
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    java.lang.String getPermission();
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The bytes for permission.
-     */
-    com.google.protobuf.ByteString
-        getPermissionBytes();
-  }
-  /**
-   * Protobuf type {@code identity.v1.DeletePermissionRequest}
-   */
-  public static final class DeletePermissionRequest extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:identity.v1.DeletePermissionRequest)
-      DeletePermissionRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 29,
-        /* patch= */ 3,
-        /* suffix= */ "",
-        DeletePermissionRequest.class.getName());
-    }
-    // Use DeletePermissionRequest.newBuilder() to construct.
-    private DeletePermissionRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private DeletePermissionRequest() {
-      name_ = "";
-      permission_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return identity.v1.Identity.internal_static_identity_v1_DeletePermissionRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return identity.v1.Identity.internal_static_identity_v1_DeletePermissionRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              identity.v1.Identity.DeletePermissionRequest.class, identity.v1.Identity.DeletePermissionRequest.Builder.class);
-    }
-
-    public static final int NAME_FIELD_NUMBER = 10;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object name_ = "";
-    /**
-     * <code>string name = 10 [json_name = "name"];</code>
-     * @return The name.
-     */
-    @java.lang.Override
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string name = 10 [json_name = "name"];</code>
-     * @return The bytes for name.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PERMISSION_FIELD_NUMBER = 20;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object permission_ = "";
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The permission.
-     */
-    @java.lang.Override
-    public java.lang.String getPermission() {
-      java.lang.Object ref = permission_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        permission_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string permission = 20 [json_name = "permission"];</code>
-     * @return The bytes for permission.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPermissionBytes() {
-      java.lang.Object ref = permission_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        permission_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 10, name_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(permission_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 20, permission_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, name_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(permission_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, permission_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof identity.v1.Identity.DeletePermissionRequest)) {
-        return super.equals(obj);
-      }
-      identity.v1.Identity.DeletePermissionRequest other = (identity.v1.Identity.DeletePermissionRequest) obj;
-
-      if (!getName()
-          .equals(other.getName())) return false;
-      if (!getPermission()
-          .equals(other.getPermission())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + PERMISSION_FIELD_NUMBER;
-      hash = (53 * hash) + getPermission().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static identity.v1.Identity.DeletePermissionRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static identity.v1.Identity.DeletePermissionRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static identity.v1.Identity.DeletePermissionRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(identity.v1.Identity.DeletePermissionRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code identity.v1.DeletePermissionRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:identity.v1.DeletePermissionRequest)
-        identity.v1.Identity.DeletePermissionRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return identity.v1.Identity.internal_static_identity_v1_DeletePermissionRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return identity.v1.Identity.internal_static_identity_v1_DeletePermissionRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                identity.v1.Identity.DeletePermissionRequest.class, identity.v1.Identity.DeletePermissionRequest.Builder.class);
-      }
-
-      // Construct using identity.v1.Identity.DeletePermissionRequest.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        name_ = "";
-        permission_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return identity.v1.Identity.internal_static_identity_v1_DeletePermissionRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.DeletePermissionRequest getDefaultInstanceForType() {
-        return identity.v1.Identity.DeletePermissionRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.DeletePermissionRequest build() {
-        identity.v1.Identity.DeletePermissionRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public identity.v1.Identity.DeletePermissionRequest buildPartial() {
-        identity.v1.Identity.DeletePermissionRequest result = new identity.v1.Identity.DeletePermissionRequest(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(identity.v1.Identity.DeletePermissionRequest result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.name_ = name_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.permission_ = permission_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof identity.v1.Identity.DeletePermissionRequest) {
-          return mergeFrom((identity.v1.Identity.DeletePermissionRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(identity.v1.Identity.DeletePermissionRequest other) {
-        if (other == identity.v1.Identity.DeletePermissionRequest.getDefaultInstance()) return this;
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (!other.getPermission().isEmpty()) {
-          permission_ = other.permission_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 82: {
-                name_ = input.readStringRequireUtf8();
+                service_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 82
               case 162: {
-                permission_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
+                identity.v1.Identity.PermissionDeclaration m =
+                    input.readMessage(
+                        identity.v1.Identity.PermissionDeclaration.parser(),
+                        extensionRegistry);
+                if (permissionsBuilder_ == null) {
+                  ensurePermissionsIsMutable();
+                  permissions_.add(m);
+                } else {
+                  permissionsBuilder_.addMessage(m);
+                }
                 break;
               } // case 162
               default: {
@@ -44569,167 +45447,355 @@ public final class Identity {
       }
       private int bitField0_;
 
-      private java.lang.Object name_ = "";
+      private java.lang.Object service_ = "";
       /**
-       * <code>string name = 10 [json_name = "name"];</code>
-       * @return The name.
+       * <pre>
+       * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+       * </pre>
+       *
+       * <code>string service = 10 [json_name = "service"];</code>
+       * @return The service.
        */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
+      public java.lang.String getService() {
+        java.lang.Object ref = service_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          name_ = s;
+          service_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string name = 10 [json_name = "name"];</code>
-       * @return The bytes for name.
+       * <pre>
+       * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+       * </pre>
+       *
+       * <code>string service = 10 [json_name = "service"];</code>
+       * @return The bytes for service.
        */
       public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
+          getServiceBytes() {
+        java.lang.Object ref = service_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          name_ = b;
+          service_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string name = 10 [json_name = "name"];</code>
-       * @param value The name to set.
+       * <pre>
+       * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+       * </pre>
+       *
+       * <code>string service = 10 [json_name = "service"];</code>
+       * @param value The service to set.
        * @return This builder for chaining.
        */
-      public Builder setName(
+      public Builder setService(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        name_ = value;
+        service_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string name = 10 [json_name = "name"];</code>
+       * <pre>
+       * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+       * </pre>
+       *
+       * <code>string service = 10 [json_name = "service"];</code>
        * @return This builder for chaining.
        */
-      public Builder clearName() {
-        name_ = getDefaultInstance().getName();
+      public Builder clearService() {
+        service_ = getDefaultInstance().getService();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>string name = 10 [json_name = "name"];</code>
-       * @param value The bytes for name to set.
+       * <pre>
+       * The service that defines the permissions ("dictionary"); every name must start with "&lt;service&gt;:".
+       * </pre>
+       *
+       * <code>string service = 10 [json_name = "service"];</code>
+       * @param value The bytes for service to set.
        * @return This builder for chaining.
        */
-      public Builder setNameBytes(
+      public Builder setServiceBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        name_ = value;
+        service_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
 
-      private java.lang.Object permission_ = "";
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @return The permission.
-       */
-      public java.lang.String getPermission() {
-        java.lang.Object ref = permission_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          permission_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @return The bytes for permission.
-       */
-      public com.google.protobuf.ByteString
-          getPermissionBytes() {
-        java.lang.Object ref = permission_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          permission_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @param value The permission to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPermission(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        permission_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPermission() {
-        permission_ = getDefaultInstance().getPermission();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string permission = 20 [json_name = "permission"];</code>
-       * @param value The bytes for permission to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPermissionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        permission_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
+      private java.util.List<identity.v1.Identity.PermissionDeclaration> permissions_ =
+        java.util.Collections.emptyList();
+      private void ensurePermissionsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          permissions_ = new java.util.ArrayList<identity.v1.Identity.PermissionDeclaration>(permissions_);
+          bitField0_ |= 0x00000002;
+         }
       }
 
-      // @@protoc_insertion_point(builder_scope:identity.v1.DeletePermissionRequest)
+      private com.google.protobuf.RepeatedFieldBuilder<
+          identity.v1.Identity.PermissionDeclaration, identity.v1.Identity.PermissionDeclaration.Builder, identity.v1.Identity.PermissionDeclarationOrBuilder> permissionsBuilder_;
+
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public java.util.List<identity.v1.Identity.PermissionDeclaration> getPermissionsList() {
+        if (permissionsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(permissions_);
+        } else {
+          return permissionsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public int getPermissionsCount() {
+        if (permissionsBuilder_ == null) {
+          return permissions_.size();
+        } else {
+          return permissionsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public identity.v1.Identity.PermissionDeclaration getPermissions(int index) {
+        if (permissionsBuilder_ == null) {
+          return permissions_.get(index);
+        } else {
+          return permissionsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder setPermissions(
+          int index, identity.v1.Identity.PermissionDeclaration value) {
+        if (permissionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePermissionsIsMutable();
+          permissions_.set(index, value);
+          onChanged();
+        } else {
+          permissionsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder setPermissions(
+          int index, identity.v1.Identity.PermissionDeclaration.Builder builderForValue) {
+        if (permissionsBuilder_ == null) {
+          ensurePermissionsIsMutable();
+          permissions_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          permissionsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder addPermissions(identity.v1.Identity.PermissionDeclaration value) {
+        if (permissionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePermissionsIsMutable();
+          permissions_.add(value);
+          onChanged();
+        } else {
+          permissionsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder addPermissions(
+          int index, identity.v1.Identity.PermissionDeclaration value) {
+        if (permissionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePermissionsIsMutable();
+          permissions_.add(index, value);
+          onChanged();
+        } else {
+          permissionsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder addPermissions(
+          identity.v1.Identity.PermissionDeclaration.Builder builderForValue) {
+        if (permissionsBuilder_ == null) {
+          ensurePermissionsIsMutable();
+          permissions_.add(builderForValue.build());
+          onChanged();
+        } else {
+          permissionsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder addPermissions(
+          int index, identity.v1.Identity.PermissionDeclaration.Builder builderForValue) {
+        if (permissionsBuilder_ == null) {
+          ensurePermissionsIsMutable();
+          permissions_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          permissionsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder addAllPermissions(
+          java.lang.Iterable<? extends identity.v1.Identity.PermissionDeclaration> values) {
+        if (permissionsBuilder_ == null) {
+          ensurePermissionsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, permissions_);
+          onChanged();
+        } else {
+          permissionsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder clearPermissions() {
+        if (permissionsBuilder_ == null) {
+          permissions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          permissionsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public Builder removePermissions(int index) {
+        if (permissionsBuilder_ == null) {
+          ensurePermissionsIsMutable();
+          permissions_.remove(index);
+          onChanged();
+        } else {
+          permissionsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public identity.v1.Identity.PermissionDeclaration.Builder getPermissionsBuilder(
+          int index) {
+        return getPermissionsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public identity.v1.Identity.PermissionDeclarationOrBuilder getPermissionsOrBuilder(
+          int index) {
+        if (permissionsBuilder_ == null) {
+          return permissions_.get(index);  } else {
+          return permissionsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public java.util.List<? extends identity.v1.Identity.PermissionDeclarationOrBuilder> 
+           getPermissionsOrBuilderList() {
+        if (permissionsBuilder_ != null) {
+          return permissionsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(permissions_);
+        }
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public identity.v1.Identity.PermissionDeclaration.Builder addPermissionsBuilder() {
+        return getPermissionsFieldBuilder().addBuilder(
+            identity.v1.Identity.PermissionDeclaration.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public identity.v1.Identity.PermissionDeclaration.Builder addPermissionsBuilder(
+          int index) {
+        return getPermissionsFieldBuilder().addBuilder(
+            index, identity.v1.Identity.PermissionDeclaration.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .identity.v1.PermissionDeclaration permissions = 20 [json_name = "permissions"];</code>
+       */
+      public java.util.List<identity.v1.Identity.PermissionDeclaration.Builder> 
+           getPermissionsBuilderList() {
+        return getPermissionsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          identity.v1.Identity.PermissionDeclaration, identity.v1.Identity.PermissionDeclaration.Builder, identity.v1.Identity.PermissionDeclarationOrBuilder> 
+          getPermissionsFieldBuilder() {
+        if (permissionsBuilder_ == null) {
+          permissionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              identity.v1.Identity.PermissionDeclaration, identity.v1.Identity.PermissionDeclaration.Builder, identity.v1.Identity.PermissionDeclarationOrBuilder>(
+                  permissions_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          permissions_ = null;
+        }
+        return permissionsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.RegisterPermissionsRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:identity.v1.DeletePermissionRequest)
-    private static final identity.v1.Identity.DeletePermissionRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:identity.v1.RegisterPermissionsRequest)
+    private static final identity.v1.Identity.RegisterPermissionsRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new identity.v1.Identity.DeletePermissionRequest();
+      DEFAULT_INSTANCE = new identity.v1.Identity.RegisterPermissionsRequest();
     }
 
-    public static identity.v1.Identity.DeletePermissionRequest getDefaultInstance() {
+    public static identity.v1.Identity.RegisterPermissionsRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DeletePermissionRequest>
-        PARSER = new com.google.protobuf.AbstractParser<DeletePermissionRequest>() {
+    private static final com.google.protobuf.Parser<RegisterPermissionsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RegisterPermissionsRequest>() {
       @java.lang.Override
-      public DeletePermissionRequest parsePartialFrom(
+      public RegisterPermissionsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -44748,33 +45814,63 @@ public final class Identity {
       }
     };
 
-    public static com.google.protobuf.Parser<DeletePermissionRequest> parser() {
+    public static com.google.protobuf.Parser<RegisterPermissionsRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DeletePermissionRequest> getParserForType() {
+    public com.google.protobuf.Parser<RegisterPermissionsRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public identity.v1.Identity.DeletePermissionRequest getDefaultInstanceForType() {
+    public identity.v1.Identity.RegisterPermissionsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface DeletePermissionResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:identity.v1.DeletePermissionResponse)
+  public interface RegisterPermissionsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.RegisterPermissionsResponse)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 inserted = 10 [json_name = "inserted"];</code>
+     * @return The inserted.
+     */
+    int getInserted();
+
+    /**
+     * <code>int32 updated = 20 [json_name = "updated"];</code>
+     * @return The updated.
+     */
+    int getUpdated();
+
+    /**
+     * <code>int32 retired = 30 [json_name = "retired"];</code>
+     * @return The retired.
+     */
+    int getRetired();
+
+    /**
+     * <code>int32 deleted = 40 [json_name = "deleted"];</code>
+     * @return The deleted.
+     */
+    int getDeleted();
+
+    /**
+     * <code>int32 renamed = 50 [json_name = "renamed"];</code>
+     * @return The renamed.
+     */
+    int getRenamed();
   }
   /**
-   * Protobuf type {@code identity.v1.DeletePermissionResponse}
+   * Protobuf type {@code identity.v1.RegisterPermissionsResponse}
    */
-  public static final class DeletePermissionResponse extends
+  public static final class RegisterPermissionsResponse extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:identity.v1.DeletePermissionResponse)
-      DeletePermissionResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:identity.v1.RegisterPermissionsResponse)
+      RegisterPermissionsResponseOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
       com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
@@ -44783,26 +45879,81 @@ public final class Identity {
         /* minor= */ 29,
         /* patch= */ 3,
         /* suffix= */ "",
-        DeletePermissionResponse.class.getName());
+        RegisterPermissionsResponse.class.getName());
     }
-    // Use DeletePermissionResponse.newBuilder() to construct.
-    private DeletePermissionResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    // Use RegisterPermissionsResponse.newBuilder() to construct.
+    private RegisterPermissionsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private DeletePermissionResponse() {
+    private RegisterPermissionsResponse() {
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return identity.v1.Identity.internal_static_identity_v1_DeletePermissionResponse_descriptor;
+      return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return identity.v1.Identity.internal_static_identity_v1_DeletePermissionResponse_fieldAccessorTable
+      return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              identity.v1.Identity.DeletePermissionResponse.class, identity.v1.Identity.DeletePermissionResponse.Builder.class);
+              identity.v1.Identity.RegisterPermissionsResponse.class, identity.v1.Identity.RegisterPermissionsResponse.Builder.class);
+    }
+
+    public static final int INSERTED_FIELD_NUMBER = 10;
+    private int inserted_ = 0;
+    /**
+     * <code>int32 inserted = 10 [json_name = "inserted"];</code>
+     * @return The inserted.
+     */
+    @java.lang.Override
+    public int getInserted() {
+      return inserted_;
+    }
+
+    public static final int UPDATED_FIELD_NUMBER = 20;
+    private int updated_ = 0;
+    /**
+     * <code>int32 updated = 20 [json_name = "updated"];</code>
+     * @return The updated.
+     */
+    @java.lang.Override
+    public int getUpdated() {
+      return updated_;
+    }
+
+    public static final int RETIRED_FIELD_NUMBER = 30;
+    private int retired_ = 0;
+    /**
+     * <code>int32 retired = 30 [json_name = "retired"];</code>
+     * @return The retired.
+     */
+    @java.lang.Override
+    public int getRetired() {
+      return retired_;
+    }
+
+    public static final int DELETED_FIELD_NUMBER = 40;
+    private int deleted_ = 0;
+    /**
+     * <code>int32 deleted = 40 [json_name = "deleted"];</code>
+     * @return The deleted.
+     */
+    @java.lang.Override
+    public int getDeleted() {
+      return deleted_;
+    }
+
+    public static final int RENAMED_FIELD_NUMBER = 50;
+    private int renamed_ = 0;
+    /**
+     * <code>int32 renamed = 50 [json_name = "renamed"];</code>
+     * @return The renamed.
+     */
+    @java.lang.Override
+    public int getRenamed() {
+      return renamed_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -44819,6 +45970,21 @@ public final class Identity {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (inserted_ != 0) {
+        output.writeInt32(10, inserted_);
+      }
+      if (updated_ != 0) {
+        output.writeInt32(20, updated_);
+      }
+      if (retired_ != 0) {
+        output.writeInt32(30, retired_);
+      }
+      if (deleted_ != 0) {
+        output.writeInt32(40, deleted_);
+      }
+      if (renamed_ != 0) {
+        output.writeInt32(50, renamed_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -44828,6 +45994,26 @@ public final class Identity {
       if (size != -1) return size;
 
       size = 0;
+      if (inserted_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, inserted_);
+      }
+      if (updated_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(20, updated_);
+      }
+      if (retired_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(30, retired_);
+      }
+      if (deleted_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(40, deleted_);
+      }
+      if (renamed_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(50, renamed_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -44838,11 +46024,21 @@ public final class Identity {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof identity.v1.Identity.DeletePermissionResponse)) {
+      if (!(obj instanceof identity.v1.Identity.RegisterPermissionsResponse)) {
         return super.equals(obj);
       }
-      identity.v1.Identity.DeletePermissionResponse other = (identity.v1.Identity.DeletePermissionResponse) obj;
+      identity.v1.Identity.RegisterPermissionsResponse other = (identity.v1.Identity.RegisterPermissionsResponse) obj;
 
+      if (getInserted()
+          != other.getInserted()) return false;
+      if (getUpdated()
+          != other.getUpdated()) return false;
+      if (getRetired()
+          != other.getRetired()) return false;
+      if (getDeleted()
+          != other.getDeleted()) return false;
+      if (getRenamed()
+          != other.getRenamed()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -44854,49 +46050,59 @@ public final class Identity {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + INSERTED_FIELD_NUMBER;
+      hash = (53 * hash) + getInserted();
+      hash = (37 * hash) + UPDATED_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdated();
+      hash = (37 * hash) + RETIRED_FIELD_NUMBER;
+      hash = (53 * hash) + getRetired();
+      hash = (37 * hash) + DELETED_FIELD_NUMBER;
+      hash = (53 * hash) + getDeleted();
+      hash = (37 * hash) + RENAMED_FIELD_NUMBER;
+      hash = (53 * hash) + getRenamed();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(byte[] data)
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(java.io.InputStream input)
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -44904,26 +46110,26 @@ public final class Identity {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static identity.v1.Identity.DeletePermissionResponse parseDelimitedFrom(java.io.InputStream input)
+    public static identity.v1.Identity.RegisterPermissionsResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static identity.v1.Identity.DeletePermissionResponse parseDelimitedFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static identity.v1.Identity.DeletePermissionResponse parseFrom(
+    public static identity.v1.Identity.RegisterPermissionsResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -44936,7 +46142,7 @@ public final class Identity {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(identity.v1.Identity.DeletePermissionResponse prototype) {
+    public static Builder newBuilder(identity.v1.Identity.RegisterPermissionsResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -44952,26 +46158,26 @@ public final class Identity {
       return builder;
     }
     /**
-     * Protobuf type {@code identity.v1.DeletePermissionResponse}
+     * Protobuf type {@code identity.v1.RegisterPermissionsResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:identity.v1.DeletePermissionResponse)
-        identity.v1.Identity.DeletePermissionResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:identity.v1.RegisterPermissionsResponse)
+        identity.v1.Identity.RegisterPermissionsResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return identity.v1.Identity.internal_static_identity_v1_DeletePermissionResponse_descriptor;
+        return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return identity.v1.Identity.internal_static_identity_v1_DeletePermissionResponse_fieldAccessorTable
+        return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                identity.v1.Identity.DeletePermissionResponse.class, identity.v1.Identity.DeletePermissionResponse.Builder.class);
+                identity.v1.Identity.RegisterPermissionsResponse.class, identity.v1.Identity.RegisterPermissionsResponse.Builder.class);
       }
 
-      // Construct using identity.v1.Identity.DeletePermissionResponse.newBuilder()
+      // Construct using identity.v1.Identity.RegisterPermissionsResponse.newBuilder()
       private Builder() {
 
       }
@@ -44984,23 +46190,29 @@ public final class Identity {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
+        inserted_ = 0;
+        updated_ = 0;
+        retired_ = 0;
+        deleted_ = 0;
+        renamed_ = 0;
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return identity.v1.Identity.internal_static_identity_v1_DeletePermissionResponse_descriptor;
+        return identity.v1.Identity.internal_static_identity_v1_RegisterPermissionsResponse_descriptor;
       }
 
       @java.lang.Override
-      public identity.v1.Identity.DeletePermissionResponse getDefaultInstanceForType() {
-        return identity.v1.Identity.DeletePermissionResponse.getDefaultInstance();
+      public identity.v1.Identity.RegisterPermissionsResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.RegisterPermissionsResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public identity.v1.Identity.DeletePermissionResponse build() {
-        identity.v1.Identity.DeletePermissionResponse result = buildPartial();
+      public identity.v1.Identity.RegisterPermissionsResponse build() {
+        identity.v1.Identity.RegisterPermissionsResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -45008,24 +46220,59 @@ public final class Identity {
       }
 
       @java.lang.Override
-      public identity.v1.Identity.DeletePermissionResponse buildPartial() {
-        identity.v1.Identity.DeletePermissionResponse result = new identity.v1.Identity.DeletePermissionResponse(this);
+      public identity.v1.Identity.RegisterPermissionsResponse buildPartial() {
+        identity.v1.Identity.RegisterPermissionsResponse result = new identity.v1.Identity.RegisterPermissionsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
+      private void buildPartial0(identity.v1.Identity.RegisterPermissionsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.inserted_ = inserted_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.updated_ = updated_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.retired_ = retired_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.deleted_ = deleted_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.renamed_ = renamed_;
+        }
+      }
+
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof identity.v1.Identity.DeletePermissionResponse) {
-          return mergeFrom((identity.v1.Identity.DeletePermissionResponse)other);
+        if (other instanceof identity.v1.Identity.RegisterPermissionsResponse) {
+          return mergeFrom((identity.v1.Identity.RegisterPermissionsResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(identity.v1.Identity.DeletePermissionResponse other) {
-        if (other == identity.v1.Identity.DeletePermissionResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(identity.v1.Identity.RegisterPermissionsResponse other) {
+        if (other == identity.v1.Identity.RegisterPermissionsResponse.getDefaultInstance()) return this;
+        if (other.getInserted() != 0) {
+          setInserted(other.getInserted());
+        }
+        if (other.getUpdated() != 0) {
+          setUpdated(other.getUpdated());
+        }
+        if (other.getRetired() != 0) {
+          setRetired(other.getRetired());
+        }
+        if (other.getDeleted() != 0) {
+          setDeleted(other.getDeleted());
+        }
+        if (other.getRenamed() != 0) {
+          setRenamed(other.getRenamed());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -45052,6 +46299,31 @@ public final class Identity {
               case 0:
                 done = true;
                 break;
+              case 80: {
+                inserted_ = input.readInt32();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 80
+              case 160: {
+                updated_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
+              case 240: {
+                retired_ = input.readInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 240
+              case 320: {
+                deleted_ = input.readInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 320
+              case 400: {
+                renamed_ = input.readInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 400
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -45067,24 +46339,185 @@ public final class Identity {
         } // finally
         return this;
       }
+      private int bitField0_;
 
-      // @@protoc_insertion_point(builder_scope:identity.v1.DeletePermissionResponse)
+      private int inserted_ ;
+      /**
+       * <code>int32 inserted = 10 [json_name = "inserted"];</code>
+       * @return The inserted.
+       */
+      @java.lang.Override
+      public int getInserted() {
+        return inserted_;
+      }
+      /**
+       * <code>int32 inserted = 10 [json_name = "inserted"];</code>
+       * @param value The inserted to set.
+       * @return This builder for chaining.
+       */
+      public Builder setInserted(int value) {
+
+        inserted_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 inserted = 10 [json_name = "inserted"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearInserted() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        inserted_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int updated_ ;
+      /**
+       * <code>int32 updated = 20 [json_name = "updated"];</code>
+       * @return The updated.
+       */
+      @java.lang.Override
+      public int getUpdated() {
+        return updated_;
+      }
+      /**
+       * <code>int32 updated = 20 [json_name = "updated"];</code>
+       * @param value The updated to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdated(int value) {
+
+        updated_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 updated = 20 [json_name = "updated"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdated() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        updated_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int retired_ ;
+      /**
+       * <code>int32 retired = 30 [json_name = "retired"];</code>
+       * @return The retired.
+       */
+      @java.lang.Override
+      public int getRetired() {
+        return retired_;
+      }
+      /**
+       * <code>int32 retired = 30 [json_name = "retired"];</code>
+       * @param value The retired to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRetired(int value) {
+
+        retired_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 retired = 30 [json_name = "retired"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRetired() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        retired_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int deleted_ ;
+      /**
+       * <code>int32 deleted = 40 [json_name = "deleted"];</code>
+       * @return The deleted.
+       */
+      @java.lang.Override
+      public int getDeleted() {
+        return deleted_;
+      }
+      /**
+       * <code>int32 deleted = 40 [json_name = "deleted"];</code>
+       * @param value The deleted to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeleted(int value) {
+
+        deleted_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 deleted = 40 [json_name = "deleted"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeleted() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        deleted_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int renamed_ ;
+      /**
+       * <code>int32 renamed = 50 [json_name = "renamed"];</code>
+       * @return The renamed.
+       */
+      @java.lang.Override
+      public int getRenamed() {
+        return renamed_;
+      }
+      /**
+       * <code>int32 renamed = 50 [json_name = "renamed"];</code>
+       * @param value The renamed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRenamed(int value) {
+
+        renamed_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 renamed = 50 [json_name = "renamed"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRenamed() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        renamed_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.RegisterPermissionsResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:identity.v1.DeletePermissionResponse)
-    private static final identity.v1.Identity.DeletePermissionResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:identity.v1.RegisterPermissionsResponse)
+    private static final identity.v1.Identity.RegisterPermissionsResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new identity.v1.Identity.DeletePermissionResponse();
+      DEFAULT_INSTANCE = new identity.v1.Identity.RegisterPermissionsResponse();
     }
 
-    public static identity.v1.Identity.DeletePermissionResponse getDefaultInstance() {
+    public static identity.v1.Identity.RegisterPermissionsResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DeletePermissionResponse>
-        PARSER = new com.google.protobuf.AbstractParser<DeletePermissionResponse>() {
+    private static final com.google.protobuf.Parser<RegisterPermissionsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RegisterPermissionsResponse>() {
       @java.lang.Override
-      public DeletePermissionResponse parsePartialFrom(
+      public RegisterPermissionsResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -45103,17 +46536,17 @@ public final class Identity {
       }
     };
 
-    public static com.google.protobuf.Parser<DeletePermissionResponse> parser() {
+    public static com.google.protobuf.Parser<RegisterPermissionsResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DeletePermissionResponse> getParserForType() {
+    public com.google.protobuf.Parser<RegisterPermissionsResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public identity.v1.Identity.DeletePermissionResponse getDefaultInstanceForType() {
+    public identity.v1.Identity.RegisterPermissionsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -69730,6 +71163,1852 @@ java.lang.String defaultValue) {
 
   }
 
+  public interface GetRegistrationSettingsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetRegistrationSettingsRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetRegistrationSettingsRequest}
+   */
+  public static final class GetRegistrationSettingsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetRegistrationSettingsRequest)
+      GetRegistrationSettingsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetRegistrationSettingsRequest.class.getName());
+    }
+    // Use GetRegistrationSettingsRequest.newBuilder() to construct.
+    private GetRegistrationSettingsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetRegistrationSettingsRequest() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetRegistrationSettingsRequest.class, identity.v1.Identity.GetRegistrationSettingsRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetRegistrationSettingsRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetRegistrationSettingsRequest other = (identity.v1.Identity.GetRegistrationSettingsRequest) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetRegistrationSettingsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetRegistrationSettingsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetRegistrationSettingsRequest)
+        identity.v1.Identity.GetRegistrationSettingsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetRegistrationSettingsRequest.class, identity.v1.Identity.GetRegistrationSettingsRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetRegistrationSettingsRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetRegistrationSettingsRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.GetRegistrationSettingsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetRegistrationSettingsRequest build() {
+        identity.v1.Identity.GetRegistrationSettingsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetRegistrationSettingsRequest buildPartial() {
+        identity.v1.Identity.GetRegistrationSettingsRequest result = new identity.v1.Identity.GetRegistrationSettingsRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetRegistrationSettingsRequest) {
+          return mergeFrom((identity.v1.Identity.GetRegistrationSettingsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetRegistrationSettingsRequest other) {
+        if (other == identity.v1.Identity.GetRegistrationSettingsRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetRegistrationSettingsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetRegistrationSettingsRequest)
+    private static final identity.v1.Identity.GetRegistrationSettingsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetRegistrationSettingsRequest();
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetRegistrationSettingsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetRegistrationSettingsRequest>() {
+      @java.lang.Override
+      public GetRegistrationSettingsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRegistrationSettingsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRegistrationSettingsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetRegistrationSettingsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetRegistrationSettingsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.GetRegistrationSettingsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * A self-registered user waits for an administrator (default true).
+     * </pre>
+     *
+     * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+     * @return The requiresApproval.
+     */
+    boolean getRequiresApproval();
+
+    /**
+     * <pre>
+     * IDENTITY_REGISTRATION_ENABLED of the server; read only. When false nobody can register at all.
+     * </pre>
+     *
+     * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+     * @return The registrationEnabled.
+     */
+    boolean getRegistrationEnabled();
+  }
+  /**
+   * Protobuf type {@code identity.v1.GetRegistrationSettingsResponse}
+   */
+  public static final class GetRegistrationSettingsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.GetRegistrationSettingsResponse)
+      GetRegistrationSettingsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetRegistrationSettingsResponse.class.getName());
+    }
+    // Use GetRegistrationSettingsResponse.newBuilder() to construct.
+    private GetRegistrationSettingsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetRegistrationSettingsResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.GetRegistrationSettingsResponse.class, identity.v1.Identity.GetRegistrationSettingsResponse.Builder.class);
+    }
+
+    public static final int REQUIRES_APPROVAL_FIELD_NUMBER = 10;
+    private boolean requiresApproval_ = false;
+    /**
+     * <pre>
+     * A self-registered user waits for an administrator (default true).
+     * </pre>
+     *
+     * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+     * @return The requiresApproval.
+     */
+    @java.lang.Override
+    public boolean getRequiresApproval() {
+      return requiresApproval_;
+    }
+
+    public static final int REGISTRATION_ENABLED_FIELD_NUMBER = 20;
+    private boolean registrationEnabled_ = false;
+    /**
+     * <pre>
+     * IDENTITY_REGISTRATION_ENABLED of the server; read only. When false nobody can register at all.
+     * </pre>
+     *
+     * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+     * @return The registrationEnabled.
+     */
+    @java.lang.Override
+    public boolean getRegistrationEnabled() {
+      return registrationEnabled_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (requiresApproval_ != false) {
+        output.writeBool(10, requiresApproval_);
+      }
+      if (registrationEnabled_ != false) {
+        output.writeBool(20, registrationEnabled_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (requiresApproval_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, requiresApproval_);
+      }
+      if (registrationEnabled_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(20, registrationEnabled_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.GetRegistrationSettingsResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.GetRegistrationSettingsResponse other = (identity.v1.Identity.GetRegistrationSettingsResponse) obj;
+
+      if (getRequiresApproval()
+          != other.getRequiresApproval()) return false;
+      if (getRegistrationEnabled()
+          != other.getRegistrationEnabled()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REQUIRES_APPROVAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRequiresApproval());
+      hash = (37 * hash) + REGISTRATION_ENABLED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRegistrationEnabled());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.GetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.GetRegistrationSettingsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.GetRegistrationSettingsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.GetRegistrationSettingsResponse)
+        identity.v1.Identity.GetRegistrationSettingsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.GetRegistrationSettingsResponse.class, identity.v1.Identity.GetRegistrationSettingsResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.GetRegistrationSettingsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        requiresApproval_ = false;
+        registrationEnabled_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_GetRegistrationSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetRegistrationSettingsResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.GetRegistrationSettingsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetRegistrationSettingsResponse build() {
+        identity.v1.Identity.GetRegistrationSettingsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.GetRegistrationSettingsResponse buildPartial() {
+        identity.v1.Identity.GetRegistrationSettingsResponse result = new identity.v1.Identity.GetRegistrationSettingsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.GetRegistrationSettingsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.requiresApproval_ = requiresApproval_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.registrationEnabled_ = registrationEnabled_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.GetRegistrationSettingsResponse) {
+          return mergeFrom((identity.v1.Identity.GetRegistrationSettingsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.GetRegistrationSettingsResponse other) {
+        if (other == identity.v1.Identity.GetRegistrationSettingsResponse.getDefaultInstance()) return this;
+        if (other.getRequiresApproval() != false) {
+          setRequiresApproval(other.getRequiresApproval());
+        }
+        if (other.getRegistrationEnabled() != false) {
+          setRegistrationEnabled(other.getRegistrationEnabled());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 80: {
+                requiresApproval_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 80
+              case 160: {
+                registrationEnabled_ = input.readBool();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean requiresApproval_ ;
+      /**
+       * <pre>
+       * A self-registered user waits for an administrator (default true).
+       * </pre>
+       *
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @return The requiresApproval.
+       */
+      @java.lang.Override
+      public boolean getRequiresApproval() {
+        return requiresApproval_;
+      }
+      /**
+       * <pre>
+       * A self-registered user waits for an administrator (default true).
+       * </pre>
+       *
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @param value The requiresApproval to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRequiresApproval(boolean value) {
+
+        requiresApproval_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A self-registered user waits for an administrator (default true).
+       * </pre>
+       *
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRequiresApproval() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        requiresApproval_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean registrationEnabled_ ;
+      /**
+       * <pre>
+       * IDENTITY_REGISTRATION_ENABLED of the server; read only. When false nobody can register at all.
+       * </pre>
+       *
+       * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+       * @return The registrationEnabled.
+       */
+      @java.lang.Override
+      public boolean getRegistrationEnabled() {
+        return registrationEnabled_;
+      }
+      /**
+       * <pre>
+       * IDENTITY_REGISTRATION_ENABLED of the server; read only. When false nobody can register at all.
+       * </pre>
+       *
+       * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+       * @param value The registrationEnabled to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRegistrationEnabled(boolean value) {
+
+        registrationEnabled_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * IDENTITY_REGISTRATION_ENABLED of the server; read only. When false nobody can register at all.
+       * </pre>
+       *
+       * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRegistrationEnabled() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        registrationEnabled_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.GetRegistrationSettingsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.GetRegistrationSettingsResponse)
+    private static final identity.v1.Identity.GetRegistrationSettingsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.GetRegistrationSettingsResponse();
+    }
+
+    public static identity.v1.Identity.GetRegistrationSettingsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetRegistrationSettingsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetRegistrationSettingsResponse>() {
+      @java.lang.Override
+      public GetRegistrationSettingsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRegistrationSettingsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRegistrationSettingsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.GetRegistrationSettingsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetRegistrationSettingsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.SetRegistrationSettingsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+     * @return The requiresApproval.
+     */
+    boolean getRequiresApproval();
+  }
+  /**
+   * Protobuf type {@code identity.v1.SetRegistrationSettingsRequest}
+   */
+  public static final class SetRegistrationSettingsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.SetRegistrationSettingsRequest)
+      SetRegistrationSettingsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        SetRegistrationSettingsRequest.class.getName());
+    }
+    // Use SetRegistrationSettingsRequest.newBuilder() to construct.
+    private SetRegistrationSettingsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private SetRegistrationSettingsRequest() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.SetRegistrationSettingsRequest.class, identity.v1.Identity.SetRegistrationSettingsRequest.Builder.class);
+    }
+
+    public static final int REQUIRES_APPROVAL_FIELD_NUMBER = 10;
+    private boolean requiresApproval_ = false;
+    /**
+     * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+     * @return The requiresApproval.
+     */
+    @java.lang.Override
+    public boolean getRequiresApproval() {
+      return requiresApproval_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (requiresApproval_ != false) {
+        output.writeBool(10, requiresApproval_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (requiresApproval_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, requiresApproval_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.SetRegistrationSettingsRequest)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.SetRegistrationSettingsRequest other = (identity.v1.Identity.SetRegistrationSettingsRequest) obj;
+
+      if (getRequiresApproval()
+          != other.getRequiresApproval()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REQUIRES_APPROVAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRequiresApproval());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.SetRegistrationSettingsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.SetRegistrationSettingsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.SetRegistrationSettingsRequest)
+        identity.v1.Identity.SetRegistrationSettingsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.SetRegistrationSettingsRequest.class, identity.v1.Identity.SetRegistrationSettingsRequest.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.SetRegistrationSettingsRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        requiresApproval_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetRegistrationSettingsRequest getDefaultInstanceForType() {
+        return identity.v1.Identity.SetRegistrationSettingsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetRegistrationSettingsRequest build() {
+        identity.v1.Identity.SetRegistrationSettingsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetRegistrationSettingsRequest buildPartial() {
+        identity.v1.Identity.SetRegistrationSettingsRequest result = new identity.v1.Identity.SetRegistrationSettingsRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.SetRegistrationSettingsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.requiresApproval_ = requiresApproval_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.SetRegistrationSettingsRequest) {
+          return mergeFrom((identity.v1.Identity.SetRegistrationSettingsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.SetRegistrationSettingsRequest other) {
+        if (other == identity.v1.Identity.SetRegistrationSettingsRequest.getDefaultInstance()) return this;
+        if (other.getRequiresApproval() != false) {
+          setRequiresApproval(other.getRequiresApproval());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 80: {
+                requiresApproval_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 80
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean requiresApproval_ ;
+      /**
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @return The requiresApproval.
+       */
+      @java.lang.Override
+      public boolean getRequiresApproval() {
+        return requiresApproval_;
+      }
+      /**
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @param value The requiresApproval to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRequiresApproval(boolean value) {
+
+        requiresApproval_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRequiresApproval() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        requiresApproval_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.SetRegistrationSettingsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.SetRegistrationSettingsRequest)
+    private static final identity.v1.Identity.SetRegistrationSettingsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.SetRegistrationSettingsRequest();
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetRegistrationSettingsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SetRegistrationSettingsRequest>() {
+      @java.lang.Override
+      public SetRegistrationSettingsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetRegistrationSettingsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetRegistrationSettingsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.SetRegistrationSettingsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetRegistrationSettingsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:identity.v1.SetRegistrationSettingsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+     * @return The requiresApproval.
+     */
+    boolean getRequiresApproval();
+
+    /**
+     * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+     * @return The registrationEnabled.
+     */
+    boolean getRegistrationEnabled();
+  }
+  /**
+   * Protobuf type {@code identity.v1.SetRegistrationSettingsResponse}
+   */
+  public static final class SetRegistrationSettingsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:identity.v1.SetRegistrationSettingsResponse)
+      SetRegistrationSettingsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        SetRegistrationSettingsResponse.class.getName());
+    }
+    // Use SetRegistrationSettingsResponse.newBuilder() to construct.
+    private SetRegistrationSettingsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private SetRegistrationSettingsResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              identity.v1.Identity.SetRegistrationSettingsResponse.class, identity.v1.Identity.SetRegistrationSettingsResponse.Builder.class);
+    }
+
+    public static final int REQUIRES_APPROVAL_FIELD_NUMBER = 10;
+    private boolean requiresApproval_ = false;
+    /**
+     * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+     * @return The requiresApproval.
+     */
+    @java.lang.Override
+    public boolean getRequiresApproval() {
+      return requiresApproval_;
+    }
+
+    public static final int REGISTRATION_ENABLED_FIELD_NUMBER = 20;
+    private boolean registrationEnabled_ = false;
+    /**
+     * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+     * @return The registrationEnabled.
+     */
+    @java.lang.Override
+    public boolean getRegistrationEnabled() {
+      return registrationEnabled_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (requiresApproval_ != false) {
+        output.writeBool(10, requiresApproval_);
+      }
+      if (registrationEnabled_ != false) {
+        output.writeBool(20, registrationEnabled_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (requiresApproval_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, requiresApproval_);
+      }
+      if (registrationEnabled_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(20, registrationEnabled_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof identity.v1.Identity.SetRegistrationSettingsResponse)) {
+        return super.equals(obj);
+      }
+      identity.v1.Identity.SetRegistrationSettingsResponse other = (identity.v1.Identity.SetRegistrationSettingsResponse) obj;
+
+      if (getRequiresApproval()
+          != other.getRequiresApproval()) return false;
+      if (getRegistrationEnabled()
+          != other.getRegistrationEnabled()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REQUIRES_APPROVAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRequiresApproval());
+      hash = (37 * hash) + REGISTRATION_ENABLED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRegistrationEnabled());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static identity.v1.Identity.SetRegistrationSettingsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(identity.v1.Identity.SetRegistrationSettingsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code identity.v1.SetRegistrationSettingsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:identity.v1.SetRegistrationSettingsResponse)
+        identity.v1.Identity.SetRegistrationSettingsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                identity.v1.Identity.SetRegistrationSettingsResponse.class, identity.v1.Identity.SetRegistrationSettingsResponse.Builder.class);
+      }
+
+      // Construct using identity.v1.Identity.SetRegistrationSettingsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        requiresApproval_ = false;
+        registrationEnabled_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return identity.v1.Identity.internal_static_identity_v1_SetRegistrationSettingsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetRegistrationSettingsResponse getDefaultInstanceForType() {
+        return identity.v1.Identity.SetRegistrationSettingsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetRegistrationSettingsResponse build() {
+        identity.v1.Identity.SetRegistrationSettingsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public identity.v1.Identity.SetRegistrationSettingsResponse buildPartial() {
+        identity.v1.Identity.SetRegistrationSettingsResponse result = new identity.v1.Identity.SetRegistrationSettingsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(identity.v1.Identity.SetRegistrationSettingsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.requiresApproval_ = requiresApproval_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.registrationEnabled_ = registrationEnabled_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof identity.v1.Identity.SetRegistrationSettingsResponse) {
+          return mergeFrom((identity.v1.Identity.SetRegistrationSettingsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(identity.v1.Identity.SetRegistrationSettingsResponse other) {
+        if (other == identity.v1.Identity.SetRegistrationSettingsResponse.getDefaultInstance()) return this;
+        if (other.getRequiresApproval() != false) {
+          setRequiresApproval(other.getRequiresApproval());
+        }
+        if (other.getRegistrationEnabled() != false) {
+          setRegistrationEnabled(other.getRegistrationEnabled());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 80: {
+                requiresApproval_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 80
+              case 160: {
+                registrationEnabled_ = input.readBool();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean requiresApproval_ ;
+      /**
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @return The requiresApproval.
+       */
+      @java.lang.Override
+      public boolean getRequiresApproval() {
+        return requiresApproval_;
+      }
+      /**
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @param value The requiresApproval to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRequiresApproval(boolean value) {
+
+        requiresApproval_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool requires_approval = 10 [json_name = "requiresApproval"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRequiresApproval() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        requiresApproval_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean registrationEnabled_ ;
+      /**
+       * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+       * @return The registrationEnabled.
+       */
+      @java.lang.Override
+      public boolean getRegistrationEnabled() {
+        return registrationEnabled_;
+      }
+      /**
+       * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+       * @param value The registrationEnabled to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRegistrationEnabled(boolean value) {
+
+        registrationEnabled_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool registration_enabled = 20 [json_name = "registrationEnabled"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRegistrationEnabled() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        registrationEnabled_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:identity.v1.SetRegistrationSettingsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:identity.v1.SetRegistrationSettingsResponse)
+    private static final identity.v1.Identity.SetRegistrationSettingsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new identity.v1.Identity.SetRegistrationSettingsResponse();
+    }
+
+    public static identity.v1.Identity.SetRegistrationSettingsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetRegistrationSettingsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SetRegistrationSettingsResponse>() {
+      @java.lang.Override
+      public SetRegistrationSettingsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetRegistrationSettingsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetRegistrationSettingsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public identity.v1.Identity.SetRegistrationSettingsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_IntrospectRequest_descriptor;
   private static final 
@@ -69875,6 +73154,26 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_SendWelcomeResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_ApproveUserRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_ApproveUserRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_ApproveUserResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_ApproveUserResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_RejectUserRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_RejectUserRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_RejectUserResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_RejectUserResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_GetMeRequest_descriptor;
   private static final 
@@ -70046,35 +73345,20 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_ListPermissionsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_identity_v1_CreatePermissionRequest_descriptor;
+    internal_static_identity_v1_PermissionDeclaration_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_identity_v1_CreatePermissionRequest_fieldAccessorTable;
+      internal_static_identity_v1_PermissionDeclaration_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_identity_v1_CreatePermissionResponse_descriptor;
+    internal_static_identity_v1_RegisterPermissionsRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_identity_v1_CreatePermissionResponse_fieldAccessorTable;
+      internal_static_identity_v1_RegisterPermissionsRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_identity_v1_UpdatePermissionRequest_descriptor;
+    internal_static_identity_v1_RegisterPermissionsResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_identity_v1_UpdatePermissionRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_identity_v1_UpdatePermissionResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_identity_v1_UpdatePermissionResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_identity_v1_DeletePermissionRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_identity_v1_DeletePermissionRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_identity_v1_DeletePermissionResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_identity_v1_DeletePermissionResponse_fieldAccessorTable;
+      internal_static_identity_v1_RegisterPermissionsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_identity_v1_AssignRoleRequest_descriptor;
   private static final 
@@ -70260,6 +73544,26 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetRegistrationSettingsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetRegistrationSettingsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_GetRegistrationSettingsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_GetRegistrationSettingsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_SetRegistrationSettingsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_SetRegistrationSettingsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_identity_v1_SetRegistrationSettingsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_identity_v1_SetRegistrationSettingsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -70270,346 +73574,401 @@ java.lang.String defaultValue) {
   static {
     java.lang.String[] descriptorData = {
       "\n\032identity/v1/identity.proto\022\013identity.v" +
-      "1\")\n\021IntrospectRequest\022\024\n\005token\030\n \001(\tR\005t" +
-      "oken\"\271\001\n\022IntrospectResponse\022\026\n\006active\030\n " +
-      "\001(\010R\006active\022\020\n\003sub\030\024 \001(\tR\003sub\022\033\n\tclient_" +
-      "id\030\036 \001(\tR\010clientId\022\024\n\005scope\030( \001(\tR\005scope" +
-      "\022\020\n\003aud\0302 \003(\tR\003aud\022\020\n\003jti\030< \001(\tR\003jti\022\020\n\003" +
-      "exp\030F \001(\003R\003exp\022\020\n\003act\030P \003(\tR\003act\"Q\n\026Chec" +
-      "kPermissionRequest\022\027\n\007user_id\030\n \001(\tR\006use" +
-      "rId\022\036\n\npermission\030\024 \001(\tR\npermission\"3\n\027C" +
-      "heckPermissionResponse\022\030\n\007allowed\030\n \001(\010R" +
-      "\007allowed\"G\n\022RevokeTokenRequest\022\020\n\003jti\030\n " +
-      "\001(\tR\003jti\022\037\n\013ttl_seconds\030\024 \001(\003R\nttlSecond" +
-      "s\"\025\n\023RevokeTokenResponse\"\221\003\n\004User\022\016\n\002id\030" +
-      "\n \001(\tR\002id\022\024\n\005email\030\024 \001(\tR\005email\022\022\n\004name\030" +
-      "\036 \001(\tR\004name\022\026\n\006locale\030( \001(\tR\006locale\022\032\n\010d" +
-      "isabled\0302 \001(\010R\010disabled\022\024\n\005roles\030< \003(\tR\005" +
-      "roles\022\037\n\013mfa_enabled\030F \001(\010R\nmfaEnabled\022!" +
-      "\n\014mfa_enforced\030P \001(\010R\013mfaEnforced\022\035\n\ncre" +
-      "ated_at\030Z \001(\003R\tcreatedAt\022/\n\006status\030d \001(\016" +
-      "2\027.identity.v1.UserStatusR\006status\022\025\n\005the" +
-      "me\030\214\001 \001(\tR\005theme\022\035\n\nhas_avatar\030n \001(\010R\tha" +
-      "sAvatar\022\026\n\006avatar\030x \001(\tR\006avatar\022#\n\rlast_" +
-      "login_at\030\202\001 \001(\003R\013lastLoginAt\"\025\n\023GetUserS" +
-      "tatsRequest\"\331\002\n\024GetUserStatsResponse\022\024\n\005" +
-      "total\030\n \001(\003R\005total\022\026\n\006active\030\024 \001(\003R\006acti" +
-      "ve\022\030\n\007pending\030\036 \001(\003R\007pending\022\032\n\010disabled" +
-      "\030( \001(\003R\010disabled\022\037\n\013mfa_enabled\0302 \001(\003R\nm" +
-      "faEnabled\022!\n\014mfa_enforced\030< \001(\003R\013mfaEnfo" +
-      "rced\022\037\n\013with_avatar\030F \001(\003R\nwithAvatar\022\"\n" +
-      "\rsigned_in_30d\030P \001(\003R\013signedIn30d\022&\n\017nev" +
-      "er_signed_in\030Z \001(\003R\rneverSignedIn\022,\n\022cre" +
-      "ated_this_month\030d \001(\003R\020createdThisMonth\"" +
-      "O\n\016GetUserRequest\022\016\n\002id\030\n \001(\tR\002id\022\024\n\005ema" +
-      "il\030\024 \001(\tR\005email\022\027\n\007user_id\030\036 \001(\tR\006userId" +
-      "\"8\n\017GetUserResponse\022%\n\004user\030\n \001(\0132\021.iden" +
-      "tity.v1.UserR\004user\"\275\001\n\020ListUsersRequest\022" +
-      "\024\n\005query\030\n \001(\tR\005query\022\033\n\tpage_size\030\024 \001(\005" +
-      "R\010pageSize\022\035\n\npage_token\030\036 \001(\tR\tpageToke" +
-      "n\022\022\n\004name\030( \001(\tR\004name\022/\n\006status\0302 \001(\0162\027." +
-      "identity.v1.UserStatusR\006status\022\022\n\004role\030<" +
-      " \001(\tR\004role\"d\n\021ListUsersResponse\022\'\n\005users" +
-      "\030\n \003(\0132\021.identity.v1.UserR\005users\022&\n\017next" +
-      "_page_token\030\024 \001(\tR\rnextPageToken\"\252\001\n\021Cre" +
-      "ateUserRequest\022\024\n\005email\030\n \001(\tR\005email\022\022\n\004" +
-      "name\030\024 \001(\tR\004name\022\026\n\006locale\030\036 \001(\tR\006locale" +
-      "\022\032\n\010password\030( \001(\tR\010password\022\024\n\005roles\0302 " +
-      "\003(\tR\005roles\022!\n\014send_welcome\030< \001(\010R\013sendWe" +
-      "lcome\";\n\022CreateUserResponse\022%\n\004user\030\n \001(" +
-      "\0132\021.identity.v1.UserR\004user\"M\n\026SetUserDis" +
-      "abledRequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\032\n" +
-      "\010disabled\030\024 \001(\010R\010disabled\"\031\n\027SetUserDisa" +
-      "bledResponse\",\n\021DeleteUserRequest\022\027\n\007use" +
-      "r_id\030\n \001(\tR\006userId\"\024\n\022DeleteUserResponse" +
-      "\"M\n\026SetUserPasswordRequest\022\027\n\007user_id\030\n " +
-      "\001(\tR\006userId\022\032\n\010password\030\024 \001(\tR\010password\"" +
-      "\031\n\027SetUserPasswordResponse\"3\n\030SendPasswo" +
-      "rdResetRequest\022\027\n\007user_id\030\n \001(\tR\006userId\"" +
-      "\033\n\031SendPasswordResetResponse\"X\n\021UpdateUs" +
-      "erRequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\022\n\004na" +
-      "me\030\024 \001(\tR\004name\022\026\n\006locale\030\036 \001(\tR\006locale\";" +
-      "\n\022UpdateUserResponse\022%\n\004user\030\n \001(\0132\021.ide" +
-      "ntity.v1.UserR\004user\"b\n\024SetUserAvatarRequ" +
-      "est\022\027\n\007user_id\030\n \001(\tR\006userId\022\024\n\005image\030\024 " +
-      "\001(\014R\005image\022\033\n\tmime_type\030\036 \001(\tR\010mimeType\"" +
-      "\027\n\025SetUserAvatarResponse\"-\n\022SendWelcomeR" +
-      "equest\022\027\n\007user_id\030\n \001(\tR\006userId\"\025\n\023SendW" +
-      "elcomeResponse\"\016\n\014GetMeRequest\"6\n\rGetMeR" +
-      "esponse\022%\n\004user\030\n \001(\0132\021.identity.v1.User" +
-      "R\004user\"S\n\017UpdateMeRequest\022\022\n\004name\030\n \001(\tR" +
-      "\004name\022\026\n\006locale\030\024 \001(\tR\006locale\022\024\n\005theme\030\036" +
-      " \001(\tR\005theme\"9\n\020UpdateMeResponse\022%\n\004user\030" +
-      "\n \001(\0132\021.identity.v1.UserR\004user\"G\n\022SetMyA" +
-      "vatarRequest\022\024\n\005image\030\n \001(\014R\005image\022\033\n\tmi" +
-      "me_type\030\024 \001(\tR\010mimeType\"\025\n\023SetMyAvatarRe" +
-      "sponse\"g\n\027ChangeMyPasswordRequest\022)\n\020cur" +
-      "rent_password\030\n \001(\tR\017currentPassword\022!\n\014" +
-      "new_password\030\024 \001(\tR\013newPassword\"\032\n\030Chang" +
-      "eMyPasswordResponse\"\021\n\017GetMyMFARequest\"t" +
-      "\n\020GetMyMFAResponse\022\030\n\007enabled\030\n \001(\010R\007ena" +
-      "bled\022\026\n\006forced\030\024 \001(\010R\006forced\022.\n\023recovery" +
-      "_codes_left\030\036 \001(\005R\021recoveryCodesLeft\"\023\n\021" +
-      "BeginMyMFARequest\"<\n\022BeginMyMFAResponse\022" +
-      "\016\n\002qr\030\n \001(\tR\002qr\022\026\n\006secret\030\024 \001(\tR\006secret\"" +
-      ")\n\023ConfirmMyMFARequest\022\022\n\004code\030\n \001(\tR\004co" +
-      "de\"=\n\024ConfirmMyMFAResponse\022%\n\016recovery_c" +
-      "odes\030\n \003(\tR\rrecoveryCodes\"E\n\023DisableMyMF" +
-      "ARequest\022\032\n\010password\030\n \001(\tR\010password\022\022\n\004" +
-      "code\030\024 \001(\tR\004code\"\026\n\024DisableMyMFAResponse" +
-      "\",\n\030GetMyUserSettingsRequest\022\020\n\003app\030\n \001(" +
-      "\tR\003app\"@\n\031GetMyUserSettingsResponse\022#\n\rs" +
-      "ettings_json\030\n \001(\tR\014settingsJson\"Q\n\030PutM" +
-      "yUserSettingsRequest\022\020\n\003app\030\n \001(\tR\003app\022#" +
-      "\n\rsettings_json\030\024 \001(\tR\014settingsJson\"\033\n\031P" +
-      "utMyUserSettingsResponse\"\205\001\n\004Role\022\022\n\004nam" +
-      "e\030\n \001(\tR\004name\022 \n\013description\030\024 \001(\tR\013desc" +
-      "ription\022 \n\013permissions\030\036 \003(\tR\013permission" +
-      "s\022%\n\016assigned_count\030( \001(\003R\rassignedCount" +
-      "\":\n\021CreateRoleRequest\022%\n\004role\030\n \001(\0132\021.id" +
-      "entity.v1.RoleR\004role\";\n\022CreateRoleRespon" +
-      "se\022%\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004rol" +
-      "e\"Q\n\031SetRolePermissionsRequest\022\022\n\004role\030\n" +
-      " \001(\tR\004role\022 \n\013permissions\030\024 \003(\tR\013permiss" +
-      "ions\"C\n\032SetRolePermissionsResponse\022%\n\004ro" +
-      "le\030\n \001(\0132\021.identity.v1.RoleR\004role\"k\n\021Upd" +
-      "ateRoleRequest\022\022\n\004role\030\n \001(\tR\004role\022 \n\013de" +
-      "scription\030\024 \001(\tR\013description\022 \n\013permissi" +
-      "ons\030\036 \003(\tR\013permissions\";\n\022UpdateRoleResp" +
-      "onse\022%\n\004role\030\n \001(\0132\021.identity.v1.RoleR\004r" +
-      "ole\"\'\n\021DeleteRoleRequest\022\022\n\004role\030\n \001(\tR\004" +
-      "role\"\024\n\022DeleteRoleResponse\"d\n\020ListRolesR" +
-      "equest\022\024\n\005query\030\n \001(\tR\005query\022\033\n\tpage_siz" +
-      "e\030\024 \001(\005R\010pageSize\022\035\n\npage_token\030\036 \001(\tR\tp" +
-      "ageToken\"z\n\021ListRolesResponse\022\'\n\005roles\030\n" +
-      " \003(\0132\021.identity.v1.RoleR\005roles\022&\n\017next_p" +
-      "age_token\030\024 \001(\tR\rnextPageToken\022\024\n\005total\030" +
-      "\036 \001(\003R\005total\"a\n\nPermission\022\022\n\004name\030\n \001(\t" +
-      "R\004name\022 \n\013description\030\024 \001(\tR\013description" +
-      "\022\035\n\nrole_count\030\036 \001(\003R\troleCount\"j\n\026ListP" +
-      "ermissionsRequest\022\024\n\005query\030\n \001(\tR\005query\022" +
-      "\033\n\tpage_size\030\024 \001(\005R\010pageSize\022\035\n\npage_tok" +
-      "en\030\036 \001(\tR\tpageToken\"\222\001\n\027ListPermissionsR" +
-      "esponse\0229\n\013permissions\030\n \003(\0132\027.identity." +
-      "v1.PermissionR\013permissions\022&\n\017next_page_" +
-      "token\030\024 \001(\tR\rnextPageToken\022\024\n\005total\030\036 \001(" +
-      "\003R\005total\"R\n\027CreatePermissionRequest\0227\n\np" +
-      "ermission\030\n \001(\0132\027.identity.v1.Permission" +
-      "R\npermission\"S\n\030CreatePermissionResponse" +
-      "\0227\n\npermission\030\n \001(\0132\027.identity.v1.Permi" +
-      "ssionR\npermission\"o\n\027UpdatePermissionReq" +
-      "uest\022\022\n\004name\030\n \001(\tR\004name\022\036\n\npermission\030\024" +
-      " \001(\tR\npermission\022 \n\013description\030\036 \001(\tR\013d" +
-      "escription\"S\n\030UpdatePermissionResponse\0227" +
-      "\n\npermission\030\n \001(\0132\027.identity.v1.Permiss" +
-      "ionR\npermission\"M\n\027DeletePermissionReque" +
-      "st\022\022\n\004name\030\n \001(\tR\004name\022\036\n\npermission\030\024 \001" +
-      "(\tR\npermission\"\032\n\030DeletePermissionRespon" +
-      "se\"]\n\021AssignRoleRequest\022\027\n\007user_id\030\n \001(\t" +
-      "R\006userId\022\033\n\tclient_id\030\024 \001(\tR\010clientId\022\022\n" +
-      "\004role\030\036 \001(\tR\004role\"\024\n\022AssignRoleResponse\"" +
-      "]\n\021RevokeRoleRequest\022\027\n\007user_id\030\n \001(\tR\006u" +
-      "serId\022\033\n\tclient_id\030\024 \001(\tR\010clientId\022\022\n\004ro" +
-      "le\030\036 \001(\tR\004role\"\024\n\022RevokeRoleResponse\"\230\003\n" +
-      "\006Client\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\022\n\004" +
-      "name\030\024 \001(\tR\004name\022+\n\004type\030\036 \001(\0162\027.identit" +
-      "y.v1.ClientTypeR\004type\022#\n\rredirect_uris\030(" +
-      " \003(\tR\014redirectUris\0229\n\031post_logout_redire" +
-      "ct_uris\0302 \003(\tR\026postLogoutRedirectUris\0224\n" +
-      "\026backchannel_logout_uri\030< \001(\tR\024backchann" +
-      "elLogoutUri\022%\n\016allowed_grants\030F \003(\tR\rall" +
-      "owedGrants\022%\n\016allowed_scopes\030P \003(\tR\rallo" +
-      "wedScopes\022\032\n\010resource\030Z \001(\tR\010resource\022\024\n" +
-      "\005roles\030d \003(\tR\005roles\022\032\n\010disabled\030n \001(\010R\010d" +
-      "isabled\"B\n\023CreateClientRequest\022+\n\006client" +
-      "\030\n \001(\0132\023.identity.v1.ClientR\006client\"h\n\024C" +
-      "reateClientResponse\022+\n\006client\030\n \001(\0132\023.id" +
-      "entity.v1.ClientR\006client\022#\n\rclient_secre" +
-      "t\030\024 \001(\tR\014clientSecret\"8\n\031RotateClientSec" +
-      "retRequest\022\033\n\tclient_id\030\n \001(\tR\010clientId\"" +
-      "A\n\032RotateClientSecretResponse\022#\n\rclient_" +
-      "secret\030\n \001(\tR\014clientSecret\"\334\002\n\023UpdateCli" +
-      "entRequest\022\033\n\tclient_id\030\n \001(\tR\010clientId\022" +
-      "\022\n\004name\030\024 \001(\tR\004name\022#\n\rredirect_uris\030\036 \003" +
-      "(\tR\014redirectUris\0229\n\031post_logout_redirect" +
-      "_uris\030( \003(\tR\026postLogoutRedirectUris\0224\n\026b" +
-      "ackchannel_logout_uri\0302 \001(\tR\024backchannel" +
-      "LogoutUri\022%\n\016allowed_grants\030< \003(\tR\rallow" +
-      "edGrants\022%\n\016allowed_scopes\030F \003(\tR\rallowe" +
-      "dScopes\022\032\n\010resource\030P \001(\tR\010resource\022\024\n\005r" +
-      "oles\030Z \003(\tR\005roles\"C\n\024UpdateClientRespons" +
-      "e\022+\n\006client\030\n \001(\0132\023.identity.v1.ClientR\006" +
-      "client\"S\n\030SetClientDisabledRequest\022\033\n\tcl" +
-      "ient_id\030\n \001(\tR\010clientId\022\032\n\010disabled\030\024 \001(" +
-      "\010R\010disabled\"H\n\031SetClientDisabledResponse" +
-      "\022+\n\006client\030\n \001(\0132\023.identity.v1.ClientR\006c" +
-      "lient\"2\n\023DeleteClientRequest\022\033\n\tclient_i" +
-      "d\030\n \001(\tR\010clientId\"\026\n\024DeleteClientRespons" +
-      "e\"\223\001\n\022ListClientsRequest\022\024\n\005query\030\n \001(\tR" +
-      "\005query\022+\n\004type\030\024 \001(\0162\027.identity.v1.Clien" +
-      "tTypeR\004type\022\033\n\tpage_size\030\036 \001(\005R\010pageSize" +
-      "\022\035\n\npage_token\030( \001(\tR\tpageToken\"l\n\023ListC" +
-      "lientsResponse\022-\n\007clients\030\n \003(\0132\023.identi" +
-      "ty.v1.ClientR\007clients\022&\n\017next_page_token" +
-      "\030\024 \001(\tR\rnextPageToken\"\216\001\n\016ExchangePolicy" +
-      "\022\033\n\tclient_id\030\n \001(\tR\010clientId\022\032\n\010audienc" +
-      "e\030\024 \001(\tR\010audience\022\033\n\tmax_scope\030\036 \001(\tR\010ma" +
-      "xScope\022&\n\017max_chain_depth\030( \001(\005R\rmaxChai" +
-      "nDepth\"g\n\030SetExchangePolicyRequest\0223\n\006po" +
-      "licy\030\n \001(\0132\033.identity.v1.ExchangePolicyR" +
-      "\006policy\022\026\n\006delete\030\024 \001(\010R\006delete\"\033\n\031SetEx" +
-      "changePolicyResponse\"\250\001\n\033ListExchangePol" +
-      "iciesRequest\022\033\n\tclient_id\030\n \001(\tR\010clientI" +
-      "d\022\024\n\005query\030\024 \001(\tR\005query\022\032\n\010audience\030\036 \001(" +
-      "\tR\010audience\022\033\n\tpage_size\030( \001(\005R\010pageSize" +
-      "\022\035\n\npage_token\0302 \001(\tR\tpageToken\"\177\n\034ListE" +
-      "xchangePoliciesResponse\0227\n\010policies\030\n \003(" +
-      "\0132\033.identity.v1.ExchangePolicyR\010policies" +
-      "\022&\n\017next_page_token\030\024 \001(\tR\rnextPageToken" +
-      "\",\n\021GetUserMFARequest\022\027\n\007user_id\030\n \001(\tR\006" +
-      "userId\"\216\001\n\022GetUserMFAResponse\022\030\n\007enabled" +
-      "\030\n \001(\010R\007enabled\022\032\n\010enforced\030\024 \001(\010R\010enfor" +
-      "ced\022\022\n\004mode\030\036 \001(\tR\004mode\022.\n\023recovery_code" +
-      "s_left\030( \001(\005R\021recoveryCodesLeft\"F\n\021SetUs" +
-      "erMFARequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\030\n" +
-      "\007enabled\030\024 \001(\010R\007enabled\"\024\n\022SetUserMFARes" +
-      "ponse\"L\n\025EnforceUserMFARequest\022\027\n\007user_i" +
-      "d\030\n \001(\tR\006userId\022\032\n\010enforced\030\024 \001(\010R\010enfor" +
-      "ced\"\030\n\026EnforceUserMFAResponse\".\n\023ResetUs" +
-      "erMFARequest\022\027\n\007user_id\030\n \001(\tR\006userId\"\026\n" +
-      "\024ResetUserMFAResponse\"\023\n\021GetUIStyleReque" +
-      "st\"\300\001\n\022GetUIStyleResponse\022\031\n\010ui_style\030\n " +
-      "\001(\tR\007uiStyle\022P\n\013ui_palettes\030\024 \003(\0132/.iden" +
-      "tity.v1.GetUIStyleResponse.UiPalettesEnt" +
-      "ryR\nuiPalettes\032=\n\017UiPalettesEntry\022\020\n\003key" +
-      "\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"\276\001" +
-      "\n\021SetUIStyleRequest\022\031\n\010ui_style\030\n \001(\tR\007u" +
-      "iStyle\022O\n\013ui_palettes\030\024 \003(\0132..identity.v" +
-      "1.SetUIStyleRequest.UiPalettesEntryR\nuiP" +
-      "alettes\032=\n\017UiPalettesEntry\022\020\n\003key\030\001 \001(\tR" +
-      "\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"\300\001\n\022SetUI" +
-      "StyleResponse\022\031\n\010ui_style\030\n \001(\tR\007uiStyle" +
-      "\022P\n\013ui_palettes\030\024 \003(\0132/.identity.v1.SetU" +
-      "IStyleResponse.UiPalettesEntryR\nuiPalett" +
-      "es\032=\n\017UiPalettesEntry\022\020\n\003key\030\001 \001(\tR\003key\022" +
-      "\024\n\005value\030\002 \001(\tR\005value:\0028\001*t\n\nUserStatus\022" +
-      "\033\n\027USER_STATUS_UNSPECIFIED\020\000\022\027\n\023USER_STA" +
-      "TUS_PENDING\020\n\022\026\n\022USER_STATUS_ACTIVE\020\024\022\030\n" +
-      "\024USER_STATUS_DISABLED\020\036*_\n\nClientType\022\033\n" +
-      "\027CLIENT_TYPE_UNSPECIFIED\020\000\022\026\n\022CLIENT_TYP" +
-      "E_PUBLIC\020\n\022\034\n\030CLIENT_TYPE_CONFIDENTIAL\020\024" +
-      "2\214!\n\017IdentityService\022M\n\nIntrospect\022\036.ide" +
-      "ntity.v1.IntrospectRequest\032\037.identity.v1" +
-      ".IntrospectResponse\022\\\n\017CheckPermission\022#" +
-      ".identity.v1.CheckPermissionRequest\032$.id" +
-      "entity.v1.CheckPermissionResponse\022P\n\013Rev" +
-      "okeToken\022\037.identity.v1.RevokeTokenReques" +
-      "t\032 .identity.v1.RevokeTokenResponse\022D\n\007G" +
-      "etUser\022\033.identity.v1.GetUserRequest\032\034.id" +
-      "entity.v1.GetUserResponse\022J\n\tListUsers\022\035" +
-      ".identity.v1.ListUsersRequest\032\036.identity" +
-      ".v1.ListUsersResponse\022M\n\nCreateUser\022\036.id" +
-      "entity.v1.CreateUserRequest\032\037.identity.v" +
-      "1.CreateUserResponse\022\\\n\017SetUserDisabled\022" +
-      "#.identity.v1.SetUserDisabledRequest\032$.i" +
-      "dentity.v1.SetUserDisabledResponse\022M\n\nDe" +
-      "leteUser\022\036.identity.v1.DeleteUserRequest" +
-      "\032\037.identity.v1.DeleteUserResponse\022\\\n\017Set" +
-      "UserPassword\022#.identity.v1.SetUserPasswo" +
-      "rdRequest\032$.identity.v1.SetUserPasswordR" +
-      "esponse\022b\n\021SendPasswordReset\022%.identity." +
-      "v1.SendPasswordResetRequest\032&.identity.v" +
-      "1.SendPasswordResetResponse\022M\n\nUpdateUse" +
-      "r\022\036.identity.v1.UpdateUserRequest\032\037.iden" +
-      "tity.v1.UpdateUserResponse\022V\n\rSetUserAva" +
-      "tar\022!.identity.v1.SetUserAvatarRequest\032\"" +
-      ".identity.v1.SetUserAvatarResponse\022P\n\013Se" +
-      "ndWelcome\022\037.identity.v1.SendWelcomeReque" +
-      "st\032 .identity.v1.SendWelcomeResponse\022S\n\014" +
-      "GetUserStats\022 .identity.v1.GetUserStatsR" +
-      "equest\032!.identity.v1.GetUserStatsRespons" +
-      "e\022>\n\005GetMe\022\031.identity.v1.GetMeRequest\032\032." +
-      "identity.v1.GetMeResponse\022G\n\010UpdateMe\022\034." +
-      "identity.v1.UpdateMeRequest\032\035.identity.v" +
-      "1.UpdateMeResponse\022P\n\013SetMyAvatar\022\037.iden" +
+      "1\032\026authz/v1/options.proto\")\n\021IntrospectR" +
+      "equest\022\024\n\005token\030\n \001(\tR\005token\"\271\001\n\022Introsp" +
+      "ectResponse\022\026\n\006active\030\n \001(\010R\006active\022\020\n\003s" +
+      "ub\030\024 \001(\tR\003sub\022\033\n\tclient_id\030\036 \001(\tR\010client" +
+      "Id\022\024\n\005scope\030( \001(\tR\005scope\022\020\n\003aud\0302 \003(\tR\003a" +
+      "ud\022\020\n\003jti\030< \001(\tR\003jti\022\020\n\003exp\030F \001(\003R\003exp\022\020" +
+      "\n\003act\030P \003(\tR\003act\"Q\n\026CheckPermissionReque" +
+      "st\022\027\n\007user_id\030\n \001(\tR\006userId\022\036\n\npermissio" +
+      "n\030\024 \001(\tR\npermission\"3\n\027CheckPermissionRe" +
+      "sponse\022\030\n\007allowed\030\n \001(\010R\007allowed\"G\n\022Revo" +
+      "keTokenRequest\022\020\n\003jti\030\n \001(\tR\003jti\022\037\n\013ttl_" +
+      "seconds\030\024 \001(\003R\nttlSeconds\"\025\n\023RevokeToken" +
+      "Response\"\221\003\n\004User\022\016\n\002id\030\n \001(\tR\002id\022\024\n\005ema" +
+      "il\030\024 \001(\tR\005email\022\022\n\004name\030\036 \001(\tR\004name\022\026\n\006l" +
+      "ocale\030( \001(\tR\006locale\022\032\n\010disabled\0302 \001(\010R\010d" +
+      "isabled\022\024\n\005roles\030< \003(\tR\005roles\022\037\n\013mfa_ena" +
+      "bled\030F \001(\010R\nmfaEnabled\022!\n\014mfa_enforced\030P" +
+      " \001(\010R\013mfaEnforced\022\035\n\ncreated_at\030Z \001(\003R\tc" +
+      "reatedAt\022/\n\006status\030d \001(\0162\027.identity.v1.U" +
+      "serStatusR\006status\022\025\n\005theme\030\214\001 \001(\tR\005theme" +
+      "\022\035\n\nhas_avatar\030n \001(\010R\thasAvatar\022\026\n\006avata" +
+      "r\030x \001(\tR\006avatar\022#\n\rlast_login_at\030\202\001 \001(\003R" +
+      "\013lastLoginAt\"\025\n\023GetUserStatsRequest\"\206\003\n\024" +
+      "GetUserStatsResponse\022\024\n\005total\030\n \001(\003R\005tot" +
+      "al\022\026\n\006active\030\024 \001(\003R\006active\022\030\n\007pending\030\036 " +
+      "\001(\003R\007pending\022\032\n\010disabled\030( \001(\003R\010disabled" +
+      "\022\037\n\013mfa_enabled\0302 \001(\003R\nmfaEnabled\022!\n\014mfa" +
+      "_enforced\030< \001(\003R\013mfaEnforced\022\037\n\013with_ava" +
+      "tar\030F \001(\003R\nwithAvatar\022\"\n\rsigned_in_30d\030P" +
+      " \001(\003R\013signedIn30d\022&\n\017never_signed_in\030Z \001" +
+      "(\003R\rneverSignedIn\022,\n\022created_this_month\030" +
+      "d \001(\003R\020createdThisMonth\022+\n\021awaiting_appr" +
+      "oval\030n \001(\003R\020awaitingApproval\"O\n\016GetUserR" +
+      "equest\022\016\n\002id\030\n \001(\tR\002id\022\024\n\005email\030\024 \001(\tR\005e" +
+      "mail\022\027\n\007user_id\030\036 \001(\tR\006userId\"8\n\017GetUser" +
+      "Response\022%\n\004user\030\n \001(\0132\021.identity.v1.Use" +
+      "rR\004user\"\275\001\n\020ListUsersRequest\022\024\n\005query\030\n " +
+      "\001(\tR\005query\022\033\n\tpage_size\030\024 \001(\005R\010pageSize\022" +
+      "\035\n\npage_token\030\036 \001(\tR\tpageToken\022\022\n\004name\030(" +
+      " \001(\tR\004name\022/\n\006status\0302 \001(\0162\027.identity.v1" +
+      ".UserStatusR\006status\022\022\n\004role\030< \001(\tR\004role\"" +
+      "d\n\021ListUsersResponse\022\'\n\005users\030\n \003(\0132\021.id" +
+      "entity.v1.UserR\005users\022&\n\017next_page_token" +
+      "\030\024 \001(\tR\rnextPageToken\"\252\001\n\021CreateUserRequ" +
+      "est\022\024\n\005email\030\n \001(\tR\005email\022\022\n\004name\030\024 \001(\tR" +
+      "\004name\022\026\n\006locale\030\036 \001(\tR\006locale\022\032\n\010passwor" +
+      "d\030( \001(\tR\010password\022\024\n\005roles\0302 \003(\tR\005roles\022" +
+      "!\n\014send_welcome\030< \001(\010R\013sendWelcome\";\n\022Cr" +
+      "eateUserResponse\022%\n\004user\030\n \001(\0132\021.identit" +
+      "y.v1.UserR\004user\"M\n\026SetUserDisabledReques" +
+      "t\022\027\n\007user_id\030\n \001(\tR\006userId\022\032\n\010disabled\030\024" +
+      " \001(\010R\010disabled\"\031\n\027SetUserDisabledRespons" +
+      "e\",\n\021DeleteUserRequest\022\027\n\007user_id\030\n \001(\tR" +
+      "\006userId\"\024\n\022DeleteUserResponse\"M\n\026SetUser" +
+      "PasswordRequest\022\027\n\007user_id\030\n \001(\tR\006userId" +
+      "\022\032\n\010password\030\024 \001(\tR\010password\"\031\n\027SetUserP" +
+      "asswordResponse\"3\n\030SendPasswordResetRequ" +
+      "est\022\027\n\007user_id\030\n \001(\tR\006userId\"\033\n\031SendPass" +
+      "wordResetResponse\"X\n\021UpdateUserRequest\022\027" +
+      "\n\007user_id\030\n \001(\tR\006userId\022\022\n\004name\030\024 \001(\tR\004n" +
+      "ame\022\026\n\006locale\030\036 \001(\tR\006locale\";\n\022UpdateUse" +
+      "rResponse\022%\n\004user\030\n \001(\0132\021.identity.v1.Us" +
+      "erR\004user\"b\n\024SetUserAvatarRequest\022\027\n\007user" +
+      "_id\030\n \001(\tR\006userId\022\024\n\005image\030\024 \001(\014R\005image\022" +
+      "\033\n\tmime_type\030\036 \001(\tR\010mimeType\"\027\n\025SetUserA" +
+      "vatarResponse\"-\n\022SendWelcomeRequest\022\027\n\007u" +
+      "ser_id\030\n \001(\tR\006userId\"\025\n\023SendWelcomeRespo" +
+      "nse\"-\n\022ApproveUserRequest\022\027\n\007user_id\030\n \001" +
+      "(\tR\006userId\"\025\n\023ApproveUserResponse\",\n\021Rej" +
+      "ectUserRequest\022\027\n\007user_id\030\n \001(\tR\006userId\"" +
+      "\024\n\022RejectUserResponse\"\016\n\014GetMeRequest\"6\n" +
+      "\rGetMeResponse\022%\n\004user\030\n \001(\0132\021.identity." +
+      "v1.UserR\004user\"S\n\017UpdateMeRequest\022\022\n\004name" +
+      "\030\n \001(\tR\004name\022\026\n\006locale\030\024 \001(\tR\006locale\022\024\n\005" +
+      "theme\030\036 \001(\tR\005theme\"9\n\020UpdateMeResponse\022%" +
+      "\n\004user\030\n \001(\0132\021.identity.v1.UserR\004user\"G\n" +
+      "\022SetMyAvatarRequest\022\024\n\005image\030\n \001(\014R\005imag" +
+      "e\022\033\n\tmime_type\030\024 \001(\tR\010mimeType\"\025\n\023SetMyA" +
+      "vatarResponse\"g\n\027ChangeMyPasswordRequest" +
+      "\022)\n\020current_password\030\n \001(\tR\017currentPassw" +
+      "ord\022!\n\014new_password\030\024 \001(\tR\013newPassword\"\032" +
+      "\n\030ChangeMyPasswordResponse\"\021\n\017GetMyMFARe" +
+      "quest\"t\n\020GetMyMFAResponse\022\030\n\007enabled\030\n \001" +
+      "(\010R\007enabled\022\026\n\006forced\030\024 \001(\010R\006forced\022.\n\023r" +
+      "ecovery_codes_left\030\036 \001(\005R\021recoveryCodesL" +
+      "eft\"\023\n\021BeginMyMFARequest\"<\n\022BeginMyMFARe" +
+      "sponse\022\016\n\002qr\030\n \001(\tR\002qr\022\026\n\006secret\030\024 \001(\tR\006" +
+      "secret\")\n\023ConfirmMyMFARequest\022\022\n\004code\030\n " +
+      "\001(\tR\004code\"=\n\024ConfirmMyMFAResponse\022%\n\016rec" +
+      "overy_codes\030\n \003(\tR\rrecoveryCodes\"E\n\023Disa" +
+      "bleMyMFARequest\022\032\n\010password\030\n \001(\tR\010passw" +
+      "ord\022\022\n\004code\030\024 \001(\tR\004code\"\026\n\024DisableMyMFAR" +
+      "esponse\",\n\030GetMyUserSettingsRequest\022\020\n\003a" +
+      "pp\030\n \001(\tR\003app\"@\n\031GetMyUserSettingsRespon" +
+      "se\022#\n\rsettings_json\030\n \001(\tR\014settingsJson\"" +
+      "Q\n\030PutMyUserSettingsRequest\022\020\n\003app\030\n \001(\t" +
+      "R\003app\022#\n\rsettings_json\030\024 \001(\tR\014settingsJs" +
+      "on\"\033\n\031PutMyUserSettingsResponse\"\266\001\n\004Role" +
+      "\022\022\n\004name\030\n \001(\tR\004name\022 \n\013description\030\024 \001(" +
+      "\tR\013description\022 \n\013permissions\030\036 \003(\tR\013per" +
+      "missions\022%\n\016assigned_count\030( \001(\003R\rassign" +
+      "edCount\022/\n\023retired_permissions\0302 \003(\tR\022re" +
+      "tiredPermissions\":\n\021CreateRoleRequest\022%\n" +
+      "\004role\030\n \001(\0132\021.identity.v1.RoleR\004role\";\n\022" +
+      "CreateRoleResponse\022%\n\004role\030\n \001(\0132\021.ident" +
+      "ity.v1.RoleR\004role\"Q\n\031SetRolePermissionsR" +
+      "equest\022\022\n\004role\030\n \001(\tR\004role\022 \n\013permission" +
+      "s\030\024 \003(\tR\013permissions\"C\n\032SetRolePermissio" +
+      "nsResponse\022%\n\004role\030\n \001(\0132\021.identity.v1.R" +
+      "oleR\004role\"k\n\021UpdateRoleRequest\022\022\n\004role\030\n" +
+      " \001(\tR\004role\022 \n\013description\030\024 \001(\tR\013descrip" +
+      "tion\022 \n\013permissions\030\036 \003(\tR\013permissions\";" +
+      "\n\022UpdateRoleResponse\022%\n\004role\030\n \001(\0132\021.ide" +
+      "ntity.v1.RoleR\004role\"\'\n\021DeleteRoleRequest" +
+      "\022\022\n\004role\030\n \001(\tR\004role\"\024\n\022DeleteRoleRespon" +
+      "se\"d\n\020ListRolesRequest\022\024\n\005query\030\n \001(\tR\005q" +
+      "uery\022\033\n\tpage_size\030\024 \001(\005R\010pageSize\022\035\n\npag" +
+      "e_token\030\036 \001(\tR\tpageToken\"z\n\021ListRolesRes" +
+      "ponse\022\'\n\005roles\030\n \003(\0132\021.identity.v1.RoleR" +
+      "\005roles\022&\n\017next_page_token\030\024 \001(\tR\rnextPag" +
+      "eToken\022\024\n\005total\030\036 \001(\003R\005total\"\261\001\n\nPermiss" +
+      "ion\022\022\n\004name\030\n \001(\tR\004name\022 \n\013description\030\024" +
+      " \001(\tR\013description\022\035\n\nrole_count\030\036 \001(\003R\tr" +
+      "oleCount\022\030\n\007service\030( \001(\tR\007service\022\032\n\010wi" +
+      "ldcard\0302 \001(\010R\010wildcard\022\030\n\007retired\030< \001(\010R" +
+      "\007retired\"j\n\026ListPermissionsRequest\022\024\n\005qu" +
+      "ery\030\n \001(\tR\005query\022\033\n\tpage_size\030\024 \001(\005R\010pag" +
+      "eSize\022\035\n\npage_token\030\036 \001(\tR\tpageToken\"\222\001\n" +
+      "\027ListPermissionsResponse\0229\n\013permissions\030" +
+      "\n \003(\0132\027.identity.v1.PermissionR\013permissi" +
+      "ons\022&\n\017next_page_token\030\024 \001(\tR\rnextPageTo" +
+      "ken\022\024\n\005total\030\036 \001(\003R\005total\"p\n\025PermissionD" +
+      "eclaration\022\022\n\004name\030\n \001(\tR\004name\022 \n\013descri" +
+      "ption\030\024 \001(\tR\013description\022!\n\014renamed_from" +
+      "\030\036 \001(\tR\013renamedFrom\"|\n\032RegisterPermissio" +
+      "nsRequest\022\030\n\007service\030\n \001(\tR\007service\022D\n\013p" +
+      "ermissions\030\024 \003(\0132\".identity.v1.Permissio" +
+      "nDeclarationR\013permissions\"\241\001\n\033RegisterPe" +
+      "rmissionsResponse\022\032\n\010inserted\030\n \001(\005R\010ins" +
+      "erted\022\030\n\007updated\030\024 \001(\005R\007updated\022\030\n\007retir" +
+      "ed\030\036 \001(\005R\007retired\022\030\n\007deleted\030( \001(\005R\007dele" +
+      "ted\022\030\n\007renamed\0302 \001(\005R\007renamed\"]\n\021AssignR" +
+      "oleRequest\022\027\n\007user_id\030\n \001(\tR\006userId\022\033\n\tc" +
+      "lient_id\030\024 \001(\tR\010clientId\022\022\n\004role\030\036 \001(\tR\004" +
+      "role\"\024\n\022AssignRoleResponse\"]\n\021RevokeRole" +
+      "Request\022\027\n\007user_id\030\n \001(\tR\006userId\022\033\n\tclie" +
+      "nt_id\030\024 \001(\tR\010clientId\022\022\n\004role\030\036 \001(\tR\004rol" +
+      "e\"\024\n\022RevokeRoleResponse\"\230\003\n\006Client\022\033\n\tcl" +
+      "ient_id\030\n \001(\tR\010clientId\022\022\n\004name\030\024 \001(\tR\004n" +
+      "ame\022+\n\004type\030\036 \001(\0162\027.identity.v1.ClientTy" +
+      "peR\004type\022#\n\rredirect_uris\030( \003(\tR\014redirec" +
+      "tUris\0229\n\031post_logout_redirect_uris\0302 \003(\t" +
+      "R\026postLogoutRedirectUris\0224\n\026backchannel_" +
+      "logout_uri\030< \001(\tR\024backchannelLogoutUri\022%" +
+      "\n\016allowed_grants\030F \003(\tR\rallowedGrants\022%\n" +
+      "\016allowed_scopes\030P \003(\tR\rallowedScopes\022\032\n\010" +
+      "resource\030Z \001(\tR\010resource\022\024\n\005roles\030d \003(\tR" +
+      "\005roles\022\032\n\010disabled\030n \001(\010R\010disabled\"B\n\023Cr" +
+      "eateClientRequest\022+\n\006client\030\n \001(\0132\023.iden" +
+      "tity.v1.ClientR\006client\"h\n\024CreateClientRe" +
+      "sponse\022+\n\006client\030\n \001(\0132\023.identity.v1.Cli" +
+      "entR\006client\022#\n\rclient_secret\030\024 \001(\tR\014clie" +
+      "ntSecret\"8\n\031RotateClientSecretRequest\022\033\n" +
+      "\tclient_id\030\n \001(\tR\010clientId\"A\n\032RotateClie" +
+      "ntSecretResponse\022#\n\rclient_secret\030\n \001(\tR" +
+      "\014clientSecret\"\334\002\n\023UpdateClientRequest\022\033\n" +
+      "\tclient_id\030\n \001(\tR\010clientId\022\022\n\004name\030\024 \001(\t" +
+      "R\004name\022#\n\rredirect_uris\030\036 \003(\tR\014redirectU" +
+      "ris\0229\n\031post_logout_redirect_uris\030( \003(\tR\026" +
+      "postLogoutRedirectUris\0224\n\026backchannel_lo" +
+      "gout_uri\0302 \001(\tR\024backchannelLogoutUri\022%\n\016" +
+      "allowed_grants\030< \003(\tR\rallowedGrants\022%\n\016a" +
+      "llowed_scopes\030F \003(\tR\rallowedScopes\022\032\n\010re" +
+      "source\030P \001(\tR\010resource\022\024\n\005roles\030Z \003(\tR\005r" +
+      "oles\"C\n\024UpdateClientResponse\022+\n\006client\030\n" +
+      " \001(\0132\023.identity.v1.ClientR\006client\"S\n\030Set" +
+      "ClientDisabledRequest\022\033\n\tclient_id\030\n \001(\t" +
+      "R\010clientId\022\032\n\010disabled\030\024 \001(\010R\010disabled\"H" +
+      "\n\031SetClientDisabledResponse\022+\n\006client\030\n " +
+      "\001(\0132\023.identity.v1.ClientR\006client\"2\n\023Dele" +
+      "teClientRequest\022\033\n\tclient_id\030\n \001(\tR\010clie" +
+      "ntId\"\026\n\024DeleteClientResponse\"\223\001\n\022ListCli" +
+      "entsRequest\022\024\n\005query\030\n \001(\tR\005query\022+\n\004typ" +
+      "e\030\024 \001(\0162\027.identity.v1.ClientTypeR\004type\022\033" +
+      "\n\tpage_size\030\036 \001(\005R\010pageSize\022\035\n\npage_toke" +
+      "n\030( \001(\tR\tpageToken\"l\n\023ListClientsRespons" +
+      "e\022-\n\007clients\030\n \003(\0132\023.identity.v1.ClientR" +
+      "\007clients\022&\n\017next_page_token\030\024 \001(\tR\rnextP" +
+      "ageToken\"\216\001\n\016ExchangePolicy\022\033\n\tclient_id" +
+      "\030\n \001(\tR\010clientId\022\032\n\010audience\030\024 \001(\tR\010audi" +
+      "ence\022\033\n\tmax_scope\030\036 \001(\tR\010maxScope\022&\n\017max" +
+      "_chain_depth\030( \001(\005R\rmaxChainDepth\"g\n\030Set" +
+      "ExchangePolicyRequest\0223\n\006policy\030\n \001(\0132\033." +
+      "identity.v1.ExchangePolicyR\006policy\022\026\n\006de" +
+      "lete\030\024 \001(\010R\006delete\"\033\n\031SetExchangePolicyR" +
+      "esponse\"\250\001\n\033ListExchangePoliciesRequest\022" +
+      "\033\n\tclient_id\030\n \001(\tR\010clientId\022\024\n\005query\030\024 " +
+      "\001(\tR\005query\022\032\n\010audience\030\036 \001(\tR\010audience\022\033" +
+      "\n\tpage_size\030( \001(\005R\010pageSize\022\035\n\npage_toke" +
+      "n\0302 \001(\tR\tpageToken\"\177\n\034ListExchangePolici" +
+      "esResponse\0227\n\010policies\030\n \003(\0132\033.identity." +
+      "v1.ExchangePolicyR\010policies\022&\n\017next_page" +
+      "_token\030\024 \001(\tR\rnextPageToken\",\n\021GetUserMF" +
+      "ARequest\022\027\n\007user_id\030\n \001(\tR\006userId\"\216\001\n\022Ge" +
+      "tUserMFAResponse\022\030\n\007enabled\030\n \001(\010R\007enabl" +
+      "ed\022\032\n\010enforced\030\024 \001(\010R\010enforced\022\022\n\004mode\030\036" +
+      " \001(\tR\004mode\022.\n\023recovery_codes_left\030( \001(\005R" +
+      "\021recoveryCodesLeft\"F\n\021SetUserMFARequest\022" +
+      "\027\n\007user_id\030\n \001(\tR\006userId\022\030\n\007enabled\030\024 \001(" +
+      "\010R\007enabled\"\024\n\022SetUserMFAResponse\"L\n\025Enfo" +
+      "rceUserMFARequest\022\027\n\007user_id\030\n \001(\tR\006user" +
+      "Id\022\032\n\010enforced\030\024 \001(\010R\010enforced\"\030\n\026Enforc" +
+      "eUserMFAResponse\".\n\023ResetUserMFARequest\022" +
+      "\027\n\007user_id\030\n \001(\tR\006userId\"\026\n\024ResetUserMFA" +
+      "Response\"\023\n\021GetUIStyleRequest\"\300\001\n\022GetUIS" +
+      "tyleResponse\022\031\n\010ui_style\030\n \001(\tR\007uiStyle\022" +
+      "P\n\013ui_palettes\030\024 \003(\0132/.identity.v1.GetUI" +
+      "StyleResponse.UiPalettesEntryR\nuiPalette" +
+      "s\032=\n\017UiPalettesEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024" +
+      "\n\005value\030\002 \001(\tR\005value:\0028\001\"\276\001\n\021SetUIStyleR" +
+      "equest\022\031\n\010ui_style\030\n \001(\tR\007uiStyle\022O\n\013ui_" +
+      "palettes\030\024 \003(\0132..identity.v1.SetUIStyleR" +
+      "equest.UiPalettesEntryR\nuiPalettes\032=\n\017Ui" +
+      "PalettesEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value" +
+      "\030\002 \001(\tR\005value:\0028\001\"\300\001\n\022SetUIStyleResponse" +
+      "\022\031\n\010ui_style\030\n \001(\tR\007uiStyle\022P\n\013ui_palett" +
+      "es\030\024 \003(\0132/.identity.v1.SetUIStyleRespons" +
+      "e.UiPalettesEntryR\nuiPalettes\032=\n\017UiPalet" +
+      "tesEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001(" +
+      "\tR\005value:\0028\001\" \n\036GetRegistrationSettingsR" +
+      "equest\"\201\001\n\037GetRegistrationSettingsRespon" +
+      "se\022+\n\021requires_approval\030\n \001(\010R\020requiresA" +
+      "pproval\0221\n\024registration_enabled\030\024 \001(\010R\023r" +
+      "egistrationEnabled\"M\n\036SetRegistrationSet" +
+      "tingsRequest\022+\n\021requires_approval\030\n \001(\010R" +
+      "\020requiresApproval\"\201\001\n\037SetRegistrationSet" +
+      "tingsResponse\022+\n\021requires_approval\030\n \001(\010" +
+      "R\020requiresApproval\0221\n\024registration_enabl" +
+      "ed\030\024 \001(\010R\023registrationEnabled*\226\001\n\nUserSt" +
+      "atus\022\033\n\027USER_STATUS_UNSPECIFIED\020\000\022\027\n\023USE" +
+      "R_STATUS_PENDING\020\n\022\026\n\022USER_STATUS_ACTIVE" +
+      "\020\024\022\030\n\024USER_STATUS_DISABLED\020\036\022 \n\034USER_STA" +
+      "TUS_PENDING_APPROVAL\020(*_\n\nClientType\022\033\n\027" +
+      "CLIENT_TYPE_UNSPECIFIED\020\000\022\026\n\022CLIENT_TYPE" +
+      "_PUBLIC\020\n\022\034\n\030CLIENT_TYPE_CONFIDENTIAL\020\0242" +
+      "\305,\n\017IdentityService\022h\n\nIntrospect\022\036.iden" +
+      "tity.v1.IntrospectRequest\032\037.identity.v1." +
+      "IntrospectResponse\"\031\322\363\030\025R\023identity:token" +
+      ":read\022|\n\017CheckPermission\022#.identity.v1.C" +
+      "heckPermissionRequest\032$.identity.v1.Chec" +
+      "kPermissionResponse\"\036\322\363\030\032R\030identity:perm" +
+      "ission:read\022l\n\013RevokeToken\022\037.identity.v1" +
+      ".RevokeTokenRequest\032 .identity.v1.Revoke" +
+      "TokenResponse\"\032\322\363\030\026R\024identity:token:writ" +
+      "e\022^\n\007GetUser\022\033.identity.v1.GetUserReques" +
+      "t\032\034.identity.v1.GetUserResponse\"\030\322\363\030\024R\022i" +
+      "dentity:user:read\022{\n\tListUsers\022\035.identit" +
+      "y.v1.ListUsersRequest\032\036.identity.v1.List" +
+      "UsersResponse\"/\322\363\030+R\022identity:user:readR" +
+      "\025identity:user:approve\022h\n\nCreateUser\022\036.i" +
+      "dentity.v1.CreateUserRequest\032\037.identity." +
+      "v1.CreateUserResponse\"\031\322\363\030\025R\023identity:us" +
+      "er:write\022w\n\017SetUserDisabled\022#.identity.v" +
+      "1.SetUserDisabledRequest\032$.identity.v1.S" +
+      "etUserDisabledResponse\"\031\322\363\030\025R\023identity:u" +
+      "ser:write\022h\n\nDeleteUser\022\036.identity.v1.De" +
+      "leteUserRequest\032\037.identity.v1.DeleteUser" +
+      "Response\"\031\322\363\030\025R\023identity:user:write\022w\n\017S" +
+      "etUserPassword\022#.identity.v1.SetUserPass" +
+      "wordRequest\032$.identity.v1.SetUserPasswor" +
+      "dResponse\"\031\322\363\030\025R\023identity:user:write\022}\n\021" +
+      "SendPasswordReset\022%.identity.v1.SendPass" +
+      "wordResetRequest\032&.identity.v1.SendPassw" +
+      "ordResetResponse\"\031\322\363\030\025R\023identity:user:wr" +
+      "ite\022h\n\nUpdateUser\022\036.identity.v1.UpdateUs" +
+      "erRequest\032\037.identity.v1.UpdateUserRespon" +
+      "se\"\031\322\363\030\025R\023identity:user:write\022q\n\rSetUser" +
+      "Avatar\022!.identity.v1.SetUserAvatarReques" +
+      "t\032\".identity.v1.SetUserAvatarResponse\"\031\322" +
+      "\363\030\025R\023identity:user:write\022k\n\013SendWelcome\022" +
+      "\037.identity.v1.SendWelcomeRequest\032 .ident" +
+      "ity.v1.SendWelcomeResponse\"\031\322\363\030\025R\023identi" +
+      "ty:user:write\022m\n\013ApproveUser\022\037.identity." +
+      "v1.ApproveUserRequest\032 .identity.v1.Appr" +
+      "oveUserResponse\"\033\322\363\030\027R\025identity:user:app" +
+      "rove\022j\n\nRejectUser\022\036.identity.v1.RejectU" +
+      "serRequest\032\037.identity.v1.RejectUserRespo" +
+      "nse\"\033\322\363\030\027R\025identity:user:approve\022m\n\014GetU" +
+      "serStats\022 .identity.v1.GetUserStatsReque" +
+      "st\032!.identity.v1.GetUserStatsResponse\"\030\322" +
+      "\363\030\024R\022identity:user:read\022G\n\005GetMe\022\031.ident" +
+      "ity.v1.GetMeRequest\032\032.identity.v1.GetMeR" +
+      "esponse\"\007\322\363\030\003\360\001\001\022P\n\010UpdateMe\022\034.identity." +
+      "v1.UpdateMeRequest\032\035.identity.v1.UpdateM" +
+      "eResponse\"\007\322\363\030\003\360\001\001\022Y\n\013SetMyAvatar\022\037.iden" +
       "tity.v1.SetMyAvatarRequest\032 .identity.v1" +
-      ".SetMyAvatarResponse\022_\n\020ChangeMyPassword" +
-      "\022$.identity.v1.ChangeMyPasswordRequest\032%" +
-      ".identity.v1.ChangeMyPasswordResponse\022G\n" +
-      "\010GetMyMFA\022\034.identity.v1.GetMyMFARequest\032" +
-      "\035.identity.v1.GetMyMFAResponse\022M\n\nBeginM" +
-      "yMFA\022\036.identity.v1.BeginMyMFARequest\032\037.i" +
-      "dentity.v1.BeginMyMFAResponse\022S\n\014Confirm" +
-      "MyMFA\022 .identity.v1.ConfirmMyMFARequest\032" +
-      "!.identity.v1.ConfirmMyMFAResponse\022S\n\014Di" +
-      "sableMyMFA\022 .identity.v1.DisableMyMFAReq" +
-      "uest\032!.identity.v1.DisableMyMFAResponse\022" +
-      "b\n\021GetMyUserSettings\022%.identity.v1.GetMy" +
-      "UserSettingsRequest\032&.identity.v1.GetMyU" +
-      "serSettingsResponse\022b\n\021PutMyUserSettings" +
-      "\022%.identity.v1.PutMyUserSettingsRequest\032" +
-      "&.identity.v1.PutMyUserSettingsResponse\022" +
-      "M\n\nCreateRole\022\036.identity.v1.CreateRoleRe" +
-      "quest\032\037.identity.v1.CreateRoleResponse\022e" +
-      "\n\022SetRolePermissions\022&.identity.v1.SetRo" +
-      "lePermissionsRequest\032\'.identity.v1.SetRo" +
-      "lePermissionsResponse\022J\n\tListRoles\022\035.ide" +
-      "ntity.v1.ListRolesRequest\032\036.identity.v1." +
-      "ListRolesResponse\022M\n\nUpdateRole\022\036.identi" +
-      "ty.v1.UpdateRoleRequest\032\037.identity.v1.Up" +
-      "dateRoleResponse\022M\n\nDeleteRole\022\036.identit" +
-      "y.v1.DeleteRoleRequest\032\037.identity.v1.Del" +
-      "eteRoleResponse\022\\\n\017ListPermissions\022#.ide" +
-      "ntity.v1.ListPermissionsRequest\032$.identi" +
-      "ty.v1.ListPermissionsResponse\022_\n\020CreateP" +
-      "ermission\022$.identity.v1.CreatePermission" +
-      "Request\032%.identity.v1.CreatePermissionRe" +
-      "sponse\022_\n\020UpdatePermission\022$.identity.v1" +
-      ".UpdatePermissionRequest\032%.identity.v1.U" +
-      "pdatePermissionResponse\022_\n\020DeletePermiss" +
-      "ion\022$.identity.v1.DeletePermissionReques" +
-      "t\032%.identity.v1.DeletePermissionResponse" +
-      "\022M\n\nAssignRole\022\036.identity.v1.AssignRoleR" +
-      "equest\032\037.identity.v1.AssignRoleResponse\022" +
-      "M\n\nRevokeRole\022\036.identity.v1.RevokeRoleRe" +
-      "quest\032\037.identity.v1.RevokeRoleResponse\022S" +
-      "\n\014CreateClient\022 .identity.v1.CreateClien" +
-      "tRequest\032!.identity.v1.CreateClientRespo" +
-      "nse\022S\n\014UpdateClient\022 .identity.v1.Update" +
-      "ClientRequest\032!.identity.v1.UpdateClient" +
-      "Response\022b\n\021SetClientDisabled\022%.identity" +
-      ".v1.SetClientDisabledRequest\032&.identity." +
-      "v1.SetClientDisabledResponse\022S\n\014DeleteCl" +
-      "ient\022 .identity.v1.DeleteClientRequest\032!" +
-      ".identity.v1.DeleteClientResponse\022e\n\022Rot" +
-      "ateClientSecret\022&.identity.v1.RotateClie" +
-      "ntSecretRequest\032\'.identity.v1.RotateClie" +
-      "ntSecretResponse\022P\n\013ListClients\022\037.identi" +
-      "ty.v1.ListClientsRequest\032 .identity.v1.L" +
-      "istClientsResponse\022b\n\021SetExchangePolicy\022" +
+      ".SetMyAvatarResponse\"\007\322\363\030\003\360\001\001\022h\n\020ChangeM" +
+      "yPassword\022$.identity.v1.ChangeMyPassword" +
+      "Request\032%.identity.v1.ChangeMyPasswordRe" +
+      "sponse\"\007\322\363\030\003\360\001\001\022P\n\010GetMyMFA\022\034.identity.v" +
+      "1.GetMyMFARequest\032\035.identity.v1.GetMyMFA" +
+      "Response\"\007\322\363\030\003\360\001\001\022V\n\nBeginMyMFA\022\036.identi" +
+      "ty.v1.BeginMyMFARequest\032\037.identity.v1.Be" +
+      "ginMyMFAResponse\"\007\322\363\030\003\360\001\001\022\\\n\014ConfirmMyMF" +
+      "A\022 .identity.v1.ConfirmMyMFARequest\032!.id" +
+      "entity.v1.ConfirmMyMFAResponse\"\007\322\363\030\003\360\001\001\022" +
+      "\\\n\014DisableMyMFA\022 .identity.v1.DisableMyM" +
+      "FARequest\032!.identity.v1.DisableMyMFAResp" +
+      "onse\"\007\322\363\030\003\360\001\001\022k\n\021GetMyUserSettings\022%.ide" +
+      "ntity.v1.GetMyUserSettingsRequest\032&.iden" +
+      "tity.v1.GetMyUserSettingsResponse\"\007\322\363\030\003\360" +
+      "\001\001\022k\n\021PutMyUserSettings\022%.identity.v1.Pu" +
+      "tMyUserSettingsRequest\032&.identity.v1.Put" +
+      "MyUserSettingsResponse\"\007\322\363\030\003\360\001\001\022h\n\nCreat" +
+      "eRole\022\036.identity.v1.CreateRoleRequest\032\037." +
+      "identity.v1.CreateRoleResponse\"\031\322\363\030\025R\023id" +
+      "entity:role:write\022\200\001\n\022SetRolePermissions" +
+      "\022&.identity.v1.SetRolePermissionsRequest" +
+      "\032\'.identity.v1.SetRolePermissionsRespons" +
+      "e\"\031\322\363\030\025R\023identity:role:write\022d\n\tListRole" +
+      "s\022\035.identity.v1.ListRolesRequest\032\036.ident" +
+      "ity.v1.ListRolesResponse\"\030\322\363\030\024R\022identity" +
+      ":role:read\022h\n\nUpdateRole\022\036.identity.v1.U" +
+      "pdateRoleRequest\032\037.identity.v1.UpdateRol" +
+      "eResponse\"\031\322\363\030\025R\023identity:role:write\022h\n\n" +
+      "DeleteRole\022\036.identity.v1.DeleteRoleReque" +
+      "st\032\037.identity.v1.DeleteRoleResponse\"\031\322\363\030" +
+      "\025R\023identity:role:write\022|\n\017ListPermission" +
+      "s\022#.identity.v1.ListPermissionsRequest\032$" +
+      ".identity.v1.ListPermissionsResponse\"\036\322\363" +
+      "\030\032R\030identity:permission:read\022\214\001\n\023Registe" +
+      "rPermissions\022\'.identity.v1.RegisterPermi" +
+      "ssionsRequest\032(.identity.v1.RegisterPerm" +
+      "issionsResponse\"\"\322\363\030\036R\034identity:permissi" +
+      "on:register\022h\n\nAssignRole\022\036.identity.v1." +
+      "AssignRoleRequest\032\037.identity.v1.AssignRo" +
+      "leResponse\"\031\322\363\030\025R\023identity:role:write\022h\n" +
+      "\nRevokeRole\022\036.identity.v1.RevokeRoleRequ" +
+      "est\032\037.identity.v1.RevokeRoleResponse\"\031\322\363" +
+      "\030\025R\023identity:role:write\022p\n\014CreateClient\022" +
+      " .identity.v1.CreateClientRequest\032!.iden" +
+      "tity.v1.CreateClientResponse\"\033\322\363\030\027R\025iden" +
+      "tity:client:write\022p\n\014UpdateClient\022 .iden" +
+      "tity.v1.UpdateClientRequest\032!.identity.v" +
+      "1.UpdateClientResponse\"\033\322\363\030\027R\025identity:c" +
+      "lient:write\022\177\n\021SetClientDisabled\022%.ident" +
+      "ity.v1.SetClientDisabledRequest\032&.identi" +
+      "ty.v1.SetClientDisabledResponse\"\033\322\363\030\027R\025i" +
+      "dentity:client:write\022p\n\014DeleteClient\022 .i" +
+      "dentity.v1.DeleteClientRequest\032!.identit" +
+      "y.v1.DeleteClientResponse\"\033\322\363\030\027R\025identit" +
+      "y:client:write\022\202\001\n\022RotateClientSecret\022&." +
+      "identity.v1.RotateClientSecretRequest\032\'." +
+      "identity.v1.RotateClientSecretResponse\"\033" +
+      "\322\363\030\027R\025identity:client:write\022l\n\013ListClien" +
+      "ts\022\037.identity.v1.ListClientsRequest\032 .id" +
+      "entity.v1.ListClientsResponse\"\032\322\363\030\026R\024ide" +
+      "ntity:client:read\022\201\001\n\021SetExchangePolicy\022" +
       "%.identity.v1.SetExchangePolicyRequest\032&" +
-      ".identity.v1.SetExchangePolicyResponse\022k" +
-      "\n\024ListExchangePolicies\022(.identity.v1.Lis" +
-      "tExchangePoliciesRequest\032).identity.v1.L" +
-      "istExchangePoliciesResponse\022M\n\nGetUserMF" +
-      "A\022\036.identity.v1.GetUserMFARequest\032\037.iden" +
-      "tity.v1.GetUserMFAResponse\022M\n\nSetUserMFA" +
-      "\022\036.identity.v1.SetUserMFARequest\032\037.ident" +
-      "ity.v1.SetUserMFAResponse\022Y\n\016EnforceUser" +
-      "MFA\022\".identity.v1.EnforceUserMFARequest\032" +
-      "#.identity.v1.EnforceUserMFAResponse\022S\n\014" +
-      "ResetUserMFA\022 .identity.v1.ResetUserMFAR" +
-      "equest\032!.identity.v1.ResetUserMFARespons" +
-      "e\022M\n\nGetUIStyle\022\036.identity.v1.GetUIStyle" +
-      "Request\032\037.identity.v1.GetUIStyleResponse" +
-      "\022M\n\nSetUIStyle\022\036.identity.v1.SetUIStyleR" +
-      "equest\032\037.identity.v1.SetUIStyleResponseB" +
-      "3Z1github.com/huponx/protogen/identity/v" +
-      "1;identityv1b\006proto3"
+      ".identity.v1.SetExchangePolicyResponse\"\035" +
+      "\322\363\030\031R\027identity:exchange:write\022\211\001\n\024ListEx" +
+      "changePolicies\022(.identity.v1.ListExchang" +
+      "ePoliciesRequest\032).identity.v1.ListExcha" +
+      "ngePoliciesResponse\"\034\322\363\030\030R\026identity:exch" +
+      "ange:read\022f\n\nGetUserMFA\022\036.identity.v1.Ge" +
+      "tUserMFARequest\032\037.identity.v1.GetUserMFA" +
+      "Response\"\027\322\363\030\023R\021identity:mfa:read\022g\n\nSet" +
+      "UserMFA\022\036.identity.v1.SetUserMFARequest\032" +
+      "\037.identity.v1.SetUserMFAResponse\"\030\322\363\030\024R\022" +
+      "identity:mfa:write\022s\n\016EnforceUserMFA\022\".i" +
+      "dentity.v1.EnforceUserMFARequest\032#.ident" +
+      "ity.v1.EnforceUserMFAResponse\"\030\322\363\030\024R\022ide" +
+      "ntity:mfa:write\022m\n\014ResetUserMFA\022 .identi" +
+      "ty.v1.ResetUserMFARequest\032!.identity.v1." +
+      "ResetUserMFAResponse\"\030\322\363\030\024R\022identity:mfa" +
+      ":write\022V\n\nGetUIStyle\022\036.identity.v1.GetUI" +
+      "StyleRequest\032\037.identity.v1.GetUIStyleRes" +
+      "ponse\"\007\322\363\030\003\360\001\001\022l\n\nSetUIStyle\022\036.identity." +
+      "v1.SetUIStyleRequest\032\037.identity.v1.SetUI" +
+      "StyleResponse\"\035\322\363\030\031R\027identity:settings:w" +
+      "rite\022\222\001\n\027GetRegistrationSettings\022+.ident" +
+      "ity.v1.GetRegistrationSettingsRequest\032,." +
+      "identity.v1.GetRegistrationSettingsRespo" +
+      "nse\"\034\322\363\030\030R\026identity:settings:read\022\223\001\n\027Se" +
+      "tRegistrationSettings\022+.identity.v1.SetR" +
+      "egistrationSettingsRequest\032,.identity.v1" +
+      ".SetRegistrationSettingsResponse\"\035\322\363\030\031R\027" +
+      "identity:settings:writeB3Z1github.com/hu" +
+      "ponx/protogen/identity/v1;identityv1b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          authz.v1.Options.getDescriptor(),
         });
     internal_static_identity_v1_IntrospectRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -70664,7 +74023,7 @@ java.lang.String defaultValue) {
     internal_static_identity_v1_GetUserStatsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserStatsResponse_descriptor,
-        new java.lang.String[] { "Total", "Active", "Pending", "Disabled", "MfaEnabled", "MfaEnforced", "WithAvatar", "SignedIn30D", "NeverSignedIn", "CreatedThisMonth", });
+        new java.lang.String[] { "Total", "Active", "Pending", "Disabled", "MfaEnabled", "MfaEnforced", "WithAvatar", "SignedIn30D", "NeverSignedIn", "CreatedThisMonth", "AwaitingApproval", });
     internal_static_identity_v1_GetUserRequest_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_identity_v1_GetUserRequest_fieldAccessorTable = new
@@ -70785,434 +74144,440 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SendWelcomeResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_identity_v1_GetMeRequest_descriptor =
+    internal_static_identity_v1_ApproveUserRequest_descriptor =
       getDescriptor().getMessageTypes().get(29);
+    internal_static_identity_v1_ApproveUserRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_ApproveUserRequest_descriptor,
+        new java.lang.String[] { "UserId", });
+    internal_static_identity_v1_ApproveUserResponse_descriptor =
+      getDescriptor().getMessageTypes().get(30);
+    internal_static_identity_v1_ApproveUserResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_ApproveUserResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_RejectUserRequest_descriptor =
+      getDescriptor().getMessageTypes().get(31);
+    internal_static_identity_v1_RejectUserRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_RejectUserRequest_descriptor,
+        new java.lang.String[] { "UserId", });
+    internal_static_identity_v1_RejectUserResponse_descriptor =
+      getDescriptor().getMessageTypes().get(32);
+    internal_static_identity_v1_RejectUserResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_RejectUserResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_GetMeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(33);
     internal_static_identity_v1_GetMeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMeRequest_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetMeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_identity_v1_GetMeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMeResponse_descriptor,
         new java.lang.String[] { "User", });
     internal_static_identity_v1_UpdateMeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_identity_v1_UpdateMeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateMeRequest_descriptor,
         new java.lang.String[] { "Name", "Locale", "Theme", });
     internal_static_identity_v1_UpdateMeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_identity_v1_UpdateMeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateMeResponse_descriptor,
         new java.lang.String[] { "User", });
     internal_static_identity_v1_SetMyAvatarRequest_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_identity_v1_SetMyAvatarRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetMyAvatarRequest_descriptor,
         new java.lang.String[] { "Image", "MimeType", });
     internal_static_identity_v1_SetMyAvatarResponse_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_identity_v1_SetMyAvatarResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetMyAvatarResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ChangeMyPasswordRequest_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_identity_v1_ChangeMyPasswordRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ChangeMyPasswordRequest_descriptor,
         new java.lang.String[] { "CurrentPassword", "NewPassword", });
     internal_static_identity_v1_ChangeMyPasswordResponse_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_identity_v1_ChangeMyPasswordResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ChangeMyPasswordResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetMyMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_identity_v1_GetMyMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMyMFARequest_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetMyMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_identity_v1_GetMyMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMyMFAResponse_descriptor,
         new java.lang.String[] { "Enabled", "Forced", "RecoveryCodesLeft", });
     internal_static_identity_v1_BeginMyMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_identity_v1_BeginMyMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_BeginMyMFARequest_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_BeginMyMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_identity_v1_BeginMyMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_BeginMyMFAResponse_descriptor,
         new java.lang.String[] { "Qr", "Secret", });
     internal_static_identity_v1_ConfirmMyMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_identity_v1_ConfirmMyMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ConfirmMyMFARequest_descriptor,
         new java.lang.String[] { "Code", });
     internal_static_identity_v1_ConfirmMyMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_identity_v1_ConfirmMyMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ConfirmMyMFAResponse_descriptor,
         new java.lang.String[] { "RecoveryCodes", });
     internal_static_identity_v1_DisableMyMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_identity_v1_DisableMyMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DisableMyMFARequest_descriptor,
         new java.lang.String[] { "Password", "Code", });
     internal_static_identity_v1_DisableMyMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_identity_v1_DisableMyMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DisableMyMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetMyUserSettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_identity_v1_GetMyUserSettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMyUserSettingsRequest_descriptor,
         new java.lang.String[] { "App", });
     internal_static_identity_v1_GetMyUserSettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_identity_v1_GetMyUserSettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetMyUserSettingsResponse_descriptor,
         new java.lang.String[] { "SettingsJson", });
     internal_static_identity_v1_PutMyUserSettingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_identity_v1_PutMyUserSettingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_PutMyUserSettingsRequest_descriptor,
         new java.lang.String[] { "App", "SettingsJson", });
     internal_static_identity_v1_PutMyUserSettingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_identity_v1_PutMyUserSettingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_PutMyUserSettingsResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_Role_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_identity_v1_Role_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Role_descriptor,
-        new java.lang.String[] { "Name", "Description", "Permissions", "AssignedCount", });
+        new java.lang.String[] { "Name", "Description", "Permissions", "AssignedCount", "RetiredPermissions", });
     internal_static_identity_v1_CreateRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_identity_v1_CreateRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateRoleRequest_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_CreateRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_identity_v1_CreateRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateRoleResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_SetRolePermissionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_identity_v1_SetRolePermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetRolePermissionsRequest_descriptor,
         new java.lang.String[] { "Role", "Permissions", });
     internal_static_identity_v1_SetRolePermissionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_identity_v1_SetRolePermissionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetRolePermissionsResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_UpdateRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_identity_v1_UpdateRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateRoleRequest_descriptor,
         new java.lang.String[] { "Role", "Description", "Permissions", });
     internal_static_identity_v1_UpdateRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_identity_v1_UpdateRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateRoleResponse_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_DeleteRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_identity_v1_DeleteRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteRoleRequest_descriptor,
         new java.lang.String[] { "Role", });
     internal_static_identity_v1_DeleteRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_identity_v1_DeleteRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListRolesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(62);
     internal_static_identity_v1_ListRolesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListRolesRequest_descriptor,
         new java.lang.String[] { "Query", "PageSize", "PageToken", });
     internal_static_identity_v1_ListRolesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(59);
+      getDescriptor().getMessageTypes().get(63);
     internal_static_identity_v1_ListRolesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListRolesResponse_descriptor,
         new java.lang.String[] { "Roles", "NextPageToken", "Total", });
     internal_static_identity_v1_Permission_descriptor =
-      getDescriptor().getMessageTypes().get(60);
+      getDescriptor().getMessageTypes().get(64);
     internal_static_identity_v1_Permission_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Permission_descriptor,
-        new java.lang.String[] { "Name", "Description", "RoleCount", });
+        new java.lang.String[] { "Name", "Description", "RoleCount", "Service", "Wildcard", "Retired", });
     internal_static_identity_v1_ListPermissionsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(61);
+      getDescriptor().getMessageTypes().get(65);
     internal_static_identity_v1_ListPermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListPermissionsRequest_descriptor,
         new java.lang.String[] { "Query", "PageSize", "PageToken", });
     internal_static_identity_v1_ListPermissionsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(62);
+      getDescriptor().getMessageTypes().get(66);
     internal_static_identity_v1_ListPermissionsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListPermissionsResponse_descriptor,
         new java.lang.String[] { "Permissions", "NextPageToken", "Total", });
-    internal_static_identity_v1_CreatePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(63);
-    internal_static_identity_v1_CreatePermissionRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_identity_v1_CreatePermissionRequest_descriptor,
-        new java.lang.String[] { "Permission", });
-    internal_static_identity_v1_CreatePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(64);
-    internal_static_identity_v1_CreatePermissionResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_identity_v1_CreatePermissionResponse_descriptor,
-        new java.lang.String[] { "Permission", });
-    internal_static_identity_v1_UpdatePermissionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(65);
-    internal_static_identity_v1_UpdatePermissionRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_identity_v1_UpdatePermissionRequest_descriptor,
-        new java.lang.String[] { "Name", "Permission", "Description", });
-    internal_static_identity_v1_UpdatePermissionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(66);
-    internal_static_identity_v1_UpdatePermissionResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_identity_v1_UpdatePermissionResponse_descriptor,
-        new java.lang.String[] { "Permission", });
-    internal_static_identity_v1_DeletePermissionRequest_descriptor =
+    internal_static_identity_v1_PermissionDeclaration_descriptor =
       getDescriptor().getMessageTypes().get(67);
-    internal_static_identity_v1_DeletePermissionRequest_fieldAccessorTable = new
+    internal_static_identity_v1_PermissionDeclaration_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_identity_v1_DeletePermissionRequest_descriptor,
-        new java.lang.String[] { "Name", "Permission", });
-    internal_static_identity_v1_DeletePermissionResponse_descriptor =
+        internal_static_identity_v1_PermissionDeclaration_descriptor,
+        new java.lang.String[] { "Name", "Description", "RenamedFrom", });
+    internal_static_identity_v1_RegisterPermissionsRequest_descriptor =
       getDescriptor().getMessageTypes().get(68);
-    internal_static_identity_v1_DeletePermissionResponse_fieldAccessorTable = new
+    internal_static_identity_v1_RegisterPermissionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_identity_v1_DeletePermissionResponse_descriptor,
-        new java.lang.String[] { });
-    internal_static_identity_v1_AssignRoleRequest_descriptor =
+        internal_static_identity_v1_RegisterPermissionsRequest_descriptor,
+        new java.lang.String[] { "Service", "Permissions", });
+    internal_static_identity_v1_RegisterPermissionsResponse_descriptor =
       getDescriptor().getMessageTypes().get(69);
+    internal_static_identity_v1_RegisterPermissionsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_RegisterPermissionsResponse_descriptor,
+        new java.lang.String[] { "Inserted", "Updated", "Retired", "Deleted", "Renamed", });
+    internal_static_identity_v1_AssignRoleRequest_descriptor =
+      getDescriptor().getMessageTypes().get(70);
     internal_static_identity_v1_AssignRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_AssignRoleRequest_descriptor,
         new java.lang.String[] { "UserId", "ClientId", "Role", });
     internal_static_identity_v1_AssignRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(70);
+      getDescriptor().getMessageTypes().get(71);
     internal_static_identity_v1_AssignRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_AssignRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_RevokeRoleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(71);
+      getDescriptor().getMessageTypes().get(72);
     internal_static_identity_v1_RevokeRoleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RevokeRoleRequest_descriptor,
         new java.lang.String[] { "UserId", "ClientId", "Role", });
     internal_static_identity_v1_RevokeRoleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(72);
+      getDescriptor().getMessageTypes().get(73);
     internal_static_identity_v1_RevokeRoleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RevokeRoleResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_Client_descriptor =
-      getDescriptor().getMessageTypes().get(73);
+      getDescriptor().getMessageTypes().get(74);
     internal_static_identity_v1_Client_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_Client_descriptor,
         new java.lang.String[] { "ClientId", "Name", "Type", "RedirectUris", "PostLogoutRedirectUris", "BackchannelLogoutUri", "AllowedGrants", "AllowedScopes", "Resource", "Roles", "Disabled", });
     internal_static_identity_v1_CreateClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(74);
+      getDescriptor().getMessageTypes().get(75);
     internal_static_identity_v1_CreateClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateClientRequest_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_CreateClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(75);
+      getDescriptor().getMessageTypes().get(76);
     internal_static_identity_v1_CreateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_CreateClientResponse_descriptor,
         new java.lang.String[] { "Client", "ClientSecret", });
     internal_static_identity_v1_RotateClientSecretRequest_descriptor =
-      getDescriptor().getMessageTypes().get(76);
+      getDescriptor().getMessageTypes().get(77);
     internal_static_identity_v1_RotateClientSecretRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RotateClientSecretRequest_descriptor,
         new java.lang.String[] { "ClientId", });
     internal_static_identity_v1_RotateClientSecretResponse_descriptor =
-      getDescriptor().getMessageTypes().get(77);
+      getDescriptor().getMessageTypes().get(78);
     internal_static_identity_v1_RotateClientSecretResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_RotateClientSecretResponse_descriptor,
         new java.lang.String[] { "ClientSecret", });
     internal_static_identity_v1_UpdateClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(78);
+      getDescriptor().getMessageTypes().get(79);
     internal_static_identity_v1_UpdateClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateClientRequest_descriptor,
         new java.lang.String[] { "ClientId", "Name", "RedirectUris", "PostLogoutRedirectUris", "BackchannelLogoutUri", "AllowedGrants", "AllowedScopes", "Resource", "Roles", });
     internal_static_identity_v1_UpdateClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(79);
+      getDescriptor().getMessageTypes().get(80);
     internal_static_identity_v1_UpdateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_UpdateClientResponse_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_SetClientDisabledRequest_descriptor =
-      getDescriptor().getMessageTypes().get(80);
+      getDescriptor().getMessageTypes().get(81);
     internal_static_identity_v1_SetClientDisabledRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetClientDisabledRequest_descriptor,
         new java.lang.String[] { "ClientId", "Disabled", });
     internal_static_identity_v1_SetClientDisabledResponse_descriptor =
-      getDescriptor().getMessageTypes().get(81);
+      getDescriptor().getMessageTypes().get(82);
     internal_static_identity_v1_SetClientDisabledResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetClientDisabledResponse_descriptor,
         new java.lang.String[] { "Client", });
     internal_static_identity_v1_DeleteClientRequest_descriptor =
-      getDescriptor().getMessageTypes().get(82);
+      getDescriptor().getMessageTypes().get(83);
     internal_static_identity_v1_DeleteClientRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteClientRequest_descriptor,
         new java.lang.String[] { "ClientId", });
     internal_static_identity_v1_DeleteClientResponse_descriptor =
-      getDescriptor().getMessageTypes().get(83);
+      getDescriptor().getMessageTypes().get(84);
     internal_static_identity_v1_DeleteClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_DeleteClientResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListClientsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(84);
+      getDescriptor().getMessageTypes().get(85);
     internal_static_identity_v1_ListClientsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListClientsRequest_descriptor,
         new java.lang.String[] { "Query", "Type", "PageSize", "PageToken", });
     internal_static_identity_v1_ListClientsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(85);
+      getDescriptor().getMessageTypes().get(86);
     internal_static_identity_v1_ListClientsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListClientsResponse_descriptor,
         new java.lang.String[] { "Clients", "NextPageToken", });
     internal_static_identity_v1_ExchangePolicy_descriptor =
-      getDescriptor().getMessageTypes().get(86);
+      getDescriptor().getMessageTypes().get(87);
     internal_static_identity_v1_ExchangePolicy_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ExchangePolicy_descriptor,
         new java.lang.String[] { "ClientId", "Audience", "MaxScope", "MaxChainDepth", });
     internal_static_identity_v1_SetExchangePolicyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(87);
+      getDescriptor().getMessageTypes().get(88);
     internal_static_identity_v1_SetExchangePolicyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetExchangePolicyRequest_descriptor,
         new java.lang.String[] { "Policy", "Delete", });
     internal_static_identity_v1_SetExchangePolicyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(88);
+      getDescriptor().getMessageTypes().get(89);
     internal_static_identity_v1_SetExchangePolicyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetExchangePolicyResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ListExchangePoliciesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(89);
+      getDescriptor().getMessageTypes().get(90);
     internal_static_identity_v1_ListExchangePoliciesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListExchangePoliciesRequest_descriptor,
         new java.lang.String[] { "ClientId", "Query", "Audience", "PageSize", "PageToken", });
     internal_static_identity_v1_ListExchangePoliciesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(90);
+      getDescriptor().getMessageTypes().get(91);
     internal_static_identity_v1_ListExchangePoliciesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ListExchangePoliciesResponse_descriptor,
         new java.lang.String[] { "Policies", "NextPageToken", });
     internal_static_identity_v1_GetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(91);
+      getDescriptor().getMessageTypes().get(92);
     internal_static_identity_v1_GetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_GetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(92);
+      getDescriptor().getMessageTypes().get(93);
     internal_static_identity_v1_GetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUserMFAResponse_descriptor,
         new java.lang.String[] { "Enabled", "Enforced", "Mode", "RecoveryCodesLeft", });
     internal_static_identity_v1_SetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(93);
+      getDescriptor().getMessageTypes().get(94);
     internal_static_identity_v1_SetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", "Enabled", });
     internal_static_identity_v1_SetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(94);
+      getDescriptor().getMessageTypes().get(95);
     internal_static_identity_v1_SetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_EnforceUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(95);
+      getDescriptor().getMessageTypes().get(96);
     internal_static_identity_v1_EnforceUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_EnforceUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", "Enforced", });
     internal_static_identity_v1_EnforceUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(96);
+      getDescriptor().getMessageTypes().get(97);
     internal_static_identity_v1_EnforceUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_EnforceUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_ResetUserMFARequest_descriptor =
-      getDescriptor().getMessageTypes().get(97);
+      getDescriptor().getMessageTypes().get(98);
     internal_static_identity_v1_ResetUserMFARequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFARequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_identity_v1_ResetUserMFAResponse_descriptor =
-      getDescriptor().getMessageTypes().get(98);
+      getDescriptor().getMessageTypes().get(99);
     internal_static_identity_v1_ResetUserMFAResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_ResetUserMFAResponse_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetUIStyleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(99);
+      getDescriptor().getMessageTypes().get(100);
     internal_static_identity_v1_GetUIStyleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUIStyleRequest_descriptor,
         new java.lang.String[] { });
     internal_static_identity_v1_GetUIStyleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(100);
+      getDescriptor().getMessageTypes().get(101);
     internal_static_identity_v1_GetUIStyleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_GetUIStyleResponse_descriptor,
@@ -71224,7 +74589,7 @@ java.lang.String defaultValue) {
         internal_static_identity_v1_GetUIStyleResponse_UiPalettesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_identity_v1_SetUIStyleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(101);
+      getDescriptor().getMessageTypes().get(102);
     internal_static_identity_v1_SetUIStyleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUIStyleRequest_descriptor,
@@ -71236,7 +74601,7 @@ java.lang.String defaultValue) {
         internal_static_identity_v1_SetUIStyleRequest_UiPalettesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_identity_v1_SetUIStyleResponse_descriptor =
-      getDescriptor().getMessageTypes().get(102);
+      getDescriptor().getMessageTypes().get(103);
     internal_static_identity_v1_SetUIStyleResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUIStyleResponse_descriptor,
@@ -71247,7 +74612,37 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_identity_v1_SetUIStyleResponse_UiPalettesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
+    internal_static_identity_v1_GetRegistrationSettingsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(104);
+    internal_static_identity_v1_GetRegistrationSettingsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetRegistrationSettingsRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_identity_v1_GetRegistrationSettingsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(105);
+    internal_static_identity_v1_GetRegistrationSettingsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_GetRegistrationSettingsResponse_descriptor,
+        new java.lang.String[] { "RequiresApproval", "RegistrationEnabled", });
+    internal_static_identity_v1_SetRegistrationSettingsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(106);
+    internal_static_identity_v1_SetRegistrationSettingsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_SetRegistrationSettingsRequest_descriptor,
+        new java.lang.String[] { "RequiresApproval", });
+    internal_static_identity_v1_SetRegistrationSettingsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(107);
+    internal_static_identity_v1_SetRegistrationSettingsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_identity_v1_SetRegistrationSettingsResponse_descriptor,
+        new java.lang.String[] { "RequiresApproval", "RegistrationEnabled", });
     descriptor.resolveAllFeaturesImmutable();
+    authz.v1.Options.getDescriptor();
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(authz.v1.Options.rule);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
   }
 
   // @@protoc_insertion_point(outer_class_scope)

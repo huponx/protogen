@@ -6,9 +6,9 @@
 package com.huponx.protogen.identity.v1
 
 @SerialVersionUID(0L)
-final case class DeletePermissionResponse(
+final case class ApproveUserResponse(
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[DeletePermissionResponse] {
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ApproveUserResponse] {
     @transient
     private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
     private[this] def __computeSerializedSize(): _root_.scala.Int = {
@@ -33,13 +33,13 @@ final case class DeletePermissionResponse(
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-    def companion: com.huponx.protogen.identity.v1.DeletePermissionResponse.type = com.huponx.protogen.identity.v1.DeletePermissionResponse
-    // @@protoc_insertion_point(GeneratedMessage[identity.v1.DeletePermissionResponse])
+    def companion: com.huponx.protogen.identity.v1.ApproveUserResponse.type = com.huponx.protogen.identity.v1.ApproveUserResponse
+    // @@protoc_insertion_point(GeneratedMessage[identity.v1.ApproveUserResponse])
 }
 
-object DeletePermissionResponse extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.DeletePermissionResponse] {
-  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.DeletePermissionResponse] = this
-  def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.DeletePermissionResponse = {
+object ApproveUserResponse extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ApproveUserResponse] {
+  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ApproveUserResponse] = this
+  def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.ApproveUserResponse = {
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -53,28 +53,28 @@ object DeletePermissionResponse extends scalapb.GeneratedMessageCompanion[com.hu
           _unknownFields__.parseField(tag, _input__)
       }
     }
-    com.huponx.protogen.identity.v1.DeletePermissionResponse(
+    com.huponx.protogen.identity.v1.ApproveUserResponse(
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[com.huponx.protogen.identity.v1.DeletePermissionResponse] = _root_.scalapb.descriptors.Reads{
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[com.huponx.protogen.identity.v1.ApproveUserResponse] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
-      com.huponx.protogen.identity.v1.DeletePermissionResponse(
+      com.huponx.protogen.identity.v1.ApproveUserResponse(
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(68)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(68)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(30)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(30)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-  lazy val defaultInstance = com.huponx.protogen.identity.v1.DeletePermissionResponse(
+  lazy val defaultInstance = com.huponx.protogen.identity.v1.ApproveUserResponse(
   )
-  implicit class DeletePermissionResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.DeletePermissionResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.DeletePermissionResponse](_l) {
+  implicit class ApproveUserResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.ApproveUserResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.ApproveUserResponse](_l) {
   }
   def of(
-  ): _root_.com.huponx.protogen.identity.v1.DeletePermissionResponse = _root_.com.huponx.protogen.identity.v1.DeletePermissionResponse(
+  ): _root_.com.huponx.protogen.identity.v1.ApproveUserResponse = _root_.com.huponx.protogen.identity.v1.ApproveUserResponse(
   )
-  // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.DeletePermissionResponse])
+  // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.ApproveUserResponse])
 }

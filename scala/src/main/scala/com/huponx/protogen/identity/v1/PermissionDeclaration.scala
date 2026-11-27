@@ -5,12 +5,18 @@
 
 package com.huponx.protogen.identity.v1
 
+/** A permission a service declared, sent by RegisterPermissions.
+  *
+  * @param renamedFrom
+  *   The previous name: its role grants move to `name`.
+  */
 @SerialVersionUID(0L)
-final case class DeletePermissionRequest(
+final case class PermissionDeclaration(
     name: _root_.scala.Predef.String = "",
-    permission: _root_.scala.Predef.String = "",
+    description: _root_.scala.Predef.String = "",
+    renamedFrom: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
-    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[DeletePermissionRequest] {
+    ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[PermissionDeclaration] {
     @transient
     private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
     private[this] def __computeSerializedSize(): _root_.scala.Int = {
@@ -24,9 +30,16 @@ final case class DeletePermissionRequest(
       };
       
       {
-        val __value = permission
+        val __value = description
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(20, __value)
+        }
+      };
+      
+      {
+        val __value = renamedFrom
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -49,15 +62,22 @@ final case class DeletePermissionRequest(
         }
       };
       {
-        val __v = permission
+        val __v = description
         if (!__v.isEmpty) {
           _output__.writeString(20, __v)
         }
       };
+      {
+        val __v = renamedFrom
+        if (!__v.isEmpty) {
+          _output__.writeString(30, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
-    def withName(__v: _root_.scala.Predef.String): DeletePermissionRequest = copy(name = __v)
-    def withPermission(__v: _root_.scala.Predef.String): DeletePermissionRequest = copy(permission = __v)
+    def withName(__v: _root_.scala.Predef.String): PermissionDeclaration = copy(name = __v)
+    def withDescription(__v: _root_.scala.Predef.String): PermissionDeclaration = copy(description = __v)
+    def withRenamedFrom(__v: _root_.scala.Predef.String): PermissionDeclaration = copy(renamedFrom = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -67,7 +87,11 @@ final case class DeletePermissionRequest(
           if (__t != "") __t else null
         }
         case 20 => {
-          val __t = permission
+          val __t = description
+          if (__t != "") __t else null
+        }
+        case 30 => {
+          val __t = renamedFrom
           if (__t != "") __t else null
         }
       }
@@ -76,19 +100,21 @@ final case class DeletePermissionRequest(
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(name)
-        case 20 => _root_.scalapb.descriptors.PString(permission)
+        case 20 => _root_.scalapb.descriptors.PString(description)
+        case 30 => _root_.scalapb.descriptors.PString(renamedFrom)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
-    def companion: com.huponx.protogen.identity.v1.DeletePermissionRequest.type = com.huponx.protogen.identity.v1.DeletePermissionRequest
-    // @@protoc_insertion_point(GeneratedMessage[identity.v1.DeletePermissionRequest])
+    def companion: com.huponx.protogen.identity.v1.PermissionDeclaration.type = com.huponx.protogen.identity.v1.PermissionDeclaration
+    // @@protoc_insertion_point(GeneratedMessage[identity.v1.PermissionDeclaration])
 }
 
-object DeletePermissionRequest extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.DeletePermissionRequest] {
-  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.DeletePermissionRequest] = this
-  def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.DeletePermissionRequest = {
+object PermissionDeclaration extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.PermissionDeclaration] {
+  implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.PermissionDeclaration] = this
+  def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.PermissionDeclaration = {
     var __name: _root_.scala.Predef.String = ""
-    var __permission: _root_.scala.Predef.String = ""
+    var __description: _root_.scala.Predef.String = ""
+    var __renamedFrom: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -98,7 +124,9 @@ object DeletePermissionRequest extends scalapb.GeneratedMessageCompanion[com.hup
         case 82 =>
           __name = _input__.readStringRequireUtf8()
         case 162 =>
-          __permission = _input__.readStringRequireUtf8()
+          __description = _input__.readStringRequireUtf8()
+        case 242 =>
+          __renamedFrom = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -106,18 +134,20 @@ object DeletePermissionRequest extends scalapb.GeneratedMessageCompanion[com.hup
           _unknownFields__.parseField(tag, _input__)
       }
     }
-    com.huponx.protogen.identity.v1.DeletePermissionRequest(
+    com.huponx.protogen.identity.v1.PermissionDeclaration(
         name = __name,
-        permission = __permission,
+        description = __description,
+        renamedFrom = __renamedFrom,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
-  implicit def messageReads: _root_.scalapb.descriptors.Reads[com.huponx.protogen.identity.v1.DeletePermissionRequest] = _root_.scalapb.descriptors.Reads{
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[com.huponx.protogen.identity.v1.PermissionDeclaration] = _root_.scalapb.descriptors.Reads{
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
-      com.huponx.protogen.identity.v1.DeletePermissionRequest(
+      com.huponx.protogen.identity.v1.PermissionDeclaration(
         name = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        permission = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        description = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        renamedFrom = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -126,22 +156,27 @@ object DeletePermissionRequest extends scalapb.GeneratedMessageCompanion[com.hup
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
-  lazy val defaultInstance = com.huponx.protogen.identity.v1.DeletePermissionRequest(
+  lazy val defaultInstance = com.huponx.protogen.identity.v1.PermissionDeclaration(
     name = "",
-    permission = ""
+    description = "",
+    renamedFrom = ""
   )
-  implicit class DeletePermissionRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.DeletePermissionRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.DeletePermissionRequest](_l) {
+  implicit class PermissionDeclarationLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.PermissionDeclaration]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.PermissionDeclaration](_l) {
     def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.name)((c_, f_) => c_.copy(name = f_))
-    def permission: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.permission)((c_, f_) => c_.copy(permission = f_))
+    def description: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.description)((c_, f_) => c_.copy(description = f_))
+    def renamedFrom: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.renamedFrom)((c_, f_) => c_.copy(renamedFrom = f_))
   }
   final val NAME_FIELD_NUMBER = 10
-  final val PERMISSION_FIELD_NUMBER = 20
+  final val DESCRIPTION_FIELD_NUMBER = 20
+  final val RENAMED_FROM_FIELD_NUMBER = 30
   def of(
     name: _root_.scala.Predef.String,
-    permission: _root_.scala.Predef.String
-  ): _root_.com.huponx.protogen.identity.v1.DeletePermissionRequest = _root_.com.huponx.protogen.identity.v1.DeletePermissionRequest(
+    description: _root_.scala.Predef.String,
+    renamedFrom: _root_.scala.Predef.String
+  ): _root_.com.huponx.protogen.identity.v1.PermissionDeclaration = _root_.com.huponx.protogen.identity.v1.PermissionDeclaration(
     name,
-    permission
+    description,
+    renamedFrom
   )
-  // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.DeletePermissionRequest])
+  // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.PermissionDeclaration])
 }

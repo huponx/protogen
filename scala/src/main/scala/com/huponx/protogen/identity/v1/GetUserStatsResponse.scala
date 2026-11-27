@@ -15,6 +15,8 @@ package com.huponx.protogen.identity.v1
   *   Never signed in (or only before sign ins were tracked).
   * @param createdThisMonth
   *   Created since the start of this month (UTC).
+  * @param awaitingApproval
+  *   Self-registered, waiting for an administrator.
   */
 @SerialVersionUID(0L)
 final case class GetUserStatsResponse(
@@ -28,6 +30,7 @@ final case class GetUserStatsResponse(
     signedIn30D: _root_.scala.Long = 0L,
     neverSignedIn: _root_.scala.Long = 0L,
     createdThisMonth: _root_.scala.Long = 0L,
+    awaitingApproval: _root_.scala.Long = 0L,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[GetUserStatsResponse] {
     @transient
@@ -104,6 +107,13 @@ final case class GetUserStatsResponse(
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(100, __value)
         }
       };
+      
+      {
+        val __value = awaitingApproval
+        if (__value != 0L) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(110, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -177,6 +187,12 @@ final case class GetUserStatsResponse(
           _output__.writeInt64(100, __v)
         }
       };
+      {
+        val __v = awaitingApproval
+        if (__v != 0L) {
+          _output__.writeInt64(110, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withTotal(__v: _root_.scala.Long): GetUserStatsResponse = copy(total = __v)
@@ -189,6 +205,7 @@ final case class GetUserStatsResponse(
     def withSignedIn30D(__v: _root_.scala.Long): GetUserStatsResponse = copy(signedIn30D = __v)
     def withNeverSignedIn(__v: _root_.scala.Long): GetUserStatsResponse = copy(neverSignedIn = __v)
     def withCreatedThisMonth(__v: _root_.scala.Long): GetUserStatsResponse = copy(createdThisMonth = __v)
+    def withAwaitingApproval(__v: _root_.scala.Long): GetUserStatsResponse = copy(awaitingApproval = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -233,6 +250,10 @@ final case class GetUserStatsResponse(
           val __t = createdThisMonth
           if (__t != 0L) __t else null
         }
+        case 110 => {
+          val __t = awaitingApproval
+          if (__t != 0L) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -248,6 +269,7 @@ final case class GetUserStatsResponse(
         case 80 => _root_.scalapb.descriptors.PLong(signedIn30D)
         case 90 => _root_.scalapb.descriptors.PLong(neverSignedIn)
         case 100 => _root_.scalapb.descriptors.PLong(createdThisMonth)
+        case 110 => _root_.scalapb.descriptors.PLong(awaitingApproval)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -268,6 +290,7 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
     var __signedIn30D: _root_.scala.Long = 0L
     var __neverSignedIn: _root_.scala.Long = 0L
     var __createdThisMonth: _root_.scala.Long = 0L
+    var __awaitingApproval: _root_.scala.Long = 0L
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -294,6 +317,8 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
           __neverSignedIn = _input__.readInt64()
         case 800 =>
           __createdThisMonth = _input__.readInt64()
+        case 880 =>
+          __awaitingApproval = _input__.readInt64()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -312,6 +337,7 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
         signedIn30D = __signedIn30D,
         neverSignedIn = __neverSignedIn,
         createdThisMonth = __createdThisMonth,
+        awaitingApproval = __awaitingApproval,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -328,7 +354,8 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
         withAvatar = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
         signedIn30D = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
         neverSignedIn = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
-        createdThisMonth = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
+        createdThisMonth = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        awaitingApproval = __fieldsMap.get(scalaDescriptor.findFieldByNumber(110).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -347,7 +374,8 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
     withAvatar = 0L,
     signedIn30D = 0L,
     neverSignedIn = 0L,
-    createdThisMonth = 0L
+    createdThisMonth = 0L,
+    awaitingApproval = 0L
   )
   implicit class GetUserStatsResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.GetUserStatsResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.GetUserStatsResponse](_l) {
     def total: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.total)((c_, f_) => c_.copy(total = f_))
@@ -360,6 +388,7 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
     def signedIn30D: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.signedIn30D)((c_, f_) => c_.copy(signedIn30D = f_))
     def neverSignedIn: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.neverSignedIn)((c_, f_) => c_.copy(neverSignedIn = f_))
     def createdThisMonth: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.createdThisMonth)((c_, f_) => c_.copy(createdThisMonth = f_))
+    def awaitingApproval: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.awaitingApproval)((c_, f_) => c_.copy(awaitingApproval = f_))
   }
   final val TOTAL_FIELD_NUMBER = 10
   final val ACTIVE_FIELD_NUMBER = 20
@@ -371,6 +400,7 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
   final val SIGNED_IN_30D_FIELD_NUMBER = 80
   final val NEVER_SIGNED_IN_FIELD_NUMBER = 90
   final val CREATED_THIS_MONTH_FIELD_NUMBER = 100
+  final val AWAITING_APPROVAL_FIELD_NUMBER = 110
   def of(
     total: _root_.scala.Long,
     active: _root_.scala.Long,
@@ -381,7 +411,8 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
     withAvatar: _root_.scala.Long,
     signedIn30D: _root_.scala.Long,
     neverSignedIn: _root_.scala.Long,
-    createdThisMonth: _root_.scala.Long
+    createdThisMonth: _root_.scala.Long,
+    awaitingApproval: _root_.scala.Long
   ): _root_.com.huponx.protogen.identity.v1.GetUserStatsResponse = _root_.com.huponx.protogen.identity.v1.GetUserStatsResponse(
     total,
     active,
@@ -392,7 +423,8 @@ object GetUserStatsResponse extends scalapb.GeneratedMessageCompanion[com.huponx
     withAvatar,
     signedIn30D,
     neverSignedIn,
-    createdThisMonth
+    createdThisMonth,
+    awaitingApproval
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.GetUserStatsResponse])
 }
