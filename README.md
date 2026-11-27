@@ -9,6 +9,7 @@ go/            # module github.com/huponx/protogen/go (go/vN/ for major >= 2)
 java/          # Maven: pom.xml, stubs in src/main/java
 scala/         # sbt: build.sbt, stubs in src/main/scala (package com.huponx.protogen.<proto package>)
 rust/          # Cargo: Cargo.toml, stubs in src/gen
+ts/            # npm package @huponx/protogen: src/permissions.ts (P, Permission, PERMISSIONS), generated from the permissions.proto files
 .github/
   workflows/   # generate.yml, check.yml, automerge.yml
   scripts/     # publish.sh
@@ -22,7 +23,7 @@ One proto release `vX.Y.Z` produces:
 |---|---|
 | `vX.Y.Z` | common tag and GitHub Release, created once at least one language succeeded; notes list pass/fail per language |
 | `go/vX.Y.Z` | Go module `go/` (major 0, 1); `go/vN/vN.Y.Z` for the module in `go/vN/` (major N >= 2) |
-| `java/vX.Y.Z`, `scala/vX.Y.Z`, `rust/vX.Y.Z` | one tag per language that succeeded |
+| `java/vX.Y.Z`, `scala/vX.Y.Z`, `rust/vX.Y.Z`, `ts/vX.Y.Z` | one tag per language that succeeded |
 
 A language that failed has no tag for that version.
 
@@ -38,6 +39,19 @@ import pingv1 "github.com/huponx/protogen/go/ping/v1"
 ```
 
 From major 2 the module is `github.com/huponx/protogen/go/v2`, so imports change to `.../go/v2/ping/v1`.
+
+TypeScript (the web apps). The `publish-npm` job of `generate.yml` publishes `@huponx/protogen@<version>` to GitHub Packages after the `ts/vX.Y.Z` tag exists (the version is the proto release; `tsc` in `check.yml` compiled the package before). The package ships its TypeScript source. The consumer needs `@huponx:registry=https://npm.pkg.github.com` and a token with `read:packages` in `NODE_AUTH_TOKEN` (see `web/.npmrc`; locally `export NODE_AUTH_TOKEN=$(gh auth token)`):
+
+```json
+"@huponx/protogen": "^0.2.0"
+```
+
+```ts
+import { P, type Permission } from "@huponx/protogen";
+can(P.identity.userRead);
+```
+
+A permission change reaches the web apps by a version bump of this dependency; `tsc` in the PR of `web` then fails on every name that no longer exists.
 
 Rust (git dependency on the language tag; the crate lives in `rust/`):
 
