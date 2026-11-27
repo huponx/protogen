@@ -14,8 +14,6 @@ package com.huponx.protogen.dictionary.v1
   *   Anki deck download (ExportAnki).
   * @param allowExportLink
   *   Anki deck behind a link (CreateDeckLink).
-  * @param englishEnabled
-  *   The dictionaries that can be looked up.
   * @param removeAfterExport
   *   An export takes the words out of the list (a user can still turn it off for themself).
   * @param exportedRetentionHours
@@ -45,14 +43,15 @@ package com.huponx.protogen.dictionary.v1
   *   the current value.
   * @param maxContentBytesCeiling
   *   The ceilings of the four sizes above: the configuration of the deployment. Read only, ignored on update.
+  * @param dictionaries
+  *   The dictionaries of the registry that can be looked up, by id. An id missing from the map takes the default
+  *   of the registry. At least one must be on.
   */
 @SerialVersionUID(0L)
 final case class Settings(
     maxSavedWords: _root_.scala.Int = 0,
     allowExportDeck: _root_.scala.Boolean = false,
     allowExportLink: _root_.scala.Boolean = false,
-    englishEnabled: _root_.scala.Boolean = false,
-    englishViEnabled: _root_.scala.Boolean = false,
     removeAfterExport: _root_.scala.Boolean = false,
     exportedRetentionHours: _root_.scala.Int = 0,
     maxCategories: _root_.scala.Int = 0,
@@ -70,6 +69,7 @@ final case class Settings(
     contentUserQuotaCeiling: _root_.scala.Long = 0L,
     imageUserQuotaCeiling: _root_.scala.Long = 0L,
     audioUserQuotaCeiling: _root_.scala.Long = 0L,
+    dictionaries: _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean] = _root_.scala.collection.immutable.Map.empty,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[Settings] {
     @transient
@@ -95,20 +95,6 @@ final case class Settings(
         val __value = allowExportLink
         if (__value != false) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(30, __value)
-        }
-      };
-      
-      {
-        val __value = englishEnabled
-        if (__value != false) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(40, __value)
-        }
-      };
-      
-      {
-        val __value = englishViEnabled
-        if (__value != false) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(50, __value)
         }
       };
       
@@ -230,6 +216,10 @@ final case class Settings(
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(220, __value)
         }
       };
+      dictionaries.foreach { __item =>
+        val __value = com.huponx.protogen.dictionary.v1.Settings._typemapper_dictionaries.toBase(__item)
+        __size += 2 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
+      }
       __size += unknownFields.serializedSize
       __size
     }
@@ -259,18 +249,6 @@ final case class Settings(
         val __v = allowExportLink
         if (__v != false) {
           _output__.writeBool(30, __v)
-        }
-      };
-      {
-        val __v = englishEnabled
-        if (__v != false) {
-          _output__.writeBool(40, __v)
-        }
-      };
-      {
-        val __v = englishViEnabled
-        if (__v != false) {
-          _output__.writeBool(50, __v)
         }
       };
       {
@@ -375,13 +353,17 @@ final case class Settings(
           _output__.writeInt64(220, __v)
         }
       };
+      dictionaries.foreach { __v =>
+        val __m = com.huponx.protogen.dictionary.v1.Settings._typemapper_dictionaries.toBase(__v)
+        _output__.writeTag(230, 2)
+        _output__.writeUInt32NoTag(__m.serializedSize)
+        __m.writeTo(_output__)
+      };
       unknownFields.writeTo(_output__)
     }
     def withMaxSavedWords(__v: _root_.scala.Int): Settings = copy(maxSavedWords = __v)
     def withAllowExportDeck(__v: _root_.scala.Boolean): Settings = copy(allowExportDeck = __v)
     def withAllowExportLink(__v: _root_.scala.Boolean): Settings = copy(allowExportLink = __v)
-    def withEnglishEnabled(__v: _root_.scala.Boolean): Settings = copy(englishEnabled = __v)
-    def withEnglishViEnabled(__v: _root_.scala.Boolean): Settings = copy(englishViEnabled = __v)
     def withRemoveAfterExport(__v: _root_.scala.Boolean): Settings = copy(removeAfterExport = __v)
     def withExportedRetentionHours(__v: _root_.scala.Int): Settings = copy(exportedRetentionHours = __v)
     def withMaxCategories(__v: _root_.scala.Int): Settings = copy(maxCategories = __v)
@@ -399,6 +381,10 @@ final case class Settings(
     def withContentUserQuotaCeiling(__v: _root_.scala.Long): Settings = copy(contentUserQuotaCeiling = __v)
     def withImageUserQuotaCeiling(__v: _root_.scala.Long): Settings = copy(imageUserQuotaCeiling = __v)
     def withAudioUserQuotaCeiling(__v: _root_.scala.Long): Settings = copy(audioUserQuotaCeiling = __v)
+    def clearDictionaries = copy(dictionaries = _root_.scala.collection.immutable.Map.empty)
+    def addDictionaries(__vs: (_root_.scala.Predef.String, _root_.scala.Boolean) *): Settings = addAllDictionaries(__vs)
+    def addAllDictionaries(__vs: Iterable[(_root_.scala.Predef.String, _root_.scala.Boolean)]): Settings = copy(dictionaries = dictionaries ++ __vs)
+    def withDictionaries(__v: _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]): Settings = copy(dictionaries = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -413,14 +399,6 @@ final case class Settings(
         }
         case 30 => {
           val __t = allowExportLink
-          if (__t != false) __t else null
-        }
-        case 40 => {
-          val __t = englishEnabled
-          if (__t != false) __t else null
-        }
-        case 50 => {
-          val __t = englishViEnabled
           if (__t != false) __t else null
         }
         case 60 => {
@@ -491,6 +469,7 @@ final case class Settings(
           val __t = audioUserQuotaCeiling
           if (__t != 0L) __t else null
         }
+        case 230 => dictionaries.iterator.map(com.huponx.protogen.dictionary.v1.Settings._typemapper_dictionaries.toBase(_)).toSeq
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -499,8 +478,6 @@ final case class Settings(
         case 10 => _root_.scalapb.descriptors.PInt(maxSavedWords)
         case 20 => _root_.scalapb.descriptors.PBoolean(allowExportDeck)
         case 30 => _root_.scalapb.descriptors.PBoolean(allowExportLink)
-        case 40 => _root_.scalapb.descriptors.PBoolean(englishEnabled)
-        case 50 => _root_.scalapb.descriptors.PBoolean(englishViEnabled)
         case 60 => _root_.scalapb.descriptors.PBoolean(removeAfterExport)
         case 70 => _root_.scalapb.descriptors.PInt(exportedRetentionHours)
         case 80 => _root_.scalapb.descriptors.PInt(maxCategories)
@@ -518,6 +495,7 @@ final case class Settings(
         case 200 => _root_.scalapb.descriptors.PLong(contentUserQuotaCeiling)
         case 210 => _root_.scalapb.descriptors.PLong(imageUserQuotaCeiling)
         case 220 => _root_.scalapb.descriptors.PLong(audioUserQuotaCeiling)
+        case 230 => _root_.scalapb.descriptors.PRepeated(dictionaries.iterator.map(com.huponx.protogen.dictionary.v1.Settings._typemapper_dictionaries.toBase(_).toPMessage).toVector)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -531,8 +509,6 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     var __maxSavedWords: _root_.scala.Int = 0
     var __allowExportDeck: _root_.scala.Boolean = false
     var __allowExportLink: _root_.scala.Boolean = false
-    var __englishEnabled: _root_.scala.Boolean = false
-    var __englishViEnabled: _root_.scala.Boolean = false
     var __removeAfterExport: _root_.scala.Boolean = false
     var __exportedRetentionHours: _root_.scala.Int = 0
     var __maxCategories: _root_.scala.Int = 0
@@ -550,6 +526,7 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     var __contentUserQuotaCeiling: _root_.scala.Long = 0L
     var __imageUserQuotaCeiling: _root_.scala.Long = 0L
     var __audioUserQuotaCeiling: _root_.scala.Long = 0L
+    val __dictionaries: _root_.scala.collection.mutable.Builder[(_root_.scala.Predef.String, _root_.scala.Boolean), _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]] = _root_.scala.collection.immutable.Map.newBuilder[_root_.scala.Predef.String, _root_.scala.Boolean]
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -562,10 +539,6 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
           __allowExportDeck = _input__.readBool()
         case 240 =>
           __allowExportLink = _input__.readBool()
-        case 320 =>
-          __englishEnabled = _input__.readBool()
-        case 400 =>
-          __englishViEnabled = _input__.readBool()
         case 480 =>
           __removeAfterExport = _input__.readBool()
         case 560 =>
@@ -600,6 +573,8 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
           __imageUserQuotaCeiling = _input__.readInt64()
         case 1760 =>
           __audioUserQuotaCeiling = _input__.readInt64()
+        case 1842 =>
+          __dictionaries += com.huponx.protogen.dictionary.v1.Settings._typemapper_dictionaries.toCustom(_root_.scalapb.LiteParser.readMessage[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry](_input__))
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -611,8 +586,6 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         maxSavedWords = __maxSavedWords,
         allowExportDeck = __allowExportDeck,
         allowExportLink = __allowExportLink,
-        englishEnabled = __englishEnabled,
-        englishViEnabled = __englishViEnabled,
         removeAfterExport = __removeAfterExport,
         exportedRetentionHours = __exportedRetentionHours,
         maxCategories = __maxCategories,
@@ -630,6 +603,7 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         contentUserQuotaCeiling = __contentUserQuotaCeiling,
         imageUserQuotaCeiling = __imageUserQuotaCeiling,
         audioUserQuotaCeiling = __audioUserQuotaCeiling,
+        dictionaries = __dictionaries.result(),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -640,8 +614,6 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         maxSavedWords = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Int]).getOrElse(0),
         allowExportDeck = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         allowExportLink = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        englishEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        englishViEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         removeAfterExport = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         exportedRetentionHours = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Int]).getOrElse(0),
         maxCategories = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Int]).getOrElse(0),
@@ -658,21 +630,29 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
         maxContentBytesCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(190).get).map(_.as[_root_.scala.Int]).getOrElse(0),
         contentUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(200).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
         imageUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(210).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
-        audioUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(220).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
+        audioUserQuotaCeiling = __fieldsMap.get(scalaDescriptor.findFieldByNumber(220).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
+        dictionaries = __fieldsMap.get(scalaDescriptor.findFieldByNumber(230).get).map(_.as[_root_.scala.Seq[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry]]).getOrElse(_root_.scala.Seq.empty).iterator.map(com.huponx.protogen.dictionary.v1.Settings._typemapper_dictionaries.toCustom(_)).toMap
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(51)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(51)
-  def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-  lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(55)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(55)
+  def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
+    var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
+    (__number: @_root_.scala.unchecked) match {
+      case 230 => __out = com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry
+    }
+    __out
+  }
+  lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] =
+    Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]](
+      _root_.com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry
+    )
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.Settings(
     maxSavedWords = 0,
     allowExportDeck = false,
     allowExportLink = false,
-    englishEnabled = false,
-    englishViEnabled = false,
     removeAfterExport = false,
     exportedRetentionHours = 0,
     maxCategories = 0,
@@ -689,14 +669,157 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     maxContentBytesCeiling = 0,
     contentUserQuotaCeiling = 0L,
     imageUserQuotaCeiling = 0L,
-    audioUserQuotaCeiling = 0L
+    audioUserQuotaCeiling = 0L,
+    dictionaries = _root_.scala.collection.immutable.Map.empty
   )
+  @SerialVersionUID(0L)
+  final case class DictionariesEntry(
+      key: _root_.scala.Predef.String = "",
+      value: _root_.scala.Boolean = false,
+      unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+      ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[DictionariesEntry] {
+      @transient
+      private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
+      private[this] def __computeSerializedSize(): _root_.scala.Int = {
+        var __size = 0
+        
+        {
+          val __value = key
+          if (!__value.isEmpty) {
+            __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(1, __value)
+          }
+        };
+        
+        {
+          val __value = value
+          if (__value != false) {
+            __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(2, __value)
+          }
+        };
+        __size += unknownFields.serializedSize
+        __size
+      }
+      override def serializedSize: _root_.scala.Int = {
+        var __size = __serializedSizeMemoized
+        if (__size == 0) {
+          __size = __computeSerializedSize() + 1
+          __serializedSizeMemoized = __size
+        }
+        __size - 1
+        
+      }
+      def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+        {
+          val __v = key
+          if (!__v.isEmpty) {
+            _output__.writeString(1, __v)
+          }
+        };
+        {
+          val __v = value
+          if (__v != false) {
+            _output__.writeBool(2, __v)
+          }
+        };
+        unknownFields.writeTo(_output__)
+      }
+      def withKey(__v: _root_.scala.Predef.String): DictionariesEntry = copy(key = __v)
+      def withValue(__v: _root_.scala.Boolean): DictionariesEntry = copy(value = __v)
+      def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+      def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+      def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+        (__fieldNumber: @_root_.scala.unchecked) match {
+          case 1 => {
+            val __t = key
+            if (__t != "") __t else null
+          }
+          case 2 => {
+            val __t = value
+            if (__t != false) __t else null
+          }
+        }
+      }
+      def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+        _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+        (__field.number: @_root_.scala.unchecked) match {
+          case 1 => _root_.scalapb.descriptors.PString(key)
+          case 2 => _root_.scalapb.descriptors.PBoolean(value)
+        }
+      }
+      def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+      def companion: com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry.type = com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry
+      // @@protoc_insertion_point(GeneratedMessage[dictionary.v1.Settings.DictionariesEntry])
+  }
+  
+  object DictionariesEntry extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry] {
+    implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry] = this
+    def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry = {
+      var __key: _root_.scala.Predef.String = ""
+      var __value: _root_.scala.Boolean = false
+      var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
+      var _done__ = false
+      while (!_done__) {
+        val _tag__ = _input__.readTag()
+        _tag__ match {
+          case 0 => _done__ = true
+          case 10 =>
+            __key = _input__.readStringRequireUtf8()
+          case 16 =>
+            __value = _input__.readBool()
+          case tag =>
+            if (_unknownFields__ == null) {
+              _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
+            }
+            _unknownFields__.parseField(tag, _input__)
+        }
+      }
+      com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry(
+          key = __key,
+          value = __value,
+          unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
+      )
+    }
+    implicit def messageReads: _root_.scalapb.descriptors.Reads[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry] = _root_.scalapb.descriptors.Reads{
+      case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
+        _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
+        com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry(
+          key = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+          value = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        )
+      case _ => throw new RuntimeException("Expected PMessage")
+    }
+    def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = com.huponx.protogen.dictionary.v1.Settings.javaDescriptor.getNestedTypes().get(0)
+    def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = com.huponx.protogen.dictionary.v1.Settings.scalaDescriptor.nestedMessages(0)
+    def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
+    lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
+    def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
+    lazy val defaultInstance = com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry(
+      key = "",
+      value = false
+    )
+    implicit class DictionariesEntryLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry](_l) {
+      def key: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.key)((c_, f_) => c_.copy(key = f_))
+      def value: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.value)((c_, f_) => c_.copy(value = f_))
+    }
+    final val KEY_FIELD_NUMBER = 1
+    final val VALUE_FIELD_NUMBER = 2
+    @transient
+    implicit val keyValueMapper: _root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)] =
+      _root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)](__m => (__m.key, __m.value))(__p => com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry(__p._1, __p._2))
+    def of(
+      key: _root_.scala.Predef.String,
+      value: _root_.scala.Boolean
+    ): _root_.com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry = _root_.com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry(
+      key,
+      value
+    )
+    // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.Settings.DictionariesEntry])
+  }
+  
   implicit class SettingsLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Settings]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.Settings](_l) {
     def maxSavedWords: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxSavedWords)((c_, f_) => c_.copy(maxSavedWords = f_))
     def allowExportDeck: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.allowExportDeck)((c_, f_) => c_.copy(allowExportDeck = f_))
     def allowExportLink: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.allowExportLink)((c_, f_) => c_.copy(allowExportLink = f_))
-    def englishEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishEnabled)((c_, f_) => c_.copy(englishEnabled = f_))
-    def englishViEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishViEnabled)((c_, f_) => c_.copy(englishViEnabled = f_))
     def removeAfterExport: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.removeAfterExport)((c_, f_) => c_.copy(removeAfterExport = f_))
     def exportedRetentionHours: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.exportedRetentionHours)((c_, f_) => c_.copy(exportedRetentionHours = f_))
     def maxCategories: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxCategories)((c_, f_) => c_.copy(maxCategories = f_))
@@ -714,12 +837,11 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     def contentUserQuotaCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.contentUserQuotaCeiling)((c_, f_) => c_.copy(contentUserQuotaCeiling = f_))
     def imageUserQuotaCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.imageUserQuotaCeiling)((c_, f_) => c_.copy(imageUserQuotaCeiling = f_))
     def audioUserQuotaCeiling: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.audioUserQuotaCeiling)((c_, f_) => c_.copy(audioUserQuotaCeiling = f_))
+    def dictionaries: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]] = field(_.dictionaries)((c_, f_) => c_.copy(dictionaries = f_))
   }
   final val MAX_SAVED_WORDS_FIELD_NUMBER = 10
   final val ALLOW_EXPORT_DECK_FIELD_NUMBER = 20
   final val ALLOW_EXPORT_LINK_FIELD_NUMBER = 30
-  final val ENGLISH_ENABLED_FIELD_NUMBER = 40
-  final val ENGLISH_VI_ENABLED_FIELD_NUMBER = 50
   final val REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60
   final val EXPORTED_RETENTION_HOURS_FIELD_NUMBER = 70
   final val MAX_CATEGORIES_FIELD_NUMBER = 80
@@ -737,12 +859,13 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
   final val CONTENT_USER_QUOTA_CEILING_FIELD_NUMBER = 200
   final val IMAGE_USER_QUOTA_CEILING_FIELD_NUMBER = 210
   final val AUDIO_USER_QUOTA_CEILING_FIELD_NUMBER = 220
+  final val DICTIONARIES_FIELD_NUMBER = 230
+  @transient
+  private[v1] val _typemapper_dictionaries: _root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)] = implicitly[_root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.Settings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)]]
   def of(
     maxSavedWords: _root_.scala.Int,
     allowExportDeck: _root_.scala.Boolean,
     allowExportLink: _root_.scala.Boolean,
-    englishEnabled: _root_.scala.Boolean,
-    englishViEnabled: _root_.scala.Boolean,
     removeAfterExport: _root_.scala.Boolean,
     exportedRetentionHours: _root_.scala.Int,
     maxCategories: _root_.scala.Int,
@@ -759,13 +882,12 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     maxContentBytesCeiling: _root_.scala.Int,
     contentUserQuotaCeiling: _root_.scala.Long,
     imageUserQuotaCeiling: _root_.scala.Long,
-    audioUserQuotaCeiling: _root_.scala.Long
+    audioUserQuotaCeiling: _root_.scala.Long,
+    dictionaries: _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]
   ): _root_.com.huponx.protogen.dictionary.v1.Settings = _root_.com.huponx.protogen.dictionary.v1.Settings(
     maxSavedWords,
     allowExportDeck,
     allowExportLink,
-    englishEnabled,
-    englishViEnabled,
     removeAfterExport,
     exportedRetentionHours,
     maxCategories,
@@ -782,7 +904,8 @@ object Settings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.di
     maxContentBytesCeiling,
     contentUserQuotaCeiling,
     imageUserQuotaCeiling,
-    audioUserQuotaCeiling
+    audioUserQuotaCeiling,
+    dictionaries
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.Settings])
 }

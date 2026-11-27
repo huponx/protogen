@@ -57,6 +57,6 @@ object ExportScope extends _root_.scalapb.GeneratedEnumCompanion[ExportScope] {
     case 20 => EXPORT_SCOPE_ALL
     case __other => Unrecognized(__other)
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = DictionaryProto.javaDescriptor.getEnumTypes().get(1)
-  def scalaDescriptor: _root_.scalapb.descriptors.EnumDescriptor = DictionaryProto.scalaDescriptor.enums(1)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = DictionaryProto.javaDescriptor.getEnumTypes().get(0)
+  def scalaDescriptor: _root_.scalapb.descriptors.EnumDescriptor = DictionaryProto.scalaDescriptor.enums(0)
 }

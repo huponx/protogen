@@ -26,6 +26,8 @@ const (
 	IdentityService_ListUsers_FullMethodName               = "/identity.v1.IdentityService/ListUsers"
 	IdentityService_CreateUser_FullMethodName              = "/identity.v1.IdentityService/CreateUser"
 	IdentityService_SetUserDisabled_FullMethodName         = "/identity.v1.IdentityService/SetUserDisabled"
+	IdentityService_ListUserSessions_FullMethodName        = "/identity.v1.IdentityService/ListUserSessions"
+	IdentityService_RevokeUserSessions_FullMethodName      = "/identity.v1.IdentityService/RevokeUserSessions"
 	IdentityService_DeleteUser_FullMethodName              = "/identity.v1.IdentityService/DeleteUser"
 	IdentityService_SetUserPassword_FullMethodName         = "/identity.v1.IdentityService/SetUserPassword"
 	IdentityService_SendPasswordReset_FullMethodName       = "/identity.v1.IdentityService/SendPasswordReset"
@@ -43,6 +45,14 @@ const (
 	IdentityService_BeginMyMFA_FullMethodName              = "/identity.v1.IdentityService/BeginMyMFA"
 	IdentityService_ConfirmMyMFA_FullMethodName            = "/identity.v1.IdentityService/ConfirmMyMFA"
 	IdentityService_DisableMyMFA_FullMethodName            = "/identity.v1.IdentityService/DisableMyMFA"
+	IdentityService_ListMyPasskeys_FullMethodName          = "/identity.v1.IdentityService/ListMyPasskeys"
+	IdentityService_BeginMyPasskey_FullMethodName          = "/identity.v1.IdentityService/BeginMyPasskey"
+	IdentityService_FinishMyPasskey_FullMethodName         = "/identity.v1.IdentityService/FinishMyPasskey"
+	IdentityService_RenameMyPasskey_FullMethodName         = "/identity.v1.IdentityService/RenameMyPasskey"
+	IdentityService_DeleteMyPasskey_FullMethodName         = "/identity.v1.IdentityService/DeleteMyPasskey"
+	IdentityService_ListMySessions_FullMethodName          = "/identity.v1.IdentityService/ListMySessions"
+	IdentityService_RevokeMySession_FullMethodName         = "/identity.v1.IdentityService/RevokeMySession"
+	IdentityService_RevokeMyOtherSessions_FullMethodName   = "/identity.v1.IdentityService/RevokeMyOtherSessions"
 	IdentityService_GetMyUserSettings_FullMethodName       = "/identity.v1.IdentityService/GetMyUserSettings"
 	IdentityService_PutMyUserSettings_FullMethodName       = "/identity.v1.IdentityService/PutMyUserSettings"
 	IdentityService_CreateRole_FullMethodName              = "/identity.v1.IdentityService/CreateRole"
@@ -91,6 +101,10 @@ type IdentityServiceClient interface {
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	SetUserDisabled(ctx context.Context, in *SetUserDisabledRequest, opts ...grpc.CallOption) (*SetUserDisabledResponse, error)
+	// ListUserSessions lists the SSO sessions (devices) of a user; `current` is always false. RevokeUserSessions ends all of
+	// them, revokes the refresh tokens and the access tokens issued so far (like disabling the user, without disabling).
+	ListUserSessions(ctx context.Context, in *ListUserSessionsRequest, opts ...grpc.CallOption) (*ListUserSessionsResponse, error)
+	RevokeUserSessions(ctx context.Context, in *RevokeUserSessionsRequest, opts ...grpc.CallOption) (*RevokeUserSessionsResponse, error)
 	// DeleteUser deletes the account (soft: see DeleteUserRequest).
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
 	SetUserPassword(ctx context.Context, in *SetUserPasswordRequest, opts ...grpc.CallOption) (*SetUserPasswordResponse, error)
@@ -127,6 +141,23 @@ type IdentityServiceClient interface {
 	ConfirmMyMFA(ctx context.Context, in *ConfirmMyMFARequest, opts ...grpc.CallOption) (*ConfirmMyMFAResponse, error)
 	// DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
 	DisableMyMFA(ctx context.Context, in *DisableMyMFARequest, opts ...grpc.CallOption) (*DisableMyMFAResponse, error)
+	// The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
+	// returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
+	// the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
+	// NOT_FOUND "passkeys_off" when the server has passkeys turned off.
+	ListMyPasskeys(ctx context.Context, in *ListMyPasskeysRequest, opts ...grpc.CallOption) (*ListMyPasskeysResponse, error)
+	BeginMyPasskey(ctx context.Context, in *BeginMyPasskeyRequest, opts ...grpc.CallOption) (*BeginMyPasskeyResponse, error)
+	FinishMyPasskey(ctx context.Context, in *FinishMyPasskeyRequest, opts ...grpc.CallOption) (*FinishMyPasskeyResponse, error)
+	RenameMyPasskey(ctx context.Context, in *RenameMyPasskeyRequest, opts ...grpc.CallOption) (*RenameMyPasskeyResponse, error)
+	DeleteMyPasskey(ctx context.Context, in *DeleteMyPasskeyRequest, opts ...grpc.CallOption) (*DeleteMyPasskeyResponse, error)
+	// The own SSO sessions, one per sign in on a browser or device. ListMySessions marks the one of the caller (the sid of
+	// its token) as current. RevokeMySession ends one (NOT_FOUND "session_not_found" for an unknown id or one of another
+	// user); revoking the current one signs the caller out. RevokeMyOtherSessions keeps the current one. Ending a session
+	// revokes its refresh tokens and signs out the applications that used it (back-channel logout); access tokens already
+	// issued live until they expire (IDENTITY_ACCESS_TOKEN_TTL) where a service verifies them locally.
+	ListMySessions(ctx context.Context, in *ListMySessionsRequest, opts ...grpc.CallOption) (*ListMySessionsResponse, error)
+	RevokeMySession(ctx context.Context, in *RevokeMySessionRequest, opts ...grpc.CallOption) (*RevokeMySessionResponse, error)
+	RevokeMyOtherSessions(ctx context.Context, in *RevokeMyOtherSessionsRequest, opts ...grpc.CallOption) (*RevokeMyOtherSessionsResponse, error)
 	// The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
 	// identity stores without looking inside; the application validates what it writes. Same rules as
 	// the other "me" methods (user token, no permission). Called by the application on behalf of the
@@ -247,6 +278,26 @@ func (c *identityServiceClient) SetUserDisabled(ctx context.Context, in *SetUser
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SetUserDisabledResponse)
 	err := c.cc.Invoke(ctx, IdentityService_SetUserDisabled_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ListUserSessions(ctx context.Context, in *ListUserSessionsRequest, opts ...grpc.CallOption) (*ListUserSessionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListUserSessionsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ListUserSessions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) RevokeUserSessions(ctx context.Context, in *RevokeUserSessionsRequest, opts ...grpc.CallOption) (*RevokeUserSessionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeUserSessionsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RevokeUserSessions_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -417,6 +468,86 @@ func (c *identityServiceClient) DisableMyMFA(ctx context.Context, in *DisableMyM
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DisableMyMFAResponse)
 	err := c.cc.Invoke(ctx, IdentityService_DisableMyMFA_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ListMyPasskeys(ctx context.Context, in *ListMyPasskeysRequest, opts ...grpc.CallOption) (*ListMyPasskeysResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListMyPasskeysResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ListMyPasskeys_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) BeginMyPasskey(ctx context.Context, in *BeginMyPasskeyRequest, opts ...grpc.CallOption) (*BeginMyPasskeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BeginMyPasskeyResponse)
+	err := c.cc.Invoke(ctx, IdentityService_BeginMyPasskey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) FinishMyPasskey(ctx context.Context, in *FinishMyPasskeyRequest, opts ...grpc.CallOption) (*FinishMyPasskeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FinishMyPasskeyResponse)
+	err := c.cc.Invoke(ctx, IdentityService_FinishMyPasskey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) RenameMyPasskey(ctx context.Context, in *RenameMyPasskeyRequest, opts ...grpc.CallOption) (*RenameMyPasskeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RenameMyPasskeyResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RenameMyPasskey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) DeleteMyPasskey(ctx context.Context, in *DeleteMyPasskeyRequest, opts ...grpc.CallOption) (*DeleteMyPasskeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteMyPasskeyResponse)
+	err := c.cc.Invoke(ctx, IdentityService_DeleteMyPasskey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) ListMySessions(ctx context.Context, in *ListMySessionsRequest, opts ...grpc.CallOption) (*ListMySessionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListMySessionsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_ListMySessions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) RevokeMySession(ctx context.Context, in *RevokeMySessionRequest, opts ...grpc.CallOption) (*RevokeMySessionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeMySessionResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RevokeMySession_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) RevokeMyOtherSessions(ctx context.Context, in *RevokeMyOtherSessionsRequest, opts ...grpc.CallOption) (*RevokeMyOtherSessionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeMyOtherSessionsResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RevokeMyOtherSessions_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -712,6 +843,10 @@ type IdentityServiceServer interface {
 	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	SetUserDisabled(context.Context, *SetUserDisabledRequest) (*SetUserDisabledResponse, error)
+	// ListUserSessions lists the SSO sessions (devices) of a user; `current` is always false. RevokeUserSessions ends all of
+	// them, revokes the refresh tokens and the access tokens issued so far (like disabling the user, without disabling).
+	ListUserSessions(context.Context, *ListUserSessionsRequest) (*ListUserSessionsResponse, error)
+	RevokeUserSessions(context.Context, *RevokeUserSessionsRequest) (*RevokeUserSessionsResponse, error)
 	// DeleteUser deletes the account (soft: see DeleteUserRequest).
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
 	SetUserPassword(context.Context, *SetUserPasswordRequest) (*SetUserPasswordResponse, error)
@@ -748,6 +883,23 @@ type IdentityServiceServer interface {
 	ConfirmMyMFA(context.Context, *ConfirmMyMFARequest) (*ConfirmMyMFAResponse, error)
 	// DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
 	DisableMyMFA(context.Context, *DisableMyMFARequest) (*DisableMyMFAResponse, error)
+	// The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
+	// returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
+	// the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
+	// NOT_FOUND "passkeys_off" when the server has passkeys turned off.
+	ListMyPasskeys(context.Context, *ListMyPasskeysRequest) (*ListMyPasskeysResponse, error)
+	BeginMyPasskey(context.Context, *BeginMyPasskeyRequest) (*BeginMyPasskeyResponse, error)
+	FinishMyPasskey(context.Context, *FinishMyPasskeyRequest) (*FinishMyPasskeyResponse, error)
+	RenameMyPasskey(context.Context, *RenameMyPasskeyRequest) (*RenameMyPasskeyResponse, error)
+	DeleteMyPasskey(context.Context, *DeleteMyPasskeyRequest) (*DeleteMyPasskeyResponse, error)
+	// The own SSO sessions, one per sign in on a browser or device. ListMySessions marks the one of the caller (the sid of
+	// its token) as current. RevokeMySession ends one (NOT_FOUND "session_not_found" for an unknown id or one of another
+	// user); revoking the current one signs the caller out. RevokeMyOtherSessions keeps the current one. Ending a session
+	// revokes its refresh tokens and signs out the applications that used it (back-channel logout); access tokens already
+	// issued live until they expire (IDENTITY_ACCESS_TOKEN_TTL) where a service verifies them locally.
+	ListMySessions(context.Context, *ListMySessionsRequest) (*ListMySessionsResponse, error)
+	RevokeMySession(context.Context, *RevokeMySessionRequest) (*RevokeMySessionResponse, error)
+	RevokeMyOtherSessions(context.Context, *RevokeMyOtherSessionsRequest) (*RevokeMyOtherSessionsResponse, error)
 	// The settings the signed-in user keeps for one application ("dictionary"): a JSON object that
 	// identity stores without looking inside; the application validates what it writes. Same rules as
 	// the other "me" methods (user token, no permission). Called by the application on behalf of the
@@ -825,6 +977,12 @@ func (UnimplementedIdentityServiceServer) CreateUser(context.Context, *CreateUse
 func (UnimplementedIdentityServiceServer) SetUserDisabled(context.Context, *SetUserDisabledRequest) (*SetUserDisabledResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserDisabled not implemented")
 }
+func (UnimplementedIdentityServiceServer) ListUserSessions(context.Context, *ListUserSessionsRequest) (*ListUserSessionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUserSessions not implemented")
+}
+func (UnimplementedIdentityServiceServer) RevokeUserSessions(context.Context, *RevokeUserSessionsRequest) (*RevokeUserSessionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevokeUserSessions not implemented")
+}
 func (UnimplementedIdentityServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
@@ -875,6 +1033,30 @@ func (UnimplementedIdentityServiceServer) ConfirmMyMFA(context.Context, *Confirm
 }
 func (UnimplementedIdentityServiceServer) DisableMyMFA(context.Context, *DisableMyMFARequest) (*DisableMyMFAResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DisableMyMFA not implemented")
+}
+func (UnimplementedIdentityServiceServer) ListMyPasskeys(context.Context, *ListMyPasskeysRequest) (*ListMyPasskeysResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMyPasskeys not implemented")
+}
+func (UnimplementedIdentityServiceServer) BeginMyPasskey(context.Context, *BeginMyPasskeyRequest) (*BeginMyPasskeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BeginMyPasskey not implemented")
+}
+func (UnimplementedIdentityServiceServer) FinishMyPasskey(context.Context, *FinishMyPasskeyRequest) (*FinishMyPasskeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FinishMyPasskey not implemented")
+}
+func (UnimplementedIdentityServiceServer) RenameMyPasskey(context.Context, *RenameMyPasskeyRequest) (*RenameMyPasskeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RenameMyPasskey not implemented")
+}
+func (UnimplementedIdentityServiceServer) DeleteMyPasskey(context.Context, *DeleteMyPasskeyRequest) (*DeleteMyPasskeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMyPasskey not implemented")
+}
+func (UnimplementedIdentityServiceServer) ListMySessions(context.Context, *ListMySessionsRequest) (*ListMySessionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMySessions not implemented")
+}
+func (UnimplementedIdentityServiceServer) RevokeMySession(context.Context, *RevokeMySessionRequest) (*RevokeMySessionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevokeMySession not implemented")
+}
+func (UnimplementedIdentityServiceServer) RevokeMyOtherSessions(context.Context, *RevokeMyOtherSessionsRequest) (*RevokeMyOtherSessionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevokeMyOtherSessions not implemented")
 }
 func (UnimplementedIdentityServiceServer) GetMyUserSettings(context.Context, *GetMyUserSettingsRequest) (*GetMyUserSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyUserSettings not implemented")
@@ -1100,6 +1282,42 @@ func _IdentityService_SetUserDisabled_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).SetUserDisabled(ctx, req.(*SetUserDisabledRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ListUserSessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUserSessionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ListUserSessions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ListUserSessions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ListUserSessions(ctx, req.(*ListUserSessionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_RevokeUserSessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeUserSessionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).RevokeUserSessions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_RevokeUserSessions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).RevokeUserSessions(ctx, req.(*RevokeUserSessionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1406,6 +1624,150 @@ func _IdentityService_DisableMyMFA_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).DisableMyMFA(ctx, req.(*DisableMyMFARequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ListMyPasskeys_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMyPasskeysRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ListMyPasskeys(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ListMyPasskeys_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ListMyPasskeys(ctx, req.(*ListMyPasskeysRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_BeginMyPasskey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BeginMyPasskeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).BeginMyPasskey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_BeginMyPasskey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).BeginMyPasskey(ctx, req.(*BeginMyPasskeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_FinishMyPasskey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FinishMyPasskeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).FinishMyPasskey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_FinishMyPasskey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).FinishMyPasskey(ctx, req.(*FinishMyPasskeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_RenameMyPasskey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RenameMyPasskeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).RenameMyPasskey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_RenameMyPasskey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).RenameMyPasskey(ctx, req.(*RenameMyPasskeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_DeleteMyPasskey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteMyPasskeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).DeleteMyPasskey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_DeleteMyPasskey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).DeleteMyPasskey(ctx, req.(*DeleteMyPasskeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_ListMySessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMySessionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).ListMySessions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_ListMySessions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).ListMySessions(ctx, req.(*ListMySessionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_RevokeMySession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeMySessionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).RevokeMySession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_RevokeMySession_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).RevokeMySession(ctx, req.(*RevokeMySessionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_RevokeMyOtherSessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeMyOtherSessionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).RevokeMyOtherSessions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_RevokeMyOtherSessions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).RevokeMyOtherSessions(ctx, req.(*RevokeMyOtherSessionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1932,6 +2294,14 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _IdentityService_SetUserDisabled_Handler,
 		},
 		{
+			MethodName: "ListUserSessions",
+			Handler:    _IdentityService_ListUserSessions_Handler,
+		},
+		{
+			MethodName: "RevokeUserSessions",
+			Handler:    _IdentityService_RevokeUserSessions_Handler,
+		},
+		{
 			MethodName: "DeleteUser",
 			Handler:    _IdentityService_DeleteUser_Handler,
 		},
@@ -1998,6 +2368,38 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DisableMyMFA",
 			Handler:    _IdentityService_DisableMyMFA_Handler,
+		},
+		{
+			MethodName: "ListMyPasskeys",
+			Handler:    _IdentityService_ListMyPasskeys_Handler,
+		},
+		{
+			MethodName: "BeginMyPasskey",
+			Handler:    _IdentityService_BeginMyPasskey_Handler,
+		},
+		{
+			MethodName: "FinishMyPasskey",
+			Handler:    _IdentityService_FinishMyPasskey_Handler,
+		},
+		{
+			MethodName: "RenameMyPasskey",
+			Handler:    _IdentityService_RenameMyPasskey_Handler,
+		},
+		{
+			MethodName: "DeleteMyPasskey",
+			Handler:    _IdentityService_DeleteMyPasskey_Handler,
+		},
+		{
+			MethodName: "ListMySessions",
+			Handler:    _IdentityService_ListMySessions_Handler,
+		},
+		{
+			MethodName: "RevokeMySession",
+			Handler:    _IdentityService_RevokeMySession_Handler,
+		},
+		{
+			MethodName: "RevokeMyOtherSessions",
+			Handler:    _IdentityService_RevokeMyOtherSessions_Handler,
 		},
 		{
 			MethodName: "GetMyUserSettings",

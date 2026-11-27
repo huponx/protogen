@@ -5,10 +5,14 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param group
+  *   The group of the dictionaries the word belongs to ("en", ...), see ListDictionaries. Required.
+  */
 @SerialVersionUID(0L)
 final case class SubmitReviewRequest(
     word: _root_.scala.Predef.String = "",
     grade: com.huponx.protogen.dictionary.v1.ReviewGrade = com.huponx.protogen.dictionary.v1.ReviewGrade.REVIEW_GRADE_UNSPECIFIED,
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SubmitReviewRequest] {
     @transient
@@ -27,6 +31,13 @@ final case class SubmitReviewRequest(
         val __value = grade.value
         if (__value != 0) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(20, __value)
+        }
+      };
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -54,10 +65,17 @@ final case class SubmitReviewRequest(
           _output__.writeEnum(20, __v)
         }
       };
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(30, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withWord(__v: _root_.scala.Predef.String): SubmitReviewRequest = copy(word = __v)
     def withGrade(__v: com.huponx.protogen.dictionary.v1.ReviewGrade): SubmitReviewRequest = copy(grade = __v)
+    def withGroup(__v: _root_.scala.Predef.String): SubmitReviewRequest = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -70,6 +88,10 @@ final case class SubmitReviewRequest(
           val __t = grade.javaValueDescriptor
           if (__t.getNumber() != 0) __t else null
         }
+        case 30 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -77,6 +99,7 @@ final case class SubmitReviewRequest(
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(word)
         case 20 => _root_.scalapb.descriptors.PEnum(grade.scalaValueDescriptor)
+        case 30 => _root_.scalapb.descriptors.PString(group)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -89,6 +112,7 @@ object SubmitReviewRequest extends scalapb.GeneratedMessageCompanion[com.huponx.
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.SubmitReviewRequest = {
     var __word: _root_.scala.Predef.String = ""
     var __grade: com.huponx.protogen.dictionary.v1.ReviewGrade = com.huponx.protogen.dictionary.v1.ReviewGrade.REVIEW_GRADE_UNSPECIFIED
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -99,6 +123,8 @@ object SubmitReviewRequest extends scalapb.GeneratedMessageCompanion[com.huponx.
           __word = _input__.readStringRequireUtf8()
         case 160 =>
           __grade = com.huponx.protogen.dictionary.v1.ReviewGrade.fromValue(_input__.readEnum())
+        case 242 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -109,6 +135,7 @@ object SubmitReviewRequest extends scalapb.GeneratedMessageCompanion[com.huponx.
     com.huponx.protogen.dictionary.v1.SubmitReviewRequest(
         word = __word,
         grade = __grade,
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -117,12 +144,13 @@ object SubmitReviewRequest extends scalapb.GeneratedMessageCompanion[com.huponx.
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.SubmitReviewRequest(
         word = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        grade = com.huponx.protogen.dictionary.v1.ReviewGrade.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.ReviewGrade.REVIEW_GRADE_UNSPECIFIED.scalaValueDescriptor).number)
+        grade = com.huponx.protogen.dictionary.v1.ReviewGrade.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.ReviewGrade.REVIEW_GRADE_UNSPECIFIED.scalaValueDescriptor).number),
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(36)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(36)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(40)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(40)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
@@ -132,20 +160,25 @@ object SubmitReviewRequest extends scalapb.GeneratedMessageCompanion[com.huponx.
   }
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.SubmitReviewRequest(
     word = "",
-    grade = com.huponx.protogen.dictionary.v1.ReviewGrade.REVIEW_GRADE_UNSPECIFIED
+    grade = com.huponx.protogen.dictionary.v1.ReviewGrade.REVIEW_GRADE_UNSPECIFIED,
+    group = ""
   )
   implicit class SubmitReviewRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.SubmitReviewRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.SubmitReviewRequest](_l) {
     def word: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.word)((c_, f_) => c_.copy(word = f_))
     def grade: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ReviewGrade] = field(_.grade)((c_, f_) => c_.copy(grade = f_))
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
   final val WORD_FIELD_NUMBER = 10
   final val GRADE_FIELD_NUMBER = 20
+  final val GROUP_FIELD_NUMBER = 30
   def of(
     word: _root_.scala.Predef.String,
-    grade: com.huponx.protogen.dictionary.v1.ReviewGrade
+    grade: com.huponx.protogen.dictionary.v1.ReviewGrade,
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.SubmitReviewRequest = _root_.com.huponx.protogen.dictionary.v1.SubmitReviewRequest(
     word,
-    grade
+    grade,
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.SubmitReviewRequest])
 }

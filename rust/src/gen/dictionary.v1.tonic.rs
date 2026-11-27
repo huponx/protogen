@@ -138,6 +138,36 @@ pub mod dictionary_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn list_dictionaries(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListDictionariesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDictionariesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/dictionary.v1.DictionaryService/ListDictionaries",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "dictionary.v1.DictionaryService",
+                        "ListDictionaries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn save_word(
             &mut self,
             request: impl tonic::IntoRequest<super::SaveWordRequest>,
@@ -955,6 +985,36 @@ pub mod dictionary_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn recalculate_user_storage(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RecalculateUserStorageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RecalculateUserStorageResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/dictionary.v1.DictionaryService/RecalculateUserStorage",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "dictionary.v1.DictionaryService",
+                        "RecalculateUserStorage",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn get_my_storage(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMyStorageRequest>,
@@ -1060,6 +1120,13 @@ pub mod dictionary_service_server {
             request: tonic::Request<super::LookupWordsRequest>,
         ) -> std::result::Result<
             tonic::Response<super::LookupWordsResponse>,
+            tonic::Status,
+        >;
+        async fn list_dictionaries(
+            &self,
+            request: tonic::Request<super::ListDictionariesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDictionariesResponse>,
             tonic::Status,
         >;
         async fn save_word(
@@ -1278,6 +1345,13 @@ pub mod dictionary_service_server {
             tonic::Response<super::SetUserQuotaResponse>,
             tonic::Status,
         >;
+        async fn recalculate_user_storage(
+            &self,
+            request: tonic::Request<super::RecalculateUserStorageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RecalculateUserStorageResponse>,
+            tonic::Status,
+        >;
         async fn get_my_storage(
             &self,
             request: tonic::Request<super::GetMyStorageRequest>,
@@ -1452,6 +1526,52 @@ pub mod dictionary_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = LookupWordsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/dictionary.v1.DictionaryService/ListDictionaries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDictionariesSvc<T: DictionaryService>(pub Arc<T>);
+                    impl<
+                        T: DictionaryService,
+                    > tonic::server::UnaryService<super::ListDictionariesRequest>
+                    for ListDictionariesSvc<T> {
+                        type Response = super::ListDictionariesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDictionariesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DictionaryService>::list_dictionaries(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDictionariesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2846,6 +2966,55 @@ pub mod dictionary_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SetUserQuotaSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/dictionary.v1.DictionaryService/RecalculateUserStorage" => {
+                    #[allow(non_camel_case_types)]
+                    struct RecalculateUserStorageSvc<T: DictionaryService>(pub Arc<T>);
+                    impl<
+                        T: DictionaryService,
+                    > tonic::server::UnaryService<super::RecalculateUserStorageRequest>
+                    for RecalculateUserStorageSvc<T> {
+                        type Response = super::RecalculateUserStorageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RecalculateUserStorageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DictionaryService>::recalculate_user_storage(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RecalculateUserStorageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

@@ -27,6 +27,16 @@ object DictionaryServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(1)))
       .build()
   
+  val METHOD_LIST_DICTIONARIES: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.ListDictionariesRequest, com.huponx.protogen.dictionary.v1.ListDictionariesResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "ListDictionaries"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListDictionariesRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListDictionariesResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(2)))
+      .build()
+  
   val METHOD_SAVE_WORD: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.SaveWordRequest, com.huponx.protogen.dictionary.v1.SaveWordResponse] =
     _root_.io.grpc.MethodDescriptor.newBuilder()
       .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -34,7 +44,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SaveWordRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SaveWordResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(2)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(3)))
       .build()
   
   val METHOD_LIST_SAVED_WORDS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.ListSavedWordsRequest, com.huponx.protogen.dictionary.v1.ListSavedWordsResponse] =
@@ -44,7 +54,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListSavedWordsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListSavedWordsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(3)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(4)))
       .build()
   
   val METHOD_CHECK_SAVED_WORDS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest, com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse] =
@@ -54,7 +64,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CheckSavedWordsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CheckSavedWordsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(4)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(5)))
       .build()
   
   val METHOD_DELETE_SAVED_WORD: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest, com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse] =
@@ -64,7 +74,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteSavedWordResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(5)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(6)))
       .build()
   
   val METHOD_EXPORT_ANKI: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.ExportAnkiRequest, com.huponx.protogen.dictionary.v1.ExportAnkiResponse] =
@@ -74,7 +84,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ExportAnkiRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ExportAnkiResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(6)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(7)))
       .build()
   
   val METHOD_CREATE_DECK_LINK: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest, com.huponx.protogen.dictionary.v1.CreateDeckLinkResponse] =
@@ -84,7 +94,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateDeckLinkRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateDeckLinkResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(7)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(8)))
       .build()
   
   val METHOD_START_EXPORT: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.StartExportRequest, com.huponx.protogen.dictionary.v1.StartExportResponse] =
@@ -94,7 +104,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.StartExportRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.StartExportResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(8)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(9)))
       .build()
   
   val METHOD_GET_EXPORT: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetExportRequest, com.huponx.protogen.dictionary.v1.GetExportResponse] =
@@ -104,7 +114,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetExportRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetExportResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(9)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(10)))
       .build()
   
   val METHOD_CANCEL_EXPORT: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CancelExportRequest, com.huponx.protogen.dictionary.v1.CancelExportResponse] =
@@ -114,7 +124,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CancelExportRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CancelExportResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(10)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(11)))
       .build()
   
   val METHOD_CREATE_EXPORT_PART_LINK: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest, com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse] =
@@ -124,7 +134,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateExportPartLinkRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateExportPartLinkResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(11)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(12)))
       .build()
   
   val METHOD_DOWNLOAD_DECK: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DownloadDeckRequest, com.huponx.protogen.dictionary.v1.DownloadDeckResponse] =
@@ -134,7 +144,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadDeckRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadDeckResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(12)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
       .build()
   
   val METHOD_DOWNLOAD_EXPORT_PART: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DownloadExportPartRequest, com.huponx.protogen.dictionary.v1.DownloadChunk] =
@@ -144,7 +154,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadExportPartRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DownloadChunk])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(13)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
       .build()
   
   val METHOD_LIST_CATEGORIES: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.ListCategoriesRequest, com.huponx.protogen.dictionary.v1.ListCategoriesResponse] =
@@ -154,7 +164,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListCategoriesRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.ListCategoriesResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(14)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(15)))
       .build()
   
   val METHOD_CREATE_CATEGORY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.CreateCategoryRequest, com.huponx.protogen.dictionary.v1.CreateCategoryResponse] =
@@ -164,7 +174,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateCategoryRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.CreateCategoryResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(15)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(16)))
       .build()
   
   val METHOD_RENAME_CATEGORY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.RenameCategoryRequest, com.huponx.protogen.dictionary.v1.RenameCategoryResponse] =
@@ -174,7 +184,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RenameCategoryRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RenameCategoryResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(16)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(17)))
       .build()
   
   val METHOD_DELETE_CATEGORY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.DeleteCategoryRequest, com.huponx.protogen.dictionary.v1.DeleteCategoryResponse] =
@@ -184,7 +194,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteCategoryRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.DeleteCategoryResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(17)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(18)))
       .build()
   
   val METHOD_UPDATE_WORD_CATEGORIES: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest, com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse] =
@@ -194,7 +204,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateWordCategoriesResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(18)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(19)))
       .build()
   
   val METHOD_REMOVE_EXPORTED_WORDS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest, com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse] =
@@ -204,7 +214,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RemoveExportedWordsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RemoveExportedWordsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(19)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(20)))
       .build()
   
   val METHOD_UPLOAD_IMAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UploadImageRequest, com.huponx.protogen.dictionary.v1.UploadImageResponse] =
@@ -214,7 +224,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadImageRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadImageResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(20)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(21)))
       .build()
   
   val METHOD_GET_IMAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetImageRequest, com.huponx.protogen.dictionary.v1.GetImageResponse] =
@@ -224,7 +234,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetImageRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetImageResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(21)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(22)))
       .build()
   
   val METHOD_UPLOAD_AUDIO: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UploadAudioRequest, com.huponx.protogen.dictionary.v1.UploadAudioResponse] =
@@ -234,7 +244,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadAudioRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UploadAudioResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(22)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(23)))
       .build()
   
   val METHOD_GET_AUDIO: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetAudioRequest, com.huponx.protogen.dictionary.v1.GetAudioResponse] =
@@ -244,7 +254,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetAudioRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetAudioResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(23)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(24)))
       .build()
   
   val METHOD_GET_REVIEW_QUEUE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetReviewQueueRequest, com.huponx.protogen.dictionary.v1.GetReviewQueueResponse] =
@@ -254,7 +264,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetReviewQueueRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetReviewQueueResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(24)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(25)))
       .build()
   
   val METHOD_SUBMIT_REVIEW: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.SubmitReviewRequest, com.huponx.protogen.dictionary.v1.SubmitReviewResponse] =
@@ -264,7 +274,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SubmitReviewRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SubmitReviewResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(25)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(26)))
       .build()
   
   val METHOD_ADD_REVIEW_BONUS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.AddReviewBonusRequest, com.huponx.protogen.dictionary.v1.AddReviewBonusResponse] =
@@ -274,7 +284,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.AddReviewBonusRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.AddReviewBonusResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(26)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(27)))
       .build()
   
   val METHOD_OPTIMIZE_REVIEW_PARAMETERS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest, com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse] =
@@ -284,7 +294,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.OptimizeReviewParametersResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(27)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(28)))
       .build()
   
   val METHOD_GET_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetSettingsRequest, com.huponx.protogen.dictionary.v1.GetSettingsResponse] =
@@ -294,7 +304,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(28)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(29)))
       .build()
   
   val METHOD_UPDATE_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateSettingsRequest, com.huponx.protogen.dictionary.v1.UpdateSettingsResponse] =
@@ -304,7 +314,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateSettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateSettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(29)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(30)))
       .build()
   
   val METHOD_GET_USER_QUOTA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetUserQuotaRequest, com.huponx.protogen.dictionary.v1.GetUserQuotaResponse] =
@@ -314,7 +324,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetUserQuotaRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetUserQuotaResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(30)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(31)))
       .build()
   
   val METHOD_SET_USER_QUOTA: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.SetUserQuotaRequest, com.huponx.protogen.dictionary.v1.SetUserQuotaResponse] =
@@ -324,7 +334,17 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SetUserQuotaRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(31)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(32)))
+      .build()
+  
+  val METHOD_RECALCULATE_USER_STORAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest, com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("dictionary.v1.DictionaryService", "RecalculateUserStorage"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(33)))
       .build()
   
   val METHOD_GET_MY_STORAGE: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetMyStorageRequest, com.huponx.protogen.dictionary.v1.GetMyStorageResponse] =
@@ -334,7 +354,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMyStorageRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMyStorageResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(32)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(34)))
       .build()
   
   val METHOD_GET_MY_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.GetMySettingsRequest, com.huponx.protogen.dictionary.v1.GetMySettingsResponse] =
@@ -344,7 +364,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMySettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.GetMySettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(33)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(35)))
       .build()
   
   val METHOD_UPDATE_MY_SETTINGS: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.dictionary.v1.UpdateMySettingsRequest, com.huponx.protogen.dictionary.v1.UpdateMySettingsResponse] =
@@ -354,7 +374,7 @@ object DictionaryServiceGrpc {
       .setSampledToLocalTracing(true)
       .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateMySettingsRequest])
       .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.dictionary.v1.UpdateMySettingsResponse])
-      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(34)))
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor.getServices().get(0).getMethods().get(36)))
       .build()
   
   val SERVICE: _root_.io.grpc.ServiceDescriptor =
@@ -362,6 +382,7 @@ object DictionaryServiceGrpc {
       .setSchemaDescriptor(new _root_.scalapb.grpc.ConcreteProtoFileDescriptorSupplier(com.huponx.protogen.dictionary.v1.DictionaryProto.javaDescriptor))
       .addMethod(METHOD_LOOKUP_WORD)
       .addMethod(METHOD_LOOKUP_WORDS)
+      .addMethod(METHOD_LIST_DICTIONARIES)
       .addMethod(METHOD_SAVE_WORD)
       .addMethod(METHOD_LIST_SAVED_WORDS)
       .addMethod(METHOD_CHECK_SAVED_WORDS)
@@ -392,6 +413,7 @@ object DictionaryServiceGrpc {
       .addMethod(METHOD_UPDATE_SETTINGS)
       .addMethod(METHOD_GET_USER_QUOTA)
       .addMethod(METHOD_SET_USER_QUOTA)
+      .addMethod(METHOD_RECALCULATE_USER_STORAGE)
       .addMethod(METHOD_GET_MY_STORAGE)
       .addMethod(METHOD_GET_MY_SETTINGS)
       .addMethod(METHOD_UPDATE_MY_SETTINGS)
@@ -410,6 +432,10 @@ object DictionaryServiceGrpc {
       * listed in not_found instead of failing the call. Permission: dictionary:word:read.
       */
     def lookupWords(request: com.huponx.protogen.dictionary.v1.LookupWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.LookupWordsResponse]
+    /** ListDictionaries lists the dictionaries, by group, with whether each is on for the caller (the system and the
+      * user switches). Permission: dictionary:word:read.
+      */
+    def listDictionaries(request: com.huponx.protogen.dictionary.v1.ListDictionariesRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListDictionariesResponse]
     /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
       * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
       */
@@ -550,6 +576,11 @@ object DictionaryServiceGrpc {
       * for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
       */
     def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse]
+    /** RecalculateUserStorage recomputes the storage counters of a user from the rows (content, images, audio, and
+      * the number of words in the list) and returns them with what they were. NOT_FOUND user_not_found.
+      * Permission: dictionary:settings:write.
+      */
+    def recalculateUserStorage(request: com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse]
     /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
       * Permission: dictionary:word:read.
       */
@@ -581,6 +612,12 @@ object DictionaryServiceGrpc {
         METHOD_LOOKUP_WORDS,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.LookupWordsRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.LookupWordsResponse]) => {
           serviceImpl.lookupWords(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_LIST_DICTIONARIES,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.ListDictionariesRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.ListDictionariesResponse]) => {
+          serviceImpl.listDictionaries(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
       .addMethod(
@@ -763,6 +800,12 @@ object DictionaryServiceGrpc {
             executionContext)
         }))
       .addMethod(
+        METHOD_RECALCULATE_USER_STORAGE,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse]) => {
+          serviceImpl.recalculateUserStorage(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
         METHOD_GET_MY_STORAGE,
         _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.dictionary.v1.GetMyStorageRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.dictionary.v1.GetMyStorageResponse]) => {
           serviceImpl.getMyStorage(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
@@ -796,6 +839,10 @@ object DictionaryServiceGrpc {
       * listed in not_found instead of failing the call. Permission: dictionary:word:read.
       */
     def lookupWords(request: com.huponx.protogen.dictionary.v1.LookupWordsRequest): com.huponx.protogen.dictionary.v1.LookupWordsResponse
+    /** ListDictionaries lists the dictionaries, by group, with whether each is on for the caller (the system and the
+      * user switches). Permission: dictionary:word:read.
+      */
+    def listDictionaries(request: com.huponx.protogen.dictionary.v1.ListDictionariesRequest): com.huponx.protogen.dictionary.v1.ListDictionariesResponse
     /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
       * RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
       */
@@ -936,6 +983,11 @@ object DictionaryServiceGrpc {
       * for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
       */
     def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): com.huponx.protogen.dictionary.v1.SetUserQuotaResponse
+    /** RecalculateUserStorage recomputes the storage counters of a user from the rows (content, images, audio, and
+      * the number of words in the list) and returns them with what they were. NOT_FOUND user_not_found.
+      * Permission: dictionary:settings:write.
+      */
+    def recalculateUserStorage(request: com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest): com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse
     /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
       * Permission: dictionary:word:read.
       */
@@ -963,6 +1015,13 @@ object DictionaryServiceGrpc {
       */
     override def lookupWords(request: com.huponx.protogen.dictionary.v1.LookupWordsRequest): com.huponx.protogen.dictionary.v1.LookupWordsResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LOOKUP_WORDS, options, request)
+    }
+    
+    /** ListDictionaries lists the dictionaries, by group, with whether each is on for the caller (the system and the
+      * user switches). Permission: dictionary:word:read.
+      */
+    override def listDictionaries(request: com.huponx.protogen.dictionary.v1.ListDictionariesRequest): com.huponx.protogen.dictionary.v1.ListDictionariesResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_LIST_DICTIONARIES, options, request)
     }
     
     /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
@@ -1195,6 +1254,14 @@ object DictionaryServiceGrpc {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SET_USER_QUOTA, options, request)
     }
     
+    /** RecalculateUserStorage recomputes the storage counters of a user from the rows (content, images, audio, and
+      * the number of words in the list) and returns them with what they were. NOT_FOUND user_not_found.
+      * Permission: dictionary:settings:write.
+      */
+    override def recalculateUserStorage(request: com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest): com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_RECALCULATE_USER_STORAGE, options, request)
+    }
+    
     /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.
       * Permission: dictionary:word:read.
       */
@@ -1232,6 +1299,13 @@ object DictionaryServiceGrpc {
       */
     override def lookupWords(request: com.huponx.protogen.dictionary.v1.LookupWordsRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.LookupWordsResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LOOKUP_WORDS, options, request)
+    }
+    
+    /** ListDictionaries lists the dictionaries, by group, with whether each is on for the caller (the system and the
+      * user switches). Permission: dictionary:word:read.
+      */
+    override def listDictionaries(request: com.huponx.protogen.dictionary.v1.ListDictionariesRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.ListDictionariesResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_LIST_DICTIONARIES, options, request)
     }
     
     /** SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
@@ -1462,6 +1536,14 @@ object DictionaryServiceGrpc {
       */
     override def setUserQuota(request: com.huponx.protogen.dictionary.v1.SetUserQuotaRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.SetUserQuotaResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SET_USER_QUOTA, options, request)
+    }
+    
+    /** RecalculateUserStorage recomputes the storage counters of a user from the rows (content, images, audio, and
+      * the number of words in the list) and returns them with what they were. NOT_FOUND user_not_found.
+      * Permission: dictionary:settings:write.
+      */
+    override def recalculateUserStorage(request: com.huponx.protogen.dictionary.v1.RecalculateUserStorageRequest): scala.concurrent.Future[com.huponx.protogen.dictionary.v1.RecalculateUserStorageResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_RECALCULATE_USER_STORAGE, options, request)
     }
     
     /** GetMyStorage returns what the user stores and the limit of each kind, own limit included.

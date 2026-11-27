@@ -5,11 +5,15 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param group
+  *   The group of the dictionaries the word belongs to ("en", ...), see ListDictionaries. Required.
+  */
 @SerialVersionUID(0L)
 final case class UpdateWordCategoriesRequest(
     words: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     addCategoryIds: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     removeCategoryIds: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[UpdateWordCategoriesRequest] {
     @transient
@@ -28,6 +32,13 @@ final case class UpdateWordCategoriesRequest(
         val __value = __item
         __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
       }
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(40, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -53,6 +64,12 @@ final case class UpdateWordCategoriesRequest(
         val __m = __v
         _output__.writeString(30, __m)
       };
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(40, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def clearWords = copy(words = _root_.scala.Seq.empty)
@@ -67,6 +84,7 @@ final case class UpdateWordCategoriesRequest(
     def addRemoveCategoryIds(__vs: _root_.scala.Predef.String *): UpdateWordCategoriesRequest = addAllRemoveCategoryIds(__vs)
     def addAllRemoveCategoryIds(__vs: Iterable[_root_.scala.Predef.String]): UpdateWordCategoriesRequest = copy(removeCategoryIds = removeCategoryIds ++ __vs)
     def withRemoveCategoryIds(__v: _root_.scala.Seq[_root_.scala.Predef.String]): UpdateWordCategoriesRequest = copy(removeCategoryIds = __v)
+    def withGroup(__v: _root_.scala.Predef.String): UpdateWordCategoriesRequest = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -74,6 +92,10 @@ final case class UpdateWordCategoriesRequest(
         case 10 => words
         case 20 => addCategoryIds
         case 30 => removeCategoryIds
+        case 40 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -82,6 +104,7 @@ final case class UpdateWordCategoriesRequest(
         case 10 => _root_.scalapb.descriptors.PRepeated(words.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
         case 20 => _root_.scalapb.descriptors.PRepeated(addCategoryIds.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
         case 30 => _root_.scalapb.descriptors.PRepeated(removeCategoryIds.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
+        case 40 => _root_.scalapb.descriptors.PString(group)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -95,6 +118,7 @@ object UpdateWordCategoriesRequest extends scalapb.GeneratedMessageCompanion[com
     val __words: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     val __addCategoryIds: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     val __removeCategoryIds: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -107,6 +131,8 @@ object UpdateWordCategoriesRequest extends scalapb.GeneratedMessageCompanion[com
           __addCategoryIds += _input__.readStringRequireUtf8()
         case 242 =>
           __removeCategoryIds += _input__.readStringRequireUtf8()
+        case 322 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -118,6 +144,7 @@ object UpdateWordCategoriesRequest extends scalapb.GeneratedMessageCompanion[com
         words = __words.result(),
         addCategoryIds = __addCategoryIds.result(),
         removeCategoryIds = __removeCategoryIds.result(),
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -127,36 +154,42 @@ object UpdateWordCategoriesRequest extends scalapb.GeneratedMessageCompanion[com
       com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest(
         words = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
         addCategoryIds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
-        removeCategoryIds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
+        removeCategoryIds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(49)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(49)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(53)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(53)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest(
     words = _root_.scala.Seq.empty,
     addCategoryIds = _root_.scala.Seq.empty,
-    removeCategoryIds = _root_.scala.Seq.empty
+    removeCategoryIds = _root_.scala.Seq.empty,
+    group = ""
   )
   implicit class UpdateWordCategoriesRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest](_l) {
     def words: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.words)((c_, f_) => c_.copy(words = f_))
     def addCategoryIds: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.addCategoryIds)((c_, f_) => c_.copy(addCategoryIds = f_))
     def removeCategoryIds: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.removeCategoryIds)((c_, f_) => c_.copy(removeCategoryIds = f_))
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
   final val WORDS_FIELD_NUMBER = 10
   final val ADD_CATEGORY_IDS_FIELD_NUMBER = 20
   final val REMOVE_CATEGORY_IDS_FIELD_NUMBER = 30
+  final val GROUP_FIELD_NUMBER = 40
   def of(
     words: _root_.scala.Seq[_root_.scala.Predef.String],
     addCategoryIds: _root_.scala.Seq[_root_.scala.Predef.String],
-    removeCategoryIds: _root_.scala.Seq[_root_.scala.Predef.String]
+    removeCategoryIds: _root_.scala.Seq[_root_.scala.Predef.String],
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest = _root_.com.huponx.protogen.dictionary.v1.UpdateWordCategoriesRequest(
     words,
     addCategoryIds,
-    removeCategoryIds
+    removeCategoryIds,
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.UpdateWordCategoriesRequest])
 }

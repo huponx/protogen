@@ -13,6 +13,8 @@ package com.huponx.protogen.dictionary.v1
   *   Seconds until the next review after Again, Hard, Good and Easy (in this order).
   * @param learning
   *   The card is being learned (after Again or Hard); is_new stays for words never reviewed, the two exclude each other.
+  * @param group
+  *   The group of the dictionaries the word belongs to ("en", ...), see ListDictionaries. Required.
   */
 @SerialVersionUID(0L)
 final case class ReviewCard(
@@ -23,6 +25,7 @@ final case class ReviewCard(
     isNew: _root_.scala.Boolean = false,
     gradeIntervalsSeconds: _root_.scala.Seq[_root_.scala.Long] = _root_.scala.Seq.empty,
     learning: _root_.scala.Boolean = false,
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ReviewCard] {
     private[this] def gradeIntervalsSecondsSerializedSize = {
@@ -84,6 +87,13 @@ final case class ReviewCard(
           __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(70, __value)
         }
       };
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(80, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -138,6 +148,12 @@ final case class ReviewCard(
           _output__.writeBool(70, __v)
         }
       };
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(80, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withWord(__v: _root_.scala.Predef.String): ReviewCard = copy(word = __v)
@@ -150,6 +166,7 @@ final case class ReviewCard(
     def addAllGradeIntervalsSeconds(__vs: Iterable[_root_.scala.Long]): ReviewCard = copy(gradeIntervalsSeconds = gradeIntervalsSeconds ++ __vs)
     def withGradeIntervalsSeconds(__v: _root_.scala.Seq[_root_.scala.Long]): ReviewCard = copy(gradeIntervalsSeconds = __v)
     def withLearning(__v: _root_.scala.Boolean): ReviewCard = copy(learning = __v)
+    def withGroup(__v: _root_.scala.Predef.String): ReviewCard = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -179,6 +196,10 @@ final case class ReviewCard(
           val __t = learning
           if (__t != false) __t else null
         }
+        case 80 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -191,6 +212,7 @@ final case class ReviewCard(
         case 50 => _root_.scalapb.descriptors.PBoolean(isNew)
         case 60 => _root_.scalapb.descriptors.PRepeated(gradeIntervalsSeconds.iterator.map(_root_.scalapb.descriptors.PLong(_)).toVector)
         case 70 => _root_.scalapb.descriptors.PBoolean(learning)
+        case 80 => _root_.scalapb.descriptors.PString(group)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -208,6 +230,7 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
     var __isNew: _root_.scala.Boolean = false
     val __gradeIntervalsSeconds: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Long] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Long]
     var __learning: _root_.scala.Boolean = false
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -236,6 +259,8 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
         }
         case 560 =>
           __learning = _input__.readBool()
+        case 642 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -251,6 +276,7 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
         isNew = __isNew,
         gradeIntervalsSeconds = __gradeIntervalsSeconds.result(),
         learning = __learning,
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -264,12 +290,13 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
         audioUs = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         isNew = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         gradeIntervalsSeconds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Seq[_root_.scala.Long]]).getOrElse(_root_.scala.Seq.empty),
-        learning = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        learning = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(31)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(31)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(35)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(35)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -280,7 +307,8 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
     audioUs = "",
     isNew = false,
     gradeIntervalsSeconds = _root_.scala.Seq.empty,
-    learning = false
+    learning = false,
+    group = ""
   )
   implicit class ReviewCardLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ReviewCard]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.ReviewCard](_l) {
     def word: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.word)((c_, f_) => c_.copy(word = f_))
@@ -290,6 +318,7 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
     def isNew: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.isNew)((c_, f_) => c_.copy(isNew = f_))
     def gradeIntervalsSeconds: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Long]] = field(_.gradeIntervalsSeconds)((c_, f_) => c_.copy(gradeIntervalsSeconds = f_))
     def learning: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.learning)((c_, f_) => c_.copy(learning = f_))
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
   final val WORD_FIELD_NUMBER = 10
   final val CONTENT_FIELD_NUMBER = 20
@@ -298,6 +327,7 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
   final val IS_NEW_FIELD_NUMBER = 50
   final val GRADE_INTERVALS_SECONDS_FIELD_NUMBER = 60
   final val LEARNING_FIELD_NUMBER = 70
+  final val GROUP_FIELD_NUMBER = 80
   def of(
     word: _root_.scala.Predef.String,
     content: _root_.scala.Predef.String,
@@ -305,7 +335,8 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
     audioUs: _root_.scala.Predef.String,
     isNew: _root_.scala.Boolean,
     gradeIntervalsSeconds: _root_.scala.Seq[_root_.scala.Long],
-    learning: _root_.scala.Boolean
+    learning: _root_.scala.Boolean,
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.ReviewCard = _root_.com.huponx.protogen.dictionary.v1.ReviewCard(
     word,
     content,
@@ -313,7 +344,8 @@ object ReviewCard extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.
     audioUs,
     isNew,
     gradeIntervalsSeconds,
-    learning
+    learning,
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.ReviewCard])
 }

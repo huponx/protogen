@@ -5,14 +5,25 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param group
+  *   The group whose words are counted. Required. The categories themselves belong to the user.
+  */
 @SerialVersionUID(0L)
 final case class ListCategoriesRequest(
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListCategoriesRequest] {
     @transient
     private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
     private[this] def __computeSerializedSize(): _root_.scala.Int = {
       var __size = 0
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(10, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -26,12 +37,31 @@ final case class ListCategoriesRequest(
       
     }
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(10, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
+    def withGroup(__v: _root_.scala.Predef.String): ListCategoriesRequest = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
-    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 10 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 10 => _root_.scalapb.descriptors.PString(group)
+      }
+    }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
     def companion: com.huponx.protogen.dictionary.v1.ListCategoriesRequest.type = com.huponx.protogen.dictionary.v1.ListCategoriesRequest
     // @@protoc_insertion_point(GeneratedMessage[dictionary.v1.ListCategoriesRequest])
@@ -40,12 +70,15 @@ final case class ListCategoriesRequest(
 object ListCategoriesRequest extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.ListCategoriesRequest] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.ListCategoriesRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.ListCategoriesRequest = {
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
       val _tag__ = _input__.readTag()
       _tag__ match {
         case 0 => _done__ = true
+        case 82 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -54,6 +87,7 @@ object ListCategoriesRequest extends scalapb.GeneratedMessageCompanion[com.hupon
       }
     }
     com.huponx.protogen.dictionary.v1.ListCategoriesRequest(
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -61,20 +95,26 @@ object ListCategoriesRequest extends scalapb.GeneratedMessageCompanion[com.hupon
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.ListCategoriesRequest(
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(41)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(41)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(45)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(45)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.ListCategoriesRequest(
+    group = ""
   )
   implicit class ListCategoriesRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ListCategoriesRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.ListCategoriesRequest](_l) {
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
+  final val GROUP_FIELD_NUMBER = 10
   def of(
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.ListCategoriesRequest = _root_.com.huponx.protogen.dictionary.v1.ListCategoriesRequest(
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.ListCategoriesRequest])
 }
