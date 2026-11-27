@@ -7,6 +7,8 @@ package com.huponx.protogen.identity.v1
 
 /** @param mode
   *   The server mode: off, optional or required.
+  * @param passkeyCount
+  *   How many passkeys the user has (ResetUserMFA removes them too).
   */
 @SerialVersionUID(0L)
 final case class GetUserMFAResponse(
@@ -14,6 +16,7 @@ final case class GetUserMFAResponse(
     enforced: _root_.scala.Boolean = false,
     mode: _root_.scala.Predef.String = "",
     recoveryCodesLeft: _root_.scala.Int = 0,
+    passkeyCount: _root_.scala.Int = 0,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[GetUserMFAResponse] {
     @transient
@@ -46,6 +49,13 @@ final case class GetUserMFAResponse(
         val __value = recoveryCodesLeft
         if (__value != 0) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(40, __value)
+        }
+      };
+      
+      {
+        val __value = passkeyCount
+        if (__value != 0) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(50, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -85,12 +95,19 @@ final case class GetUserMFAResponse(
           _output__.writeInt32(40, __v)
         }
       };
+      {
+        val __v = passkeyCount
+        if (__v != 0) {
+          _output__.writeInt32(50, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withEnabled(__v: _root_.scala.Boolean): GetUserMFAResponse = copy(enabled = __v)
     def withEnforced(__v: _root_.scala.Boolean): GetUserMFAResponse = copy(enforced = __v)
     def withMode(__v: _root_.scala.Predef.String): GetUserMFAResponse = copy(mode = __v)
     def withRecoveryCodesLeft(__v: _root_.scala.Int): GetUserMFAResponse = copy(recoveryCodesLeft = __v)
+    def withPasskeyCount(__v: _root_.scala.Int): GetUserMFAResponse = copy(passkeyCount = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -111,6 +128,10 @@ final case class GetUserMFAResponse(
           val __t = recoveryCodesLeft
           if (__t != 0) __t else null
         }
+        case 50 => {
+          val __t = passkeyCount
+          if (__t != 0) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -120,6 +141,7 @@ final case class GetUserMFAResponse(
         case 20 => _root_.scalapb.descriptors.PBoolean(enforced)
         case 30 => _root_.scalapb.descriptors.PString(mode)
         case 40 => _root_.scalapb.descriptors.PInt(recoveryCodesLeft)
+        case 50 => _root_.scalapb.descriptors.PInt(passkeyCount)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -134,6 +156,7 @@ object GetUserMFAResponse extends scalapb.GeneratedMessageCompanion[com.huponx.p
     var __enforced: _root_.scala.Boolean = false
     var __mode: _root_.scala.Predef.String = ""
     var __recoveryCodesLeft: _root_.scala.Int = 0
+    var __passkeyCount: _root_.scala.Int = 0
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -148,6 +171,8 @@ object GetUserMFAResponse extends scalapb.GeneratedMessageCompanion[com.huponx.p
           __mode = _input__.readStringRequireUtf8()
         case 320 =>
           __recoveryCodesLeft = _input__.readInt32()
+        case 400 =>
+          __passkeyCount = _input__.readInt32()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -160,6 +185,7 @@ object GetUserMFAResponse extends scalapb.GeneratedMessageCompanion[com.huponx.p
         enforced = __enforced,
         mode = __mode,
         recoveryCodesLeft = __recoveryCodesLeft,
+        passkeyCount = __passkeyCount,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -170,12 +196,13 @@ object GetUserMFAResponse extends scalapb.GeneratedMessageCompanion[com.huponx.p
         enabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         enforced = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         mode = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        recoveryCodesLeft = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Int]).getOrElse(0)
+        recoveryCodesLeft = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Int]).getOrElse(0),
+        passkeyCount = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Int]).getOrElse(0)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(93)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(93)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(115)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(115)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -183,28 +210,33 @@ object GetUserMFAResponse extends scalapb.GeneratedMessageCompanion[com.huponx.p
     enabled = false,
     enforced = false,
     mode = "",
-    recoveryCodesLeft = 0
+    recoveryCodesLeft = 0,
+    passkeyCount = 0
   )
   implicit class GetUserMFAResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.GetUserMFAResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.GetUserMFAResponse](_l) {
     def enabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.enabled)((c_, f_) => c_.copy(enabled = f_))
     def enforced: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.enforced)((c_, f_) => c_.copy(enforced = f_))
     def mode: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.mode)((c_, f_) => c_.copy(mode = f_))
     def recoveryCodesLeft: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.recoveryCodesLeft)((c_, f_) => c_.copy(recoveryCodesLeft = f_))
+    def passkeyCount: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.passkeyCount)((c_, f_) => c_.copy(passkeyCount = f_))
   }
   final val ENABLED_FIELD_NUMBER = 10
   final val ENFORCED_FIELD_NUMBER = 20
   final val MODE_FIELD_NUMBER = 30
   final val RECOVERY_CODES_LEFT_FIELD_NUMBER = 40
+  final val PASSKEY_COUNT_FIELD_NUMBER = 50
   def of(
     enabled: _root_.scala.Boolean,
     enforced: _root_.scala.Boolean,
     mode: _root_.scala.Predef.String,
-    recoveryCodesLeft: _root_.scala.Int
+    recoveryCodesLeft: _root_.scala.Int,
+    passkeyCount: _root_.scala.Int
   ): _root_.com.huponx.protogen.identity.v1.GetUserMFAResponse = _root_.com.huponx.protogen.identity.v1.GetUserMFAResponse(
     enabled,
     enforced,
     mode,
-    recoveryCodesLeft
+    recoveryCodesLeft,
+    passkeyCount
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.GetUserMFAResponse])
 }

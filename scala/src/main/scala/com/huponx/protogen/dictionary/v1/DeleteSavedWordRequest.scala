@@ -5,9 +5,13 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param group
+  *   The group of the dictionaries the word belongs to ("en", ...), see ListDictionaries. Required.
+  */
 @SerialVersionUID(0L)
 final case class DeleteSavedWordRequest(
     word: _root_.scala.Predef.String = "",
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[DeleteSavedWordRequest] {
     @transient
@@ -19,6 +23,13 @@ final case class DeleteSavedWordRequest(
         val __value = word
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(10, __value)
+        }
+      };
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(20, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -40,9 +51,16 @@ final case class DeleteSavedWordRequest(
           _output__.writeString(10, __v)
         }
       };
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(20, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withWord(__v: _root_.scala.Predef.String): DeleteSavedWordRequest = copy(word = __v)
+    def withGroup(__v: _root_.scala.Predef.String): DeleteSavedWordRequest = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -51,12 +69,17 @@ final case class DeleteSavedWordRequest(
           val __t = word
           if (__t != "") __t else null
         }
+        case 20 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(word)
+        case 20 => _root_.scalapb.descriptors.PString(group)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -68,6 +91,7 @@ object DeleteSavedWordRequest extends scalapb.GeneratedMessageCompanion[com.hupo
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest = {
     var __word: _root_.scala.Predef.String = ""
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -76,6 +100,8 @@ object DeleteSavedWordRequest extends scalapb.GeneratedMessageCompanion[com.hupo
         case 0 => _done__ = true
         case 82 =>
           __word = _input__.readStringRequireUtf8()
+        case 162 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -85,6 +111,7 @@ object DeleteSavedWordRequest extends scalapb.GeneratedMessageCompanion[com.hupo
     }
     com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest(
         word = __word,
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -92,26 +119,32 @@ object DeleteSavedWordRequest extends scalapb.GeneratedMessageCompanion[com.hupo
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest(
-        word = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        word = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(11)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(11)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(15)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(15)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest(
-    word = ""
+    word = "",
+    group = ""
   )
   implicit class DeleteSavedWordRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest](_l) {
     def word: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.word)((c_, f_) => c_.copy(word = f_))
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
   final val WORD_FIELD_NUMBER = 10
+  final val GROUP_FIELD_NUMBER = 20
   def of(
-    word: _root_.scala.Predef.String
+    word: _root_.scala.Predef.String,
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest = _root_.com.huponx.protogen.dictionary.v1.DeleteSavedWordRequest(
-    word
+    word,
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.DeleteSavedWordRequest])
 }

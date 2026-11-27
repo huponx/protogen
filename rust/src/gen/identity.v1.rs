@@ -417,6 +417,183 @@ pub struct DisableMyMfaResponse {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Passkey {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(int64, tag="30")]
+    pub created_at: i64,
+    /// Unix seconds of the last sign in with it; 0 when never used.
+    #[prost(int64, tag="40")]
+    pub last_used_at: i64,
+    /// The passkey is synced between the devices of its owner (backup eligible), not bound to one.
+    #[prost(bool, tag="50")]
+    pub synced: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ListMyPasskeysRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListMyPasskeysResponse {
+    #[prost(message, repeated, tag="10")]
+    pub passkeys: ::prost::alloc::vec::Vec<Passkey>,
+    /// How many passkeys a user may have.
+    #[prost(int32, tag="20")]
+    pub max: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BeginMyPasskeyRequest {
+    /// The current password.
+    #[prost(string, tag="10")]
+    pub password: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BeginMyPasskeyResponse {
+    /// Comes back in FinishMyPasskey; valid for 5 minutes, once.
+    #[prost(string, tag="10")]
+    pub ceremony_id: ::prost::alloc::string::String,
+    /// The JSON for navigator.credentials.create (PublicKeyCredentialCreationOptionsJSON).
+    #[prost(string, tag="20")]
+    pub options_json: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FinishMyPasskeyRequest {
+    #[prost(string, tag="10")]
+    pub ceremony_id: ::prost::alloc::string::String,
+    /// The JSON of the credential the browser returned (RegistrationResponseJSON).
+    #[prost(string, tag="20")]
+    pub credential_json: ::prost::alloc::string::String,
+    /// 1 to 60 characters.
+    #[prost(string, tag="30")]
+    pub name: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FinishMyPasskeyResponse {
+    #[prost(message, optional, tag="10")]
+    pub passkey: ::core::option::Option<Passkey>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RenameMyPasskeyRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RenameMyPasskeyResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteMyPasskeyRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    /// The current password.
+    #[prost(string, tag="20")]
+    pub password: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeleteMyPasskeyResponse {
+}
+/// An SSO session: one sign in on one browser or device. The browser, os and device are read from the User-Agent when
+/// listed; all are empty for a session that was created before they were recorded.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Session {
+    /// The public id of the session (the sid of its tokens).
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub ip: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub browser: ::prost::alloc::string::String,
+    /// The major version of the browser.
+    #[prost(string, tag="35")]
+    pub browser_version: ::prost::alloc::string::String,
+    #[prost(string, tag="40")]
+    pub os: ::prost::alloc::string::String,
+    /// desktop, mobile, tablet or unknown.
+    #[prost(string, tag="50")]
+    pub device: ::prost::alloc::string::String,
+    /// How the user signed in: pwd, otp, swk, hwk, mfa.
+    #[prost(string, repeated, tag="60")]
+    pub amr: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Unix seconds.
+    #[prost(int64, tag="70")]
+    pub created_at: i64,
+    /// Unix seconds of the last activity (at most a minute behind); 0 when unknown.
+    #[prost(int64, tag="80")]
+    pub last_seen_at: i64,
+    /// The session of the caller.
+    #[prost(bool, tag="90")]
+    pub current: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ListMySessionsRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListMySessionsResponse {
+    /// Newest first.
+    #[prost(message, repeated, tag="10")]
+    pub sessions: ::prost::alloc::vec::Vec<Session>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RevokeMySessionRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RevokeMySessionResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RevokeMyOtherSessionsRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RevokeMyOtherSessionsResponse {
+    #[prost(int32, tag="10")]
+    pub revoked: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListUserSessionsRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListUserSessionsResponse {
+    #[prost(message, repeated, tag="10")]
+    pub sessions: ::prost::alloc::vec::Vec<Session>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RevokeUserSessionsRequest {
+    #[prost(string, tag="10")]
+    pub user_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RevokeUserSessionsResponse {
+    #[prost(int32, tag="10")]
+    pub revoked: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetMyUserSettingsRequest {
     /// Short lowercase name of the application: a letter, then letters, digits, "_" or "-" (32 at most).
     #[prost(string, tag="10")]
@@ -868,6 +1045,9 @@ pub struct GetUserMfaResponse {
     pub mode: ::prost::alloc::string::String,
     #[prost(int32, tag="40")]
     pub recovery_codes_left: i32,
+    /// How many passkeys the user has (ResetUserMFA removes them too).
+    #[prost(int32, tag="50")]
+    pub passkey_count: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

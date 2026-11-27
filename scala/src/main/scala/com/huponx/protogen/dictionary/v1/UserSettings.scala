@@ -7,8 +7,11 @@ package com.huponx.protogen.dictionary.v1
 
 /** Preferences of one user. They only narrow what Settings allows.
   *
+  * @param dictionaries
+  *   The dictionaries the user wants, by id (an id missing from the map is on). They only narrow what Settings allows;
+  *   at least one must stay on.
   * @param defaultDictionary
-  *   The dictionary selected first; one of the enabled ones.
+  *   The id of the dictionary selected first; one of the enabled ones.
   * @param deckName
   *   Deck name the export starts with ("My Words" when empty).
   * @param maxLookupWords
@@ -32,9 +35,8 @@ package com.huponx.protogen.dictionary.v1
   */
 @SerialVersionUID(0L)
 final case class UserSettings(
-    englishEnabled: _root_.scala.Boolean = false,
-    englishViEnabled: _root_.scala.Boolean = false,
-    defaultDictionary: com.huponx.protogen.dictionary.v1.Dictionary = com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED,
+    dictionaries: _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean] = _root_.scala.collection.immutable.Map.empty,
+    defaultDictionary: _root_.scala.Predef.String = "",
     deckName: _root_.scala.Predef.String = "",
     maxLookupWords: _root_.scala.Int = 0,
     removeAfterExport: _root_.scala.Boolean = false,
@@ -50,25 +52,15 @@ final case class UserSettings(
     private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
     private[this] def __computeSerializedSize(): _root_.scala.Int = {
       var __size = 0
+      dictionaries.foreach { __item =>
+        val __value = com.huponx.protogen.dictionary.v1.UserSettings._typemapper_dictionaries.toBase(__item)
+        __size += 2 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
+      }
       
       {
-        val __value = englishEnabled
-        if (__value != false) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(10, __value)
-        }
-      };
-      
-      {
-        val __value = englishViEnabled
-        if (__value != false) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(20, __value)
-        }
-      };
-      
-      {
-        val __value = defaultDictionary.value
-        if (__value != 0) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(30, __value)
+        val __value = defaultDictionary
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(140, __value)
         }
       };
       
@@ -148,24 +140,6 @@ final case class UserSettings(
     }
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
       {
-        val __v = englishEnabled
-        if (__v != false) {
-          _output__.writeBool(10, __v)
-        }
-      };
-      {
-        val __v = englishViEnabled
-        if (__v != false) {
-          _output__.writeBool(20, __v)
-        }
-      };
-      {
-        val __v = defaultDictionary.value
-        if (__v != 0) {
-          _output__.writeEnum(30, __v)
-        }
-      };
-      {
         val __v = deckName
         if (!__v.isEmpty) {
           _output__.writeString(40, __v)
@@ -219,11 +193,25 @@ final case class UserSettings(
           _output__.writeInt32(120, __v)
         }
       };
+      dictionaries.foreach { __v =>
+        val __m = com.huponx.protogen.dictionary.v1.UserSettings._typemapper_dictionaries.toBase(__v)
+        _output__.writeTag(130, 2)
+        _output__.writeUInt32NoTag(__m.serializedSize)
+        __m.writeTo(_output__)
+      };
+      {
+        val __v = defaultDictionary
+        if (!__v.isEmpty) {
+          _output__.writeString(140, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
-    def withEnglishEnabled(__v: _root_.scala.Boolean): UserSettings = copy(englishEnabled = __v)
-    def withEnglishViEnabled(__v: _root_.scala.Boolean): UserSettings = copy(englishViEnabled = __v)
-    def withDefaultDictionary(__v: com.huponx.protogen.dictionary.v1.Dictionary): UserSettings = copy(defaultDictionary = __v)
+    def clearDictionaries = copy(dictionaries = _root_.scala.collection.immutable.Map.empty)
+    def addDictionaries(__vs: (_root_.scala.Predef.String, _root_.scala.Boolean) *): UserSettings = addAllDictionaries(__vs)
+    def addAllDictionaries(__vs: Iterable[(_root_.scala.Predef.String, _root_.scala.Boolean)]): UserSettings = copy(dictionaries = dictionaries ++ __vs)
+    def withDictionaries(__v: _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]): UserSettings = copy(dictionaries = __v)
+    def withDefaultDictionary(__v: _root_.scala.Predef.String): UserSettings = copy(defaultDictionary = __v)
     def withDeckName(__v: _root_.scala.Predef.String): UserSettings = copy(deckName = __v)
     def withMaxLookupWords(__v: _root_.scala.Int): UserSettings = copy(maxLookupWords = __v)
     def withRemoveAfterExport(__v: _root_.scala.Boolean): UserSettings = copy(removeAfterExport = __v)
@@ -237,17 +225,10 @@ final case class UserSettings(
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
       (__fieldNumber: @_root_.scala.unchecked) match {
-        case 10 => {
-          val __t = englishEnabled
-          if (__t != false) __t else null
-        }
-        case 20 => {
-          val __t = englishViEnabled
-          if (__t != false) __t else null
-        }
-        case 30 => {
-          val __t = defaultDictionary.javaValueDescriptor
-          if (__t.getNumber() != 0) __t else null
+        case 130 => dictionaries.iterator.map(com.huponx.protogen.dictionary.v1.UserSettings._typemapper_dictionaries.toBase(_)).toSeq
+        case 140 => {
+          val __t = defaultDictionary
+          if (__t != "") __t else null
         }
         case 40 => {
           val __t = deckName
@@ -290,9 +271,8 @@ final case class UserSettings(
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
-        case 10 => _root_.scalapb.descriptors.PBoolean(englishEnabled)
-        case 20 => _root_.scalapb.descriptors.PBoolean(englishViEnabled)
-        case 30 => _root_.scalapb.descriptors.PEnum(defaultDictionary.scalaValueDescriptor)
+        case 130 => _root_.scalapb.descriptors.PRepeated(dictionaries.iterator.map(com.huponx.protogen.dictionary.v1.UserSettings._typemapper_dictionaries.toBase(_).toPMessage).toVector)
+        case 140 => _root_.scalapb.descriptors.PString(defaultDictionary)
         case 40 => _root_.scalapb.descriptors.PString(deckName)
         case 50 => _root_.scalapb.descriptors.PInt(maxLookupWords)
         case 60 => _root_.scalapb.descriptors.PBoolean(removeAfterExport)
@@ -312,9 +292,8 @@ final case class UserSettings(
 object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.UserSettings] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.UserSettings] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.UserSettings = {
-    var __englishEnabled: _root_.scala.Boolean = false
-    var __englishViEnabled: _root_.scala.Boolean = false
-    var __defaultDictionary: com.huponx.protogen.dictionary.v1.Dictionary = com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED
+    val __dictionaries: _root_.scala.collection.mutable.Builder[(_root_.scala.Predef.String, _root_.scala.Boolean), _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]] = _root_.scala.collection.immutable.Map.newBuilder[_root_.scala.Predef.String, _root_.scala.Boolean]
+    var __defaultDictionary: _root_.scala.Predef.String = ""
     var __deckName: _root_.scala.Predef.String = ""
     var __maxLookupWords: _root_.scala.Int = 0
     var __removeAfterExport: _root_.scala.Boolean = false
@@ -330,12 +309,10 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
       val _tag__ = _input__.readTag()
       _tag__ match {
         case 0 => _done__ = true
-        case 80 =>
-          __englishEnabled = _input__.readBool()
-        case 160 =>
-          __englishViEnabled = _input__.readBool()
-        case 240 =>
-          __defaultDictionary = com.huponx.protogen.dictionary.v1.Dictionary.fromValue(_input__.readEnum())
+        case 1042 =>
+          __dictionaries += com.huponx.protogen.dictionary.v1.UserSettings._typemapper_dictionaries.toCustom(_root_.scalapb.LiteParser.readMessage[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry](_input__))
+        case 1122 =>
+          __defaultDictionary = _input__.readStringRequireUtf8()
         case 322 =>
           __deckName = _input__.readStringRequireUtf8()
         case 400 =>
@@ -362,8 +339,7 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
       }
     }
     com.huponx.protogen.dictionary.v1.UserSettings(
-        englishEnabled = __englishEnabled,
-        englishViEnabled = __englishViEnabled,
+        dictionaries = __dictionaries.result(),
         defaultDictionary = __defaultDictionary,
         deckName = __deckName,
         maxLookupWords = __maxLookupWords,
@@ -381,9 +357,8 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.UserSettings(
-        englishEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        englishViEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        defaultDictionary = com.huponx.protogen.dictionary.v1.Dictionary.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED.scalaValueDescriptor).number),
+        dictionaries = __fieldsMap.get(scalaDescriptor.findFieldByNumber(130).get).map(_.as[_root_.scala.Seq[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry]]).getOrElse(_root_.scala.Seq.empty).iterator.map(com.huponx.protogen.dictionary.v1.UserSettings._typemapper_dictionaries.toCustom(_)).toMap,
+        defaultDictionary = __fieldsMap.get(scalaDescriptor.findFieldByNumber(140).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         deckName = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         maxLookupWords = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Int]).getOrElse(0),
         removeAfterExport = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
@@ -396,19 +371,23 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(52)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(52)
-  def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
-  lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 30 => com.huponx.protogen.dictionary.v1.Dictionary
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(56)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(56)
+  def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
+    var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
+    (__number: @_root_.scala.unchecked) match {
+      case 130 => __out = com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry
     }
+    __out
   }
+  lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] =
+    Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]](
+      _root_.com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry
+    )
+  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.UserSettings(
-    englishEnabled = false,
-    englishViEnabled = false,
-    defaultDictionary = com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED,
+    dictionaries = _root_.scala.collection.immutable.Map.empty,
+    defaultDictionary = "",
     deckName = "",
     maxLookupWords = 0,
     removeAfterExport = false,
@@ -419,10 +398,153 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     reviewAlgorithm = "",
     desiredRetention = 0
   )
+  @SerialVersionUID(0L)
+  final case class DictionariesEntry(
+      key: _root_.scala.Predef.String = "",
+      value: _root_.scala.Boolean = false,
+      unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
+      ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[DictionariesEntry] {
+      @transient
+      private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
+      private[this] def __computeSerializedSize(): _root_.scala.Int = {
+        var __size = 0
+        
+        {
+          val __value = key
+          if (!__value.isEmpty) {
+            __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(1, __value)
+          }
+        };
+        
+        {
+          val __value = value
+          if (__value != false) {
+            __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(2, __value)
+          }
+        };
+        __size += unknownFields.serializedSize
+        __size
+      }
+      override def serializedSize: _root_.scala.Int = {
+        var __size = __serializedSizeMemoized
+        if (__size == 0) {
+          __size = __computeSerializedSize() + 1
+          __serializedSizeMemoized = __size
+        }
+        __size - 1
+        
+      }
+      def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
+        {
+          val __v = key
+          if (!__v.isEmpty) {
+            _output__.writeString(1, __v)
+          }
+        };
+        {
+          val __v = value
+          if (__v != false) {
+            _output__.writeBool(2, __v)
+          }
+        };
+        unknownFields.writeTo(_output__)
+      }
+      def withKey(__v: _root_.scala.Predef.String): DictionariesEntry = copy(key = __v)
+      def withValue(__v: _root_.scala.Boolean): DictionariesEntry = copy(value = __v)
+      def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
+      def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
+      def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
+        (__fieldNumber: @_root_.scala.unchecked) match {
+          case 1 => {
+            val __t = key
+            if (__t != "") __t else null
+          }
+          case 2 => {
+            val __t = value
+            if (__t != false) __t else null
+          }
+        }
+      }
+      def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+        _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
+        (__field.number: @_root_.scala.unchecked) match {
+          case 1 => _root_.scalapb.descriptors.PString(key)
+          case 2 => _root_.scalapb.descriptors.PBoolean(value)
+        }
+      }
+      def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
+      def companion: com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry.type = com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry
+      // @@protoc_insertion_point(GeneratedMessage[dictionary.v1.UserSettings.DictionariesEntry])
+  }
+  
+  object DictionariesEntry extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry] {
+    implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry] = this
+    def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry = {
+      var __key: _root_.scala.Predef.String = ""
+      var __value: _root_.scala.Boolean = false
+      var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
+      var _done__ = false
+      while (!_done__) {
+        val _tag__ = _input__.readTag()
+        _tag__ match {
+          case 0 => _done__ = true
+          case 10 =>
+            __key = _input__.readStringRequireUtf8()
+          case 16 =>
+            __value = _input__.readBool()
+          case tag =>
+            if (_unknownFields__ == null) {
+              _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
+            }
+            _unknownFields__.parseField(tag, _input__)
+        }
+      }
+      com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry(
+          key = __key,
+          value = __value,
+          unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
+      )
+    }
+    implicit def messageReads: _root_.scalapb.descriptors.Reads[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry] = _root_.scalapb.descriptors.Reads{
+      case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
+        _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
+        com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry(
+          key = __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+          value = __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        )
+      case _ => throw new RuntimeException("Expected PMessage")
+    }
+    def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = com.huponx.protogen.dictionary.v1.UserSettings.javaDescriptor.getNestedTypes().get(0)
+    def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = com.huponx.protogen.dictionary.v1.UserSettings.scalaDescriptor.nestedMessages(0)
+    def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
+    lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
+    def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
+    lazy val defaultInstance = com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry(
+      key = "",
+      value = false
+    )
+    implicit class DictionariesEntryLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry](_l) {
+      def key: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.key)((c_, f_) => c_.copy(key = f_))
+      def value: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.value)((c_, f_) => c_.copy(value = f_))
+    }
+    final val KEY_FIELD_NUMBER = 1
+    final val VALUE_FIELD_NUMBER = 2
+    @transient
+    implicit val keyValueMapper: _root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)] =
+      _root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)](__m => (__m.key, __m.value))(__p => com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry(__p._1, __p._2))
+    def of(
+      key: _root_.scala.Predef.String,
+      value: _root_.scala.Boolean
+    ): _root_.com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry = _root_.com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry(
+      key,
+      value
+    )
+    // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.UserSettings.DictionariesEntry])
+  }
+  
   implicit class UserSettingsLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.UserSettings](_l) {
-    def englishEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishEnabled)((c_, f_) => c_.copy(englishEnabled = f_))
-    def englishViEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.englishViEnabled)((c_, f_) => c_.copy(englishViEnabled = f_))
-    def defaultDictionary: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Dictionary] = field(_.defaultDictionary)((c_, f_) => c_.copy(defaultDictionary = f_))
+    def dictionaries: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean]] = field(_.dictionaries)((c_, f_) => c_.copy(dictionaries = f_))
+    def defaultDictionary: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.defaultDictionary)((c_, f_) => c_.copy(defaultDictionary = f_))
     def deckName: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.deckName)((c_, f_) => c_.copy(deckName = f_))
     def maxLookupWords: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.maxLookupWords)((c_, f_) => c_.copy(maxLookupWords = f_))
     def removeAfterExport: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.removeAfterExport)((c_, f_) => c_.copy(removeAfterExport = f_))
@@ -433,9 +555,8 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     def reviewAlgorithm: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.reviewAlgorithm)((c_, f_) => c_.copy(reviewAlgorithm = f_))
     def desiredRetention: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.desiredRetention)((c_, f_) => c_.copy(desiredRetention = f_))
   }
-  final val ENGLISH_ENABLED_FIELD_NUMBER = 10
-  final val ENGLISH_VI_ENABLED_FIELD_NUMBER = 20
-  final val DEFAULT_DICTIONARY_FIELD_NUMBER = 30
+  final val DICTIONARIES_FIELD_NUMBER = 130
+  final val DEFAULT_DICTIONARY_FIELD_NUMBER = 140
   final val DECK_NAME_FIELD_NUMBER = 40
   final val MAX_LOOKUP_WORDS_FIELD_NUMBER = 50
   final val REMOVE_AFTER_EXPORT_FIELD_NUMBER = 60
@@ -445,10 +566,11 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
   final val REVIEW_MAX_PER_DAY_FIELD_NUMBER = 100
   final val REVIEW_ALGORITHM_FIELD_NUMBER = 110
   final val DESIRED_RETENTION_FIELD_NUMBER = 120
+  @transient
+  private[v1] val _typemapper_dictionaries: _root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)] = implicitly[_root_.scalapb.TypeMapper[com.huponx.protogen.dictionary.v1.UserSettings.DictionariesEntry, (_root_.scala.Predef.String, _root_.scala.Boolean)]]
   def of(
-    englishEnabled: _root_.scala.Boolean,
-    englishViEnabled: _root_.scala.Boolean,
-    defaultDictionary: com.huponx.protogen.dictionary.v1.Dictionary,
+    dictionaries: _root_.scala.collection.immutable.Map[_root_.scala.Predef.String, _root_.scala.Boolean],
+    defaultDictionary: _root_.scala.Predef.String,
     deckName: _root_.scala.Predef.String,
     maxLookupWords: _root_.scala.Int,
     removeAfterExport: _root_.scala.Boolean,
@@ -459,8 +581,7 @@ object UserSettings extends scalapb.GeneratedMessageCompanion[com.huponx.protoge
     reviewAlgorithm: _root_.scala.Predef.String,
     desiredRetention: _root_.scala.Int
   ): _root_.com.huponx.protogen.dictionary.v1.UserSettings = _root_.com.huponx.protogen.dictionary.v1.UserSettings(
-    englishEnabled,
-    englishViEnabled,
+    dictionaries,
     defaultDictionary,
     deckName,
     maxLookupWords,

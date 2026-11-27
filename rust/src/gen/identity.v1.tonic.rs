@@ -263,6 +263,60 @@ pub mod identity_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn list_user_sessions(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListUserSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUserSessionsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/ListUserSessions",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "ListUserSessions"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn revoke_user_sessions(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RevokeUserSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RevokeUserSessionsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/RevokeUserSessions",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "RevokeUserSessions"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn delete_user(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteUserRequest>,
@@ -689,6 +743,225 @@ pub mod identity_service_client {
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(GrpcMethod::new("identity.v1.IdentityService", "DisableMyMFA"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn list_my_passkeys(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListMyPasskeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMyPasskeysResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/ListMyPasskeys",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "ListMyPasskeys"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn begin_my_passkey(
+            &mut self,
+            request: impl tonic::IntoRequest<super::BeginMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BeginMyPasskeyResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/BeginMyPasskey",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "BeginMyPasskey"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn finish_my_passkey(
+            &mut self,
+            request: impl tonic::IntoRequest<super::FinishMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FinishMyPasskeyResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/FinishMyPasskey",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "FinishMyPasskey"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn rename_my_passkey(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RenameMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RenameMyPasskeyResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/RenameMyPasskey",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "RenameMyPasskey"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn delete_my_passkey(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeleteMyPasskeyResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/DeleteMyPasskey",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "DeleteMyPasskey"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn list_my_sessions(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListMySessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMySessionsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/ListMySessions",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "ListMySessions"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn revoke_my_session(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RevokeMySessionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RevokeMySessionResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/RevokeMySession",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("identity.v1.IdentityService", "RevokeMySession"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn revoke_my_other_sessions(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RevokeMyOtherSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RevokeMyOtherSessionsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/identity.v1.IdentityService/RevokeMyOtherSessions",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "identity.v1.IdentityService",
+                        "RevokeMyOtherSessions",
+                    ),
+                );
             self.inner.unary(req, path, codec).await
         }
         pub async fn get_my_user_settings(
@@ -1454,6 +1727,20 @@ pub mod identity_service_server {
             tonic::Response<super::SetUserDisabledResponse>,
             tonic::Status,
         >;
+        async fn list_user_sessions(
+            &self,
+            request: tonic::Request<super::ListUserSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUserSessionsResponse>,
+            tonic::Status,
+        >;
+        async fn revoke_user_sessions(
+            &self,
+            request: tonic::Request<super::RevokeUserSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RevokeUserSessionsResponse>,
+            tonic::Status,
+        >;
         async fn delete_user(
             &self,
             request: tonic::Request<super::DeleteUserRequest>,
@@ -1568,6 +1855,62 @@ pub mod identity_service_server {
             request: tonic::Request<super::DisableMyMfaRequest>,
         ) -> std::result::Result<
             tonic::Response<super::DisableMyMfaResponse>,
+            tonic::Status,
+        >;
+        async fn list_my_passkeys(
+            &self,
+            request: tonic::Request<super::ListMyPasskeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMyPasskeysResponse>,
+            tonic::Status,
+        >;
+        async fn begin_my_passkey(
+            &self,
+            request: tonic::Request<super::BeginMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BeginMyPasskeyResponse>,
+            tonic::Status,
+        >;
+        async fn finish_my_passkey(
+            &self,
+            request: tonic::Request<super::FinishMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FinishMyPasskeyResponse>,
+            tonic::Status,
+        >;
+        async fn rename_my_passkey(
+            &self,
+            request: tonic::Request<super::RenameMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RenameMyPasskeyResponse>,
+            tonic::Status,
+        >;
+        async fn delete_my_passkey(
+            &self,
+            request: tonic::Request<super::DeleteMyPasskeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeleteMyPasskeyResponse>,
+            tonic::Status,
+        >;
+        async fn list_my_sessions(
+            &self,
+            request: tonic::Request<super::ListMySessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMySessionsResponse>,
+            tonic::Status,
+        >;
+        async fn revoke_my_session(
+            &self,
+            request: tonic::Request<super::RevokeMySessionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RevokeMySessionResponse>,
+            tonic::Status,
+        >;
+        async fn revoke_my_other_sessions(
+            &self,
+            request: tonic::Request<super::RevokeMyOtherSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RevokeMyOtherSessionsResponse>,
             tonic::Status,
         >;
         async fn get_my_user_settings(
@@ -2138,6 +2481,101 @@ pub mod identity_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SetUserDisabledSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/ListUserSessions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUserSessionsSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::ListUserSessionsRequest>
+                    for ListUserSessionsSvc<T> {
+                        type Response = super::ListUserSessionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListUserSessionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::list_user_sessions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUserSessionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/RevokeUserSessions" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeUserSessionsSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::RevokeUserSessionsRequest>
+                    for RevokeUserSessionsSvc<T> {
+                        type Response = super::RevokeUserSessionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RevokeUserSessionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::revoke_user_sessions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevokeUserSessionsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2909,6 +3347,377 @@ pub mod identity_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = DisableMyMFASvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/ListMyPasskeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMyPasskeysSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::ListMyPasskeysRequest>
+                    for ListMyPasskeysSvc<T> {
+                        type Response = super::ListMyPasskeysResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMyPasskeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::list_my_passkeys(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMyPasskeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/BeginMyPasskey" => {
+                    #[allow(non_camel_case_types)]
+                    struct BeginMyPasskeySvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::BeginMyPasskeyRequest>
+                    for BeginMyPasskeySvc<T> {
+                        type Response = super::BeginMyPasskeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BeginMyPasskeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::begin_my_passkey(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BeginMyPasskeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/FinishMyPasskey" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinishMyPasskeySvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::FinishMyPasskeyRequest>
+                    for FinishMyPasskeySvc<T> {
+                        type Response = super::FinishMyPasskeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FinishMyPasskeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::finish_my_passkey(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinishMyPasskeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/RenameMyPasskey" => {
+                    #[allow(non_camel_case_types)]
+                    struct RenameMyPasskeySvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::RenameMyPasskeyRequest>
+                    for RenameMyPasskeySvc<T> {
+                        type Response = super::RenameMyPasskeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RenameMyPasskeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::rename_my_passkey(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RenameMyPasskeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/DeleteMyPasskey" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteMyPasskeySvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::DeleteMyPasskeyRequest>
+                    for DeleteMyPasskeySvc<T> {
+                        type Response = super::DeleteMyPasskeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteMyPasskeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::delete_my_passkey(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteMyPasskeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/ListMySessions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMySessionsSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::ListMySessionsRequest>
+                    for ListMySessionsSvc<T> {
+                        type Response = super::ListMySessionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMySessionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::list_my_sessions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMySessionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/RevokeMySession" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeMySessionSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::RevokeMySessionRequest>
+                    for RevokeMySessionSvc<T> {
+                        type Response = super::RevokeMySessionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RevokeMySessionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::revoke_my_session(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevokeMySessionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/identity.v1.IdentityService/RevokeMyOtherSessions" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeMyOtherSessionsSvc<T: IdentityService>(pub Arc<T>);
+                    impl<
+                        T: IdentityService,
+                    > tonic::server::UnaryService<super::RevokeMyOtherSessionsRequest>
+                    for RevokeMyOtherSessionsSvc<T> {
+                        type Response = super::RevokeMyOtherSessionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RevokeMyOtherSessionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityService>::revoke_my_other_sessions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevokeMyOtherSessionsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

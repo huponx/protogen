@@ -32,6 +32,7 @@ final case class ExportJob(
     createdAt: _root_.scala.Predef.String = "",
     finishedAt: _root_.scala.Predef.String = "",
     expiresAt: _root_.scala.Predef.String = "",
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ExportJob] {
     @transient
@@ -110,6 +111,13 @@ final case class ExportJob(
         val __value = expiresAt
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(100, __value)
+        }
+      };
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(120, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -191,6 +199,12 @@ final case class ExportJob(
           _output__.writeInt32(110, __v)
         }
       };
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(120, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withId(__v: _root_.scala.Predef.String): ExportJob = copy(id = __v)
@@ -207,6 +221,7 @@ final case class ExportJob(
     def withCreatedAt(__v: _root_.scala.Predef.String): ExportJob = copy(createdAt = __v)
     def withFinishedAt(__v: _root_.scala.Predef.String): ExportJob = copy(finishedAt = __v)
     def withExpiresAt(__v: _root_.scala.Predef.String): ExportJob = copy(expiresAt = __v)
+    def withGroup(__v: _root_.scala.Predef.String): ExportJob = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -252,6 +267,10 @@ final case class ExportJob(
           val __t = expiresAt
           if (__t != "") __t else null
         }
+        case 120 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -268,6 +287,7 @@ final case class ExportJob(
         case 80 => _root_.scalapb.descriptors.PString(createdAt)
         case 90 => _root_.scalapb.descriptors.PString(finishedAt)
         case 100 => _root_.scalapb.descriptors.PString(expiresAt)
+        case 120 => _root_.scalapb.descriptors.PString(group)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -289,6 +309,7 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     var __createdAt: _root_.scala.Predef.String = ""
     var __finishedAt: _root_.scala.Predef.String = ""
     var __expiresAt: _root_.scala.Predef.String = ""
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -317,6 +338,8 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
           __finishedAt = _input__.readStringRequireUtf8()
         case 802 =>
           __expiresAt = _input__.readStringRequireUtf8()
+        case 962 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -336,6 +359,7 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
         createdAt = __createdAt,
         finishedAt = __finishedAt,
         expiresAt = __expiresAt,
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -353,12 +377,13 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
         error = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         createdAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         finishedAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        expiresAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        expiresAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(120).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(77)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(77)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(83)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(83)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -379,7 +404,8 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     error = "",
     createdAt = "",
     finishedAt = "",
-    expiresAt = ""
+    expiresAt = "",
+    group = ""
   )
   implicit class ExportJobLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.ExportJob]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.ExportJob](_l) {
     def id: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.id)((c_, f_) => c_.copy(id = f_))
@@ -393,6 +419,7 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     def createdAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.createdAt)((c_, f_) => c_.copy(createdAt = f_))
     def finishedAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.finishedAt)((c_, f_) => c_.copy(finishedAt = f_))
     def expiresAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.expiresAt)((c_, f_) => c_.copy(expiresAt = f_))
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
   final val ID_FIELD_NUMBER = 10
   final val STATUS_FIELD_NUMBER = 20
@@ -405,6 +432,7 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
   final val CREATED_AT_FIELD_NUMBER = 80
   final val FINISHED_AT_FIELD_NUMBER = 90
   final val EXPIRES_AT_FIELD_NUMBER = 100
+  final val GROUP_FIELD_NUMBER = 120
   def of(
     id: _root_.scala.Predef.String,
     status: _root_.scala.Predef.String,
@@ -416,7 +444,8 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     error: _root_.scala.Predef.String,
     createdAt: _root_.scala.Predef.String,
     finishedAt: _root_.scala.Predef.String,
-    expiresAt: _root_.scala.Predef.String
+    expiresAt: _root_.scala.Predef.String,
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.ExportJob = _root_.com.huponx.protogen.dictionary.v1.ExportJob(
     id,
     status,
@@ -428,7 +457,8 @@ object ExportJob extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     error,
     createdAt,
     finishedAt,
-    expiresAt
+    expiresAt,
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.ExportJob])
 }

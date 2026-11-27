@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	DictionaryService_LookupWord_FullMethodName               = "/dictionary.v1.DictionaryService/LookupWord"
 	DictionaryService_LookupWords_FullMethodName              = "/dictionary.v1.DictionaryService/LookupWords"
+	DictionaryService_ListDictionaries_FullMethodName         = "/dictionary.v1.DictionaryService/ListDictionaries"
 	DictionaryService_SaveWord_FullMethodName                 = "/dictionary.v1.DictionaryService/SaveWord"
 	DictionaryService_ListSavedWords_FullMethodName           = "/dictionary.v1.DictionaryService/ListSavedWords"
 	DictionaryService_CheckSavedWords_FullMethodName          = "/dictionary.v1.DictionaryService/CheckSavedWords"
@@ -51,6 +52,7 @@ const (
 	DictionaryService_UpdateSettings_FullMethodName           = "/dictionary.v1.DictionaryService/UpdateSettings"
 	DictionaryService_GetUserQuota_FullMethodName             = "/dictionary.v1.DictionaryService/GetUserQuota"
 	DictionaryService_SetUserQuota_FullMethodName             = "/dictionary.v1.DictionaryService/SetUserQuota"
+	DictionaryService_RecalculateUserStorage_FullMethodName   = "/dictionary.v1.DictionaryService/RecalculateUserStorage"
 	DictionaryService_GetMyStorage_FullMethodName             = "/dictionary.v1.DictionaryService/GetMyStorage"
 	DictionaryService_GetMySettings_FullMethodName            = "/dictionary.v1.DictionaryService/GetMySettings"
 	DictionaryService_UpdateMySettings_FullMethodName         = "/dictionary.v1.DictionaryService/UpdateMySettings"
@@ -69,6 +71,9 @@ type DictionaryServiceClient interface {
 	// LookupWords returns the entries of several words (at most 20). Words without an entry are
 	// listed in not_found instead of failing the call. Permission: dictionary:word:read.
 	LookupWords(ctx context.Context, in *LookupWordsRequest, opts ...grpc.CallOption) (*LookupWordsResponse, error)
+	// ListDictionaries lists the dictionaries, by group, with whether each is on for the caller (the system and the
+	// user switches). Permission: dictionary:word:read.
+	ListDictionaries(ctx context.Context, in *ListDictionariesRequest, opts ...grpc.CallOption) (*ListDictionariesResponse, error)
 	// SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
 	// RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
 	SaveWord(ctx context.Context, in *SaveWordRequest, opts ...grpc.CallOption) (*SaveWordResponse, error)
@@ -179,6 +184,10 @@ type DictionaryServiceClient interface {
 	// SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
 	// for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
 	SetUserQuota(ctx context.Context, in *SetUserQuotaRequest, opts ...grpc.CallOption) (*SetUserQuotaResponse, error)
+	// RecalculateUserStorage recomputes the storage counters of a user from the rows (content, images, audio, and
+	// the number of words in the list) and returns them with what they were. NOT_FOUND user_not_found.
+	// Permission: dictionary:settings:write.
+	RecalculateUserStorage(ctx context.Context, in *RecalculateUserStorageRequest, opts ...grpc.CallOption) (*RecalculateUserStorageResponse, error)
 	// GetMyStorage returns what the user stores and the limit of each kind, own limit included.
 	// Permission: dictionary:word:read.
 	GetMyStorage(ctx context.Context, in *GetMyStorageRequest, opts ...grpc.CallOption) (*GetMyStorageResponse, error)
@@ -213,6 +222,16 @@ func (c *dictionaryServiceClient) LookupWords(ctx context.Context, in *LookupWor
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LookupWordsResponse)
 	err := c.cc.Invoke(ctx, DictionaryService_LookupWords_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dictionaryServiceClient) ListDictionaries(ctx context.Context, in *ListDictionariesRequest, opts ...grpc.CallOption) (*ListDictionariesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListDictionariesResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_ListDictionaries_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -528,6 +547,16 @@ func (c *dictionaryServiceClient) SetUserQuota(ctx context.Context, in *SetUserQ
 	return out, nil
 }
 
+func (c *dictionaryServiceClient) RecalculateUserStorage(ctx context.Context, in *RecalculateUserStorageRequest, opts ...grpc.CallOption) (*RecalculateUserStorageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RecalculateUserStorageResponse)
+	err := c.cc.Invoke(ctx, DictionaryService_RecalculateUserStorage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dictionaryServiceClient) GetMyStorage(ctx context.Context, in *GetMyStorageRequest, opts ...grpc.CallOption) (*GetMyStorageResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetMyStorageResponse)
@@ -571,6 +600,9 @@ type DictionaryServiceServer interface {
 	// LookupWords returns the entries of several words (at most 20). Words without an entry are
 	// listed in not_found instead of failing the call. Permission: dictionary:word:read.
 	LookupWords(context.Context, *LookupWordsRequest) (*LookupWordsResponse, error)
+	// ListDictionaries lists the dictionaries, by group, with whether each is on for the caller (the system and the
+	// user switches). Permission: dictionary:word:read.
+	ListDictionaries(context.Context, *ListDictionariesRequest) (*ListDictionariesResponse, error)
 	// SaveWord adds a word to the user's list (an upsert; an exported word becomes new again). Fails with
 	// RESOURCE_EXHAUSTED (MAX_SAVED_WORDS_REACHED) when the list is full. Permission: dictionary:word:write.
 	SaveWord(context.Context, *SaveWordRequest) (*SaveWordResponse, error)
@@ -681,6 +713,10 @@ type DictionaryServiceServer interface {
 	// SetUserQuota sets the own limits of a user (0 for a kind: the limit of the system again). INVALID_ARGUMENT
 	// for a limit above the ceiling of the system settings. Permission: dictionary:settings:write.
 	SetUserQuota(context.Context, *SetUserQuotaRequest) (*SetUserQuotaResponse, error)
+	// RecalculateUserStorage recomputes the storage counters of a user from the rows (content, images, audio, and
+	// the number of words in the list) and returns them with what they were. NOT_FOUND user_not_found.
+	// Permission: dictionary:settings:write.
+	RecalculateUserStorage(context.Context, *RecalculateUserStorageRequest) (*RecalculateUserStorageResponse, error)
 	// GetMyStorage returns what the user stores and the limit of each kind, own limit included.
 	// Permission: dictionary:word:read.
 	GetMyStorage(context.Context, *GetMyStorageRequest) (*GetMyStorageResponse, error)
@@ -706,6 +742,9 @@ func (UnimplementedDictionaryServiceServer) LookupWord(context.Context, *LookupW
 }
 func (UnimplementedDictionaryServiceServer) LookupWords(context.Context, *LookupWordsRequest) (*LookupWordsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LookupWords not implemented")
+}
+func (UnimplementedDictionaryServiceServer) ListDictionaries(context.Context, *ListDictionariesRequest) (*ListDictionariesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDictionaries not implemented")
 }
 func (UnimplementedDictionaryServiceServer) SaveWord(context.Context, *SaveWordRequest) (*SaveWordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveWord not implemented")
@@ -797,6 +836,9 @@ func (UnimplementedDictionaryServiceServer) GetUserQuota(context.Context, *GetUs
 func (UnimplementedDictionaryServiceServer) SetUserQuota(context.Context, *SetUserQuotaRequest) (*SetUserQuotaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserQuota not implemented")
 }
+func (UnimplementedDictionaryServiceServer) RecalculateUserStorage(context.Context, *RecalculateUserStorageRequest) (*RecalculateUserStorageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RecalculateUserStorage not implemented")
+}
 func (UnimplementedDictionaryServiceServer) GetMyStorage(context.Context, *GetMyStorageRequest) (*GetMyStorageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyStorage not implemented")
 }
@@ -859,6 +901,24 @@ func _DictionaryService_LookupWords_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DictionaryServiceServer).LookupWords(ctx, req.(*LookupWordsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DictionaryService_ListDictionaries_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDictionariesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).ListDictionaries(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_ListDictionaries_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).ListDictionaries(ctx, req.(*ListDictionariesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1396,6 +1456,24 @@ func _DictionaryService_SetUserQuota_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DictionaryService_RecalculateUserStorage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RecalculateUserStorageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DictionaryServiceServer).RecalculateUserStorage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DictionaryService_RecalculateUserStorage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DictionaryServiceServer).RecalculateUserStorage(ctx, req.(*RecalculateUserStorageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DictionaryService_GetMyStorage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMyStorageRequest)
 	if err := dec(in); err != nil {
@@ -1464,6 +1542,10 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LookupWords",
 			Handler:    _DictionaryService_LookupWords_Handler,
+		},
+		{
+			MethodName: "ListDictionaries",
+			Handler:    _DictionaryService_ListDictionaries_Handler,
 		},
 		{
 			MethodName: "SaveWord",
@@ -1580,6 +1662,10 @@ var DictionaryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetUserQuota",
 			Handler:    _DictionaryService_SetUserQuota_Handler,
+		},
+		{
+			MethodName: "RecalculateUserStorage",
+			Handler:    _DictionaryService_RecalculateUserStorage_Handler,
 		},
 		{
 			MethodName: "GetMyStorage",

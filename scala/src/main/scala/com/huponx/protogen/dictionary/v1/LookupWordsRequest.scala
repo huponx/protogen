@@ -5,10 +5,13 @@
 
 package com.huponx.protogen.dictionary.v1
 
+/** @param dictionary
+  *   The id of a dictionary, see ListDictionaries. Required.
+  */
 @SerialVersionUID(0L)
 final case class LookupWordsRequest(
     words: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
-    dictionary: com.huponx.protogen.dictionary.v1.Dictionary = com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED,
+    dictionary: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[LookupWordsRequest] {
     @transient
@@ -21,9 +24,9 @@ final case class LookupWordsRequest(
       }
       
       {
-        val __value = dictionary.value
-        if (__value != 0) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(20, __value)
+        val __value = dictionary
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -44,9 +47,9 @@ final case class LookupWordsRequest(
         _output__.writeString(10, __m)
       };
       {
-        val __v = dictionary.value
-        if (__v != 0) {
-          _output__.writeEnum(20, __v)
+        val __v = dictionary
+        if (!__v.isEmpty) {
+          _output__.writeString(30, __v)
         }
       };
       unknownFields.writeTo(_output__)
@@ -55,15 +58,15 @@ final case class LookupWordsRequest(
     def addWords(__vs: _root_.scala.Predef.String *): LookupWordsRequest = addAllWords(__vs)
     def addAllWords(__vs: Iterable[_root_.scala.Predef.String]): LookupWordsRequest = copy(words = words ++ __vs)
     def withWords(__v: _root_.scala.Seq[_root_.scala.Predef.String]): LookupWordsRequest = copy(words = __v)
-    def withDictionary(__v: com.huponx.protogen.dictionary.v1.Dictionary): LookupWordsRequest = copy(dictionary = __v)
+    def withDictionary(__v: _root_.scala.Predef.String): LookupWordsRequest = copy(dictionary = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
       (__fieldNumber: @_root_.scala.unchecked) match {
         case 10 => words
-        case 20 => {
-          val __t = dictionary.javaValueDescriptor
-          if (__t.getNumber() != 0) __t else null
+        case 30 => {
+          val __t = dictionary
+          if (__t != "") __t else null
         }
       }
     }
@@ -71,7 +74,7 @@ final case class LookupWordsRequest(
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PRepeated(words.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
-        case 20 => _root_.scalapb.descriptors.PEnum(dictionary.scalaValueDescriptor)
+        case 30 => _root_.scalapb.descriptors.PString(dictionary)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -83,7 +86,7 @@ object LookupWordsRequest extends scalapb.GeneratedMessageCompanion[com.huponx.p
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.dictionary.v1.LookupWordsRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.dictionary.v1.LookupWordsRequest = {
     val __words: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
-    var __dictionary: com.huponx.protogen.dictionary.v1.Dictionary = com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED
+    var __dictionary: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -92,8 +95,8 @@ object LookupWordsRequest extends scalapb.GeneratedMessageCompanion[com.huponx.p
         case 0 => _done__ = true
         case 82 =>
           __words += _input__.readStringRequireUtf8()
-        case 160 =>
-          __dictionary = com.huponx.protogen.dictionary.v1.Dictionary.fromValue(_input__.readEnum())
+        case 242 =>
+          __dictionary = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -112,32 +115,28 @@ object LookupWordsRequest extends scalapb.GeneratedMessageCompanion[com.huponx.p
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.dictionary.v1.LookupWordsRequest(
         words = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
-        dictionary = com.huponx.protogen.dictionary.v1.Dictionary.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED.scalaValueDescriptor).number)
+        dictionary = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(4)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(4)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(8)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(8)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 20 => com.huponx.protogen.dictionary.v1.Dictionary
-    }
-  }
+  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.dictionary.v1.LookupWordsRequest(
     words = _root_.scala.Seq.empty,
-    dictionary = com.huponx.protogen.dictionary.v1.Dictionary.DICTIONARY_UNSPECIFIED
+    dictionary = ""
   )
   implicit class LookupWordsRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.LookupWordsRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.LookupWordsRequest](_l) {
     def words: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.words)((c_, f_) => c_.copy(words = f_))
-    def dictionary: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.Dictionary] = field(_.dictionary)((c_, f_) => c_.copy(dictionary = f_))
+    def dictionary: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.dictionary)((c_, f_) => c_.copy(dictionary = f_))
   }
   final val WORDS_FIELD_NUMBER = 10
-  final val DICTIONARY_FIELD_NUMBER = 20
+  final val DICTIONARY_FIELD_NUMBER = 30
   def of(
     words: _root_.scala.Seq[_root_.scala.Predef.String],
-    dictionary: com.huponx.protogen.dictionary.v1.Dictionary
+    dictionary: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.LookupWordsRequest = _root_.com.huponx.protogen.dictionary.v1.LookupWordsRequest(
     words,
     dictionary

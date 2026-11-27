@@ -13,7 +13,8 @@ package com.huponx.protogen.dictionary.v1
   *   How many of them are new (never exported).
   * @param countsCapped
   *   The count is bounded so its cost does not grow with the list: when true, new_total (and total when a
-  *   category filter is set) is a lower bound, "10000+". The unfiltered total is always exact.
+  *   category filter is set) is a lower bound, "10000+". The unfiltered total is exact, unless the user keeps words in
+  *   another group too and the group has more than 10000: it is then a lower bound as well.
   */
 @SerialVersionUID(0L)
 final case class ListSavedWordsResponse(
@@ -203,8 +204,8 @@ object ListSavedWordsResponse extends scalapb.GeneratedMessageCompanion[com.hupo
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(10)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(10)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(14)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(14)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {

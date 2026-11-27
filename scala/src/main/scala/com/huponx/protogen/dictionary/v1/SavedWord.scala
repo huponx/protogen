@@ -19,6 +19,8 @@ package com.huponx.protogen.dictionary.v1
   *   RFC 3339: when the word is due for its next review. Empty for a new word (never reviewed).
   * @param learning
   *   The word is in the learning steps (not yet graduated to the long intervals).
+  * @param group
+  *   The group of the dictionaries the word belongs to ("en", ...), see ListDictionaries. Required.
   */
 @SerialVersionUID(0L)
 final case class SavedWord(
@@ -31,6 +33,7 @@ final case class SavedWord(
     categoryIds: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     nextReviewAt: _root_.scala.Predef.String = "",
     learning: _root_.scala.Boolean = false,
+    group: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[SavedWord] {
     @transient
@@ -95,6 +98,13 @@ final case class SavedWord(
         val __value = learning
         if (__value != false) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(90, __value)
+        }
+      };
+      
+      {
+        val __value = group
+        if (!__value.isEmpty) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(100, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -162,6 +172,12 @@ final case class SavedWord(
           _output__.writeBool(90, __v)
         }
       };
+      {
+        val __v = group
+        if (!__v.isEmpty) {
+          _output__.writeString(100, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withWord(__v: _root_.scala.Predef.String): SavedWord = copy(word = __v)
@@ -176,6 +192,7 @@ final case class SavedWord(
     def withCategoryIds(__v: _root_.scala.Seq[_root_.scala.Predef.String]): SavedWord = copy(categoryIds = __v)
     def withNextReviewAt(__v: _root_.scala.Predef.String): SavedWord = copy(nextReviewAt = __v)
     def withLearning(__v: _root_.scala.Boolean): SavedWord = copy(learning = __v)
+    def withGroup(__v: _root_.scala.Predef.String): SavedWord = copy(group = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -213,6 +230,10 @@ final case class SavedWord(
           val __t = learning
           if (__t != false) __t else null
         }
+        case 100 => {
+          val __t = group
+          if (__t != "") __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -227,6 +248,7 @@ final case class SavedWord(
         case 70 => _root_.scalapb.descriptors.PRepeated(categoryIds.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
         case 80 => _root_.scalapb.descriptors.PString(nextReviewAt)
         case 90 => _root_.scalapb.descriptors.PBoolean(learning)
+        case 100 => _root_.scalapb.descriptors.PString(group)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -246,6 +268,7 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     val __categoryIds: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     var __nextReviewAt: _root_.scala.Predef.String = ""
     var __learning: _root_.scala.Boolean = false
+    var __group: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -270,6 +293,8 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
           __nextReviewAt = _input__.readStringRequireUtf8()
         case 720 =>
           __learning = _input__.readBool()
+        case 802 =>
+          __group = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -287,6 +312,7 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
         categoryIds = __categoryIds.result(),
         nextReviewAt = __nextReviewAt,
         learning = __learning,
+        group = __group,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -302,12 +328,13 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
         exported = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         categoryIds = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
         nextReviewAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        learning = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
+        learning = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
+        group = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(6)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(6)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = DictionaryProto.javaDescriptor.getMessageTypes().get(10)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = DictionaryProto.scalaDescriptor.messages(10)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -320,7 +347,8 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     exported = false,
     categoryIds = _root_.scala.Seq.empty,
     nextReviewAt = "",
-    learning = false
+    learning = false,
+    group = ""
   )
   implicit class SavedWordLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.dictionary.v1.SavedWord]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.dictionary.v1.SavedWord](_l) {
     def word: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.word)((c_, f_) => c_.copy(word = f_))
@@ -332,6 +360,7 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     def categoryIds: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.categoryIds)((c_, f_) => c_.copy(categoryIds = f_))
     def nextReviewAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.nextReviewAt)((c_, f_) => c_.copy(nextReviewAt = f_))
     def learning: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.learning)((c_, f_) => c_.copy(learning = f_))
+    def group: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.group)((c_, f_) => c_.copy(group = f_))
   }
   final val WORD_FIELD_NUMBER = 10
   final val CONTENT_FIELD_NUMBER = 20
@@ -342,6 +371,7 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
   final val CATEGORY_IDS_FIELD_NUMBER = 70
   final val NEXT_REVIEW_AT_FIELD_NUMBER = 80
   final val LEARNING_FIELD_NUMBER = 90
+  final val GROUP_FIELD_NUMBER = 100
   def of(
     word: _root_.scala.Predef.String,
     content: _root_.scala.Predef.String,
@@ -351,7 +381,8 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     exported: _root_.scala.Boolean,
     categoryIds: _root_.scala.Seq[_root_.scala.Predef.String],
     nextReviewAt: _root_.scala.Predef.String,
-    learning: _root_.scala.Boolean
+    learning: _root_.scala.Boolean,
+    group: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.dictionary.v1.SavedWord = _root_.com.huponx.protogen.dictionary.v1.SavedWord(
     word,
     content,
@@ -361,7 +392,8 @@ object SavedWord extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.d
     exported,
     categoryIds,
     nextReviewAt,
-    learning
+    learning,
+    group
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[dictionary.v1.SavedWord])
 }

@@ -67,6 +67,6 @@ object ReviewGrade extends _root_.scalapb.GeneratedEnumCompanion[ReviewGrade] {
     case 4 => REVIEW_GRADE_EASY
     case __other => Unrecognized(__other)
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = DictionaryProto.javaDescriptor.getEnumTypes().get(2)
-  def scalaDescriptor: _root_.scalapb.descriptors.EnumDescriptor = DictionaryProto.scalaDescriptor.enums(2)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = DictionaryProto.javaDescriptor.getEnumTypes().get(1)
+  def scalaDescriptor: _root_.scalapb.descriptors.EnumDescriptor = DictionaryProto.scalaDescriptor.enums(1)
 }

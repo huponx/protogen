@@ -237,6 +237,68 @@ public final class IdentityServiceGrpc {
     return getSetUserDisabledMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.ListUserSessionsRequest,
+      identity.v1.Identity.ListUserSessionsResponse> getListUserSessionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListUserSessions",
+      requestType = identity.v1.Identity.ListUserSessionsRequest.class,
+      responseType = identity.v1.Identity.ListUserSessionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.ListUserSessionsRequest,
+      identity.v1.Identity.ListUserSessionsResponse> getListUserSessionsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.ListUserSessionsRequest, identity.v1.Identity.ListUserSessionsResponse> getListUserSessionsMethod;
+    if ((getListUserSessionsMethod = IdentityServiceGrpc.getListUserSessionsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getListUserSessionsMethod = IdentityServiceGrpc.getListUserSessionsMethod) == null) {
+          IdentityServiceGrpc.getListUserSessionsMethod = getListUserSessionsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.ListUserSessionsRequest, identity.v1.Identity.ListUserSessionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListUserSessions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListUserSessionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListUserSessionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("ListUserSessions"))
+              .build();
+        }
+      }
+    }
+    return getListUserSessionsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.RevokeUserSessionsRequest,
+      identity.v1.Identity.RevokeUserSessionsResponse> getRevokeUserSessionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RevokeUserSessions",
+      requestType = identity.v1.Identity.RevokeUserSessionsRequest.class,
+      responseType = identity.v1.Identity.RevokeUserSessionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.RevokeUserSessionsRequest,
+      identity.v1.Identity.RevokeUserSessionsResponse> getRevokeUserSessionsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.RevokeUserSessionsRequest, identity.v1.Identity.RevokeUserSessionsResponse> getRevokeUserSessionsMethod;
+    if ((getRevokeUserSessionsMethod = IdentityServiceGrpc.getRevokeUserSessionsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getRevokeUserSessionsMethod = IdentityServiceGrpc.getRevokeUserSessionsMethod) == null) {
+          IdentityServiceGrpc.getRevokeUserSessionsMethod = getRevokeUserSessionsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.RevokeUserSessionsRequest, identity.v1.Identity.RevokeUserSessionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RevokeUserSessions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RevokeUserSessionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RevokeUserSessionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("RevokeUserSessions"))
+              .build();
+        }
+      }
+    }
+    return getRevokeUserSessionsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DeleteUserRequest,
       identity.v1.Identity.DeleteUserResponse> getDeleteUserMethod;
 
@@ -762,6 +824,254 @@ public final class IdentityServiceGrpc {
       }
     }
     return getDisableMyMFAMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.ListMyPasskeysRequest,
+      identity.v1.Identity.ListMyPasskeysResponse> getListMyPasskeysMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListMyPasskeys",
+      requestType = identity.v1.Identity.ListMyPasskeysRequest.class,
+      responseType = identity.v1.Identity.ListMyPasskeysResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.ListMyPasskeysRequest,
+      identity.v1.Identity.ListMyPasskeysResponse> getListMyPasskeysMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.ListMyPasskeysRequest, identity.v1.Identity.ListMyPasskeysResponse> getListMyPasskeysMethod;
+    if ((getListMyPasskeysMethod = IdentityServiceGrpc.getListMyPasskeysMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getListMyPasskeysMethod = IdentityServiceGrpc.getListMyPasskeysMethod) == null) {
+          IdentityServiceGrpc.getListMyPasskeysMethod = getListMyPasskeysMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.ListMyPasskeysRequest, identity.v1.Identity.ListMyPasskeysResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListMyPasskeys"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListMyPasskeysRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListMyPasskeysResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("ListMyPasskeys"))
+              .build();
+        }
+      }
+    }
+    return getListMyPasskeysMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.BeginMyPasskeyRequest,
+      identity.v1.Identity.BeginMyPasskeyResponse> getBeginMyPasskeyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "BeginMyPasskey",
+      requestType = identity.v1.Identity.BeginMyPasskeyRequest.class,
+      responseType = identity.v1.Identity.BeginMyPasskeyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.BeginMyPasskeyRequest,
+      identity.v1.Identity.BeginMyPasskeyResponse> getBeginMyPasskeyMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.BeginMyPasskeyRequest, identity.v1.Identity.BeginMyPasskeyResponse> getBeginMyPasskeyMethod;
+    if ((getBeginMyPasskeyMethod = IdentityServiceGrpc.getBeginMyPasskeyMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getBeginMyPasskeyMethod = IdentityServiceGrpc.getBeginMyPasskeyMethod) == null) {
+          IdentityServiceGrpc.getBeginMyPasskeyMethod = getBeginMyPasskeyMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.BeginMyPasskeyRequest, identity.v1.Identity.BeginMyPasskeyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BeginMyPasskey"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.BeginMyPasskeyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.BeginMyPasskeyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("BeginMyPasskey"))
+              .build();
+        }
+      }
+    }
+    return getBeginMyPasskeyMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.FinishMyPasskeyRequest,
+      identity.v1.Identity.FinishMyPasskeyResponse> getFinishMyPasskeyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "FinishMyPasskey",
+      requestType = identity.v1.Identity.FinishMyPasskeyRequest.class,
+      responseType = identity.v1.Identity.FinishMyPasskeyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.FinishMyPasskeyRequest,
+      identity.v1.Identity.FinishMyPasskeyResponse> getFinishMyPasskeyMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.FinishMyPasskeyRequest, identity.v1.Identity.FinishMyPasskeyResponse> getFinishMyPasskeyMethod;
+    if ((getFinishMyPasskeyMethod = IdentityServiceGrpc.getFinishMyPasskeyMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getFinishMyPasskeyMethod = IdentityServiceGrpc.getFinishMyPasskeyMethod) == null) {
+          IdentityServiceGrpc.getFinishMyPasskeyMethod = getFinishMyPasskeyMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.FinishMyPasskeyRequest, identity.v1.Identity.FinishMyPasskeyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "FinishMyPasskey"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.FinishMyPasskeyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.FinishMyPasskeyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("FinishMyPasskey"))
+              .build();
+        }
+      }
+    }
+    return getFinishMyPasskeyMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.RenameMyPasskeyRequest,
+      identity.v1.Identity.RenameMyPasskeyResponse> getRenameMyPasskeyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RenameMyPasskey",
+      requestType = identity.v1.Identity.RenameMyPasskeyRequest.class,
+      responseType = identity.v1.Identity.RenameMyPasskeyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.RenameMyPasskeyRequest,
+      identity.v1.Identity.RenameMyPasskeyResponse> getRenameMyPasskeyMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.RenameMyPasskeyRequest, identity.v1.Identity.RenameMyPasskeyResponse> getRenameMyPasskeyMethod;
+    if ((getRenameMyPasskeyMethod = IdentityServiceGrpc.getRenameMyPasskeyMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getRenameMyPasskeyMethod = IdentityServiceGrpc.getRenameMyPasskeyMethod) == null) {
+          IdentityServiceGrpc.getRenameMyPasskeyMethod = getRenameMyPasskeyMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.RenameMyPasskeyRequest, identity.v1.Identity.RenameMyPasskeyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RenameMyPasskey"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RenameMyPasskeyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RenameMyPasskeyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("RenameMyPasskey"))
+              .build();
+        }
+      }
+    }
+    return getRenameMyPasskeyMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.DeleteMyPasskeyRequest,
+      identity.v1.Identity.DeleteMyPasskeyResponse> getDeleteMyPasskeyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteMyPasskey",
+      requestType = identity.v1.Identity.DeleteMyPasskeyRequest.class,
+      responseType = identity.v1.Identity.DeleteMyPasskeyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.DeleteMyPasskeyRequest,
+      identity.v1.Identity.DeleteMyPasskeyResponse> getDeleteMyPasskeyMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.DeleteMyPasskeyRequest, identity.v1.Identity.DeleteMyPasskeyResponse> getDeleteMyPasskeyMethod;
+    if ((getDeleteMyPasskeyMethod = IdentityServiceGrpc.getDeleteMyPasskeyMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getDeleteMyPasskeyMethod = IdentityServiceGrpc.getDeleteMyPasskeyMethod) == null) {
+          IdentityServiceGrpc.getDeleteMyPasskeyMethod = getDeleteMyPasskeyMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.DeleteMyPasskeyRequest, identity.v1.Identity.DeleteMyPasskeyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteMyPasskey"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteMyPasskeyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.DeleteMyPasskeyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("DeleteMyPasskey"))
+              .build();
+        }
+      }
+    }
+    return getDeleteMyPasskeyMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.ListMySessionsRequest,
+      identity.v1.Identity.ListMySessionsResponse> getListMySessionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListMySessions",
+      requestType = identity.v1.Identity.ListMySessionsRequest.class,
+      responseType = identity.v1.Identity.ListMySessionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.ListMySessionsRequest,
+      identity.v1.Identity.ListMySessionsResponse> getListMySessionsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.ListMySessionsRequest, identity.v1.Identity.ListMySessionsResponse> getListMySessionsMethod;
+    if ((getListMySessionsMethod = IdentityServiceGrpc.getListMySessionsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getListMySessionsMethod = IdentityServiceGrpc.getListMySessionsMethod) == null) {
+          IdentityServiceGrpc.getListMySessionsMethod = getListMySessionsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.ListMySessionsRequest, identity.v1.Identity.ListMySessionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListMySessions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListMySessionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.ListMySessionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("ListMySessions"))
+              .build();
+        }
+      }
+    }
+    return getListMySessionsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.RevokeMySessionRequest,
+      identity.v1.Identity.RevokeMySessionResponse> getRevokeMySessionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RevokeMySession",
+      requestType = identity.v1.Identity.RevokeMySessionRequest.class,
+      responseType = identity.v1.Identity.RevokeMySessionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.RevokeMySessionRequest,
+      identity.v1.Identity.RevokeMySessionResponse> getRevokeMySessionMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.RevokeMySessionRequest, identity.v1.Identity.RevokeMySessionResponse> getRevokeMySessionMethod;
+    if ((getRevokeMySessionMethod = IdentityServiceGrpc.getRevokeMySessionMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getRevokeMySessionMethod = IdentityServiceGrpc.getRevokeMySessionMethod) == null) {
+          IdentityServiceGrpc.getRevokeMySessionMethod = getRevokeMySessionMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.RevokeMySessionRequest, identity.v1.Identity.RevokeMySessionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RevokeMySession"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RevokeMySessionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RevokeMySessionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("RevokeMySession"))
+              .build();
+        }
+      }
+    }
+    return getRevokeMySessionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.RevokeMyOtherSessionsRequest,
+      identity.v1.Identity.RevokeMyOtherSessionsResponse> getRevokeMyOtherSessionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RevokeMyOtherSessions",
+      requestType = identity.v1.Identity.RevokeMyOtherSessionsRequest.class,
+      responseType = identity.v1.Identity.RevokeMyOtherSessionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<identity.v1.Identity.RevokeMyOtherSessionsRequest,
+      identity.v1.Identity.RevokeMyOtherSessionsResponse> getRevokeMyOtherSessionsMethod() {
+    io.grpc.MethodDescriptor<identity.v1.Identity.RevokeMyOtherSessionsRequest, identity.v1.Identity.RevokeMyOtherSessionsResponse> getRevokeMyOtherSessionsMethod;
+    if ((getRevokeMyOtherSessionsMethod = IdentityServiceGrpc.getRevokeMyOtherSessionsMethod) == null) {
+      synchronized (IdentityServiceGrpc.class) {
+        if ((getRevokeMyOtherSessionsMethod = IdentityServiceGrpc.getRevokeMyOtherSessionsMethod) == null) {
+          IdentityServiceGrpc.getRevokeMyOtherSessionsMethod = getRevokeMyOtherSessionsMethod =
+              io.grpc.MethodDescriptor.<identity.v1.Identity.RevokeMyOtherSessionsRequest, identity.v1.Identity.RevokeMyOtherSessionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RevokeMyOtherSessions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RevokeMyOtherSessionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  identity.v1.Identity.RevokeMyOtherSessionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new IdentityServiceMethodDescriptorSupplier("RevokeMyOtherSessions"))
+              .build();
+        }
+      }
+    }
+    return getRevokeMyOtherSessionsMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<identity.v1.Identity.GetMyUserSettingsRequest,
@@ -1717,6 +2027,24 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * ListUserSessions lists the SSO sessions (devices) of a user; `current` is always false. RevokeUserSessions ends all of
+     * them, revokes the refresh tokens and the access tokens issued so far (like disabling the user, without disabling).
+     * </pre>
+     */
+    default void listUserSessions(identity.v1.Identity.ListUserSessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListUserSessionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListUserSessionsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void revokeUserSessions(identity.v1.Identity.RevokeUserSessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeUserSessionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRevokeUserSessionsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * DeleteUser deletes the account (soft: see DeleteUserRequest).
      * </pre>
      */
@@ -1875,6 +2203,75 @@ public final class IdentityServiceGrpc {
     default void disableMyMFA(identity.v1.Identity.DisableMyMFARequest request,
         io.grpc.stub.StreamObserver<identity.v1.Identity.DisableMyMFAResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDisableMyMFAMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
+     * returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
+     * the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
+     * NOT_FOUND "passkeys_off" when the server has passkeys turned off.
+     * </pre>
+     */
+    default void listMyPasskeys(identity.v1.Identity.ListMyPasskeysRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListMyPasskeysResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListMyPasskeysMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void beginMyPasskey(identity.v1.Identity.BeginMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.BeginMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBeginMyPasskeyMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void finishMyPasskey(identity.v1.Identity.FinishMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.FinishMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFinishMyPasskeyMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void renameMyPasskey(identity.v1.Identity.RenameMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RenameMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRenameMyPasskeyMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void deleteMyPasskey(identity.v1.Identity.DeleteMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteMyPasskeyMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The own SSO sessions, one per sign in on a browser or device. ListMySessions marks the one of the caller (the sid of
+     * its token) as current. RevokeMySession ends one (NOT_FOUND "session_not_found" for an unknown id or one of another
+     * user); revoking the current one signs the caller out. RevokeMyOtherSessions keeps the current one. Ending a session
+     * revokes its refresh tokens and signs out the applications that used it (back-channel logout); access tokens already
+     * issued live until they expire (IDENTITY_ACCESS_TOKEN_TTL) where a service verifies them locally.
+     * </pre>
+     */
+    default void listMySessions(identity.v1.Identity.ListMySessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListMySessionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListMySessionsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void revokeMySession(identity.v1.Identity.RevokeMySessionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeMySessionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRevokeMySessionMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void revokeMyOtherSessions(identity.v1.Identity.RevokeMyOtherSessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeMyOtherSessionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRevokeMyOtherSessionsMethod(), responseObserver);
     }
 
     /**
@@ -2211,6 +2608,26 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * ListUserSessions lists the SSO sessions (devices) of a user; `current` is always false. RevokeUserSessions ends all of
+     * them, revokes the refresh tokens and the access tokens issued so far (like disabling the user, without disabling).
+     * </pre>
+     */
+    public void listUserSessions(identity.v1.Identity.ListUserSessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListUserSessionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListUserSessionsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void revokeUserSessions(identity.v1.Identity.RevokeUserSessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeUserSessionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRevokeUserSessionsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * DeleteUser deletes the account (soft: see DeleteUserRequest).
      * </pre>
      */
@@ -2386,6 +2803,83 @@ public final class IdentityServiceGrpc {
         io.grpc.stub.StreamObserver<identity.v1.Identity.DisableMyMFAResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDisableMyMFAMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
+     * returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
+     * the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
+     * NOT_FOUND "passkeys_off" when the server has passkeys turned off.
+     * </pre>
+     */
+    public void listMyPasskeys(identity.v1.Identity.ListMyPasskeysRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListMyPasskeysResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListMyPasskeysMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void beginMyPasskey(identity.v1.Identity.BeginMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.BeginMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getBeginMyPasskeyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void finishMyPasskey(identity.v1.Identity.FinishMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.FinishMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getFinishMyPasskeyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void renameMyPasskey(identity.v1.Identity.RenameMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RenameMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRenameMyPasskeyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void deleteMyPasskey(identity.v1.Identity.DeleteMyPasskeyRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteMyPasskeyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteMyPasskeyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * The own SSO sessions, one per sign in on a browser or device. ListMySessions marks the one of the caller (the sid of
+     * its token) as current. RevokeMySession ends one (NOT_FOUND "session_not_found" for an unknown id or one of another
+     * user); revoking the current one signs the caller out. RevokeMyOtherSessions keeps the current one. Ending a session
+     * revokes its refresh tokens and signs out the applications that used it (back-channel logout); access tokens already
+     * issued live until they expire (IDENTITY_ACCESS_TOKEN_TTL) where a service verifies them locally.
+     * </pre>
+     */
+    public void listMySessions(identity.v1.Identity.ListMySessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.ListMySessionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListMySessionsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void revokeMySession(identity.v1.Identity.RevokeMySessionRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeMySessionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRevokeMySessionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void revokeMyOtherSessions(identity.v1.Identity.RevokeMyOtherSessionsRequest request,
+        io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeMyOtherSessionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRevokeMyOtherSessionsMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -2726,6 +3220,24 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * ListUserSessions lists the SSO sessions (devices) of a user; `current` is always false. RevokeUserSessions ends all of
+     * them, revokes the refresh tokens and the access tokens issued so far (like disabling the user, without disabling).
+     * </pre>
+     */
+    public identity.v1.Identity.ListUserSessionsResponse listUserSessions(identity.v1.Identity.ListUserSessionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListUserSessionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.RevokeUserSessionsResponse revokeUserSessions(identity.v1.Identity.RevokeUserSessionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRevokeUserSessionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * DeleteUser deletes the account (soft: see DeleteUserRequest).
      * </pre>
      */
@@ -2884,6 +3396,75 @@ public final class IdentityServiceGrpc {
     public identity.v1.Identity.DisableMyMFAResponse disableMyMFA(identity.v1.Identity.DisableMyMFARequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDisableMyMFAMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
+     * returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
+     * the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
+     * NOT_FOUND "passkeys_off" when the server has passkeys turned off.
+     * </pre>
+     */
+    public identity.v1.Identity.ListMyPasskeysResponse listMyPasskeys(identity.v1.Identity.ListMyPasskeysRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListMyPasskeysMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.BeginMyPasskeyResponse beginMyPasskey(identity.v1.Identity.BeginMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getBeginMyPasskeyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.FinishMyPasskeyResponse finishMyPasskey(identity.v1.Identity.FinishMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getFinishMyPasskeyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.RenameMyPasskeyResponse renameMyPasskey(identity.v1.Identity.RenameMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRenameMyPasskeyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.DeleteMyPasskeyResponse deleteMyPasskey(identity.v1.Identity.DeleteMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteMyPasskeyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * The own SSO sessions, one per sign in on a browser or device. ListMySessions marks the one of the caller (the sid of
+     * its token) as current. RevokeMySession ends one (NOT_FOUND "session_not_found" for an unknown id or one of another
+     * user); revoking the current one signs the caller out. RevokeMyOtherSessions keeps the current one. Ending a session
+     * revokes its refresh tokens and signs out the applications that used it (back-channel logout); access tokens already
+     * issued live until they expire (IDENTITY_ACCESS_TOKEN_TTL) where a service verifies them locally.
+     * </pre>
+     */
+    public identity.v1.Identity.ListMySessionsResponse listMySessions(identity.v1.Identity.ListMySessionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListMySessionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.RevokeMySessionResponse revokeMySession(identity.v1.Identity.RevokeMySessionRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRevokeMySessionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public identity.v1.Identity.RevokeMyOtherSessionsResponse revokeMyOtherSessions(identity.v1.Identity.RevokeMyOtherSessionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRevokeMyOtherSessionsMethod(), getCallOptions(), request);
     }
 
     /**
@@ -3204,6 +3785,26 @@ public final class IdentityServiceGrpc {
 
     /**
      * <pre>
+     * ListUserSessions lists the SSO sessions (devices) of a user; `current` is always false. RevokeUserSessions ends all of
+     * them, revokes the refresh tokens and the access tokens issued so far (like disabling the user, without disabling).
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.ListUserSessionsResponse> listUserSessions(
+        identity.v1.Identity.ListUserSessionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListUserSessionsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.RevokeUserSessionsResponse> revokeUserSessions(
+        identity.v1.Identity.RevokeUserSessionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRevokeUserSessionsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * DeleteUser deletes the account (soft: see DeleteUserRequest).
      * </pre>
      */
@@ -3379,6 +3980,83 @@ public final class IdentityServiceGrpc {
         identity.v1.Identity.DisableMyMFARequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDisableMyMFAMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
+     * returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
+     * the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
+     * NOT_FOUND "passkeys_off" when the server has passkeys turned off.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.ListMyPasskeysResponse> listMyPasskeys(
+        identity.v1.Identity.ListMyPasskeysRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListMyPasskeysMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.BeginMyPasskeyResponse> beginMyPasskey(
+        identity.v1.Identity.BeginMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getBeginMyPasskeyMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.FinishMyPasskeyResponse> finishMyPasskey(
+        identity.v1.Identity.FinishMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getFinishMyPasskeyMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.RenameMyPasskeyResponse> renameMyPasskey(
+        identity.v1.Identity.RenameMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRenameMyPasskeyMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.DeleteMyPasskeyResponse> deleteMyPasskey(
+        identity.v1.Identity.DeleteMyPasskeyRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteMyPasskeyMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * The own SSO sessions, one per sign in on a browser or device. ListMySessions marks the one of the caller (the sid of
+     * its token) as current. RevokeMySession ends one (NOT_FOUND "session_not_found" for an unknown id or one of another
+     * user); revoking the current one signs the caller out. RevokeMyOtherSessions keeps the current one. Ending a session
+     * revokes its refresh tokens and signs out the applications that used it (back-channel logout); access tokens already
+     * issued live until they expire (IDENTITY_ACCESS_TOKEN_TTL) where a service verifies them locally.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.ListMySessionsResponse> listMySessions(
+        identity.v1.Identity.ListMySessionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListMySessionsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.RevokeMySessionResponse> revokeMySession(
+        identity.v1.Identity.RevokeMySessionRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRevokeMySessionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<identity.v1.Identity.RevokeMyOtherSessionsResponse> revokeMyOtherSessions(
+        identity.v1.Identity.RevokeMyOtherSessionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRevokeMyOtherSessionsMethod(), getCallOptions()), request);
     }
 
     /**
@@ -3642,50 +4320,60 @@ public final class IdentityServiceGrpc {
   private static final int METHODID_LIST_USERS = 4;
   private static final int METHODID_CREATE_USER = 5;
   private static final int METHODID_SET_USER_DISABLED = 6;
-  private static final int METHODID_DELETE_USER = 7;
-  private static final int METHODID_SET_USER_PASSWORD = 8;
-  private static final int METHODID_SEND_PASSWORD_RESET = 9;
-  private static final int METHODID_UPDATE_USER = 10;
-  private static final int METHODID_SET_USER_AVATAR = 11;
-  private static final int METHODID_SEND_WELCOME = 12;
-  private static final int METHODID_APPROVE_USER = 13;
-  private static final int METHODID_REJECT_USER = 14;
-  private static final int METHODID_GET_USER_STATS = 15;
-  private static final int METHODID_GET_ME = 16;
-  private static final int METHODID_UPDATE_ME = 17;
-  private static final int METHODID_SET_MY_AVATAR = 18;
-  private static final int METHODID_CHANGE_MY_PASSWORD = 19;
-  private static final int METHODID_GET_MY_MFA = 20;
-  private static final int METHODID_BEGIN_MY_MFA = 21;
-  private static final int METHODID_CONFIRM_MY_MFA = 22;
-  private static final int METHODID_DISABLE_MY_MFA = 23;
-  private static final int METHODID_GET_MY_USER_SETTINGS = 24;
-  private static final int METHODID_PUT_MY_USER_SETTINGS = 25;
-  private static final int METHODID_CREATE_ROLE = 26;
-  private static final int METHODID_SET_ROLE_PERMISSIONS = 27;
-  private static final int METHODID_LIST_ROLES = 28;
-  private static final int METHODID_UPDATE_ROLE = 29;
-  private static final int METHODID_DELETE_ROLE = 30;
-  private static final int METHODID_LIST_PERMISSIONS = 31;
-  private static final int METHODID_REGISTER_PERMISSIONS = 32;
-  private static final int METHODID_ASSIGN_ROLE = 33;
-  private static final int METHODID_REVOKE_ROLE = 34;
-  private static final int METHODID_CREATE_CLIENT = 35;
-  private static final int METHODID_UPDATE_CLIENT = 36;
-  private static final int METHODID_SET_CLIENT_DISABLED = 37;
-  private static final int METHODID_DELETE_CLIENT = 38;
-  private static final int METHODID_ROTATE_CLIENT_SECRET = 39;
-  private static final int METHODID_LIST_CLIENTS = 40;
-  private static final int METHODID_SET_EXCHANGE_POLICY = 41;
-  private static final int METHODID_LIST_EXCHANGE_POLICIES = 42;
-  private static final int METHODID_GET_USER_MFA = 43;
-  private static final int METHODID_SET_USER_MFA = 44;
-  private static final int METHODID_ENFORCE_USER_MFA = 45;
-  private static final int METHODID_RESET_USER_MFA = 46;
-  private static final int METHODID_GET_UISTYLE = 47;
-  private static final int METHODID_SET_UISTYLE = 48;
-  private static final int METHODID_GET_REGISTRATION_SETTINGS = 49;
-  private static final int METHODID_SET_REGISTRATION_SETTINGS = 50;
+  private static final int METHODID_LIST_USER_SESSIONS = 7;
+  private static final int METHODID_REVOKE_USER_SESSIONS = 8;
+  private static final int METHODID_DELETE_USER = 9;
+  private static final int METHODID_SET_USER_PASSWORD = 10;
+  private static final int METHODID_SEND_PASSWORD_RESET = 11;
+  private static final int METHODID_UPDATE_USER = 12;
+  private static final int METHODID_SET_USER_AVATAR = 13;
+  private static final int METHODID_SEND_WELCOME = 14;
+  private static final int METHODID_APPROVE_USER = 15;
+  private static final int METHODID_REJECT_USER = 16;
+  private static final int METHODID_GET_USER_STATS = 17;
+  private static final int METHODID_GET_ME = 18;
+  private static final int METHODID_UPDATE_ME = 19;
+  private static final int METHODID_SET_MY_AVATAR = 20;
+  private static final int METHODID_CHANGE_MY_PASSWORD = 21;
+  private static final int METHODID_GET_MY_MFA = 22;
+  private static final int METHODID_BEGIN_MY_MFA = 23;
+  private static final int METHODID_CONFIRM_MY_MFA = 24;
+  private static final int METHODID_DISABLE_MY_MFA = 25;
+  private static final int METHODID_LIST_MY_PASSKEYS = 26;
+  private static final int METHODID_BEGIN_MY_PASSKEY = 27;
+  private static final int METHODID_FINISH_MY_PASSKEY = 28;
+  private static final int METHODID_RENAME_MY_PASSKEY = 29;
+  private static final int METHODID_DELETE_MY_PASSKEY = 30;
+  private static final int METHODID_LIST_MY_SESSIONS = 31;
+  private static final int METHODID_REVOKE_MY_SESSION = 32;
+  private static final int METHODID_REVOKE_MY_OTHER_SESSIONS = 33;
+  private static final int METHODID_GET_MY_USER_SETTINGS = 34;
+  private static final int METHODID_PUT_MY_USER_SETTINGS = 35;
+  private static final int METHODID_CREATE_ROLE = 36;
+  private static final int METHODID_SET_ROLE_PERMISSIONS = 37;
+  private static final int METHODID_LIST_ROLES = 38;
+  private static final int METHODID_UPDATE_ROLE = 39;
+  private static final int METHODID_DELETE_ROLE = 40;
+  private static final int METHODID_LIST_PERMISSIONS = 41;
+  private static final int METHODID_REGISTER_PERMISSIONS = 42;
+  private static final int METHODID_ASSIGN_ROLE = 43;
+  private static final int METHODID_REVOKE_ROLE = 44;
+  private static final int METHODID_CREATE_CLIENT = 45;
+  private static final int METHODID_UPDATE_CLIENT = 46;
+  private static final int METHODID_SET_CLIENT_DISABLED = 47;
+  private static final int METHODID_DELETE_CLIENT = 48;
+  private static final int METHODID_ROTATE_CLIENT_SECRET = 49;
+  private static final int METHODID_LIST_CLIENTS = 50;
+  private static final int METHODID_SET_EXCHANGE_POLICY = 51;
+  private static final int METHODID_LIST_EXCHANGE_POLICIES = 52;
+  private static final int METHODID_GET_USER_MFA = 53;
+  private static final int METHODID_SET_USER_MFA = 54;
+  private static final int METHODID_ENFORCE_USER_MFA = 55;
+  private static final int METHODID_RESET_USER_MFA = 56;
+  private static final int METHODID_GET_UISTYLE = 57;
+  private static final int METHODID_SET_UISTYLE = 58;
+  private static final int METHODID_GET_REGISTRATION_SETTINGS = 59;
+  private static final int METHODID_SET_REGISTRATION_SETTINGS = 60;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -3731,6 +4419,14 @@ public final class IdentityServiceGrpc {
         case METHODID_SET_USER_DISABLED:
           serviceImpl.setUserDisabled((identity.v1.Identity.SetUserDisabledRequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.SetUserDisabledResponse>) responseObserver);
+          break;
+        case METHODID_LIST_USER_SESSIONS:
+          serviceImpl.listUserSessions((identity.v1.Identity.ListUserSessionsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.ListUserSessionsResponse>) responseObserver);
+          break;
+        case METHODID_REVOKE_USER_SESSIONS:
+          serviceImpl.revokeUserSessions((identity.v1.Identity.RevokeUserSessionsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeUserSessionsResponse>) responseObserver);
           break;
         case METHODID_DELETE_USER:
           serviceImpl.deleteUser((identity.v1.Identity.DeleteUserRequest) request,
@@ -3799,6 +4495,38 @@ public final class IdentityServiceGrpc {
         case METHODID_DISABLE_MY_MFA:
           serviceImpl.disableMyMFA((identity.v1.Identity.DisableMyMFARequest) request,
               (io.grpc.stub.StreamObserver<identity.v1.Identity.DisableMyMFAResponse>) responseObserver);
+          break;
+        case METHODID_LIST_MY_PASSKEYS:
+          serviceImpl.listMyPasskeys((identity.v1.Identity.ListMyPasskeysRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.ListMyPasskeysResponse>) responseObserver);
+          break;
+        case METHODID_BEGIN_MY_PASSKEY:
+          serviceImpl.beginMyPasskey((identity.v1.Identity.BeginMyPasskeyRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.BeginMyPasskeyResponse>) responseObserver);
+          break;
+        case METHODID_FINISH_MY_PASSKEY:
+          serviceImpl.finishMyPasskey((identity.v1.Identity.FinishMyPasskeyRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.FinishMyPasskeyResponse>) responseObserver);
+          break;
+        case METHODID_RENAME_MY_PASSKEY:
+          serviceImpl.renameMyPasskey((identity.v1.Identity.RenameMyPasskeyRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.RenameMyPasskeyResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_MY_PASSKEY:
+          serviceImpl.deleteMyPasskey((identity.v1.Identity.DeleteMyPasskeyRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.DeleteMyPasskeyResponse>) responseObserver);
+          break;
+        case METHODID_LIST_MY_SESSIONS:
+          serviceImpl.listMySessions((identity.v1.Identity.ListMySessionsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.ListMySessionsResponse>) responseObserver);
+          break;
+        case METHODID_REVOKE_MY_SESSION:
+          serviceImpl.revokeMySession((identity.v1.Identity.RevokeMySessionRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeMySessionResponse>) responseObserver);
+          break;
+        case METHODID_REVOKE_MY_OTHER_SESSIONS:
+          serviceImpl.revokeMyOtherSessions((identity.v1.Identity.RevokeMyOtherSessionsRequest) request,
+              (io.grpc.stub.StreamObserver<identity.v1.Identity.RevokeMyOtherSessionsResponse>) responseObserver);
           break;
         case METHODID_GET_MY_USER_SETTINGS:
           serviceImpl.getMyUserSettings((identity.v1.Identity.GetMyUserSettingsRequest) request,
@@ -3976,6 +4704,20 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.SetUserDisabledResponse>(
                 service, METHODID_SET_USER_DISABLED)))
         .addMethod(
+          getListUserSessionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.ListUserSessionsRequest,
+              identity.v1.Identity.ListUserSessionsResponse>(
+                service, METHODID_LIST_USER_SESSIONS)))
+        .addMethod(
+          getRevokeUserSessionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.RevokeUserSessionsRequest,
+              identity.v1.Identity.RevokeUserSessionsResponse>(
+                service, METHODID_REVOKE_USER_SESSIONS)))
+        .addMethod(
           getDeleteUserMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -4094,6 +4836,62 @@ public final class IdentityServiceGrpc {
               identity.v1.Identity.DisableMyMFARequest,
               identity.v1.Identity.DisableMyMFAResponse>(
                 service, METHODID_DISABLE_MY_MFA)))
+        .addMethod(
+          getListMyPasskeysMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.ListMyPasskeysRequest,
+              identity.v1.Identity.ListMyPasskeysResponse>(
+                service, METHODID_LIST_MY_PASSKEYS)))
+        .addMethod(
+          getBeginMyPasskeyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.BeginMyPasskeyRequest,
+              identity.v1.Identity.BeginMyPasskeyResponse>(
+                service, METHODID_BEGIN_MY_PASSKEY)))
+        .addMethod(
+          getFinishMyPasskeyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.FinishMyPasskeyRequest,
+              identity.v1.Identity.FinishMyPasskeyResponse>(
+                service, METHODID_FINISH_MY_PASSKEY)))
+        .addMethod(
+          getRenameMyPasskeyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.RenameMyPasskeyRequest,
+              identity.v1.Identity.RenameMyPasskeyResponse>(
+                service, METHODID_RENAME_MY_PASSKEY)))
+        .addMethod(
+          getDeleteMyPasskeyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.DeleteMyPasskeyRequest,
+              identity.v1.Identity.DeleteMyPasskeyResponse>(
+                service, METHODID_DELETE_MY_PASSKEY)))
+        .addMethod(
+          getListMySessionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.ListMySessionsRequest,
+              identity.v1.Identity.ListMySessionsResponse>(
+                service, METHODID_LIST_MY_SESSIONS)))
+        .addMethod(
+          getRevokeMySessionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.RevokeMySessionRequest,
+              identity.v1.Identity.RevokeMySessionResponse>(
+                service, METHODID_REVOKE_MY_SESSION)))
+        .addMethod(
+          getRevokeMyOtherSessionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              identity.v1.Identity.RevokeMyOtherSessionsRequest,
+              identity.v1.Identity.RevokeMyOtherSessionsResponse>(
+                service, METHODID_REVOKE_MY_OTHER_SESSIONS)))
         .addMethod(
           getGetMyUserSettingsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -4338,6 +5136,8 @@ public final class IdentityServiceGrpc {
               .addMethod(getListUsersMethod())
               .addMethod(getCreateUserMethod())
               .addMethod(getSetUserDisabledMethod())
+              .addMethod(getListUserSessionsMethod())
+              .addMethod(getRevokeUserSessionsMethod())
               .addMethod(getDeleteUserMethod())
               .addMethod(getSetUserPasswordMethod())
               .addMethod(getSendPasswordResetMethod())
@@ -4355,6 +5155,14 @@ public final class IdentityServiceGrpc {
               .addMethod(getBeginMyMFAMethod())
               .addMethod(getConfirmMyMFAMethod())
               .addMethod(getDisableMyMFAMethod())
+              .addMethod(getListMyPasskeysMethod())
+              .addMethod(getBeginMyPasskeyMethod())
+              .addMethod(getFinishMyPasskeyMethod())
+              .addMethod(getRenameMyPasskeyMethod())
+              .addMethod(getDeleteMyPasskeyMethod())
+              .addMethod(getListMySessionsMethod())
+              .addMethod(getRevokeMySessionMethod())
+              .addMethod(getRevokeMyOtherSessionsMethod())
               .addMethod(getGetMyUserSettingsMethod())
               .addMethod(getPutMyUserSettingsMethod())
               .addMethod(getCreateRoleMethod())
