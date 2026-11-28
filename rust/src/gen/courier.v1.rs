@@ -30,12 +30,111 @@ pub struct SendNotificationResponse {
     #[prost(int32, tag="20")]
     pub queued: i32,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Delivery {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(enumeration="Channel", tag="20")]
+    pub channel: i32,
+    #[prost(string, tag="30")]
+    pub address: ::prost::alloc::string::String,
+    #[prost(enumeration="DeliveryStatus", tag="40")]
+    pub status: i32,
+    #[prost(int32, tag="50")]
+    pub attempts: i32,
+    #[prost(string, tag="60")]
+    pub last_error: ::prost::alloc::string::String,
+    /// RFC 3339; empty when not applicable.
+    #[prost(string, tag="70")]
+    pub next_attempt_at: ::prost::alloc::string::String,
+    #[prost(string, tag="80")]
+    pub sent_at: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetNotificationRequest {
+    #[prost(string, tag="10")]
+    pub notification_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetNotificationResponse {
+    #[prost(string, tag="10")]
+    pub notification_id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub template_id: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub created_at: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag="40")]
+    pub deliveries: ::prost::alloc::vec::Vec<Delivery>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RetryDeliveryRequest {
+    #[prost(string, tag="10")]
+    pub delivery_id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RetryDeliveryResponse {
+    #[prost(message, optional, tag="10")]
+    pub delivery: ::core::option::Option<Delivery>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotifyRequest {
+    /// Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+    #[prost(string, tag="10")]
+    pub idempotency_key: ::prost::alloc::string::String,
+    /// A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+    #[prost(string, tag="20")]
+    pub event_type: ::prost::alloc::string::String,
+    /// Users of identity. Courier resolves each one to an address and a locale.
+    #[prost(string, repeated, tag="30")]
+    pub user_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+    #[prost(message, repeated, tag="40")]
+    pub recipients: ::prost::alloc::vec::Vec<Recipient>,
+    /// Event data. Validated against the catalog: required keys present, unknown keys rejected.
+    /// Values are sent to the templates as text (numbers and booleans are formatted).
+    #[prost(message, optional, tag="50")]
+    pub data: ::core::option::Option<::prost_types::Struct>,
+    /// Locale for raw recipients (and for users without one); empty: the default locale of courier.
+    #[prost(string, tag="60")]
+    pub locale_override: ::prost::alloc::string::String,
+    /// Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+    /// bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+    /// choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+    #[prost(string, repeated, tag="70")]
+    pub channels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotifyResponse {
+    #[prost(string, tag="10")]
+    pub event_id: ::prost::alloc::string::String,
+    /// Number of deliveries created; 0 for a repeated idempotency_key.
+    #[prost(int32, tag="20")]
+    pub queued: i32,
+    /// user_ids that got no delivery (no e-mail on record).
+    #[prost(string, repeated, tag="30")]
+    pub skipped_user_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum Channel {
     Unspecified = 0,
     Email = 10,
     Telegram = 20,
+    /// The inbox of the user (bell in the web apps); only by user_ids, never a raw recipient.
+    InApp = 30,
+    /// An HTTP endpoint of the administrators (Slack, or any service that takes a signed JSON POST); configured in the
+    /// admin app, never a raw recipient.
+    Webhook = 40,
+    /// A browser notification (Web Push) on a device the user subscribed; by user_ids only. It renders the in-app
+    /// template (title and body) and opens data.link when clicked.
+    Push = 50,
 }
 impl Channel {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -47,6 +146,9 @@ impl Channel {
             Channel::Unspecified => "CHANNEL_UNSPECIFIED",
             Channel::Email => "CHANNEL_EMAIL",
             Channel::Telegram => "CHANNEL_TELEGRAM",
+            Channel::InApp => "CHANNEL_IN_APP",
+            Channel::Webhook => "CHANNEL_WEBHOOK",
+            Channel::Push => "CHANNEL_PUSH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -55,9 +157,699 @@ impl Channel {
             "CHANNEL_UNSPECIFIED" => Some(Self::Unspecified),
             "CHANNEL_EMAIL" => Some(Self::Email),
             "CHANNEL_TELEGRAM" => Some(Self::Telegram),
+            "CHANNEL_IN_APP" => Some(Self::InApp),
+            "CHANNEL_WEBHOOK" => Some(Self::Webhook),
+            "CHANNEL_PUSH" => Some(Self::Push),
             _ => None,
         }
     }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum DeliveryStatus {
+    Unspecified = 0,
+    /// Waiting for the first send or for the next retry (next_attempt_at).
+    Pending = 10,
+    Sent = 20,
+    /// Permanent error (bounce, chat blocked, template cannot render): not retried.
+    Failed = 30,
+    /// Out of attempts: the dead-letter state, RetryDelivery sends it again.
+    Dead = 40,
+    /// Not sent: the user turned the channel off for the category. Kept for the audit.
+    Skipped = 50,
+}
+impl DeliveryStatus {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            DeliveryStatus::Unspecified => "DELIVERY_STATUS_UNSPECIFIED",
+            DeliveryStatus::Pending => "DELIVERY_STATUS_PENDING",
+            DeliveryStatus::Sent => "DELIVERY_STATUS_SENT",
+            DeliveryStatus::Failed => "DELIVERY_STATUS_FAILED",
+            DeliveryStatus::Dead => "DELIVERY_STATUS_DEAD",
+            DeliveryStatus::Skipped => "DELIVERY_STATUS_SKIPPED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "DELIVERY_STATUS_UNSPECIFIED" => Some(Self::Unspecified),
+            "DELIVERY_STATUS_PENDING" => Some(Self::Pending),
+            "DELIVERY_STATUS_SENT" => Some(Self::Sent),
+            "DELIVERY_STATUS_FAILED" => Some(Self::Failed),
+            "DELIVERY_STATUS_DEAD" => Some(Self::Dead),
+            "DELIVERY_STATUS_SKIPPED" => Some(Self::Skipped),
+            _ => None,
+        }
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TemplateInfo {
+    #[prost(string, tag="10")]
+    pub locale: ::prost::alloc::string::String,
+    /// "email", "telegram" or "in_app".
+    #[prost(string, tag="20")]
+    pub channel: ::prost::alloc::string::String,
+    #[prost(bool, tag="30")]
+    pub customized: bool,
+    /// Version of the customization; 0 when built in.
+    #[prost(int32, tag="40")]
+    pub version: i32,
+    /// The template directory when it is not the one of the event type: `<template>_digest`, the message that groups
+    /// several events. Empty: the template of the event type.
+    #[prost(string, tag="50")]
+    pub template: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EventTypeInfo {
+    #[prost(string, tag="10")]
+    pub r#type: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub category: ::prost::alloc::string::String,
+    /// The template directory the type renders.
+    #[prost(string, tag="30")]
+    pub template: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag="40")]
+    pub channels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(bool, tag="50")]
+    pub mandatory: bool,
+    #[prost(string, tag="60")]
+    pub severity: ::prost::alloc::string::String,
+    /// The keys of `data`.
+    #[prost(string, repeated, tag="70")]
+    pub required: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag="80")]
+    pub optional: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// True for the types an announcement can use.
+    #[prost(bool, tag="90")]
+    pub broadcast: bool,
+    /// One entry per locale and channel the type has a template for.
+    #[prost(message, repeated, tag="100")]
+    pub templates: ::prost::alloc::vec::Vec<TemplateInfo>,
+    /// How long events of this type wait to be grouped into one message ("10m"); empty: they are not grouped.
+    #[prost(string, tag="110")]
+    pub digest_window: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ListEventTypesRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListEventTypesResponse {
+    #[prost(message, repeated, tag="10")]
+    pub event_types: ::prost::alloc::vec::Vec<EventTypeInfo>,
+    #[prost(string, repeated, tag="20")]
+    pub locales: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// The text of a template. Email: subject, text, html. Telegram: text. In app: subject is the title, text the body.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TemplateContent {
+    #[prost(string, tag="10")]
+    pub subject: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub text: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub html: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTemplateRequest {
+    #[prost(string, tag="10")]
+    pub template: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub locale: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub channel: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTemplateResponse {
+    #[prost(message, optional, tag="10")]
+    pub content: ::core::option::Option<TemplateContent>,
+    #[prost(bool, tag="20")]
+    pub customized: bool,
+    #[prost(int32, tag="30")]
+    pub version: i32,
+    #[prost(string, tag="40")]
+    pub updated_by: ::prost::alloc::string::String,
+    /// Unix seconds; 0 when built in.
+    #[prost(int64, tag="50")]
+    pub updated_at: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PreviewTemplateRequest {
+    #[prost(string, tag="10")]
+    pub template: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub locale: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub channel: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="40")]
+    pub content: ::core::option::Option<TemplateContent>,
+    /// Values of the keys; a key left out takes a sample value.
+    #[prost(map="string, string", tag="50")]
+    pub data: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PreviewTemplateResponse {
+    #[prost(message, optional, tag="10")]
+    pub rendered: ::core::option::Option<TemplateContent>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TemplateVersion {
+    #[prost(int32, tag="10")]
+    pub version: i32,
+    #[prost(message, optional, tag="20")]
+    pub content: ::core::option::Option<TemplateContent>,
+    #[prost(string, tag="30")]
+    pub updated_by: ::prost::alloc::string::String,
+    #[prost(int64, tag="40")]
+    pub updated_at: i64,
+    /// True for the entry that records a revert to the built-in template.
+    #[prost(bool, tag="50")]
+    pub reverted: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListTemplateVersionsRequest {
+    #[prost(string, tag="10")]
+    pub template: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub locale: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub channel: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListTemplateVersionsResponse {
+    /// Newest first.
+    #[prost(message, repeated, tag="10")]
+    pub versions: ::prost::alloc::vec::Vec<TemplateVersion>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SaveTemplateRequest {
+    #[prost(string, tag="10")]
+    pub template: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub locale: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub channel: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="40")]
+    pub content: ::core::option::Option<TemplateContent>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SaveTemplateResponse {
+    #[prost(int32, tag="10")]
+    pub version: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RevertTemplateRequest {
+    #[prost(string, tag="10")]
+    pub template: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub locale: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub channel: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RevertTemplateResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Audience {
+    /// Everyone with an active account.
+    #[prost(bool, tag="10")]
+    pub all: bool,
+    /// Active users holding this role.
+    #[prost(string, tag="20")]
+    pub role: ::prost::alloc::string::String,
+    /// These users.
+    #[prost(string, repeated, tag="30")]
+    pub user_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateBroadcastRequest {
+    /// A type of the catalog marked as broadcast (for example "system.announcement").
+    #[prost(string, tag="10")]
+    pub event_type: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="20")]
+    pub audience: ::core::option::Option<Audience>,
+    #[prost(message, optional, tag="30")]
+    pub data: ::core::option::Option<::prost_types::Struct>,
+    /// Send on these channels only ("email", "in_app", "push"); empty: every channel of the type. The users' own choices
+    /// still apply.
+    #[prost(string, repeated, tag="40")]
+    pub channels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Broadcast {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub event_type: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="30")]
+    pub audience: ::core::option::Option<Audience>,
+    #[prost(string, tag="40")]
+    pub created_by: ::prost::alloc::string::String,
+    #[prost(int64, tag="50")]
+    pub created_at: i64,
+    /// Users the announcement was addressed to, and those that got nothing (no e-mail, everything turned off).
+    #[prost(int32, tag="60")]
+    pub recipients: i32,
+    #[prost(int32, tag="70")]
+    pub skipped: i32,
+    /// The channels it was sent on (empty: every channel of the type, as before channels could be chosen).
+    #[prost(string, repeated, tag="80")]
+    pub channels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateBroadcastResponse {
+    #[prost(message, optional, tag="10")]
+    pub broadcast: ::core::option::Option<Broadcast>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBroadcastsRequest {
+    #[prost(int32, tag="10")]
+    pub page_size: i32,
+    #[prost(string, tag="20")]
+    pub page_token: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBroadcastsResponse {
+    #[prost(message, repeated, tag="10")]
+    pub broadcasts: ::prost::alloc::vec::Vec<Broadcast>,
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListDeliveriesRequest {
+    /// Empty: any.
+    #[prost(enumeration="DeliveryStatus", tag="10")]
+    pub status: i32,
+    #[prost(string, tag="20")]
+    pub channel: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub notification_id: ::prost::alloc::string::String,
+    #[prost(string, tag="40")]
+    pub user_id: ::prost::alloc::string::String,
+    /// Part of the address.
+    #[prost(string, tag="50")]
+    pub address: ::prost::alloc::string::String,
+    #[prost(int32, tag="60")]
+    pub page_size: i32,
+    #[prost(string, tag="70")]
+    pub page_token: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeliveryRecord {
+    #[prost(message, optional, tag="10")]
+    pub delivery: ::core::option::Option<Delivery>,
+    #[prost(string, tag="20")]
+    pub notification_id: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub event_type: ::prost::alloc::string::String,
+    #[prost(string, tag="40")]
+    pub user_id: ::prost::alloc::string::String,
+    /// Unix seconds.
+    #[prost(int64, tag="50")]
+    pub created_at: i64,
+    /// How many other events went out in the same message (a digest).
+    #[prost(int32, tag="60")]
+    pub merged: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListDeliveriesResponse {
+    #[prost(message, repeated, tag="10")]
+    pub deliveries: ::prost::alloc::vec::Vec<DeliveryRecord>,
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// A webhook receives the events it subscribes to, once per event (not per user).
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Webhook {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub name: ::prost::alloc::string::String,
+    /// https URL (http only for a local run). The path may carry a secret (Slack incoming webhooks do): it is shown in
+    /// the admin app as saved, so give the permission to administrators only.
+    #[prost(string, tag="30")]
+    pub url: ::prost::alloc::string::String,
+    /// "slack": a Slack incoming webhook ({"text": ...}). "generic": a signed JSON POST (see the README of courier).
+    #[prost(string, tag="40")]
+    pub kind: ::prost::alloc::string::String,
+    /// Event types to send: an exact type ("bvchain.failed"), a prefix ("bvchain.*") or "*" for every type that may
+    /// go to a webhook. Mandatory events (security, account) never do: they carry links and codes.
+    #[prost(string, repeated, tag="50")]
+    pub events: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(bool, tag="60")]
+    pub enabled: bool,
+    /// Whether a signing secret exists (generic only; the secret itself is shown once, when it is made).
+    #[prost(bool, tag="70")]
+    pub has_secret: bool,
+    #[prost(int64, tag="80")]
+    pub created_at: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ListWebhooksRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListWebhooksResponse {
+    #[prost(message, repeated, tag="10")]
+    pub webhooks: ::prost::alloc::vec::Vec<Webhook>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SaveWebhookRequest {
+    /// Empty: create.
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="20")]
+    pub webhook: ::core::option::Option<Webhook>,
+    /// Make a new signing secret (a generic webhook); the old one stops working.
+    #[prost(bool, tag="30")]
+    pub rotate_secret: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SaveWebhookResponse {
+    #[prost(message, optional, tag="10")]
+    pub webhook: ::core::option::Option<Webhook>,
+    /// Only when a secret was made now.
+    #[prost(string, tag="20")]
+    pub secret: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteWebhookRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DeleteWebhookResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TestWebhookRequest {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TestWebhookResponse {
+    #[prost(bool, tag="10")]
+    pub ok: bool,
+    /// The HTTP status the endpoint answered, or the error text.
+    #[prost(string, tag="20")]
+    pub result: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InboxItem {
+    #[prost(string, tag="10")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub title: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub body: ::prost::alloc::string::String,
+    /// A path or URL to open; empty when there is nothing to open.
+    #[prost(string, tag="40")]
+    pub link: ::prost::alloc::string::String,
+    #[prost(enumeration="Severity", tag="50")]
+    pub severity: i32,
+    #[prost(bool, tag="60")]
+    pub read: bool,
+    /// Unix seconds.
+    #[prost(int64, tag="70")]
+    pub created_at: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListInboxRequest {
+    /// Default 20, at most 100.
+    #[prost(int32, tag="10")]
+    pub page_size: i32,
+    /// The next_page_token of the previous page.
+    #[prost(string, tag="20")]
+    pub page_token: ::prost::alloc::string::String,
+    #[prost(bool, tag="30")]
+    pub unread_only: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListInboxResponse {
+    #[prost(message, repeated, tag="10")]
+    pub items: ::prost::alloc::vec::Vec<InboxItem>,
+    #[prost(string, tag="20")]
+    pub next_page_token: ::prost::alloc::string::String,
+    #[prost(int32, tag="30")]
+    pub unread: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetUnreadCountRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetUnreadCountResponse {
+    #[prost(int32, tag="10")]
+    pub unread: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MarkReadRequest {
+    #[prost(string, repeated, tag="10")]
+    pub ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Mark every notification of the user; ids is then ignored.
+    #[prost(bool, tag="20")]
+    pub all: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct MarkReadResponse {
+    #[prost(int32, tag="10")]
+    pub unread: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ArchiveRequest {
+    #[prost(string, repeated, tag="10")]
+    pub ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ArchiveResponse {
+    #[prost(int32, tag="10")]
+    pub unread: i32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct StreamInboxRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StreamInboxResponse {
+    /// The unread count after the change.
+    #[prost(int32, tag="10")]
+    pub unread: i32,
+    /// The new notification; absent for a read/archive change, the first message and heartbeats.
+    #[prost(message, optional, tag="20")]
+    pub item: ::core::option::Option<InboxItem>,
+    /// Only keeps the connection alive; the client ignores it.
+    #[prost(bool, tag="30")]
+    pub heartbeat: bool,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Severity {
+    Unspecified = 0,
+    Info = 10,
+    Warning = 20,
+    Critical = 30,
+}
+impl Severity {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Severity::Unspecified => "SEVERITY_UNSPECIFIED",
+            Severity::Info => "SEVERITY_INFO",
+            Severity::Warning => "SEVERITY_WARNING",
+            Severity::Critical => "SEVERITY_CRITICAL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "SEVERITY_UNSPECIFIED" => Some(Self::Unspecified),
+            "SEVERITY_INFO" => Some(Self::Info),
+            "SEVERITY_WARNING" => Some(Self::Warning),
+            "SEVERITY_CRITICAL" => Some(Self::Critical),
+            _ => None,
+        }
+    }
+}
+/// One category of the catalog with the channels it can use and the user's choice per channel.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CategoryPreference {
+    /// For example "security", "admin", "bvchain".
+    #[prost(string, tag="10")]
+    pub category: ::prost::alloc::string::String,
+    /// True when every event of the category is mandatory: it cannot be turned off.
+    #[prost(bool, tag="20")]
+    pub mandatory: bool,
+    /// The channels the events of this category use: "email", "telegram", "in_app".
+    #[prost(string, repeated, tag="30")]
+    pub channels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The channels the user turned off. Empty (the default) means every channel is on.
+    #[prost(string, repeated, tag="40")]
+    pub disabled_channels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuietHours {
+    #[prost(bool, tag="10")]
+    pub enabled: bool,
+    /// "HH:MM" local time; the window may cross midnight (22:00 to 07:00).
+    #[prost(string, tag="20")]
+    pub from: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub to: ::prost::alloc::string::String,
+    /// IANA name, for example "Asia/Ho_Chi_Minh".
+    #[prost(string, tag="40")]
+    pub timezone: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct TelegramState {
+    /// False when the courier has no bot (TELEGRAM_BOT_USERNAME): the UI hides the section.
+    #[prost(bool, tag="10")]
+    pub available: bool,
+    #[prost(bool, tag="20")]
+    pub linked: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PushState {
+    /// False when courier has no VAPID keys: the UI hides the section.
+    #[prost(bool, tag="10")]
+    pub available: bool,
+    /// The public VAPID key, for PushManager.subscribe (base64url).
+    #[prost(string, tag="20")]
+    pub public_key: ::prost::alloc::string::String,
+    /// The endpoints of the devices of the user; a browser compares its own.
+    #[prost(string, repeated, tag="30")]
+    pub endpoints: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct GetPreferencesRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetPreferencesResponse {
+    #[prost(message, repeated, tag="10")]
+    pub categories: ::prost::alloc::vec::Vec<CategoryPreference>,
+    #[prost(message, optional, tag="20")]
+    pub quiet_hours: ::core::option::Option<QuietHours>,
+    #[prost(message, optional, tag="30")]
+    pub telegram: ::core::option::Option<TelegramState>,
+    #[prost(message, optional, tag="40")]
+    pub push: ::core::option::Option<PushState>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetPreferencesRequest {
+    /// Only the categories listed here change.
+    #[prost(message, repeated, tag="10")]
+    pub categories: ::prost::alloc::vec::Vec<CategoryPreference>,
+    #[prost(message, optional, tag="20")]
+    pub quiet_hours: ::core::option::Option<QuietHours>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SetPreferencesResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct StartTelegramBindingRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StartTelegramBindingResponse {
+    #[prost(string, tag="10")]
+    pub code: ::prost::alloc::string::String,
+    /// <https://t.me/<bot>?start=<code>>
+    #[prost(string, tag="20")]
+    pub link: ::prost::alloc::string::String,
+    /// Unix seconds.
+    #[prost(int64, tag="30")]
+    pub expires_at: i64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UnbindTelegramRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UnbindTelegramResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SubscribePushRequest {
+    /// https URL of the push service of the browser.
+    #[prost(string, tag="10")]
+    pub endpoint: ::prost::alloc::string::String,
+    /// The keys of the subscription (base64url), from subscription.toJSON().keys.
+    #[prost(string, tag="20")]
+    pub p256dh: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub auth: ::prost::alloc::string::String,
+    #[prost(string, tag="40")]
+    pub user_agent: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SubscribePushResponse {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UnsubscribePushRequest {
+    #[prost(string, tag="10")]
+    pub endpoint: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UnsubscribePushResponse {
 }
 include!("courier.v1.tonic.rs");
 // @@protoc_insertion_point(module)
