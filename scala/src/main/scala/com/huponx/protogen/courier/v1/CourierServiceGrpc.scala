@@ -17,15 +17,61 @@ object CourierServiceGrpc {
       .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.courier.v1.CourierProto.javaDescriptor.getServices().get(0).getMethods().get(0)))
       .build()
   
+  val METHOD_NOTIFY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.courier.v1.NotifyRequest, com.huponx.protogen.courier.v1.NotifyResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("courier.v1.CourierService", "Notify"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.courier.v1.NotifyRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.courier.v1.NotifyResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.courier.v1.CourierProto.javaDescriptor.getServices().get(0).getMethods().get(1)))
+      .build()
+  
+  val METHOD_GET_NOTIFICATION: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.courier.v1.GetNotificationRequest, com.huponx.protogen.courier.v1.GetNotificationResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("courier.v1.CourierService", "GetNotification"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.courier.v1.GetNotificationRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.courier.v1.GetNotificationResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.courier.v1.CourierProto.javaDescriptor.getServices().get(0).getMethods().get(2)))
+      .build()
+  
+  val METHOD_RETRY_DELIVERY: _root_.io.grpc.MethodDescriptor[com.huponx.protogen.courier.v1.RetryDeliveryRequest, com.huponx.protogen.courier.v1.RetryDeliveryResponse] =
+    _root_.io.grpc.MethodDescriptor.newBuilder()
+      .setType(_root_.io.grpc.MethodDescriptor.MethodType.UNARY)
+      .setFullMethodName(_root_.io.grpc.MethodDescriptor.generateFullMethodName("courier.v1.CourierService", "RetryDelivery"))
+      .setSampledToLocalTracing(true)
+      .setRequestMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.courier.v1.RetryDeliveryRequest])
+      .setResponseMarshaller(_root_.scalapb.grpc.Marshaller.forMessage[com.huponx.protogen.courier.v1.RetryDeliveryResponse])
+      .setSchemaDescriptor(_root_.scalapb.grpc.ConcreteProtoMethodDescriptorSupplier.fromMethodDescriptor(com.huponx.protogen.courier.v1.CourierProto.javaDescriptor.getServices().get(0).getMethods().get(3)))
+      .build()
+  
   val SERVICE: _root_.io.grpc.ServiceDescriptor =
     _root_.io.grpc.ServiceDescriptor.newBuilder("courier.v1.CourierService")
       .setSchemaDescriptor(new _root_.scalapb.grpc.ConcreteProtoFileDescriptorSupplier(com.huponx.protogen.courier.v1.CourierProto.javaDescriptor))
       .addMethod(METHOD_SEND_NOTIFICATION)
+      .addMethod(METHOD_NOTIFY)
+      .addMethod(METHOD_GET_NOTIFICATION)
+      .addMethod(METHOD_RETRY_DELIVERY)
       .build()
   
+  /** CourierService is for services (Kubernetes ServiceAccount token, or a token holding the permission).
+    * The inbox of a user is InboxService.
+    */
   trait CourierService extends _root_.scalapb.grpc.AbstractService {
     override def serviceCompanion: _root_.scalapb.grpc.ServiceCompanion[CourierService] = CourierService
     def sendNotification(request: com.huponx.protogen.courier.v1.SendNotificationRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.SendNotificationResponse]
+    /** Notify sends an event of the catalog (courier/internal/catalog) to users and/or raw addresses.
+      * Courier picks the channels, addresses and locale; the caller only says what happened and to whom.
+      */
+    def notify(request: com.huponx.protogen.courier.v1.NotifyRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.NotifyResponse]
+    /** GetNotification returns the state of every delivery of a notification (the audit trail).
+      */
+    def getNotification(request: com.huponx.protogen.courier.v1.GetNotificationRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.GetNotificationResponse]
+    /** RetryDelivery puts a failed or dead delivery back in the queue (resets its attempts).
+      */
+    def retryDelivery(request: com.huponx.protogen.courier.v1.RetryDeliveryRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.RetryDeliveryResponse]
   }
   
   object CourierService extends _root_.scalapb.grpc.ServiceCompanion[CourierService] {
@@ -40,17 +86,67 @@ object CourierServiceGrpc {
           serviceImpl.sendNotification(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
             executionContext)
         }))
+      .addMethod(
+        METHOD_NOTIFY,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.courier.v1.NotifyRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.courier.v1.NotifyResponse]) => {
+          serviceImpl.notify(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_GET_NOTIFICATION,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.courier.v1.GetNotificationRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.courier.v1.GetNotificationResponse]) => {
+          serviceImpl.getNotification(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
+      .addMethod(
+        METHOD_RETRY_DELIVERY,
+        _root_.io.grpc.stub.ServerCalls.asyncUnaryCall((request: com.huponx.protogen.courier.v1.RetryDeliveryRequest, observer: _root_.io.grpc.stub.StreamObserver[com.huponx.protogen.courier.v1.RetryDeliveryResponse]) => {
+          serviceImpl.retryDelivery(request).onComplete(scalapb.grpc.Grpc.completeObserver(observer))(
+            executionContext)
+        }))
       .build()
   }
   
+  /** CourierService is for services (Kubernetes ServiceAccount token, or a token holding the permission).
+    * The inbox of a user is InboxService.
+    */
   trait CourierServiceBlockingClient {
     def serviceCompanion: _root_.scalapb.grpc.ServiceCompanion[CourierService] = CourierService
     def sendNotification(request: com.huponx.protogen.courier.v1.SendNotificationRequest): com.huponx.protogen.courier.v1.SendNotificationResponse
+    /** Notify sends an event of the catalog (courier/internal/catalog) to users and/or raw addresses.
+      * Courier picks the channels, addresses and locale; the caller only says what happened and to whom.
+      */
+    def notify(request: com.huponx.protogen.courier.v1.NotifyRequest): com.huponx.protogen.courier.v1.NotifyResponse
+    /** GetNotification returns the state of every delivery of a notification (the audit trail).
+      */
+    def getNotification(request: com.huponx.protogen.courier.v1.GetNotificationRequest): com.huponx.protogen.courier.v1.GetNotificationResponse
+    /** RetryDelivery puts a failed or dead delivery back in the queue (resets its attempts).
+      */
+    def retryDelivery(request: com.huponx.protogen.courier.v1.RetryDeliveryRequest): com.huponx.protogen.courier.v1.RetryDeliveryResponse
   }
   
   class CourierServiceBlockingStub(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions = _root_.io.grpc.CallOptions.DEFAULT) extends _root_.io.grpc.stub.AbstractStub[CourierServiceBlockingStub](channel, options) with CourierServiceBlockingClient {
     override def sendNotification(request: com.huponx.protogen.courier.v1.SendNotificationRequest): com.huponx.protogen.courier.v1.SendNotificationResponse = {
       _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_SEND_NOTIFICATION, options, request)
+    }
+    
+    /** Notify sends an event of the catalog (courier/internal/catalog) to users and/or raw addresses.
+      * Courier picks the channels, addresses and locale; the caller only says what happened and to whom.
+      */
+    override def notify(request: com.huponx.protogen.courier.v1.NotifyRequest): com.huponx.protogen.courier.v1.NotifyResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_NOTIFY, options, request)
+    }
+    
+    /** GetNotification returns the state of every delivery of a notification (the audit trail).
+      */
+    override def getNotification(request: com.huponx.protogen.courier.v1.GetNotificationRequest): com.huponx.protogen.courier.v1.GetNotificationResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_GET_NOTIFICATION, options, request)
+    }
+    
+    /** RetryDelivery puts a failed or dead delivery back in the queue (resets its attempts).
+      */
+    override def retryDelivery(request: com.huponx.protogen.courier.v1.RetryDeliveryRequest): com.huponx.protogen.courier.v1.RetryDeliveryResponse = {
+      _root_.scalapb.grpc.ClientCalls.blockingUnaryCall(channel, METHOD_RETRY_DELIVERY, options, request)
     }
     
     override def build(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions): CourierServiceBlockingStub = new CourierServiceBlockingStub(channel, options)
@@ -59,6 +155,25 @@ object CourierServiceGrpc {
   class CourierServiceStub(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions = _root_.io.grpc.CallOptions.DEFAULT) extends _root_.io.grpc.stub.AbstractStub[CourierServiceStub](channel, options) with CourierService {
     override def sendNotification(request: com.huponx.protogen.courier.v1.SendNotificationRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.SendNotificationResponse] = {
       _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_SEND_NOTIFICATION, options, request)
+    }
+    
+    /** Notify sends an event of the catalog (courier/internal/catalog) to users and/or raw addresses.
+      * Courier picks the channels, addresses and locale; the caller only says what happened and to whom.
+      */
+    override def notify(request: com.huponx.protogen.courier.v1.NotifyRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.NotifyResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_NOTIFY, options, request)
+    }
+    
+    /** GetNotification returns the state of every delivery of a notification (the audit trail).
+      */
+    override def getNotification(request: com.huponx.protogen.courier.v1.GetNotificationRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.GetNotificationResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_GET_NOTIFICATION, options, request)
+    }
+    
+    /** RetryDelivery puts a failed or dead delivery back in the queue (resets its attempts).
+      */
+    override def retryDelivery(request: com.huponx.protogen.courier.v1.RetryDeliveryRequest): scala.concurrent.Future[com.huponx.protogen.courier.v1.RetryDeliveryResponse] = {
+      _root_.scalapb.grpc.ClientCalls.asyncUnaryCall(channel, METHOD_RETRY_DELIVERY, options, request)
     }
     
     override def build(channel: _root_.io.grpc.Channel, options: _root_.io.grpc.CallOptions): CourierServiceStub = new CourierServiceStub(channel, options)

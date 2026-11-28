@@ -7,6 +7,8 @@ package com.huponx.protogen.identity.v1
 
 /** @param resource
   *   Default audience of the tokens issued to this client.
+  * @param disabled
+  *   A disabled client can neither start a sign in nor get tokens.
   */
 @SerialVersionUID(0L)
 final case class Client(
@@ -20,6 +22,7 @@ final case class Client(
     allowedScopes: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     resource: _root_.scala.Predef.String = "",
     roles: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
+    disabled: _root_.scala.Boolean = false,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[Client] {
     @transient
@@ -81,6 +84,13 @@ final case class Client(
         val __value = __item
         __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(100, __value)
       }
+      
+      {
+        val __value = disabled
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(110, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -144,6 +154,12 @@ final case class Client(
         val __m = __v
         _output__.writeString(100, __m)
       };
+      {
+        val __v = disabled
+        if (__v != false) {
+          _output__.writeBool(110, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withClientId(__v: _root_.scala.Predef.String): Client = copy(clientId = __v)
@@ -171,6 +187,7 @@ final case class Client(
     def addRoles(__vs: _root_.scala.Predef.String *): Client = addAllRoles(__vs)
     def addAllRoles(__vs: Iterable[_root_.scala.Predef.String]): Client = copy(roles = roles ++ __vs)
     def withRoles(__v: _root_.scala.Seq[_root_.scala.Predef.String]): Client = copy(roles = __v)
+    def withDisabled(__v: _root_.scala.Boolean): Client = copy(disabled = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -200,6 +217,10 @@ final case class Client(
           if (__t != "") __t else null
         }
         case 100 => roles
+        case 110 => {
+          val __t = disabled
+          if (__t != false) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -215,6 +236,7 @@ final case class Client(
         case 80 => _root_.scalapb.descriptors.PRepeated(allowedScopes.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
         case 90 => _root_.scalapb.descriptors.PString(resource)
         case 100 => _root_.scalapb.descriptors.PRepeated(roles.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
+        case 110 => _root_.scalapb.descriptors.PBoolean(disabled)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -235,6 +257,7 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
     val __allowedScopes: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     var __resource: _root_.scala.Predef.String = ""
     val __roles: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
+    var __disabled: _root_.scala.Boolean = false
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -261,6 +284,8 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
           __resource = _input__.readStringRequireUtf8()
         case 802 =>
           __roles += _input__.readStringRequireUtf8()
+        case 880 =>
+          __disabled = _input__.readBool()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -279,6 +304,7 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
         allowedScopes = __allowedScopes.result(),
         resource = __resource,
         roles = __roles.result(),
+        disabled = __disabled,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -295,12 +321,13 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
         allowedGrants = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
         allowedScopes = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
         resource = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        roles = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
+        roles = __fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
+        disabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(110).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(30)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(30)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(98)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(98)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
@@ -318,7 +345,8 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
     allowedGrants = _root_.scala.Seq.empty,
     allowedScopes = _root_.scala.Seq.empty,
     resource = "",
-    roles = _root_.scala.Seq.empty
+    roles = _root_.scala.Seq.empty,
+    disabled = false
   )
   implicit class ClientLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.Client]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.Client](_l) {
     def clientId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.clientId)((c_, f_) => c_.copy(clientId = f_))
@@ -331,6 +359,7 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
     def allowedScopes: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.allowedScopes)((c_, f_) => c_.copy(allowedScopes = f_))
     def resource: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.resource)((c_, f_) => c_.copy(resource = f_))
     def roles: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.roles)((c_, f_) => c_.copy(roles = f_))
+    def disabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.disabled)((c_, f_) => c_.copy(disabled = f_))
   }
   final val CLIENT_ID_FIELD_NUMBER = 10
   final val NAME_FIELD_NUMBER = 20
@@ -342,6 +371,7 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
   final val ALLOWED_SCOPES_FIELD_NUMBER = 80
   final val RESOURCE_FIELD_NUMBER = 90
   final val ROLES_FIELD_NUMBER = 100
+  final val DISABLED_FIELD_NUMBER = 110
   def of(
     clientId: _root_.scala.Predef.String,
     name: _root_.scala.Predef.String,
@@ -352,7 +382,8 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
     allowedGrants: _root_.scala.Seq[_root_.scala.Predef.String],
     allowedScopes: _root_.scala.Seq[_root_.scala.Predef.String],
     resource: _root_.scala.Predef.String,
-    roles: _root_.scala.Seq[_root_.scala.Predef.String]
+    roles: _root_.scala.Seq[_root_.scala.Predef.String],
+    disabled: _root_.scala.Boolean
   ): _root_.com.huponx.protogen.identity.v1.Client = _root_.com.huponx.protogen.identity.v1.Client(
     clientId,
     name,
@@ -363,7 +394,8 @@ object Client extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.iden
     allowedGrants,
     allowedScopes,
     resource,
-    roles
+    roles,
+    disabled
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.Client])
 }

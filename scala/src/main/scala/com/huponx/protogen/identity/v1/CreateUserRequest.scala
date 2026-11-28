@@ -7,6 +7,8 @@ package com.huponx.protogen.identity.v1
 
 /** @param password
   *   Empty: the user sets the password through the password reset flow.
+  * @param sendWelcome
+  *   Send the welcome mail with the link to set the password (only when password is empty).
   */
 @SerialVersionUID(0L)
 final case class CreateUserRequest(
@@ -15,6 +17,7 @@ final case class CreateUserRequest(
     locale: _root_.scala.Predef.String = "",
     password: _root_.scala.Predef.String = "",
     roles: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
+    sendWelcome: _root_.scala.Boolean = false,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[CreateUserRequest] {
     @transient
@@ -53,6 +56,13 @@ final case class CreateUserRequest(
         val __value = __item
         __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(50, __value)
       }
+      
+      {
+        val __value = sendWelcome
+        if (__value != false) {
+          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(60, __value)
+        }
+      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -94,6 +104,12 @@ final case class CreateUserRequest(
         val __m = __v
         _output__.writeString(50, __m)
       };
+      {
+        val __v = sendWelcome
+        if (__v != false) {
+          _output__.writeBool(60, __v)
+        }
+      };
       unknownFields.writeTo(_output__)
     }
     def withEmail(__v: _root_.scala.Predef.String): CreateUserRequest = copy(email = __v)
@@ -104,6 +120,7 @@ final case class CreateUserRequest(
     def addRoles(__vs: _root_.scala.Predef.String *): CreateUserRequest = addAllRoles(__vs)
     def addAllRoles(__vs: Iterable[_root_.scala.Predef.String]): CreateUserRequest = copy(roles = roles ++ __vs)
     def withRoles(__v: _root_.scala.Seq[_root_.scala.Predef.String]): CreateUserRequest = copy(roles = __v)
+    def withSendWelcome(__v: _root_.scala.Boolean): CreateUserRequest = copy(sendWelcome = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -125,6 +142,10 @@ final case class CreateUserRequest(
           if (__t != "") __t else null
         }
         case 50 => roles
+        case 60 => {
+          val __t = sendWelcome
+          if (__t != false) __t else null
+        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -135,6 +156,7 @@ final case class CreateUserRequest(
         case 30 => _root_.scalapb.descriptors.PString(locale)
         case 40 => _root_.scalapb.descriptors.PString(password)
         case 50 => _root_.scalapb.descriptors.PRepeated(roles.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
+        case 60 => _root_.scalapb.descriptors.PBoolean(sendWelcome)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -150,6 +172,7 @@ object CreateUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
     var __locale: _root_.scala.Predef.String = ""
     var __password: _root_.scala.Predef.String = ""
     val __roles: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
+    var __sendWelcome: _root_.scala.Boolean = false
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -166,6 +189,8 @@ object CreateUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
           __password = _input__.readStringRequireUtf8()
         case 402 =>
           __roles += _input__.readStringRequireUtf8()
+        case 480 =>
+          __sendWelcome = _input__.readBool()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -179,6 +204,7 @@ object CreateUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
         locale = __locale,
         password = __password,
         roles = __roles.result(),
+        sendWelcome = __sendWelcome,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -190,12 +216,13 @@ object CreateUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
         name = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         locale = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         password = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        roles = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
+        roles = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
+        sendWelcome = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Boolean]).getOrElse(false)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(11)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(11)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(13)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(13)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
@@ -204,7 +231,8 @@ object CreateUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
     name = "",
     locale = "",
     password = "",
-    roles = _root_.scala.Seq.empty
+    roles = _root_.scala.Seq.empty,
+    sendWelcome = false
   )
   implicit class CreateUserRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.CreateUserRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.CreateUserRequest](_l) {
     def email: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.email)((c_, f_) => c_.copy(email = f_))
@@ -212,24 +240,28 @@ object CreateUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.pr
     def locale: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.locale)((c_, f_) => c_.copy(locale = f_))
     def password: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.password)((c_, f_) => c_.copy(password = f_))
     def roles: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.roles)((c_, f_) => c_.copy(roles = f_))
+    def sendWelcome: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.sendWelcome)((c_, f_) => c_.copy(sendWelcome = f_))
   }
   final val EMAIL_FIELD_NUMBER = 10
   final val NAME_FIELD_NUMBER = 20
   final val LOCALE_FIELD_NUMBER = 30
   final val PASSWORD_FIELD_NUMBER = 40
   final val ROLES_FIELD_NUMBER = 50
+  final val SEND_WELCOME_FIELD_NUMBER = 60
   def of(
     email: _root_.scala.Predef.String,
     name: _root_.scala.Predef.String,
     locale: _root_.scala.Predef.String,
     password: _root_.scala.Predef.String,
-    roles: _root_.scala.Seq[_root_.scala.Predef.String]
+    roles: _root_.scala.Seq[_root_.scala.Predef.String],
+    sendWelcome: _root_.scala.Boolean
   ): _root_.com.huponx.protogen.identity.v1.CreateUserRequest = _root_.com.huponx.protogen.identity.v1.CreateUserRequest(
     email,
     name,
     locale,
     password,
-    roles
+    roles,
+    sendWelcome
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.CreateUserRequest])
 }
