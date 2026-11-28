@@ -8,4 +8,5 @@ publish = false
 # (neoeinstein-prost v0.4.x / tonic v0.4.x -> prost 0.13, tonic 0.12).
 [dependencies]
 prost = "0.13"
+prost-types = "0.13"
 tonic = "0.12"
