@@ -6,13 +6,12 @@
 package com.huponx.protogen.identity.v1
 
 /** @param id
-  *   One of id, user_id (same as id, the name of the path parameter of the gateway) and email.
+  *   One of the two.
   */
 @SerialVersionUID(0L)
 final case class GetUserRequest(
     id: _root_.scala.Predef.String = "",
     email: _root_.scala.Predef.String = "",
-    userId: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[GetUserRequest] {
     @transient
@@ -31,13 +30,6 @@ final case class GetUserRequest(
         val __value = email
         if (!__value.isEmpty) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(20, __value)
-        }
-      };
-      
-      {
-        val __value = userId
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -65,17 +57,10 @@ final case class GetUserRequest(
           _output__.writeString(20, __v)
         }
       };
-      {
-        val __v = userId
-        if (!__v.isEmpty) {
-          _output__.writeString(30, __v)
-        }
-      };
       unknownFields.writeTo(_output__)
     }
     def withId(__v: _root_.scala.Predef.String): GetUserRequest = copy(id = __v)
     def withEmail(__v: _root_.scala.Predef.String): GetUserRequest = copy(email = __v)
-    def withUserId(__v: _root_.scala.Predef.String): GetUserRequest = copy(userId = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -88,10 +73,6 @@ final case class GetUserRequest(
           val __t = email
           if (__t != "") __t else null
         }
-        case 30 => {
-          val __t = userId
-          if (__t != "") __t else null
-        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -99,7 +80,6 @@ final case class GetUserRequest(
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PString(id)
         case 20 => _root_.scalapb.descriptors.PString(email)
-        case 30 => _root_.scalapb.descriptors.PString(userId)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -112,7 +92,6 @@ object GetUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.proto
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.GetUserRequest = {
     var __id: _root_.scala.Predef.String = ""
     var __email: _root_.scala.Predef.String = ""
-    var __userId: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -123,8 +102,6 @@ object GetUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.proto
           __id = _input__.readStringRequireUtf8()
         case 162 =>
           __email = _input__.readStringRequireUtf8()
-        case 242 =>
-          __userId = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -135,7 +112,6 @@ object GetUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.proto
     com.huponx.protogen.identity.v1.GetUserRequest(
         id = __id,
         email = __email,
-        userId = __userId,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -144,37 +120,31 @@ object GetUserRequest extends scalapb.GeneratedMessageCompanion[com.huponx.proto
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.identity.v1.GetUserRequest(
         id = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        email = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        userId = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        email = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(9)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(9)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(7)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(7)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.GetUserRequest(
     id = "",
-    email = "",
-    userId = ""
+    email = ""
   )
   implicit class GetUserRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.GetUserRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.GetUserRequest](_l) {
     def id: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.id)((c_, f_) => c_.copy(id = f_))
     def email: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.email)((c_, f_) => c_.copy(email = f_))
-    def userId: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.userId)((c_, f_) => c_.copy(userId = f_))
   }
   final val ID_FIELD_NUMBER = 10
   final val EMAIL_FIELD_NUMBER = 20
-  final val USER_ID_FIELD_NUMBER = 30
   def of(
     id: _root_.scala.Predef.String,
-    email: _root_.scala.Predef.String,
-    userId: _root_.scala.Predef.String
+    email: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.identity.v1.GetUserRequest = _root_.com.huponx.protogen.identity.v1.GetUserRequest(
     id,
-    email,
-    userId
+    email
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.GetUserRequest])
 }

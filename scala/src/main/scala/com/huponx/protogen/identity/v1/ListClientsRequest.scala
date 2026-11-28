@@ -5,56 +5,14 @@
 
 package com.huponx.protogen.identity.v1
 
-/** @param query
-  *   Clients whose id, name or type contains this text, or that have a grant or a role containing it (case
-  *   insensitive). Empty lists every client.
-  * @param type
-  *   Only clients of this type; unspecified lists both. Combined with query by AND.
-  * @param pageSize
-  *   Default 50, at most 200.
-  * @param pageToken
-  *   The next_page_token of the previous page. Clients are ordered by client_id.
-  */
 @SerialVersionUID(0L)
 final case class ListClientsRequest(
-    query: _root_.scala.Predef.String = "",
-    `type`: com.huponx.protogen.identity.v1.ClientType = com.huponx.protogen.identity.v1.ClientType.CLIENT_TYPE_UNSPECIFIED,
-    pageSize: _root_.scala.Int = 0,
-    pageToken: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListClientsRequest] {
     @transient
     private[this] var __serializedSizeMemoized: _root_.scala.Int = 0
     private[this] def __computeSerializedSize(): _root_.scala.Int = {
       var __size = 0
-      
-      {
-        val __value = query
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(10, __value)
-        }
-      };
-      
-      {
-        val __value = `type`.value
-        if (__value != 0) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(20, __value)
-        }
-      };
-      
-      {
-        val __value = pageSize
-        if (__value != 0) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(30, __value)
-        }
-      };
-      
-      {
-        val __value = pageToken
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(40, __value)
-        }
-      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -68,67 +26,12 @@ final case class ListClientsRequest(
       
     }
     def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): _root_.scala.Unit = {
-      {
-        val __v = query
-        if (!__v.isEmpty) {
-          _output__.writeString(10, __v)
-        }
-      };
-      {
-        val __v = `type`.value
-        if (__v != 0) {
-          _output__.writeEnum(20, __v)
-        }
-      };
-      {
-        val __v = pageSize
-        if (__v != 0) {
-          _output__.writeInt32(30, __v)
-        }
-      };
-      {
-        val __v = pageToken
-        if (!__v.isEmpty) {
-          _output__.writeString(40, __v)
-        }
-      };
       unknownFields.writeTo(_output__)
     }
-    def withQuery(__v: _root_.scala.Predef.String): ListClientsRequest = copy(query = __v)
-    def withType(__v: com.huponx.protogen.identity.v1.ClientType): ListClientsRequest = copy(`type` = __v)
-    def withPageSize(__v: _root_.scala.Int): ListClientsRequest = copy(pageSize = __v)
-    def withPageToken(__v: _root_.scala.Predef.String): ListClientsRequest = copy(pageToken = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
-    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
-      (__fieldNumber: @_root_.scala.unchecked) match {
-        case 10 => {
-          val __t = query
-          if (__t != "") __t else null
-        }
-        case 20 => {
-          val __t = `type`.javaValueDescriptor
-          if (__t.getNumber() != 0) __t else null
-        }
-        case 30 => {
-          val __t = pageSize
-          if (__t != 0) __t else null
-        }
-        case 40 => {
-          val __t = pageToken
-          if (__t != "") __t else null
-        }
-      }
-    }
-    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
-      _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
-      (__field.number: @_root_.scala.unchecked) match {
-        case 10 => _root_.scalapb.descriptors.PString(query)
-        case 20 => _root_.scalapb.descriptors.PEnum(`type`.scalaValueDescriptor)
-        case 30 => _root_.scalapb.descriptors.PInt(pageSize)
-        case 40 => _root_.scalapb.descriptors.PString(pageToken)
-      }
-    }
+    def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = throw new MatchError(__fieldNumber)
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = throw new MatchError(__field)
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
     def companion: com.huponx.protogen.identity.v1.ListClientsRequest.type = com.huponx.protogen.identity.v1.ListClientsRequest
     // @@protoc_insertion_point(GeneratedMessage[identity.v1.ListClientsRequest])
@@ -137,24 +40,12 @@ final case class ListClientsRequest(
 object ListClientsRequest extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ListClientsRequest] {
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ListClientsRequest] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.ListClientsRequest = {
-    var __query: _root_.scala.Predef.String = ""
-    var __type: com.huponx.protogen.identity.v1.ClientType = com.huponx.protogen.identity.v1.ClientType.CLIENT_TYPE_UNSPECIFIED
-    var __pageSize: _root_.scala.Int = 0
-    var __pageToken: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
       val _tag__ = _input__.readTag()
       _tag__ match {
         case 0 => _done__ = true
-        case 82 =>
-          __query = _input__.readStringRequireUtf8()
-        case 160 =>
-          __type = com.huponx.protogen.identity.v1.ClientType.fromValue(_input__.readEnum())
-        case 240 =>
-          __pageSize = _input__.readInt32()
-        case 322 =>
-          __pageToken = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -163,10 +54,6 @@ object ListClientsRequest extends scalapb.GeneratedMessageCompanion[com.huponx.p
       }
     }
     com.huponx.protogen.identity.v1.ListClientsRequest(
-        query = __query,
-        `type` = __type,
-        pageSize = __pageSize,
-        pageToken = __pageToken,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -174,48 +61,20 @@ object ListClientsRequest extends scalapb.GeneratedMessageCompanion[com.huponx.p
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.identity.v1.ListClientsRequest(
-        query = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        `type` = com.huponx.protogen.identity.v1.ClientType.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.identity.v1.ClientType.CLIENT_TYPE_UNSPECIFIED.scalaValueDescriptor).number),
-        pageSize = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Int]).getOrElse(0),
-        pageToken = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(107)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(107)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(35)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(35)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 20 => com.huponx.protogen.identity.v1.ClientType
-    }
-  }
+  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.ListClientsRequest(
-    query = "",
-    `type` = com.huponx.protogen.identity.v1.ClientType.CLIENT_TYPE_UNSPECIFIED,
-    pageSize = 0,
-    pageToken = ""
   )
   implicit class ListClientsRequestLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.ListClientsRequest]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.ListClientsRequest](_l) {
-    def query: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.query)((c_, f_) => c_.copy(query = f_))
-    def `type`: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.ClientType] = field(_.`type`)((c_, f_) => c_.copy(`type` = f_))
-    def pageSize: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Int] = field(_.pageSize)((c_, f_) => c_.copy(pageSize = f_))
-    def pageToken: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.pageToken)((c_, f_) => c_.copy(pageToken = f_))
   }
-  final val QUERY_FIELD_NUMBER = 10
-  final val TYPE_FIELD_NUMBER = 20
-  final val PAGE_SIZE_FIELD_NUMBER = 30
-  final val PAGE_TOKEN_FIELD_NUMBER = 40
   def of(
-    query: _root_.scala.Predef.String,
-    `type`: com.huponx.protogen.identity.v1.ClientType,
-    pageSize: _root_.scala.Int,
-    pageToken: _root_.scala.Predef.String
   ): _root_.com.huponx.protogen.identity.v1.ListClientsRequest = _root_.com.huponx.protogen.identity.v1.ListClientsRequest(
-    query,
-    `type`,
-    pageSize,
-    pageToken
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.ListClientsRequest])
 }

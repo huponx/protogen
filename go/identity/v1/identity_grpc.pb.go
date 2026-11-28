@@ -19,67 +19,68 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	IdentityService_Introspect_FullMethodName              = "/identity.v1.IdentityService/Introspect"
-	IdentityService_CheckPermission_FullMethodName         = "/identity.v1.IdentityService/CheckPermission"
-	IdentityService_RevokeToken_FullMethodName             = "/identity.v1.IdentityService/RevokeToken"
-	IdentityService_GetUser_FullMethodName                 = "/identity.v1.IdentityService/GetUser"
-	IdentityService_ListUsers_FullMethodName               = "/identity.v1.IdentityService/ListUsers"
-	IdentityService_CreateUser_FullMethodName              = "/identity.v1.IdentityService/CreateUser"
-	IdentityService_SetUserDisabled_FullMethodName         = "/identity.v1.IdentityService/SetUserDisabled"
-	IdentityService_ListUserSessions_FullMethodName        = "/identity.v1.IdentityService/ListUserSessions"
-	IdentityService_RevokeUserSessions_FullMethodName      = "/identity.v1.IdentityService/RevokeUserSessions"
-	IdentityService_DeleteUser_FullMethodName              = "/identity.v1.IdentityService/DeleteUser"
-	IdentityService_SetUserPassword_FullMethodName         = "/identity.v1.IdentityService/SetUserPassword"
-	IdentityService_SendPasswordReset_FullMethodName       = "/identity.v1.IdentityService/SendPasswordReset"
-	IdentityService_UpdateUser_FullMethodName              = "/identity.v1.IdentityService/UpdateUser"
-	IdentityService_SetUserAvatar_FullMethodName           = "/identity.v1.IdentityService/SetUserAvatar"
-	IdentityService_SendWelcome_FullMethodName             = "/identity.v1.IdentityService/SendWelcome"
-	IdentityService_ApproveUser_FullMethodName             = "/identity.v1.IdentityService/ApproveUser"
-	IdentityService_RejectUser_FullMethodName              = "/identity.v1.IdentityService/RejectUser"
-	IdentityService_GetUserStats_FullMethodName            = "/identity.v1.IdentityService/GetUserStats"
-	IdentityService_GetMe_FullMethodName                   = "/identity.v1.IdentityService/GetMe"
-	IdentityService_UpdateMe_FullMethodName                = "/identity.v1.IdentityService/UpdateMe"
-	IdentityService_SetMyAvatar_FullMethodName             = "/identity.v1.IdentityService/SetMyAvatar"
-	IdentityService_ChangeMyPassword_FullMethodName        = "/identity.v1.IdentityService/ChangeMyPassword"
-	IdentityService_GetMyMFA_FullMethodName                = "/identity.v1.IdentityService/GetMyMFA"
-	IdentityService_BeginMyMFA_FullMethodName              = "/identity.v1.IdentityService/BeginMyMFA"
-	IdentityService_ConfirmMyMFA_FullMethodName            = "/identity.v1.IdentityService/ConfirmMyMFA"
-	IdentityService_DisableMyMFA_FullMethodName            = "/identity.v1.IdentityService/DisableMyMFA"
-	IdentityService_ListMyPasskeys_FullMethodName          = "/identity.v1.IdentityService/ListMyPasskeys"
-	IdentityService_BeginMyPasskey_FullMethodName          = "/identity.v1.IdentityService/BeginMyPasskey"
-	IdentityService_FinishMyPasskey_FullMethodName         = "/identity.v1.IdentityService/FinishMyPasskey"
-	IdentityService_RenameMyPasskey_FullMethodName         = "/identity.v1.IdentityService/RenameMyPasskey"
-	IdentityService_DeleteMyPasskey_FullMethodName         = "/identity.v1.IdentityService/DeleteMyPasskey"
-	IdentityService_ListMySessions_FullMethodName          = "/identity.v1.IdentityService/ListMySessions"
-	IdentityService_RevokeMySession_FullMethodName         = "/identity.v1.IdentityService/RevokeMySession"
-	IdentityService_RevokeMyOtherSessions_FullMethodName   = "/identity.v1.IdentityService/RevokeMyOtherSessions"
-	IdentityService_GetMyUserSettings_FullMethodName       = "/identity.v1.IdentityService/GetMyUserSettings"
-	IdentityService_PutMyUserSettings_FullMethodName       = "/identity.v1.IdentityService/PutMyUserSettings"
-	IdentityService_CreateRole_FullMethodName              = "/identity.v1.IdentityService/CreateRole"
-	IdentityService_SetRolePermissions_FullMethodName      = "/identity.v1.IdentityService/SetRolePermissions"
-	IdentityService_ListRoles_FullMethodName               = "/identity.v1.IdentityService/ListRoles"
-	IdentityService_UpdateRole_FullMethodName              = "/identity.v1.IdentityService/UpdateRole"
-	IdentityService_DeleteRole_FullMethodName              = "/identity.v1.IdentityService/DeleteRole"
-	IdentityService_ListPermissions_FullMethodName         = "/identity.v1.IdentityService/ListPermissions"
-	IdentityService_RegisterPermissions_FullMethodName     = "/identity.v1.IdentityService/RegisterPermissions"
-	IdentityService_AssignRole_FullMethodName              = "/identity.v1.IdentityService/AssignRole"
-	IdentityService_RevokeRole_FullMethodName              = "/identity.v1.IdentityService/RevokeRole"
-	IdentityService_CreateClient_FullMethodName            = "/identity.v1.IdentityService/CreateClient"
-	IdentityService_UpdateClient_FullMethodName            = "/identity.v1.IdentityService/UpdateClient"
-	IdentityService_SetClientDisabled_FullMethodName       = "/identity.v1.IdentityService/SetClientDisabled"
-	IdentityService_DeleteClient_FullMethodName            = "/identity.v1.IdentityService/DeleteClient"
-	IdentityService_RotateClientSecret_FullMethodName      = "/identity.v1.IdentityService/RotateClientSecret"
-	IdentityService_ListClients_FullMethodName             = "/identity.v1.IdentityService/ListClients"
-	IdentityService_SetExchangePolicy_FullMethodName       = "/identity.v1.IdentityService/SetExchangePolicy"
-	IdentityService_ListExchangePolicies_FullMethodName    = "/identity.v1.IdentityService/ListExchangePolicies"
-	IdentityService_GetUserMFA_FullMethodName              = "/identity.v1.IdentityService/GetUserMFA"
-	IdentityService_SetUserMFA_FullMethodName              = "/identity.v1.IdentityService/SetUserMFA"
-	IdentityService_EnforceUserMFA_FullMethodName          = "/identity.v1.IdentityService/EnforceUserMFA"
-	IdentityService_ResetUserMFA_FullMethodName            = "/identity.v1.IdentityService/ResetUserMFA"
-	IdentityService_GetUIStyle_FullMethodName              = "/identity.v1.IdentityService/GetUIStyle"
-	IdentityService_SetUIStyle_FullMethodName              = "/identity.v1.IdentityService/SetUIStyle"
-	IdentityService_GetRegistrationSettings_FullMethodName = "/identity.v1.IdentityService/GetRegistrationSettings"
-	IdentityService_SetRegistrationSettings_FullMethodName = "/identity.v1.IdentityService/SetRegistrationSettings"
+	IdentityService_Introspect_FullMethodName                = "/identity.v1.IdentityService/Introspect"
+	IdentityService_CheckPermission_FullMethodName           = "/identity.v1.IdentityService/CheckPermission"
+	IdentityService_RevokeToken_FullMethodName               = "/identity.v1.IdentityService/RevokeToken"
+	IdentityService_GetUser_FullMethodName                   = "/identity.v1.IdentityService/GetUser"
+	IdentityService_ListUsers_FullMethodName                 = "/identity.v1.IdentityService/ListUsers"
+	IdentityService_CreateUser_FullMethodName                = "/identity.v1.IdentityService/CreateUser"
+	IdentityService_SetUserDisabled_FullMethodName           = "/identity.v1.IdentityService/SetUserDisabled"
+	IdentityService_ListUserSessions_FullMethodName          = "/identity.v1.IdentityService/ListUserSessions"
+	IdentityService_RevokeUserSessions_FullMethodName        = "/identity.v1.IdentityService/RevokeUserSessions"
+	IdentityService_DeleteUser_FullMethodName                = "/identity.v1.IdentityService/DeleteUser"
+	IdentityService_SetUserPassword_FullMethodName           = "/identity.v1.IdentityService/SetUserPassword"
+	IdentityService_SendPasswordReset_FullMethodName         = "/identity.v1.IdentityService/SendPasswordReset"
+	IdentityService_UpdateUser_FullMethodName                = "/identity.v1.IdentityService/UpdateUser"
+	IdentityService_SetUserAvatar_FullMethodName             = "/identity.v1.IdentityService/SetUserAvatar"
+	IdentityService_SendWelcome_FullMethodName               = "/identity.v1.IdentityService/SendWelcome"
+	IdentityService_ApproveUser_FullMethodName               = "/identity.v1.IdentityService/ApproveUser"
+	IdentityService_RejectUser_FullMethodName                = "/identity.v1.IdentityService/RejectUser"
+	IdentityService_GetUserStats_FullMethodName              = "/identity.v1.IdentityService/GetUserStats"
+	IdentityService_GetMe_FullMethodName                     = "/identity.v1.IdentityService/GetMe"
+	IdentityService_UpdateMe_FullMethodName                  = "/identity.v1.IdentityService/UpdateMe"
+	IdentityService_SetMyAvatar_FullMethodName               = "/identity.v1.IdentityService/SetMyAvatar"
+	IdentityService_ChangeMyPassword_FullMethodName          = "/identity.v1.IdentityService/ChangeMyPassword"
+	IdentityService_GetMyMFA_FullMethodName                  = "/identity.v1.IdentityService/GetMyMFA"
+	IdentityService_BeginMyMFA_FullMethodName                = "/identity.v1.IdentityService/BeginMyMFA"
+	IdentityService_ConfirmMyMFA_FullMethodName              = "/identity.v1.IdentityService/ConfirmMyMFA"
+	IdentityService_DisableMyMFA_FullMethodName              = "/identity.v1.IdentityService/DisableMyMFA"
+	IdentityService_RegenerateMyRecoveryCodes_FullMethodName = "/identity.v1.IdentityService/RegenerateMyRecoveryCodes"
+	IdentityService_ListMyPasskeys_FullMethodName            = "/identity.v1.IdentityService/ListMyPasskeys"
+	IdentityService_BeginMyPasskey_FullMethodName            = "/identity.v1.IdentityService/BeginMyPasskey"
+	IdentityService_FinishMyPasskey_FullMethodName           = "/identity.v1.IdentityService/FinishMyPasskey"
+	IdentityService_RenameMyPasskey_FullMethodName           = "/identity.v1.IdentityService/RenameMyPasskey"
+	IdentityService_DeleteMyPasskey_FullMethodName           = "/identity.v1.IdentityService/DeleteMyPasskey"
+	IdentityService_ListMySessions_FullMethodName            = "/identity.v1.IdentityService/ListMySessions"
+	IdentityService_RevokeMySession_FullMethodName           = "/identity.v1.IdentityService/RevokeMySession"
+	IdentityService_RevokeMyOtherSessions_FullMethodName     = "/identity.v1.IdentityService/RevokeMyOtherSessions"
+	IdentityService_GetMyUserSettings_FullMethodName         = "/identity.v1.IdentityService/GetMyUserSettings"
+	IdentityService_PutMyUserSettings_FullMethodName         = "/identity.v1.IdentityService/PutMyUserSettings"
+	IdentityService_CreateRole_FullMethodName                = "/identity.v1.IdentityService/CreateRole"
+	IdentityService_SetRolePermissions_FullMethodName        = "/identity.v1.IdentityService/SetRolePermissions"
+	IdentityService_ListRoles_FullMethodName                 = "/identity.v1.IdentityService/ListRoles"
+	IdentityService_UpdateRole_FullMethodName                = "/identity.v1.IdentityService/UpdateRole"
+	IdentityService_DeleteRole_FullMethodName                = "/identity.v1.IdentityService/DeleteRole"
+	IdentityService_ListPermissions_FullMethodName           = "/identity.v1.IdentityService/ListPermissions"
+	IdentityService_RegisterPermissions_FullMethodName       = "/identity.v1.IdentityService/RegisterPermissions"
+	IdentityService_AssignRole_FullMethodName                = "/identity.v1.IdentityService/AssignRole"
+	IdentityService_RevokeRole_FullMethodName                = "/identity.v1.IdentityService/RevokeRole"
+	IdentityService_CreateClient_FullMethodName              = "/identity.v1.IdentityService/CreateClient"
+	IdentityService_UpdateClient_FullMethodName              = "/identity.v1.IdentityService/UpdateClient"
+	IdentityService_SetClientDisabled_FullMethodName         = "/identity.v1.IdentityService/SetClientDisabled"
+	IdentityService_DeleteClient_FullMethodName              = "/identity.v1.IdentityService/DeleteClient"
+	IdentityService_RotateClientSecret_FullMethodName        = "/identity.v1.IdentityService/RotateClientSecret"
+	IdentityService_ListClients_FullMethodName               = "/identity.v1.IdentityService/ListClients"
+	IdentityService_SetExchangePolicy_FullMethodName         = "/identity.v1.IdentityService/SetExchangePolicy"
+	IdentityService_ListExchangePolicies_FullMethodName      = "/identity.v1.IdentityService/ListExchangePolicies"
+	IdentityService_GetUserMFA_FullMethodName                = "/identity.v1.IdentityService/GetUserMFA"
+	IdentityService_SetUserMFA_FullMethodName                = "/identity.v1.IdentityService/SetUserMFA"
+	IdentityService_EnforceUserMFA_FullMethodName            = "/identity.v1.IdentityService/EnforceUserMFA"
+	IdentityService_ResetUserMFA_FullMethodName              = "/identity.v1.IdentityService/ResetUserMFA"
+	IdentityService_GetUIStyle_FullMethodName                = "/identity.v1.IdentityService/GetUIStyle"
+	IdentityService_SetUIStyle_FullMethodName                = "/identity.v1.IdentityService/SetUIStyle"
+	IdentityService_GetRegistrationSettings_FullMethodName   = "/identity.v1.IdentityService/GetRegistrationSettings"
+	IdentityService_SetRegistrationSettings_FullMethodName   = "/identity.v1.IdentityService/SetRegistrationSettings"
 )
 
 // IdentityServiceClient is the client API for IdentityService service.
@@ -141,6 +142,10 @@ type IdentityServiceClient interface {
 	ConfirmMyMFA(ctx context.Context, in *ConfirmMyMFARequest, opts ...grpc.CallOption) (*ConfirmMyMFAResponse, error)
 	// DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
 	DisableMyMFA(ctx context.Context, in *DisableMyMFARequest, opts ...grpc.CallOption) (*DisableMyMFAResponse, error)
+	// RegenerateMyRecoveryCodes replaces the recovery codes (the old ones stop working) after the password and a code of the
+	// authenticator app (a recovery code is not accepted: it would spend the code it is about to replace). Returns the new
+	// codes, shown once. Refused when MFA is off.
+	RegenerateMyRecoveryCodes(ctx context.Context, in *RegenerateMyRecoveryCodesRequest, opts ...grpc.CallOption) (*RegenerateMyRecoveryCodesResponse, error)
 	// The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
 	// returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
 	// the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
@@ -468,6 +473,16 @@ func (c *identityServiceClient) DisableMyMFA(ctx context.Context, in *DisableMyM
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DisableMyMFAResponse)
 	err := c.cc.Invoke(ctx, IdentityService_DisableMyMFA_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *identityServiceClient) RegenerateMyRecoveryCodes(ctx context.Context, in *RegenerateMyRecoveryCodesRequest, opts ...grpc.CallOption) (*RegenerateMyRecoveryCodesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegenerateMyRecoveryCodesResponse)
+	err := c.cc.Invoke(ctx, IdentityService_RegenerateMyRecoveryCodes_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -883,6 +898,10 @@ type IdentityServiceServer interface {
 	ConfirmMyMFA(context.Context, *ConfirmMyMFARequest) (*ConfirmMyMFAResponse, error)
 	// DisableMyMFA turns MFA off after the password and a code (or a recovery code); refused when MFA is required for the user.
 	DisableMyMFA(context.Context, *DisableMyMFARequest) (*DisableMyMFAResponse, error)
+	// RegenerateMyRecoveryCodes replaces the recovery codes (the old ones stop working) after the password and a code of the
+	// authenticator app (a recovery code is not accepted: it would spend the code it is about to replace). Returns the new
+	// codes, shown once. Refused when MFA is off.
+	RegenerateMyRecoveryCodes(context.Context, *RegenerateMyRecoveryCodesRequest) (*RegenerateMyRecoveryCodesResponse, error)
 	// The own passkeys (WebAuthn credentials), a way to sign in next to the password. The browser runs the ceremony: Begin
 	// returns the options for navigator.credentials.create (as the JSON of the web API) and Finish takes the answer back, so
 	// the same steps as the account page of the sign in app. Adding and deleting need the current password. They answer
@@ -1033,6 +1052,9 @@ func (UnimplementedIdentityServiceServer) ConfirmMyMFA(context.Context, *Confirm
 }
 func (UnimplementedIdentityServiceServer) DisableMyMFA(context.Context, *DisableMyMFARequest) (*DisableMyMFAResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DisableMyMFA not implemented")
+}
+func (UnimplementedIdentityServiceServer) RegenerateMyRecoveryCodes(context.Context, *RegenerateMyRecoveryCodesRequest) (*RegenerateMyRecoveryCodesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegenerateMyRecoveryCodes not implemented")
 }
 func (UnimplementedIdentityServiceServer) ListMyPasskeys(context.Context, *ListMyPasskeysRequest) (*ListMyPasskeysResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMyPasskeys not implemented")
@@ -1624,6 +1646,24 @@ func _IdentityService_DisableMyMFA_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IdentityServiceServer).DisableMyMFA(ctx, req.(*DisableMyMFARequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IdentityService_RegenerateMyRecoveryCodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegenerateMyRecoveryCodesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IdentityServiceServer).RegenerateMyRecoveryCodes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: IdentityService_RegenerateMyRecoveryCodes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IdentityServiceServer).RegenerateMyRecoveryCodes(ctx, req.(*RegenerateMyRecoveryCodesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2368,6 +2408,10 @@ var IdentityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DisableMyMFA",
 			Handler:    _IdentityService_DisableMyMFA_Handler,
+		},
+		{
+			MethodName: "RegenerateMyRecoveryCodes",
+			Handler:    _IdentityService_RegenerateMyRecoveryCodes_Handler,
 		},
 		{
 			MethodName: "ListMyPasskeys",

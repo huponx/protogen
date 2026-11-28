@@ -5,13 +5,9 @@
 
 package com.huponx.protogen.identity.v1
 
-/** @param nextPageToken
-  *   Empty on the last page.
-  */
 @SerialVersionUID(0L)
 final case class ListClientsResponse(
     clients: _root_.scala.Seq[com.huponx.protogen.identity.v1.Client] = _root_.scala.Seq.empty,
-    nextPageToken: _root_.scala.Predef.String = "",
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[ListClientsResponse] {
     @transient
@@ -22,13 +18,6 @@ final case class ListClientsResponse(
         val __value = __item
         __size += 1 + _root_.com.google.protobuf.CodedOutputStream.computeUInt32SizeNoTag(__value.serializedSize) + __value.serializedSize
       }
-      
-      {
-        val __value = nextPageToken
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(20, __value)
-        }
-      };
       __size += unknownFields.serializedSize
       __size
     }
@@ -48,35 +37,23 @@ final case class ListClientsResponse(
         _output__.writeUInt32NoTag(__m.serializedSize)
         __m.writeTo(_output__)
       };
-      {
-        val __v = nextPageToken
-        if (!__v.isEmpty) {
-          _output__.writeString(20, __v)
-        }
-      };
       unknownFields.writeTo(_output__)
     }
     def clearClients = copy(clients = _root_.scala.Seq.empty)
     def addClients(__vs: com.huponx.protogen.identity.v1.Client *): ListClientsResponse = addAllClients(__vs)
     def addAllClients(__vs: Iterable[com.huponx.protogen.identity.v1.Client]): ListClientsResponse = copy(clients = clients ++ __vs)
     def withClients(__v: _root_.scala.Seq[com.huponx.protogen.identity.v1.Client]): ListClientsResponse = copy(clients = __v)
-    def withNextPageToken(__v: _root_.scala.Predef.String): ListClientsResponse = copy(nextPageToken = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
       (__fieldNumber: @_root_.scala.unchecked) match {
         case 10 => clients
-        case 20 => {
-          val __t = nextPageToken
-          if (__t != "") __t else null
-        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
       _root_.scala.Predef.require(__field.containingMessage eq companion.scalaDescriptor)
       (__field.number: @_root_.scala.unchecked) match {
         case 10 => _root_.scalapb.descriptors.PRepeated(clients.iterator.map(_.toPMessage).toVector)
-        case 20 => _root_.scalapb.descriptors.PString(nextPageToken)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -88,7 +65,6 @@ object ListClientsResponse extends scalapb.GeneratedMessageCompanion[com.huponx.
   implicit def messageCompanion: scalapb.GeneratedMessageCompanion[com.huponx.protogen.identity.v1.ListClientsResponse] = this
   def parseFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.huponx.protogen.identity.v1.ListClientsResponse = {
     val __clients: _root_.scala.collection.immutable.VectorBuilder[com.huponx.protogen.identity.v1.Client] = new _root_.scala.collection.immutable.VectorBuilder[com.huponx.protogen.identity.v1.Client]
-    var __nextPageToken: _root_.scala.Predef.String = ""
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -97,8 +73,6 @@ object ListClientsResponse extends scalapb.GeneratedMessageCompanion[com.huponx.
         case 0 => _done__ = true
         case 82 =>
           __clients += _root_.scalapb.LiteParser.readMessage[com.huponx.protogen.identity.v1.Client](_input__)
-        case 162 =>
-          __nextPageToken = _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -108,7 +82,6 @@ object ListClientsResponse extends scalapb.GeneratedMessageCompanion[com.huponx.
     }
     com.huponx.protogen.identity.v1.ListClientsResponse(
         clients = __clients.result(),
-        nextPageToken = __nextPageToken,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -116,13 +89,12 @@ object ListClientsResponse extends scalapb.GeneratedMessageCompanion[com.huponx.
     case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
       _root_.scala.Predef.require(__fieldsMap.keys.forall(_.containingMessage eq scalaDescriptor), "FieldDescriptor does not match message type.")
       com.huponx.protogen.identity.v1.ListClientsResponse(
-        clients = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Seq[com.huponx.protogen.identity.v1.Client]]).getOrElse(_root_.scala.Seq.empty),
-        nextPageToken = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse("")
+        clients = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Seq[com.huponx.protogen.identity.v1.Client]]).getOrElse(_root_.scala.Seq.empty)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(108)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(108)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(36)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(36)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = {
     var __out: _root_.scalapb.GeneratedMessageCompanion[_] = null
     (__number: @_root_.scala.unchecked) match {
@@ -133,21 +105,16 @@ object ListClientsResponse extends scalapb.GeneratedMessageCompanion[com.huponx.
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.ListClientsResponse(
-    clients = _root_.scala.Seq.empty,
-    nextPageToken = ""
+    clients = _root_.scala.Seq.empty
   )
   implicit class ListClientsResponseLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.ListClientsResponse]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.ListClientsResponse](_l) {
     def clients: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[com.huponx.protogen.identity.v1.Client]] = field(_.clients)((c_, f_) => c_.copy(clients = f_))
-    def nextPageToken: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.nextPageToken)((c_, f_) => c_.copy(nextPageToken = f_))
   }
   final val CLIENTS_FIELD_NUMBER = 10
-  final val NEXT_PAGE_TOKEN_FIELD_NUMBER = 20
   def of(
-    clients: _root_.scala.Seq[com.huponx.protogen.identity.v1.Client],
-    nextPageToken: _root_.scala.Predef.String
+    clients: _root_.scala.Seq[com.huponx.protogen.identity.v1.Client]
   ): _root_.com.huponx.protogen.identity.v1.ListClientsResponse = _root_.com.huponx.protogen.identity.v1.ListClientsResponse(
-    clients,
-    nextPageToken
+    clients
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.ListClientsResponse])
 }

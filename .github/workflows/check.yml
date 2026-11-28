@@ -35,7 +35,6 @@ jobs:
           [ -f java/pom.xml ] && has_files java/src/main/java '*.java' && langs+=(java)
           [ -f scala/build.sbt ] && has_files scala/src/main/scala '*.scala' && langs+=(scala)
           [ -f rust/Cargo.toml ] && [ -f rust/src/gen/mod.rs ] && langs+=(rust)
-          [ -f ts/package.json ] && [ -f ts/src/permissions.ts ] && langs+=(ts)
           if [ "${#langs[@]}" -eq 0 ]; then
             json='[]'
           else

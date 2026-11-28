@@ -7,19 +7,12 @@ package com.huponx.protogen.identity.v1
 
 /** @param permissions
   *   Permissions are colon separated segments ("identity:user:read"); "*" is a wildcard (alone: everything, trailing: one or more segments, elsewhere: one segment).
-  * @param assignedCount
-  *   How many users and clients hold the role (filled by ListRoles and the role responses); a role that is held cannot be deleted.
-  * @param retiredPermissions
-  *   The permissions of `permissions` that no longer exist in the code (retired permissions and wildcards that
-  *   cover nothing); they do nothing and may be removed.
   */
 @SerialVersionUID(0L)
 final case class Role(
     name: _root_.scala.Predef.String = "",
     description: _root_.scala.Predef.String = "",
     permissions: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
-    assignedCount: _root_.scala.Long = 0L,
-    retiredPermissions: _root_.scala.Seq[_root_.scala.Predef.String] = _root_.scala.Seq.empty,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[Role] {
     @transient
@@ -43,17 +36,6 @@ final case class Role(
       permissions.foreach { __item =>
         val __value = __item
         __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(30, __value)
-      }
-      
-      {
-        val __value = assignedCount
-        if (__value != 0L) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(40, __value)
-        }
-      };
-      retiredPermissions.foreach { __item =>
-        val __value = __item
-        __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(50, __value)
       }
       __size += unknownFields.serializedSize
       __size
@@ -84,16 +66,6 @@ final case class Role(
         val __m = __v
         _output__.writeString(30, __m)
       };
-      {
-        val __v = assignedCount
-        if (__v != 0L) {
-          _output__.writeInt64(40, __v)
-        }
-      };
-      retiredPermissions.foreach { __v =>
-        val __m = __v
-        _output__.writeString(50, __m)
-      };
       unknownFields.writeTo(_output__)
     }
     def withName(__v: _root_.scala.Predef.String): Role = copy(name = __v)
@@ -102,11 +74,6 @@ final case class Role(
     def addPermissions(__vs: _root_.scala.Predef.String *): Role = addAllPermissions(__vs)
     def addAllPermissions(__vs: Iterable[_root_.scala.Predef.String]): Role = copy(permissions = permissions ++ __vs)
     def withPermissions(__v: _root_.scala.Seq[_root_.scala.Predef.String]): Role = copy(permissions = __v)
-    def withAssignedCount(__v: _root_.scala.Long): Role = copy(assignedCount = __v)
-    def clearRetiredPermissions = copy(retiredPermissions = _root_.scala.Seq.empty)
-    def addRetiredPermissions(__vs: _root_.scala.Predef.String *): Role = addAllRetiredPermissions(__vs)
-    def addAllRetiredPermissions(__vs: Iterable[_root_.scala.Predef.String]): Role = copy(retiredPermissions = retiredPermissions ++ __vs)
-    def withRetiredPermissions(__v: _root_.scala.Seq[_root_.scala.Predef.String]): Role = copy(retiredPermissions = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -120,11 +87,6 @@ final case class Role(
           if (__t != "") __t else null
         }
         case 30 => permissions
-        case 40 => {
-          val __t = assignedCount
-          if (__t != 0L) __t else null
-        }
-        case 50 => retiredPermissions
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -133,8 +95,6 @@ final case class Role(
         case 10 => _root_.scalapb.descriptors.PString(name)
         case 20 => _root_.scalapb.descriptors.PString(description)
         case 30 => _root_.scalapb.descriptors.PRepeated(permissions.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
-        case 40 => _root_.scalapb.descriptors.PLong(assignedCount)
-        case 50 => _root_.scalapb.descriptors.PRepeated(retiredPermissions.iterator.map(_root_.scalapb.descriptors.PString(_)).toVector)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -148,8 +108,6 @@ object Role extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
     var __name: _root_.scala.Predef.String = ""
     var __description: _root_.scala.Predef.String = ""
     val __permissions: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
-    var __assignedCount: _root_.scala.Long = 0L
-    val __retiredPermissions: _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String] = new _root_.scala.collection.immutable.VectorBuilder[_root_.scala.Predef.String]
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -162,10 +120,6 @@ object Role extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
           __description = _input__.readStringRequireUtf8()
         case 242 =>
           __permissions += _input__.readStringRequireUtf8()
-        case 320 =>
-          __assignedCount = _input__.readInt64()
-        case 402 =>
-          __retiredPermissions += _input__.readStringRequireUtf8()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -177,8 +131,6 @@ object Role extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
         name = __name,
         description = __description,
         permissions = __permissions.result(),
-        assignedCount = __assignedCount,
-        retiredPermissions = __retiredPermissions.result(),
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -188,48 +140,36 @@ object Role extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
       com.huponx.protogen.identity.v1.Role(
         name = __fieldsMap.get(scalaDescriptor.findFieldByNumber(10).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
         description = __fieldsMap.get(scalaDescriptor.findFieldByNumber(20).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        permissions = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
-        assignedCount = __fieldsMap.get(scalaDescriptor.findFieldByNumber(40).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
-        retiredPermissions = __fieldsMap.get(scalaDescriptor.findFieldByNumber(50).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
+        permissions = __fieldsMap.get(scalaDescriptor.findFieldByNumber(30).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
-  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(75)
-  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(75)
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = IdentityProto.javaDescriptor.getMessageTypes().get(19)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(19)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
   def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.Role(
     name = "",
     description = "",
-    permissions = _root_.scala.Seq.empty,
-    assignedCount = 0L,
-    retiredPermissions = _root_.scala.Seq.empty
+    permissions = _root_.scala.Seq.empty
   )
   implicit class RoleLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.Role]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.Role](_l) {
     def name: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.name)((c_, f_) => c_.copy(name = f_))
     def description: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.description)((c_, f_) => c_.copy(description = f_))
     def permissions: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.permissions)((c_, f_) => c_.copy(permissions = f_))
-    def assignedCount: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.assignedCount)((c_, f_) => c_.copy(assignedCount = f_))
-    def retiredPermissions: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Seq[_root_.scala.Predef.String]] = field(_.retiredPermissions)((c_, f_) => c_.copy(retiredPermissions = f_))
   }
   final val NAME_FIELD_NUMBER = 10
   final val DESCRIPTION_FIELD_NUMBER = 20
   final val PERMISSIONS_FIELD_NUMBER = 30
-  final val ASSIGNED_COUNT_FIELD_NUMBER = 40
-  final val RETIRED_PERMISSIONS_FIELD_NUMBER = 50
   def of(
     name: _root_.scala.Predef.String,
     description: _root_.scala.Predef.String,
-    permissions: _root_.scala.Seq[_root_.scala.Predef.String],
-    assignedCount: _root_.scala.Long,
-    retiredPermissions: _root_.scala.Seq[_root_.scala.Predef.String]
+    permissions: _root_.scala.Seq[_root_.scala.Predef.String]
   ): _root_.com.huponx.protogen.identity.v1.Role = _root_.com.huponx.protogen.identity.v1.Role(
     name,
     description,
-    permissions,
-    assignedCount,
-    retiredPermissions
+    permissions
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.Role])
 }

@@ -7,8 +7,10 @@
 package courierv1
 
 import (
+	_ "github.com/huponx/protogen/go/authz/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	structpb "google.golang.org/protobuf/types/known/structpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -27,6 +29,14 @@ const (
 	Channel_CHANNEL_UNSPECIFIED Channel = 0
 	Channel_CHANNEL_EMAIL       Channel = 10
 	Channel_CHANNEL_TELEGRAM    Channel = 20
+	// The inbox of the user (bell in the web apps); only by user_ids, never a raw recipient.
+	Channel_CHANNEL_IN_APP Channel = 30
+	// An HTTP endpoint of the administrators (Slack, or any service that takes a signed JSON POST); configured in the
+	// admin app, never a raw recipient.
+	Channel_CHANNEL_WEBHOOK Channel = 40
+	// A browser notification (Web Push) on a device the user subscribed; by user_ids only. It renders the in-app
+	// template (title and body) and opens data.link when clicked.
+	Channel_CHANNEL_PUSH Channel = 50
 )
 
 // Enum value maps for Channel.
@@ -35,11 +45,17 @@ var (
 		0:  "CHANNEL_UNSPECIFIED",
 		10: "CHANNEL_EMAIL",
 		20: "CHANNEL_TELEGRAM",
+		30: "CHANNEL_IN_APP",
+		40: "CHANNEL_WEBHOOK",
+		50: "CHANNEL_PUSH",
 	}
 	Channel_value = map[string]int32{
 		"CHANNEL_UNSPECIFIED": 0,
 		"CHANNEL_EMAIL":       10,
 		"CHANNEL_TELEGRAM":    20,
+		"CHANNEL_IN_APP":      30,
+		"CHANNEL_WEBHOOK":     40,
+		"CHANNEL_PUSH":        50,
 	}
 )
 
@@ -68,6 +84,68 @@ func (x Channel) Number() protoreflect.EnumNumber {
 // Deprecated: Use Channel.Descriptor instead.
 func (Channel) EnumDescriptor() ([]byte, []int) {
 	return file_courier_v1_courier_proto_rawDescGZIP(), []int{0}
+}
+
+type DeliveryStatus int32
+
+const (
+	DeliveryStatus_DELIVERY_STATUS_UNSPECIFIED DeliveryStatus = 0
+	// Waiting for the first send or for the next retry (next_attempt_at).
+	DeliveryStatus_DELIVERY_STATUS_PENDING DeliveryStatus = 10
+	DeliveryStatus_DELIVERY_STATUS_SENT    DeliveryStatus = 20
+	// Permanent error (bounce, chat blocked, template cannot render): not retried.
+	DeliveryStatus_DELIVERY_STATUS_FAILED DeliveryStatus = 30
+	// Out of attempts: the dead-letter state, RetryDelivery sends it again.
+	DeliveryStatus_DELIVERY_STATUS_DEAD DeliveryStatus = 40
+	// Not sent: the user turned the channel off for the category. Kept for the audit.
+	DeliveryStatus_DELIVERY_STATUS_SKIPPED DeliveryStatus = 50
+)
+
+// Enum value maps for DeliveryStatus.
+var (
+	DeliveryStatus_name = map[int32]string{
+		0:  "DELIVERY_STATUS_UNSPECIFIED",
+		10: "DELIVERY_STATUS_PENDING",
+		20: "DELIVERY_STATUS_SENT",
+		30: "DELIVERY_STATUS_FAILED",
+		40: "DELIVERY_STATUS_DEAD",
+		50: "DELIVERY_STATUS_SKIPPED",
+	}
+	DeliveryStatus_value = map[string]int32{
+		"DELIVERY_STATUS_UNSPECIFIED": 0,
+		"DELIVERY_STATUS_PENDING":     10,
+		"DELIVERY_STATUS_SENT":        20,
+		"DELIVERY_STATUS_FAILED":      30,
+		"DELIVERY_STATUS_DEAD":        40,
+		"DELIVERY_STATUS_SKIPPED":     50,
+	}
+)
+
+func (x DeliveryStatus) Enum() *DeliveryStatus {
+	p := new(DeliveryStatus)
+	*p = x
+	return p
+}
+
+func (x DeliveryStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (DeliveryStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_courier_v1_courier_proto_enumTypes[1].Descriptor()
+}
+
+func (DeliveryStatus) Type() protoreflect.EnumType {
+	return &file_courier_v1_courier_proto_enumTypes[1]
+}
+
+func (x DeliveryStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use DeliveryStatus.Descriptor instead.
+func (DeliveryStatus) EnumDescriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{1}
 }
 
 type Recipient struct {
@@ -250,12 +328,477 @@ func (x *SendNotificationResponse) GetQueued() int32 {
 	return 0
 }
 
+type Delivery struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Id        string                 `protobuf:"bytes,10,opt,name=id,proto3" json:"id,omitempty"`
+	Channel   Channel                `protobuf:"varint,20,opt,name=channel,proto3,enum=courier.v1.Channel" json:"channel,omitempty"`
+	Address   string                 `protobuf:"bytes,30,opt,name=address,proto3" json:"address,omitempty"`
+	Status    DeliveryStatus         `protobuf:"varint,40,opt,name=status,proto3,enum=courier.v1.DeliveryStatus" json:"status,omitempty"`
+	Attempts  int32                  `protobuf:"varint,50,opt,name=attempts,proto3" json:"attempts,omitempty"`
+	LastError string                 `protobuf:"bytes,60,opt,name=last_error,json=lastError,proto3" json:"last_error,omitempty"`
+	// RFC 3339; empty when not applicable.
+	NextAttemptAt string `protobuf:"bytes,70,opt,name=next_attempt_at,json=nextAttemptAt,proto3" json:"next_attempt_at,omitempty"`
+	SentAt        string `protobuf:"bytes,80,opt,name=sent_at,json=sentAt,proto3" json:"sent_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Delivery) Reset() {
+	*x = Delivery{}
+	mi := &file_courier_v1_courier_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Delivery) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Delivery) ProtoMessage() {}
+
+func (x *Delivery) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Delivery.ProtoReflect.Descriptor instead.
+func (*Delivery) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Delivery) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Delivery) GetChannel() Channel {
+	if x != nil {
+		return x.Channel
+	}
+	return Channel_CHANNEL_UNSPECIFIED
+}
+
+func (x *Delivery) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+func (x *Delivery) GetStatus() DeliveryStatus {
+	if x != nil {
+		return x.Status
+	}
+	return DeliveryStatus_DELIVERY_STATUS_UNSPECIFIED
+}
+
+func (x *Delivery) GetAttempts() int32 {
+	if x != nil {
+		return x.Attempts
+	}
+	return 0
+}
+
+func (x *Delivery) GetLastError() string {
+	if x != nil {
+		return x.LastError
+	}
+	return ""
+}
+
+func (x *Delivery) GetNextAttemptAt() string {
+	if x != nil {
+		return x.NextAttemptAt
+	}
+	return ""
+}
+
+func (x *Delivery) GetSentAt() string {
+	if x != nil {
+		return x.SentAt
+	}
+	return ""
+}
+
+type GetNotificationRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	NotificationId string                 `protobuf:"bytes,10,opt,name=notification_id,json=notificationId,proto3" json:"notification_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetNotificationRequest) Reset() {
+	*x = GetNotificationRequest{}
+	mi := &file_courier_v1_courier_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetNotificationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNotificationRequest) ProtoMessage() {}
+
+func (x *GetNotificationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNotificationRequest.ProtoReflect.Descriptor instead.
+func (*GetNotificationRequest) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetNotificationRequest) GetNotificationId() string {
+	if x != nil {
+		return x.NotificationId
+	}
+	return ""
+}
+
+type GetNotificationResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	NotificationId string                 `protobuf:"bytes,10,opt,name=notification_id,json=notificationId,proto3" json:"notification_id,omitempty"`
+	TemplateId     string                 `protobuf:"bytes,20,opt,name=template_id,json=templateId,proto3" json:"template_id,omitempty"`
+	CreatedAt      string                 `protobuf:"bytes,30,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Deliveries     []*Delivery            `protobuf:"bytes,40,rep,name=deliveries,proto3" json:"deliveries,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetNotificationResponse) Reset() {
+	*x = GetNotificationResponse{}
+	mi := &file_courier_v1_courier_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetNotificationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNotificationResponse) ProtoMessage() {}
+
+func (x *GetNotificationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNotificationResponse.ProtoReflect.Descriptor instead.
+func (*GetNotificationResponse) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetNotificationResponse) GetNotificationId() string {
+	if x != nil {
+		return x.NotificationId
+	}
+	return ""
+}
+
+func (x *GetNotificationResponse) GetTemplateId() string {
+	if x != nil {
+		return x.TemplateId
+	}
+	return ""
+}
+
+func (x *GetNotificationResponse) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *GetNotificationResponse) GetDeliveries() []*Delivery {
+	if x != nil {
+		return x.Deliveries
+	}
+	return nil
+}
+
+type RetryDeliveryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DeliveryId    string                 `protobuf:"bytes,10,opt,name=delivery_id,json=deliveryId,proto3" json:"delivery_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RetryDeliveryRequest) Reset() {
+	*x = RetryDeliveryRequest{}
+	mi := &file_courier_v1_courier_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RetryDeliveryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RetryDeliveryRequest) ProtoMessage() {}
+
+func (x *RetryDeliveryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RetryDeliveryRequest.ProtoReflect.Descriptor instead.
+func (*RetryDeliveryRequest) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RetryDeliveryRequest) GetDeliveryId() string {
+	if x != nil {
+		return x.DeliveryId
+	}
+	return ""
+}
+
+type RetryDeliveryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Delivery      *Delivery              `protobuf:"bytes,10,opt,name=delivery,proto3" json:"delivery,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RetryDeliveryResponse) Reset() {
+	*x = RetryDeliveryResponse{}
+	mi := &file_courier_v1_courier_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RetryDeliveryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RetryDeliveryResponse) ProtoMessage() {}
+
+func (x *RetryDeliveryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RetryDeliveryResponse.ProtoReflect.Descriptor instead.
+func (*RetryDeliveryResponse) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *RetryDeliveryResponse) GetDelivery() *Delivery {
+	if x != nil {
+		return x.Delivery
+	}
+	return nil
+}
+
+type NotifyRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+	IdempotencyKey string `protobuf:"bytes,10,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	// A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+	EventType string `protobuf:"bytes,20,opt,name=event_type,json=eventType,proto3" json:"event_type,omitempty"`
+	// Users of identity. Courier resolves each one to an address and a locale.
+	UserIds []string `protobuf:"bytes,30,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	// Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+	Recipients []*Recipient `protobuf:"bytes,40,rep,name=recipients,proto3" json:"recipients,omitempty"`
+	// Event data. Validated against the catalog: required keys present, unknown keys rejected.
+	// Values are sent to the templates as text (numbers and booleans are formatted).
+	Data *structpb.Struct `protobuf:"bytes,50,opt,name=data,proto3" json:"data,omitempty"`
+	// Locale for raw recipients (and for users without one); empty: the default locale of courier.
+	LocaleOverride string `protobuf:"bytes,60,opt,name=locale_override,json=localeOverride,proto3" json:"locale_override,omitempty"`
+	// Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+	// bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+	// choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+	Channels      []string `protobuf:"bytes,70,rep,name=channels,proto3" json:"channels,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NotifyRequest) Reset() {
+	*x = NotifyRequest{}
+	mi := &file_courier_v1_courier_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NotifyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NotifyRequest) ProtoMessage() {}
+
+func (x *NotifyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NotifyRequest.ProtoReflect.Descriptor instead.
+func (*NotifyRequest) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *NotifyRequest) GetIdempotencyKey() string {
+	if x != nil {
+		return x.IdempotencyKey
+	}
+	return ""
+}
+
+func (x *NotifyRequest) GetEventType() string {
+	if x != nil {
+		return x.EventType
+	}
+	return ""
+}
+
+func (x *NotifyRequest) GetUserIds() []string {
+	if x != nil {
+		return x.UserIds
+	}
+	return nil
+}
+
+func (x *NotifyRequest) GetRecipients() []*Recipient {
+	if x != nil {
+		return x.Recipients
+	}
+	return nil
+}
+
+func (x *NotifyRequest) GetData() *structpb.Struct {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *NotifyRequest) GetLocaleOverride() string {
+	if x != nil {
+		return x.LocaleOverride
+	}
+	return ""
+}
+
+func (x *NotifyRequest) GetChannels() []string {
+	if x != nil {
+		return x.Channels
+	}
+	return nil
+}
+
+type NotifyResponse struct {
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	EventId string                 `protobuf:"bytes,10,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	// Number of deliveries created; 0 for a repeated idempotency_key.
+	Queued int32 `protobuf:"varint,20,opt,name=queued,proto3" json:"queued,omitempty"`
+	// user_ids that got no delivery (no e-mail on record).
+	SkippedUserIds []string `protobuf:"bytes,30,rep,name=skipped_user_ids,json=skippedUserIds,proto3" json:"skipped_user_ids,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *NotifyResponse) Reset() {
+	*x = NotifyResponse{}
+	mi := &file_courier_v1_courier_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NotifyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NotifyResponse) ProtoMessage() {}
+
+func (x *NotifyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_courier_v1_courier_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NotifyResponse.ProtoReflect.Descriptor instead.
+func (*NotifyResponse) Descriptor() ([]byte, []int) {
+	return file_courier_v1_courier_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *NotifyResponse) GetEventId() string {
+	if x != nil {
+		return x.EventId
+	}
+	return ""
+}
+
+func (x *NotifyResponse) GetQueued() int32 {
+	if x != nil {
+		return x.Queued
+	}
+	return 0
+}
+
+func (x *NotifyResponse) GetSkippedUserIds() []string {
+	if x != nil {
+		return x.SkippedUserIds
+	}
+	return nil
+}
+
 var File_courier_v1_courier_proto protoreflect.FileDescriptor
 
 const file_courier_v1_courier_proto_rawDesc = "" +
 	"\n" +
 	"\x18courier/v1/courier.proto\x12\n" +
-	"courier.v1\"T\n" +
+	"courier.v1\x1a\x16authz/v1/options.proto\x1a\x1cgoogle/protobuf/struct.proto\"T\n" +
 	"\tRecipient\x12-\n" +
 	"\achannel\x18\n" +
 	" \x01(\x0e2\x13.courier.v1.ChannelR\achannel\x12\x18\n" +
@@ -276,14 +819,76 @@ const file_courier_v1_courier_proto_rawDesc = "" +
 	"\x18SendNotificationResponse\x12'\n" +
 	"\x0fnotification_id\x18\n" +
 	" \x01(\tR\x0enotificationId\x12\x16\n" +
-	"\x06queued\x18\x14 \x01(\x05R\x06queued*K\n" +
+	"\x06queued\x18\x14 \x01(\x05R\x06queued\"\x93\x02\n" +
+	"\bDelivery\x12\x0e\n" +
+	"\x02id\x18\n" +
+	" \x01(\tR\x02id\x12-\n" +
+	"\achannel\x18\x14 \x01(\x0e2\x13.courier.v1.ChannelR\achannel\x12\x18\n" +
+	"\aaddress\x18\x1e \x01(\tR\aaddress\x122\n" +
+	"\x06status\x18( \x01(\x0e2\x1a.courier.v1.DeliveryStatusR\x06status\x12\x1a\n" +
+	"\battempts\x182 \x01(\x05R\battempts\x12\x1d\n" +
+	"\n" +
+	"last_error\x18< \x01(\tR\tlastError\x12&\n" +
+	"\x0fnext_attempt_at\x18F \x01(\tR\rnextAttemptAt\x12\x17\n" +
+	"\asent_at\x18P \x01(\tR\x06sentAt\"A\n" +
+	"\x16GetNotificationRequest\x12'\n" +
+	"\x0fnotification_id\x18\n" +
+	" \x01(\tR\x0enotificationId\"\xb8\x01\n" +
+	"\x17GetNotificationResponse\x12'\n" +
+	"\x0fnotification_id\x18\n" +
+	" \x01(\tR\x0enotificationId\x12\x1f\n" +
+	"\vtemplate_id\x18\x14 \x01(\tR\n" +
+	"templateId\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x1e \x01(\tR\tcreatedAt\x124\n" +
+	"\n" +
+	"deliveries\x18( \x03(\v2\x14.courier.v1.DeliveryR\n" +
+	"deliveries\"7\n" +
+	"\x14RetryDeliveryRequest\x12\x1f\n" +
+	"\vdelivery_id\x18\n" +
+	" \x01(\tR\n" +
+	"deliveryId\"I\n" +
+	"\x15RetryDeliveryResponse\x120\n" +
+	"\bdelivery\x18\n" +
+	" \x01(\v2\x14.courier.v1.DeliveryR\bdelivery\"\x9b\x02\n" +
+	"\rNotifyRequest\x12'\n" +
+	"\x0fidempotency_key\x18\n" +
+	" \x01(\tR\x0eidempotencyKey\x12\x1d\n" +
+	"\n" +
+	"event_type\x18\x14 \x01(\tR\teventType\x12\x19\n" +
+	"\buser_ids\x18\x1e \x03(\tR\auserIds\x125\n" +
+	"\n" +
+	"recipients\x18( \x03(\v2\x15.courier.v1.RecipientR\n" +
+	"recipients\x12+\n" +
+	"\x04data\x182 \x01(\v2\x17.google.protobuf.StructR\x04data\x12'\n" +
+	"\x0flocale_override\x18< \x01(\tR\x0elocaleOverride\x12\x1a\n" +
+	"\bchannels\x18F \x03(\tR\bchannels\"m\n" +
+	"\x0eNotifyResponse\x12\x19\n" +
+	"\bevent_id\x18\n" +
+	" \x01(\tR\aeventId\x12\x16\n" +
+	"\x06queued\x18\x14 \x01(\x05R\x06queued\x12(\n" +
+	"\x10skipped_user_ids\x18\x1e \x03(\tR\x0eskippedUserIds*\x86\x01\n" +
 	"\aChannel\x12\x17\n" +
 	"\x13CHANNEL_UNSPECIFIED\x10\x00\x12\x11\n" +
 	"\rCHANNEL_EMAIL\x10\n" +
 	"\x12\x14\n" +
-	"\x10CHANNEL_TELEGRAM\x10\x142o\n" +
-	"\x0eCourierService\x12]\n" +
-	"\x10SendNotification\x12#.courier.v1.SendNotificationRequest\x1a$.courier.v1.SendNotificationResponseB\x9b\x01\n" +
+	"\x10CHANNEL_TELEGRAM\x10\x14\x12\x12\n" +
+	"\x0eCHANNEL_IN_APP\x10\x1e\x12\x13\n" +
+	"\x0fCHANNEL_WEBHOOK\x10(\x12\x10\n" +
+	"\fCHANNEL_PUSH\x102*\xbb\x01\n" +
+	"\x0eDeliveryStatus\x12\x1f\n" +
+	"\x1bDELIVERY_STATUS_UNSPECIFIED\x10\x00\x12\x1b\n" +
+	"\x17DELIVERY_STATUS_PENDING\x10\n" +
+	"\x12\x18\n" +
+	"\x14DELIVERY_STATUS_SENT\x10\x14\x12\x1a\n" +
+	"\x16DELIVERY_STATUS_FAILED\x10\x1e\x12\x18\n" +
+	"\x14DELIVERY_STATUS_DEAD\x10(\x12\x1b\n" +
+	"\x17DELIVERY_STATUS_SKIPPED\x1022\xea\x03\n" +
+	"\x0eCourierService\x12~\n" +
+	"\x10SendNotification\x12#.courier.v1.SendNotificationRequest\x1a$.courier.v1.SendNotificationResponse\"\x1f\xd2\xf3\x18\x1bR\x19courier:notification:send\x12`\n" +
+	"\x06Notify\x12\x19.courier.v1.NotifyRequest\x1a\x1a.courier.v1.NotifyResponse\"\x1f\xd2\xf3\x18\x1bR\x19courier:notification:send\x12}\n" +
+	"\x0fGetNotification\x12\".courier.v1.GetNotificationRequest\x1a#.courier.v1.GetNotificationResponse\"!\xd2\xf3\x18\x1dR\x1bcourier:notification:manage\x12w\n" +
+	"\rRetryDelivery\x12 .courier.v1.RetryDeliveryRequest\x1a!.courier.v1.RetryDeliveryResponse\"!\xd2\xf3\x18\x1dR\x1bcourier:notification:manageB\x9b\x01\n" +
 	"\x0ecom.courier.v1B\fCourierProtoP\x01Z2github.com/huponx/protogen/go/courier/v1;courierv1\xa2\x02\x03CXX\xaa\x02\n" +
 	"Courier.V1\xca\x02\n" +
 	"Courier\\V1\xe2\x02\x16Courier\\V1\\GPBMetadata\xea\x02\vCourier::V1b\x06proto3"
@@ -300,26 +905,47 @@ func file_courier_v1_courier_proto_rawDescGZIP() []byte {
 	return file_courier_v1_courier_proto_rawDescData
 }
 
-var file_courier_v1_courier_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_courier_v1_courier_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_courier_v1_courier_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_courier_v1_courier_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_courier_v1_courier_proto_goTypes = []any{
 	(Channel)(0),                     // 0: courier.v1.Channel
-	(*Recipient)(nil),                // 1: courier.v1.Recipient
-	(*SendNotificationRequest)(nil),  // 2: courier.v1.SendNotificationRequest
-	(*SendNotificationResponse)(nil), // 3: courier.v1.SendNotificationResponse
-	nil,                              // 4: courier.v1.SendNotificationRequest.TemplateDataEntry
+	(DeliveryStatus)(0),              // 1: courier.v1.DeliveryStatus
+	(*Recipient)(nil),                // 2: courier.v1.Recipient
+	(*SendNotificationRequest)(nil),  // 3: courier.v1.SendNotificationRequest
+	(*SendNotificationResponse)(nil), // 4: courier.v1.SendNotificationResponse
+	(*Delivery)(nil),                 // 5: courier.v1.Delivery
+	(*GetNotificationRequest)(nil),   // 6: courier.v1.GetNotificationRequest
+	(*GetNotificationResponse)(nil),  // 7: courier.v1.GetNotificationResponse
+	(*RetryDeliveryRequest)(nil),     // 8: courier.v1.RetryDeliveryRequest
+	(*RetryDeliveryResponse)(nil),    // 9: courier.v1.RetryDeliveryResponse
+	(*NotifyRequest)(nil),            // 10: courier.v1.NotifyRequest
+	(*NotifyResponse)(nil),           // 11: courier.v1.NotifyResponse
+	nil,                              // 12: courier.v1.SendNotificationRequest.TemplateDataEntry
+	(*structpb.Struct)(nil),          // 13: google.protobuf.Struct
 }
 var file_courier_v1_courier_proto_depIdxs = []int32{
-	0, // 0: courier.v1.Recipient.channel:type_name -> courier.v1.Channel
-	4, // 1: courier.v1.SendNotificationRequest.template_data:type_name -> courier.v1.SendNotificationRequest.TemplateDataEntry
-	1, // 2: courier.v1.SendNotificationRequest.recipients:type_name -> courier.v1.Recipient
-	2, // 3: courier.v1.CourierService.SendNotification:input_type -> courier.v1.SendNotificationRequest
-	3, // 4: courier.v1.CourierService.SendNotification:output_type -> courier.v1.SendNotificationResponse
-	4, // [4:5] is the sub-list for method output_type
-	3, // [3:4] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: courier.v1.Recipient.channel:type_name -> courier.v1.Channel
+	12, // 1: courier.v1.SendNotificationRequest.template_data:type_name -> courier.v1.SendNotificationRequest.TemplateDataEntry
+	2,  // 2: courier.v1.SendNotificationRequest.recipients:type_name -> courier.v1.Recipient
+	0,  // 3: courier.v1.Delivery.channel:type_name -> courier.v1.Channel
+	1,  // 4: courier.v1.Delivery.status:type_name -> courier.v1.DeliveryStatus
+	5,  // 5: courier.v1.GetNotificationResponse.deliveries:type_name -> courier.v1.Delivery
+	5,  // 6: courier.v1.RetryDeliveryResponse.delivery:type_name -> courier.v1.Delivery
+	2,  // 7: courier.v1.NotifyRequest.recipients:type_name -> courier.v1.Recipient
+	13, // 8: courier.v1.NotifyRequest.data:type_name -> google.protobuf.Struct
+	3,  // 9: courier.v1.CourierService.SendNotification:input_type -> courier.v1.SendNotificationRequest
+	10, // 10: courier.v1.CourierService.Notify:input_type -> courier.v1.NotifyRequest
+	6,  // 11: courier.v1.CourierService.GetNotification:input_type -> courier.v1.GetNotificationRequest
+	8,  // 12: courier.v1.CourierService.RetryDelivery:input_type -> courier.v1.RetryDeliveryRequest
+	4,  // 13: courier.v1.CourierService.SendNotification:output_type -> courier.v1.SendNotificationResponse
+	11, // 14: courier.v1.CourierService.Notify:output_type -> courier.v1.NotifyResponse
+	7,  // 15: courier.v1.CourierService.GetNotification:output_type -> courier.v1.GetNotificationResponse
+	9,  // 16: courier.v1.CourierService.RetryDelivery:output_type -> courier.v1.RetryDeliveryResponse
+	13, // [13:17] is the sub-list for method output_type
+	9,  // [9:13] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_courier_v1_courier_proto_init() }
@@ -332,8 +958,8 @@ func file_courier_v1_courier_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_courier_v1_courier_proto_rawDesc), len(file_courier_v1_courier_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   4,
+			NumEnums:      2,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

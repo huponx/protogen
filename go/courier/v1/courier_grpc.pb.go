@@ -20,13 +20,26 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	CourierService_SendNotification_FullMethodName = "/courier.v1.CourierService/SendNotification"
+	CourierService_Notify_FullMethodName           = "/courier.v1.CourierService/Notify"
+	CourierService_GetNotification_FullMethodName  = "/courier.v1.CourierService/GetNotification"
+	CourierService_RetryDelivery_FullMethodName    = "/courier.v1.CourierService/RetryDelivery"
 )
 
 // CourierServiceClient is the client API for CourierService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// CourierService is for services (Kubernetes ServiceAccount token, or a token holding the permission).
+// The inbox of a user is InboxService.
 type CourierServiceClient interface {
 	SendNotification(ctx context.Context, in *SendNotificationRequest, opts ...grpc.CallOption) (*SendNotificationResponse, error)
+	// Notify sends an event of the catalog (courier/internal/catalog) to users and/or raw addresses.
+	// Courier picks the channels, addresses and locale; the caller only says what happened and to whom.
+	Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*NotifyResponse, error)
+	// GetNotification returns the state of every delivery of a notification (the audit trail).
+	GetNotification(ctx context.Context, in *GetNotificationRequest, opts ...grpc.CallOption) (*GetNotificationResponse, error)
+	// RetryDelivery puts a failed or dead delivery back in the queue (resets its attempts).
+	RetryDelivery(ctx context.Context, in *RetryDeliveryRequest, opts ...grpc.CallOption) (*RetryDeliveryResponse, error)
 }
 
 type courierServiceClient struct {
@@ -47,11 +60,51 @@ func (c *courierServiceClient) SendNotification(ctx context.Context, in *SendNot
 	return out, nil
 }
 
+func (c *courierServiceClient) Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*NotifyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NotifyResponse)
+	err := c.cc.Invoke(ctx, CourierService_Notify_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) GetNotification(ctx context.Context, in *GetNotificationRequest, opts ...grpc.CallOption) (*GetNotificationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetNotificationResponse)
+	err := c.cc.Invoke(ctx, CourierService_GetNotification_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) RetryDelivery(ctx context.Context, in *RetryDeliveryRequest, opts ...grpc.CallOption) (*RetryDeliveryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RetryDeliveryResponse)
+	err := c.cc.Invoke(ctx, CourierService_RetryDelivery_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourierServiceServer is the server API for CourierService service.
 // All implementations must embed UnimplementedCourierServiceServer
 // for forward compatibility.
+//
+// CourierService is for services (Kubernetes ServiceAccount token, or a token holding the permission).
+// The inbox of a user is InboxService.
 type CourierServiceServer interface {
 	SendNotification(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error)
+	// Notify sends an event of the catalog (courier/internal/catalog) to users and/or raw addresses.
+	// Courier picks the channels, addresses and locale; the caller only says what happened and to whom.
+	Notify(context.Context, *NotifyRequest) (*NotifyResponse, error)
+	// GetNotification returns the state of every delivery of a notification (the audit trail).
+	GetNotification(context.Context, *GetNotificationRequest) (*GetNotificationResponse, error)
+	// RetryDelivery puts a failed or dead delivery back in the queue (resets its attempts).
+	RetryDelivery(context.Context, *RetryDeliveryRequest) (*RetryDeliveryResponse, error)
 	mustEmbedUnimplementedCourierServiceServer()
 }
 
@@ -64,6 +117,15 @@ type UnimplementedCourierServiceServer struct{}
 
 func (UnimplementedCourierServiceServer) SendNotification(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendNotification not implemented")
+}
+func (UnimplementedCourierServiceServer) Notify(context.Context, *NotifyRequest) (*NotifyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Notify not implemented")
+}
+func (UnimplementedCourierServiceServer) GetNotification(context.Context, *GetNotificationRequest) (*GetNotificationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNotification not implemented")
+}
+func (UnimplementedCourierServiceServer) RetryDelivery(context.Context, *RetryDeliveryRequest) (*RetryDeliveryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RetryDelivery not implemented")
 }
 func (UnimplementedCourierServiceServer) mustEmbedUnimplementedCourierServiceServer() {}
 func (UnimplementedCourierServiceServer) testEmbeddedByValue()                        {}
@@ -104,6 +166,60 @@ func _CourierService_SendNotification_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourierService_Notify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).Notify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CourierService_Notify_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).Notify(ctx, req.(*NotifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_GetNotification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNotificationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).GetNotification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CourierService_GetNotification_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).GetNotification(ctx, req.(*GetNotificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_RetryDelivery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetryDeliveryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).RetryDelivery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CourierService_RetryDelivery_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).RetryDelivery(ctx, req.(*RetryDeliveryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CourierService_ServiceDesc is the grpc.ServiceDesc for CourierService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +230,18 @@ var CourierService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendNotification",
 			Handler:    _CourierService_SendNotification_Handler,
+		},
+		{
+			MethodName: "Notify",
+			Handler:    _CourierService_Notify_Handler,
+		},
+		{
+			MethodName: "GetNotification",
+			Handler:    _CourierService_GetNotification_Handler,
+		},
+		{
+			MethodName: "RetryDelivery",
+			Handler:    _CourierService_RetryDelivery_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
