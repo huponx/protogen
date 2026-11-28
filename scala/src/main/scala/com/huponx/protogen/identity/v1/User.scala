@@ -5,13 +5,6 @@
 
 package com.huponx.protogen.identity.v1
 
-/** @param theme
-  *   light, dark or system; empty until the user chose one.
-  * @param avatar
-  *   The picture as a data URI ("data:image/webp;base64,..."). Only GetUser fills it, lists do not.
-  * @param lastLoginAt
-  *   Unix seconds of the last completed sign in; 0 when the user never signed in (or did before this was tracked).
-  */
 @SerialVersionUID(0L)
 final case class User(
     id: _root_.scala.Predef.String = "",
@@ -23,11 +16,6 @@ final case class User(
     mfaEnabled: _root_.scala.Boolean = false,
     mfaEnforced: _root_.scala.Boolean = false,
     createdAt: _root_.scala.Long = 0L,
-    status: com.huponx.protogen.identity.v1.UserStatus = com.huponx.protogen.identity.v1.UserStatus.USER_STATUS_UNSPECIFIED,
-    theme: _root_.scala.Predef.String = "",
-    hasAvatar: _root_.scala.Boolean = false,
-    avatar: _root_.scala.Predef.String = "",
-    lastLoginAt: _root_.scala.Long = 0L,
     unknownFields: _root_.scalapb.UnknownFieldSet = _root_.scalapb.UnknownFieldSet.empty
     ) extends scalapb.GeneratedMessage with scalapb.lenses.Updatable[User] {
     @transient
@@ -92,41 +80,6 @@ final case class User(
         val __value = createdAt
         if (__value != 0L) {
           __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(90, __value)
-        }
-      };
-      
-      {
-        val __value = status.value
-        if (__value != 0) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeEnumSize(100, __value)
-        }
-      };
-      
-      {
-        val __value = theme
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(140, __value)
-        }
-      };
-      
-      {
-        val __value = hasAvatar
-        if (__value != false) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeBoolSize(110, __value)
-        }
-      };
-      
-      {
-        val __value = avatar
-        if (!__value.isEmpty) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(120, __value)
-        }
-      };
-      
-      {
-        val __value = lastLoginAt
-        if (__value != 0L) {
-          __size += _root_.com.google.protobuf.CodedOutputStream.computeInt64Size(130, __value)
         }
       };
       __size += unknownFields.serializedSize
@@ -194,36 +147,6 @@ final case class User(
           _output__.writeInt64(90, __v)
         }
       };
-      {
-        val __v = status.value
-        if (__v != 0) {
-          _output__.writeEnum(100, __v)
-        }
-      };
-      {
-        val __v = hasAvatar
-        if (__v != false) {
-          _output__.writeBool(110, __v)
-        }
-      };
-      {
-        val __v = avatar
-        if (!__v.isEmpty) {
-          _output__.writeString(120, __v)
-        }
-      };
-      {
-        val __v = lastLoginAt
-        if (__v != 0L) {
-          _output__.writeInt64(130, __v)
-        }
-      };
-      {
-        val __v = theme
-        if (!__v.isEmpty) {
-          _output__.writeString(140, __v)
-        }
-      };
       unknownFields.writeTo(_output__)
     }
     def withId(__v: _root_.scala.Predef.String): User = copy(id = __v)
@@ -238,11 +161,6 @@ final case class User(
     def withMfaEnabled(__v: _root_.scala.Boolean): User = copy(mfaEnabled = __v)
     def withMfaEnforced(__v: _root_.scala.Boolean): User = copy(mfaEnforced = __v)
     def withCreatedAt(__v: _root_.scala.Long): User = copy(createdAt = __v)
-    def withStatus(__v: com.huponx.protogen.identity.v1.UserStatus): User = copy(status = __v)
-    def withTheme(__v: _root_.scala.Predef.String): User = copy(theme = __v)
-    def withHasAvatar(__v: _root_.scala.Boolean): User = copy(hasAvatar = __v)
-    def withAvatar(__v: _root_.scala.Predef.String): User = copy(avatar = __v)
-    def withLastLoginAt(__v: _root_.scala.Long): User = copy(lastLoginAt = __v)
     def withUnknownFields(__v: _root_.scalapb.UnknownFieldSet) = copy(unknownFields = __v)
     def discardUnknownFields = copy(unknownFields = _root_.scalapb.UnknownFieldSet.empty)
     def getFieldByNumber(__fieldNumber: _root_.scala.Int): _root_.scala.Any = {
@@ -280,26 +198,6 @@ final case class User(
           val __t = createdAt
           if (__t != 0L) __t else null
         }
-        case 100 => {
-          val __t = status.javaValueDescriptor
-          if (__t.getNumber() != 0) __t else null
-        }
-        case 140 => {
-          val __t = theme
-          if (__t != "") __t else null
-        }
-        case 110 => {
-          val __t = hasAvatar
-          if (__t != false) __t else null
-        }
-        case 120 => {
-          val __t = avatar
-          if (__t != "") __t else null
-        }
-        case 130 => {
-          val __t = lastLoginAt
-          if (__t != 0L) __t else null
-        }
       }
     }
     def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
@@ -314,11 +212,6 @@ final case class User(
         case 70 => _root_.scalapb.descriptors.PBoolean(mfaEnabled)
         case 80 => _root_.scalapb.descriptors.PBoolean(mfaEnforced)
         case 90 => _root_.scalapb.descriptors.PLong(createdAt)
-        case 100 => _root_.scalapb.descriptors.PEnum(status.scalaValueDescriptor)
-        case 140 => _root_.scalapb.descriptors.PString(theme)
-        case 110 => _root_.scalapb.descriptors.PBoolean(hasAvatar)
-        case 120 => _root_.scalapb.descriptors.PString(avatar)
-        case 130 => _root_.scalapb.descriptors.PLong(lastLoginAt)
       }
     }
     def toProtoString: _root_.scala.Predef.String = _root_.scalapb.TextFormat.printToUnicodeString(this)
@@ -338,11 +231,6 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
     var __mfaEnabled: _root_.scala.Boolean = false
     var __mfaEnforced: _root_.scala.Boolean = false
     var __createdAt: _root_.scala.Long = 0L
-    var __status: com.huponx.protogen.identity.v1.UserStatus = com.huponx.protogen.identity.v1.UserStatus.USER_STATUS_UNSPECIFIED
-    var __theme: _root_.scala.Predef.String = ""
-    var __hasAvatar: _root_.scala.Boolean = false
-    var __avatar: _root_.scala.Predef.String = ""
-    var __lastLoginAt: _root_.scala.Long = 0L
     var `_unknownFields__`: _root_.scalapb.UnknownFieldSet.Builder = null
     var _done__ = false
     while (!_done__) {
@@ -367,16 +255,6 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
           __mfaEnforced = _input__.readBool()
         case 720 =>
           __createdAt = _input__.readInt64()
-        case 800 =>
-          __status = com.huponx.protogen.identity.v1.UserStatus.fromValue(_input__.readEnum())
-        case 1122 =>
-          __theme = _input__.readStringRequireUtf8()
-        case 880 =>
-          __hasAvatar = _input__.readBool()
-        case 962 =>
-          __avatar = _input__.readStringRequireUtf8()
-        case 1040 =>
-          __lastLoginAt = _input__.readInt64()
         case tag =>
           if (_unknownFields__ == null) {
             _unknownFields__ = new _root_.scalapb.UnknownFieldSet.Builder()
@@ -394,11 +272,6 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
         mfaEnabled = __mfaEnabled,
         mfaEnforced = __mfaEnforced,
         createdAt = __createdAt,
-        status = __status,
-        theme = __theme,
-        hasAvatar = __hasAvatar,
-        avatar = __avatar,
-        lastLoginAt = __lastLoginAt,
         unknownFields = if (_unknownFields__ == null) _root_.scalapb.UnknownFieldSet.empty else _unknownFields__.result()
     )
   }
@@ -414,12 +287,7 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
         roles = __fieldsMap.get(scalaDescriptor.findFieldByNumber(60).get).map(_.as[_root_.scala.Seq[_root_.scala.Predef.String]]).getOrElse(_root_.scala.Seq.empty),
         mfaEnabled = __fieldsMap.get(scalaDescriptor.findFieldByNumber(70).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
         mfaEnforced = __fieldsMap.get(scalaDescriptor.findFieldByNumber(80).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        createdAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Long]).getOrElse(0L),
-        status = com.huponx.protogen.identity.v1.UserStatus.fromValue(__fieldsMap.get(scalaDescriptor.findFieldByNumber(100).get).map(_.as[_root_.scalapb.descriptors.EnumValueDescriptor]).getOrElse(com.huponx.protogen.identity.v1.UserStatus.USER_STATUS_UNSPECIFIED.scalaValueDescriptor).number),
-        theme = __fieldsMap.get(scalaDescriptor.findFieldByNumber(140).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        hasAvatar = __fieldsMap.get(scalaDescriptor.findFieldByNumber(110).get).map(_.as[_root_.scala.Boolean]).getOrElse(false),
-        avatar = __fieldsMap.get(scalaDescriptor.findFieldByNumber(120).get).map(_.as[_root_.scala.Predef.String]).getOrElse(""),
-        lastLoginAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(130).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
+        createdAt = __fieldsMap.get(scalaDescriptor.findFieldByNumber(90).get).map(_.as[_root_.scala.Long]).getOrElse(0L)
       )
     case _ => throw new RuntimeException("Expected PMessage")
   }
@@ -427,11 +295,7 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
   def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = IdentityProto.scalaDescriptor.messages(6)
   def messageCompanionForFieldNumber(__number: _root_.scala.Int): _root_.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__number)
   lazy val nestedMessagesCompanions: Seq[_root_.scalapb.GeneratedMessageCompanion[_ <: _root_.scalapb.GeneratedMessage]] = Seq.empty
-  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = {
-    (__fieldNumber: @_root_.scala.unchecked) match {
-      case 100 => com.huponx.protogen.identity.v1.UserStatus
-    }
-  }
+  def enumCompanionForFieldNumber(__fieldNumber: _root_.scala.Int): _root_.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.huponx.protogen.identity.v1.User(
     id = "",
     email = "",
@@ -441,12 +305,7 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
     roles = _root_.scala.Seq.empty,
     mfaEnabled = false,
     mfaEnforced = false,
-    createdAt = 0L,
-    status = com.huponx.protogen.identity.v1.UserStatus.USER_STATUS_UNSPECIFIED,
-    theme = "",
-    hasAvatar = false,
-    avatar = "",
-    lastLoginAt = 0L
+    createdAt = 0L
   )
   implicit class UserLens[UpperPB](_l: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.User]) extends _root_.scalapb.lenses.ObjectLens[UpperPB, com.huponx.protogen.identity.v1.User](_l) {
     def id: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.id)((c_, f_) => c_.copy(id = f_))
@@ -458,11 +317,6 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
     def mfaEnabled: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.mfaEnabled)((c_, f_) => c_.copy(mfaEnabled = f_))
     def mfaEnforced: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.mfaEnforced)((c_, f_) => c_.copy(mfaEnforced = f_))
     def createdAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.createdAt)((c_, f_) => c_.copy(createdAt = f_))
-    def status: _root_.scalapb.lenses.Lens[UpperPB, com.huponx.protogen.identity.v1.UserStatus] = field(_.status)((c_, f_) => c_.copy(status = f_))
-    def theme: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.theme)((c_, f_) => c_.copy(theme = f_))
-    def hasAvatar: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Boolean] = field(_.hasAvatar)((c_, f_) => c_.copy(hasAvatar = f_))
-    def avatar: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Predef.String] = field(_.avatar)((c_, f_) => c_.copy(avatar = f_))
-    def lastLoginAt: _root_.scalapb.lenses.Lens[UpperPB, _root_.scala.Long] = field(_.lastLoginAt)((c_, f_) => c_.copy(lastLoginAt = f_))
   }
   final val ID_FIELD_NUMBER = 10
   final val EMAIL_FIELD_NUMBER = 20
@@ -473,11 +327,6 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
   final val MFA_ENABLED_FIELD_NUMBER = 70
   final val MFA_ENFORCED_FIELD_NUMBER = 80
   final val CREATED_AT_FIELD_NUMBER = 90
-  final val STATUS_FIELD_NUMBER = 100
-  final val THEME_FIELD_NUMBER = 140
-  final val HAS_AVATAR_FIELD_NUMBER = 110
-  final val AVATAR_FIELD_NUMBER = 120
-  final val LAST_LOGIN_AT_FIELD_NUMBER = 130
   def of(
     id: _root_.scala.Predef.String,
     email: _root_.scala.Predef.String,
@@ -487,12 +336,7 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
     roles: _root_.scala.Seq[_root_.scala.Predef.String],
     mfaEnabled: _root_.scala.Boolean,
     mfaEnforced: _root_.scala.Boolean,
-    createdAt: _root_.scala.Long,
-    status: com.huponx.protogen.identity.v1.UserStatus,
-    theme: _root_.scala.Predef.String,
-    hasAvatar: _root_.scala.Boolean,
-    avatar: _root_.scala.Predef.String,
-    lastLoginAt: _root_.scala.Long
+    createdAt: _root_.scala.Long
   ): _root_.com.huponx.protogen.identity.v1.User = _root_.com.huponx.protogen.identity.v1.User(
     id,
     email,
@@ -502,12 +346,7 @@ object User extends scalapb.GeneratedMessageCompanion[com.huponx.protogen.identi
     roles,
     mfaEnabled,
     mfaEnforced,
-    createdAt,
-    status,
-    theme,
-    hasAvatar,
-    avatar,
-    lastLoginAt
+    createdAt
   )
   // @@protoc_insertion_point(GeneratedMessageCompanion[identity.v1.User])
 }
