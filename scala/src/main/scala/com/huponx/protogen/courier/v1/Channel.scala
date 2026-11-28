@@ -11,6 +11,9 @@ sealed abstract class Channel(val value: _root_.scala.Int) extends _root_.scalap
   def isChannelUnspecified: _root_.scala.Boolean = false
   def isChannelEmail: _root_.scala.Boolean = false
   def isChannelTelegram: _root_.scala.Boolean = false
+  def isChannelInApp: _root_.scala.Boolean = false
+  def isChannelWebhook: _root_.scala.Boolean = false
+  def isChannelPush: _root_.scala.Boolean = false
   def companion: _root_.scalapb.GeneratedEnumCompanion[Channel] = com.huponx.protogen.courier.v1.Channel
   final def asRecognized: _root_.scala.Option[com.huponx.protogen.courier.v1.Channel.Recognized] = if (isUnrecognized) _root_.scala.None else _root_.scala.Some(this.asInstanceOf[com.huponx.protogen.courier.v1.Channel.Recognized])
 }
@@ -40,13 +43,45 @@ object Channel extends _root_.scalapb.GeneratedEnumCompanion[Channel] {
     override def isChannelTelegram: _root_.scala.Boolean = true
   }
   
+  /** The inbox of the user (bell in the web apps); only by user_ids, never a raw recipient.
+    */
+  @SerialVersionUID(0L)
+  case object CHANNEL_IN_APP extends Channel(30) with Channel.Recognized {
+    val index = 3
+    val name = "CHANNEL_IN_APP"
+    override def isChannelInApp: _root_.scala.Boolean = true
+  }
+  
+  /** An HTTP endpoint of the administrators (Slack, or any service that takes a signed JSON POST); configured in the
+    * admin app, never a raw recipient.
+    */
+  @SerialVersionUID(0L)
+  case object CHANNEL_WEBHOOK extends Channel(40) with Channel.Recognized {
+    val index = 4
+    val name = "CHANNEL_WEBHOOK"
+    override def isChannelWebhook: _root_.scala.Boolean = true
+  }
+  
+  /** A browser notification (Web Push) on a device the user subscribed; by user_ids only. It renders the in-app
+    * template (title and body) and opens data.link when clicked.
+    */
+  @SerialVersionUID(0L)
+  case object CHANNEL_PUSH extends Channel(50) with Channel.Recognized {
+    val index = 5
+    val name = "CHANNEL_PUSH"
+    override def isChannelPush: _root_.scala.Boolean = true
+  }
+  
   @SerialVersionUID(0L)
   final case class Unrecognized(unrecognizedValue: _root_.scala.Int) extends Channel(unrecognizedValue) with _root_.scalapb.UnrecognizedEnum
-  lazy val values: scala.collection.immutable.Seq[ValueType] = scala.collection.immutable.Seq(CHANNEL_UNSPECIFIED, CHANNEL_EMAIL, CHANNEL_TELEGRAM)
+  lazy val values: scala.collection.immutable.Seq[ValueType] = scala.collection.immutable.Seq(CHANNEL_UNSPECIFIED, CHANNEL_EMAIL, CHANNEL_TELEGRAM, CHANNEL_IN_APP, CHANNEL_WEBHOOK, CHANNEL_PUSH)
   def fromValue(__value: _root_.scala.Int): Channel = __value match {
     case 0 => CHANNEL_UNSPECIFIED
     case 10 => CHANNEL_EMAIL
     case 20 => CHANNEL_TELEGRAM
+    case 30 => CHANNEL_IN_APP
+    case 40 => CHANNEL_WEBHOOK
+    case 50 => CHANNEL_PUSH
     case __other => Unrecognized(__other)
   }
   def javaDescriptor: _root_.com.google.protobuf.Descriptors.EnumDescriptor = CourierProto.javaDescriptor.getEnumTypes().get(0)

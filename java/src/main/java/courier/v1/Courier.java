@@ -42,6 +42,32 @@ public final class Courier {
      * <code>CHANNEL_TELEGRAM = 20;</code>
      */
     CHANNEL_TELEGRAM(20),
+    /**
+     * <pre>
+     * The inbox of the user (bell in the web apps); only by user_ids, never a raw recipient.
+     * </pre>
+     *
+     * <code>CHANNEL_IN_APP = 30;</code>
+     */
+    CHANNEL_IN_APP(30),
+    /**
+     * <pre>
+     * An HTTP endpoint of the administrators (Slack, or any service that takes a signed JSON POST); configured in the
+     * admin app, never a raw recipient.
+     * </pre>
+     *
+     * <code>CHANNEL_WEBHOOK = 40;</code>
+     */
+    CHANNEL_WEBHOOK(40),
+    /**
+     * <pre>
+     * A browser notification (Web Push) on a device the user subscribed; by user_ids only. It renders the in-app
+     * template (title and body) and opens data.link when clicked.
+     * </pre>
+     *
+     * <code>CHANNEL_PUSH = 50;</code>
+     */
+    CHANNEL_PUSH(50),
     UNRECOGNIZED(-1),
     ;
 
@@ -66,6 +92,32 @@ public final class Courier {
      * <code>CHANNEL_TELEGRAM = 20;</code>
      */
     public static final int CHANNEL_TELEGRAM_VALUE = 20;
+    /**
+     * <pre>
+     * The inbox of the user (bell in the web apps); only by user_ids, never a raw recipient.
+     * </pre>
+     *
+     * <code>CHANNEL_IN_APP = 30;</code>
+     */
+    public static final int CHANNEL_IN_APP_VALUE = 30;
+    /**
+     * <pre>
+     * An HTTP endpoint of the administrators (Slack, or any service that takes a signed JSON POST); configured in the
+     * admin app, never a raw recipient.
+     * </pre>
+     *
+     * <code>CHANNEL_WEBHOOK = 40;</code>
+     */
+    public static final int CHANNEL_WEBHOOK_VALUE = 40;
+    /**
+     * <pre>
+     * A browser notification (Web Push) on a device the user subscribed; by user_ids only. It renders the in-app
+     * template (title and body) and opens data.link when clicked.
+     * </pre>
+     *
+     * <code>CHANNEL_PUSH = 50;</code>
+     */
+    public static final int CHANNEL_PUSH_VALUE = 50;
 
 
     public final int getNumber() {
@@ -95,6 +147,9 @@ public final class Courier {
         case 0: return CHANNEL_UNSPECIFIED;
         case 10: return CHANNEL_EMAIL;
         case 20: return CHANNEL_TELEGRAM;
+        case 30: return CHANNEL_IN_APP;
+        case 40: return CHANNEL_WEBHOOK;
+        case 50: return CHANNEL_PUSH;
         default: return null;
       }
     }
@@ -149,6 +204,191 @@ public final class Courier {
     }
 
     // @@protoc_insertion_point(enum_scope:courier.v1.Channel)
+  }
+
+  /**
+   * Protobuf enum {@code courier.v1.DeliveryStatus}
+   */
+  public enum DeliveryStatus
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>DELIVERY_STATUS_UNSPECIFIED = 0;</code>
+     */
+    DELIVERY_STATUS_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * Waiting for the first send or for the next retry (next_attempt_at).
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_PENDING = 10;</code>
+     */
+    DELIVERY_STATUS_PENDING(10),
+    /**
+     * <code>DELIVERY_STATUS_SENT = 20;</code>
+     */
+    DELIVERY_STATUS_SENT(20),
+    /**
+     * <pre>
+     * Permanent error (bounce, chat blocked, template cannot render): not retried.
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_FAILED = 30;</code>
+     */
+    DELIVERY_STATUS_FAILED(30),
+    /**
+     * <pre>
+     * Out of attempts: the dead-letter state, RetryDelivery sends it again.
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_DEAD = 40;</code>
+     */
+    DELIVERY_STATUS_DEAD(40),
+    /**
+     * <pre>
+     * Not sent: the user turned the channel off for the category. Kept for the audit.
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_SKIPPED = 50;</code>
+     */
+    DELIVERY_STATUS_SKIPPED(50),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        DeliveryStatus.class.getName());
+    }
+    /**
+     * <code>DELIVERY_STATUS_UNSPECIFIED = 0;</code>
+     */
+    public static final int DELIVERY_STATUS_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * Waiting for the first send or for the next retry (next_attempt_at).
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_PENDING = 10;</code>
+     */
+    public static final int DELIVERY_STATUS_PENDING_VALUE = 10;
+    /**
+     * <code>DELIVERY_STATUS_SENT = 20;</code>
+     */
+    public static final int DELIVERY_STATUS_SENT_VALUE = 20;
+    /**
+     * <pre>
+     * Permanent error (bounce, chat blocked, template cannot render): not retried.
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_FAILED = 30;</code>
+     */
+    public static final int DELIVERY_STATUS_FAILED_VALUE = 30;
+    /**
+     * <pre>
+     * Out of attempts: the dead-letter state, RetryDelivery sends it again.
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_DEAD = 40;</code>
+     */
+    public static final int DELIVERY_STATUS_DEAD_VALUE = 40;
+    /**
+     * <pre>
+     * Not sent: the user turned the channel off for the category. Kept for the audit.
+     * </pre>
+     *
+     * <code>DELIVERY_STATUS_SKIPPED = 50;</code>
+     */
+    public static final int DELIVERY_STATUS_SKIPPED_VALUE = 50;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static DeliveryStatus valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static DeliveryStatus forNumber(int value) {
+      switch (value) {
+        case 0: return DELIVERY_STATUS_UNSPECIFIED;
+        case 10: return DELIVERY_STATUS_PENDING;
+        case 20: return DELIVERY_STATUS_SENT;
+        case 30: return DELIVERY_STATUS_FAILED;
+        case 40: return DELIVERY_STATUS_DEAD;
+        case 50: return DELIVERY_STATUS_SKIPPED;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<DeliveryStatus>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        DeliveryStatus> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<DeliveryStatus>() {
+            public DeliveryStatus findValueByNumber(int number) {
+              return DeliveryStatus.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return courier.v1.Courier.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final DeliveryStatus[] VALUES = values();
+
+    public static DeliveryStatus valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private DeliveryStatus(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:courier.v1.DeliveryStatus)
   }
 
   public interface RecipientOrBuilder extends
@@ -2845,6 +3085,7370 @@ java.lang.String defaultValue) {
 
   }
 
+  public interface DeliveryOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.Delivery)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+     * @return The enum numeric value on the wire for channel.
+     */
+    int getChannelValue();
+    /**
+     * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+     * @return The channel.
+     */
+    courier.v1.Courier.Channel getChannel();
+
+    /**
+     * <code>string address = 30 [json_name = "address"];</code>
+     * @return The address.
+     */
+    java.lang.String getAddress();
+    /**
+     * <code>string address = 30 [json_name = "address"];</code>
+     * @return The bytes for address.
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+
+    /**
+     * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+     * @return The status.
+     */
+    courier.v1.Courier.DeliveryStatus getStatus();
+
+    /**
+     * <code>int32 attempts = 50 [json_name = "attempts"];</code>
+     * @return The attempts.
+     */
+    int getAttempts();
+
+    /**
+     * <code>string last_error = 60 [json_name = "lastError"];</code>
+     * @return The lastError.
+     */
+    java.lang.String getLastError();
+    /**
+     * <code>string last_error = 60 [json_name = "lastError"];</code>
+     * @return The bytes for lastError.
+     */
+    com.google.protobuf.ByteString
+        getLastErrorBytes();
+
+    /**
+     * <pre>
+     * RFC 3339; empty when not applicable.
+     * </pre>
+     *
+     * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+     * @return The nextAttemptAt.
+     */
+    java.lang.String getNextAttemptAt();
+    /**
+     * <pre>
+     * RFC 3339; empty when not applicable.
+     * </pre>
+     *
+     * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+     * @return The bytes for nextAttemptAt.
+     */
+    com.google.protobuf.ByteString
+        getNextAttemptAtBytes();
+
+    /**
+     * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+     * @return The sentAt.
+     */
+    java.lang.String getSentAt();
+    /**
+     * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+     * @return The bytes for sentAt.
+     */
+    com.google.protobuf.ByteString
+        getSentAtBytes();
+  }
+  /**
+   * Protobuf type {@code courier.v1.Delivery}
+   */
+  public static final class Delivery extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.Delivery)
+      DeliveryOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        Delivery.class.getName());
+    }
+    // Use Delivery.newBuilder() to construct.
+    private Delivery(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private Delivery() {
+      id_ = "";
+      channel_ = 0;
+      address_ = "";
+      status_ = 0;
+      lastError_ = "";
+      nextAttemptAt_ = "";
+      sentAt_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_Delivery_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_Delivery_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.Delivery.class, courier.v1.Courier.Delivery.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object id_ = "";
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 10 [json_name = "id"];</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CHANNEL_FIELD_NUMBER = 20;
+    private int channel_ = 0;
+    /**
+     * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+     * @return The enum numeric value on the wire for channel.
+     */
+    @java.lang.Override public int getChannelValue() {
+      return channel_;
+    }
+    /**
+     * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+     * @return The channel.
+     */
+    @java.lang.Override public courier.v1.Courier.Channel getChannel() {
+      courier.v1.Courier.Channel result = courier.v1.Courier.Channel.forNumber(channel_);
+      return result == null ? courier.v1.Courier.Channel.UNRECOGNIZED : result;
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 30;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object address_ = "";
+    /**
+     * <code>string address = 30 [json_name = "address"];</code>
+     * @return The address.
+     */
+    @java.lang.Override
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        address_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string address = 30 [json_name = "address"];</code>
+     * @return The bytes for address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 40;
+    private int status_ = 0;
+    /**
+     * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+     * @return The status.
+     */
+    @java.lang.Override public courier.v1.Courier.DeliveryStatus getStatus() {
+      courier.v1.Courier.DeliveryStatus result = courier.v1.Courier.DeliveryStatus.forNumber(status_);
+      return result == null ? courier.v1.Courier.DeliveryStatus.UNRECOGNIZED : result;
+    }
+
+    public static final int ATTEMPTS_FIELD_NUMBER = 50;
+    private int attempts_ = 0;
+    /**
+     * <code>int32 attempts = 50 [json_name = "attempts"];</code>
+     * @return The attempts.
+     */
+    @java.lang.Override
+    public int getAttempts() {
+      return attempts_;
+    }
+
+    public static final int LAST_ERROR_FIELD_NUMBER = 60;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object lastError_ = "";
+    /**
+     * <code>string last_error = 60 [json_name = "lastError"];</code>
+     * @return The lastError.
+     */
+    @java.lang.Override
+    public java.lang.String getLastError() {
+      java.lang.Object ref = lastError_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        lastError_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string last_error = 60 [json_name = "lastError"];</code>
+     * @return The bytes for lastError.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLastErrorBytes() {
+      java.lang.Object ref = lastError_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lastError_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NEXT_ATTEMPT_AT_FIELD_NUMBER = 70;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object nextAttemptAt_ = "";
+    /**
+     * <pre>
+     * RFC 3339; empty when not applicable.
+     * </pre>
+     *
+     * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+     * @return The nextAttemptAt.
+     */
+    @java.lang.Override
+    public java.lang.String getNextAttemptAt() {
+      java.lang.Object ref = nextAttemptAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nextAttemptAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * RFC 3339; empty when not applicable.
+     * </pre>
+     *
+     * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+     * @return The bytes for nextAttemptAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNextAttemptAtBytes() {
+      java.lang.Object ref = nextAttemptAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nextAttemptAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SENT_AT_FIELD_NUMBER = 80;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object sentAt_ = "";
+    /**
+     * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+     * @return The sentAt.
+     */
+    @java.lang.Override
+    public java.lang.String getSentAt() {
+      java.lang.Object ref = sentAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sentAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+     * @return The bytes for sentAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSentAtBytes() {
+      java.lang.Object ref = sentAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sentAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(id_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, id_);
+      }
+      if (channel_ != courier.v1.Courier.Channel.CHANNEL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(20, channel_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(address_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 30, address_);
+      }
+      if (status_ != courier.v1.Courier.DeliveryStatus.DELIVERY_STATUS_UNSPECIFIED.getNumber()) {
+        output.writeEnum(40, status_);
+      }
+      if (attempts_ != 0) {
+        output.writeInt32(50, attempts_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(lastError_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 60, lastError_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nextAttemptAt_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 70, nextAttemptAt_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sentAt_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 80, sentAt_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(id_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, id_);
+      }
+      if (channel_ != courier.v1.Courier.Channel.CHANNEL_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(20, channel_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(address_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(30, address_);
+      }
+      if (status_ != courier.v1.Courier.DeliveryStatus.DELIVERY_STATUS_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(40, status_);
+      }
+      if (attempts_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(50, attempts_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(lastError_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(60, lastError_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nextAttemptAt_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(70, nextAttemptAt_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sentAt_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(80, sentAt_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.Delivery)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.Delivery other = (courier.v1.Courier.Delivery) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (channel_ != other.channel_) return false;
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (status_ != other.status_) return false;
+      if (getAttempts()
+          != other.getAttempts()) return false;
+      if (!getLastError()
+          .equals(other.getLastError())) return false;
+      if (!getNextAttemptAt()
+          .equals(other.getNextAttemptAt())) return false;
+      if (!getSentAt()
+          .equals(other.getSentAt())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + CHANNEL_FIELD_NUMBER;
+      hash = (53 * hash) + channel_;
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (37 * hash) + ATTEMPTS_FIELD_NUMBER;
+      hash = (53 * hash) + getAttempts();
+      hash = (37 * hash) + LAST_ERROR_FIELD_NUMBER;
+      hash = (53 * hash) + getLastError().hashCode();
+      hash = (37 * hash) + NEXT_ATTEMPT_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getNextAttemptAt().hashCode();
+      hash = (37 * hash) + SENT_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getSentAt().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.Delivery parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.Delivery parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.Delivery parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.Delivery parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.Delivery prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.Delivery}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.Delivery)
+        courier.v1.Courier.DeliveryOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_Delivery_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_Delivery_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.Delivery.class, courier.v1.Courier.Delivery.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.Delivery.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        id_ = "";
+        channel_ = 0;
+        address_ = "";
+        status_ = 0;
+        attempts_ = 0;
+        lastError_ = "";
+        nextAttemptAt_ = "";
+        sentAt_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_Delivery_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.Delivery getDefaultInstanceForType() {
+        return courier.v1.Courier.Delivery.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.Delivery build() {
+        courier.v1.Courier.Delivery result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.Delivery buildPartial() {
+        courier.v1.Courier.Delivery result = new courier.v1.Courier.Delivery(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(courier.v1.Courier.Delivery result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.channel_ = channel_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.address_ = address_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.status_ = status_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.attempts_ = attempts_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.lastError_ = lastError_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.nextAttemptAt_ = nextAttemptAt_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.sentAt_ = sentAt_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.Delivery) {
+          return mergeFrom((courier.v1.Courier.Delivery)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.Delivery other) {
+        if (other == courier.v1.Courier.Delivery.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.channel_ != 0) {
+          setChannelValue(other.getChannelValue());
+        }
+        if (!other.getAddress().isEmpty()) {
+          address_ = other.address_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (other.getAttempts() != 0) {
+          setAttempts(other.getAttempts());
+        }
+        if (!other.getLastError().isEmpty()) {
+          lastError_ = other.lastError_;
+          bitField0_ |= 0x00000020;
+          onChanged();
+        }
+        if (!other.getNextAttemptAt().isEmpty()) {
+          nextAttemptAt_ = other.nextAttemptAt_;
+          bitField0_ |= 0x00000040;
+          onChanged();
+        }
+        if (!other.getSentAt().isEmpty()) {
+          sentAt_ = other.sentAt_;
+          bitField0_ |= 0x00000080;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                id_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 160: {
+                channel_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
+              case 242: {
+                address_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 242
+              case 320: {
+                status_ = input.readEnum();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 320
+              case 400: {
+                attempts_ = input.readInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 400
+              case 482: {
+                lastError_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 482
+              case 562: {
+                nextAttemptAt_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 562
+              case 642: {
+                sentAt_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 642
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        id_ = getDefaultInstance().getId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 10 [json_name = "id"];</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private int channel_ = 0;
+      /**
+       * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+       * @return The enum numeric value on the wire for channel.
+       */
+      @java.lang.Override public int getChannelValue() {
+        return channel_;
+      }
+      /**
+       * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+       * @param value The enum numeric value on the wire for channel to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChannelValue(int value) {
+        channel_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+       * @return The channel.
+       */
+      @java.lang.Override
+      public courier.v1.Courier.Channel getChannel() {
+        courier.v1.Courier.Channel result = courier.v1.Courier.Channel.forNumber(channel_);
+        return result == null ? courier.v1.Courier.Channel.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+       * @param value The channel to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChannel(courier.v1.Courier.Channel value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        channel_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.Channel channel = 20 [json_name = "channel"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearChannel() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        channel_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object address_ = "";
+      /**
+       * <code>string address = 30 [json_name = "address"];</code>
+       * @return The address.
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          address_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string address = 30 [json_name = "address"];</code>
+       * @return The bytes for address.
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string address = 30 [json_name = "address"];</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        address_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 30 [json_name = "address"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        address_ = getDefaultInstance().getAddress();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 30 [json_name = "address"];</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        address_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        status_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public courier.v1.Courier.DeliveryStatus getStatus() {
+        courier.v1.Courier.DeliveryStatus result = courier.v1.Courier.DeliveryStatus.forNumber(status_);
+        return result == null ? courier.v1.Courier.DeliveryStatus.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(courier.v1.Courier.DeliveryStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.DeliveryStatus status = 40 [json_name = "status"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int attempts_ ;
+      /**
+       * <code>int32 attempts = 50 [json_name = "attempts"];</code>
+       * @return The attempts.
+       */
+      @java.lang.Override
+      public int getAttempts() {
+        return attempts_;
+      }
+      /**
+       * <code>int32 attempts = 50 [json_name = "attempts"];</code>
+       * @param value The attempts to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAttempts(int value) {
+
+        attempts_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 attempts = 50 [json_name = "attempts"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAttempts() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        attempts_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object lastError_ = "";
+      /**
+       * <code>string last_error = 60 [json_name = "lastError"];</code>
+       * @return The lastError.
+       */
+      public java.lang.String getLastError() {
+        java.lang.Object ref = lastError_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          lastError_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string last_error = 60 [json_name = "lastError"];</code>
+       * @return The bytes for lastError.
+       */
+      public com.google.protobuf.ByteString
+          getLastErrorBytes() {
+        java.lang.Object ref = lastError_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          lastError_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string last_error = 60 [json_name = "lastError"];</code>
+       * @param value The lastError to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastError(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        lastError_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string last_error = 60 [json_name = "lastError"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastError() {
+        lastError_ = getDefaultInstance().getLastError();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string last_error = 60 [json_name = "lastError"];</code>
+       * @param value The bytes for lastError to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastErrorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        lastError_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object nextAttemptAt_ = "";
+      /**
+       * <pre>
+       * RFC 3339; empty when not applicable.
+       * </pre>
+       *
+       * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+       * @return The nextAttemptAt.
+       */
+      public java.lang.String getNextAttemptAt() {
+        java.lang.Object ref = nextAttemptAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nextAttemptAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * RFC 3339; empty when not applicable.
+       * </pre>
+       *
+       * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+       * @return The bytes for nextAttemptAt.
+       */
+      public com.google.protobuf.ByteString
+          getNextAttemptAtBytes() {
+        java.lang.Object ref = nextAttemptAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nextAttemptAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * RFC 3339; empty when not applicable.
+       * </pre>
+       *
+       * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+       * @param value The nextAttemptAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNextAttemptAt(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        nextAttemptAt_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * RFC 3339; empty when not applicable.
+       * </pre>
+       *
+       * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNextAttemptAt() {
+        nextAttemptAt_ = getDefaultInstance().getNextAttemptAt();
+        bitField0_ = (bitField0_ & ~0x00000040);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * RFC 3339; empty when not applicable.
+       * </pre>
+       *
+       * <code>string next_attempt_at = 70 [json_name = "nextAttemptAt"];</code>
+       * @param value The bytes for nextAttemptAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNextAttemptAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        nextAttemptAt_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sentAt_ = "";
+      /**
+       * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+       * @return The sentAt.
+       */
+      public java.lang.String getSentAt() {
+        java.lang.Object ref = sentAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sentAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+       * @return The bytes for sentAt.
+       */
+      public com.google.protobuf.ByteString
+          getSentAtBytes() {
+        java.lang.Object ref = sentAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sentAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+       * @param value The sentAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSentAt(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        sentAt_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSentAt() {
+        sentAt_ = getDefaultInstance().getSentAt();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sent_at = 80 [json_name = "sentAt"];</code>
+       * @param value The bytes for sentAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSentAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        sentAt_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.Delivery)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.Delivery)
+    private static final courier.v1.Courier.Delivery DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.Delivery();
+    }
+
+    public static courier.v1.Courier.Delivery getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Delivery>
+        PARSER = new com.google.protobuf.AbstractParser<Delivery>() {
+      @java.lang.Override
+      public Delivery parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<Delivery> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Delivery> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.Delivery getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetNotificationRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.GetNotificationRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The notificationId.
+     */
+    java.lang.String getNotificationId();
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The bytes for notificationId.
+     */
+    com.google.protobuf.ByteString
+        getNotificationIdBytes();
+  }
+  /**
+   * Protobuf type {@code courier.v1.GetNotificationRequest}
+   */
+  public static final class GetNotificationRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.GetNotificationRequest)
+      GetNotificationRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetNotificationRequest.class.getName());
+    }
+    // Use GetNotificationRequest.newBuilder() to construct.
+    private GetNotificationRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetNotificationRequest() {
+      notificationId_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_GetNotificationRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_GetNotificationRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.GetNotificationRequest.class, courier.v1.Courier.GetNotificationRequest.Builder.class);
+    }
+
+    public static final int NOTIFICATION_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object notificationId_ = "";
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The notificationId.
+     */
+    @java.lang.Override
+    public java.lang.String getNotificationId() {
+      java.lang.Object ref = notificationId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        notificationId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The bytes for notificationId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNotificationIdBytes() {
+      java.lang.Object ref = notificationId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        notificationId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(notificationId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, notificationId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(notificationId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, notificationId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.GetNotificationRequest)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.GetNotificationRequest other = (courier.v1.Courier.GetNotificationRequest) obj;
+
+      if (!getNotificationId()
+          .equals(other.getNotificationId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NOTIFICATION_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getNotificationId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.GetNotificationRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.GetNotificationRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.GetNotificationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.GetNotificationRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.GetNotificationRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.GetNotificationRequest)
+        courier.v1.Courier.GetNotificationRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_GetNotificationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_GetNotificationRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.GetNotificationRequest.class, courier.v1.Courier.GetNotificationRequest.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.GetNotificationRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        notificationId_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_GetNotificationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.GetNotificationRequest getDefaultInstanceForType() {
+        return courier.v1.Courier.GetNotificationRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.GetNotificationRequest build() {
+        courier.v1.Courier.GetNotificationRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.GetNotificationRequest buildPartial() {
+        courier.v1.Courier.GetNotificationRequest result = new courier.v1.Courier.GetNotificationRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(courier.v1.Courier.GetNotificationRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.notificationId_ = notificationId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.GetNotificationRequest) {
+          return mergeFrom((courier.v1.Courier.GetNotificationRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.GetNotificationRequest other) {
+        if (other == courier.v1.Courier.GetNotificationRequest.getDefaultInstance()) return this;
+        if (!other.getNotificationId().isEmpty()) {
+          notificationId_ = other.notificationId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                notificationId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object notificationId_ = "";
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @return The notificationId.
+       */
+      public java.lang.String getNotificationId() {
+        java.lang.Object ref = notificationId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          notificationId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @return The bytes for notificationId.
+       */
+      public com.google.protobuf.ByteString
+          getNotificationIdBytes() {
+        java.lang.Object ref = notificationId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          notificationId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @param value The notificationId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNotificationId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        notificationId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNotificationId() {
+        notificationId_ = getDefaultInstance().getNotificationId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @param value The bytes for notificationId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNotificationIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        notificationId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.GetNotificationRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.GetNotificationRequest)
+    private static final courier.v1.Courier.GetNotificationRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.GetNotificationRequest();
+    }
+
+    public static courier.v1.Courier.GetNotificationRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetNotificationRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetNotificationRequest>() {
+      @java.lang.Override
+      public GetNotificationRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetNotificationRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetNotificationRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.GetNotificationRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetNotificationResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.GetNotificationResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The notificationId.
+     */
+    java.lang.String getNotificationId();
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The bytes for notificationId.
+     */
+    com.google.protobuf.ByteString
+        getNotificationIdBytes();
+
+    /**
+     * <code>string template_id = 20 [json_name = "templateId"];</code>
+     * @return The templateId.
+     */
+    java.lang.String getTemplateId();
+    /**
+     * <code>string template_id = 20 [json_name = "templateId"];</code>
+     * @return The bytes for templateId.
+     */
+    com.google.protobuf.ByteString
+        getTemplateIdBytes();
+
+    /**
+     * <code>string created_at = 30 [json_name = "createdAt"];</code>
+     * @return The createdAt.
+     */
+    java.lang.String getCreatedAt();
+    /**
+     * <code>string created_at = 30 [json_name = "createdAt"];</code>
+     * @return The bytes for createdAt.
+     */
+    com.google.protobuf.ByteString
+        getCreatedAtBytes();
+
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    java.util.List<courier.v1.Courier.Delivery> 
+        getDeliveriesList();
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    courier.v1.Courier.Delivery getDeliveries(int index);
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    int getDeliveriesCount();
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    java.util.List<? extends courier.v1.Courier.DeliveryOrBuilder> 
+        getDeliveriesOrBuilderList();
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    courier.v1.Courier.DeliveryOrBuilder getDeliveriesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code courier.v1.GetNotificationResponse}
+   */
+  public static final class GetNotificationResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.GetNotificationResponse)
+      GetNotificationResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        GetNotificationResponse.class.getName());
+    }
+    // Use GetNotificationResponse.newBuilder() to construct.
+    private GetNotificationResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetNotificationResponse() {
+      notificationId_ = "";
+      templateId_ = "";
+      createdAt_ = "";
+      deliveries_ = java.util.Collections.emptyList();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_GetNotificationResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_GetNotificationResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.GetNotificationResponse.class, courier.v1.Courier.GetNotificationResponse.Builder.class);
+    }
+
+    public static final int NOTIFICATION_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object notificationId_ = "";
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The notificationId.
+     */
+    @java.lang.Override
+    public java.lang.String getNotificationId() {
+      java.lang.Object ref = notificationId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        notificationId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+     * @return The bytes for notificationId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNotificationIdBytes() {
+      java.lang.Object ref = notificationId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        notificationId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TEMPLATE_ID_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object templateId_ = "";
+    /**
+     * <code>string template_id = 20 [json_name = "templateId"];</code>
+     * @return The templateId.
+     */
+    @java.lang.Override
+    public java.lang.String getTemplateId() {
+      java.lang.Object ref = templateId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        templateId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string template_id = 20 [json_name = "templateId"];</code>
+     * @return The bytes for templateId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTemplateIdBytes() {
+      java.lang.Object ref = templateId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        templateId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CREATED_AT_FIELD_NUMBER = 30;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object createdAt_ = "";
+    /**
+     * <code>string created_at = 30 [json_name = "createdAt"];</code>
+     * @return The createdAt.
+     */
+    @java.lang.Override
+    public java.lang.String getCreatedAt() {
+      java.lang.Object ref = createdAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        createdAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string created_at = 30 [json_name = "createdAt"];</code>
+     * @return The bytes for createdAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatedAtBytes() {
+      java.lang.Object ref = createdAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        createdAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DELIVERIES_FIELD_NUMBER = 40;
+    @SuppressWarnings("serial")
+    private java.util.List<courier.v1.Courier.Delivery> deliveries_;
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<courier.v1.Courier.Delivery> getDeliveriesList() {
+      return deliveries_;
+    }
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends courier.v1.Courier.DeliveryOrBuilder> 
+        getDeliveriesOrBuilderList() {
+      return deliveries_;
+    }
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    @java.lang.Override
+    public int getDeliveriesCount() {
+      return deliveries_.size();
+    }
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    @java.lang.Override
+    public courier.v1.Courier.Delivery getDeliveries(int index) {
+      return deliveries_.get(index);
+    }
+    /**
+     * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+     */
+    @java.lang.Override
+    public courier.v1.Courier.DeliveryOrBuilder getDeliveriesOrBuilder(
+        int index) {
+      return deliveries_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(notificationId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, notificationId_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(templateId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, templateId_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(createdAt_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 30, createdAt_);
+      }
+      for (int i = 0; i < deliveries_.size(); i++) {
+        output.writeMessage(40, deliveries_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(notificationId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, notificationId_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(templateId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, templateId_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(createdAt_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(30, createdAt_);
+      }
+      for (int i = 0; i < deliveries_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(40, deliveries_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.GetNotificationResponse)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.GetNotificationResponse other = (courier.v1.Courier.GetNotificationResponse) obj;
+
+      if (!getNotificationId()
+          .equals(other.getNotificationId())) return false;
+      if (!getTemplateId()
+          .equals(other.getTemplateId())) return false;
+      if (!getCreatedAt()
+          .equals(other.getCreatedAt())) return false;
+      if (!getDeliveriesList()
+          .equals(other.getDeliveriesList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NOTIFICATION_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getNotificationId().hashCode();
+      hash = (37 * hash) + TEMPLATE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTemplateId().hashCode();
+      hash = (37 * hash) + CREATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + getCreatedAt().hashCode();
+      if (getDeliveriesCount() > 0) {
+        hash = (37 * hash) + DELIVERIES_FIELD_NUMBER;
+        hash = (53 * hash) + getDeliveriesList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.GetNotificationResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.GetNotificationResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.GetNotificationResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.GetNotificationResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.GetNotificationResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.GetNotificationResponse)
+        courier.v1.Courier.GetNotificationResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_GetNotificationResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_GetNotificationResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.GetNotificationResponse.class, courier.v1.Courier.GetNotificationResponse.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.GetNotificationResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        notificationId_ = "";
+        templateId_ = "";
+        createdAt_ = "";
+        if (deliveriesBuilder_ == null) {
+          deliveries_ = java.util.Collections.emptyList();
+        } else {
+          deliveries_ = null;
+          deliveriesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_GetNotificationResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.GetNotificationResponse getDefaultInstanceForType() {
+        return courier.v1.Courier.GetNotificationResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.GetNotificationResponse build() {
+        courier.v1.Courier.GetNotificationResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.GetNotificationResponse buildPartial() {
+        courier.v1.Courier.GetNotificationResponse result = new courier.v1.Courier.GetNotificationResponse(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(courier.v1.Courier.GetNotificationResponse result) {
+        if (deliveriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0)) {
+            deliveries_ = java.util.Collections.unmodifiableList(deliveries_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.deliveries_ = deliveries_;
+        } else {
+          result.deliveries_ = deliveriesBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(courier.v1.Courier.GetNotificationResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.notificationId_ = notificationId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.templateId_ = templateId_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.createdAt_ = createdAt_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.GetNotificationResponse) {
+          return mergeFrom((courier.v1.Courier.GetNotificationResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.GetNotificationResponse other) {
+        if (other == courier.v1.Courier.GetNotificationResponse.getDefaultInstance()) return this;
+        if (!other.getNotificationId().isEmpty()) {
+          notificationId_ = other.notificationId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getTemplateId().isEmpty()) {
+          templateId_ = other.templateId_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getCreatedAt().isEmpty()) {
+          createdAt_ = other.createdAt_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (deliveriesBuilder_ == null) {
+          if (!other.deliveries_.isEmpty()) {
+            if (deliveries_.isEmpty()) {
+              deliveries_ = other.deliveries_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureDeliveriesIsMutable();
+              deliveries_.addAll(other.deliveries_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.deliveries_.isEmpty()) {
+            if (deliveriesBuilder_.isEmpty()) {
+              deliveriesBuilder_.dispose();
+              deliveriesBuilder_ = null;
+              deliveries_ = other.deliveries_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              deliveriesBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getDeliveriesFieldBuilder() : null;
+            } else {
+              deliveriesBuilder_.addAllMessages(other.deliveries_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                notificationId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                templateId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              case 242: {
+                createdAt_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 242
+              case 322: {
+                courier.v1.Courier.Delivery m =
+                    input.readMessage(
+                        courier.v1.Courier.Delivery.parser(),
+                        extensionRegistry);
+                if (deliveriesBuilder_ == null) {
+                  ensureDeliveriesIsMutable();
+                  deliveries_.add(m);
+                } else {
+                  deliveriesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 322
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object notificationId_ = "";
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @return The notificationId.
+       */
+      public java.lang.String getNotificationId() {
+        java.lang.Object ref = notificationId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          notificationId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @return The bytes for notificationId.
+       */
+      public com.google.protobuf.ByteString
+          getNotificationIdBytes() {
+        java.lang.Object ref = notificationId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          notificationId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @param value The notificationId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNotificationId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        notificationId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNotificationId() {
+        notificationId_ = getDefaultInstance().getNotificationId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string notification_id = 10 [json_name = "notificationId"];</code>
+       * @param value The bytes for notificationId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNotificationIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        notificationId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object templateId_ = "";
+      /**
+       * <code>string template_id = 20 [json_name = "templateId"];</code>
+       * @return The templateId.
+       */
+      public java.lang.String getTemplateId() {
+        java.lang.Object ref = templateId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          templateId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string template_id = 20 [json_name = "templateId"];</code>
+       * @return The bytes for templateId.
+       */
+      public com.google.protobuf.ByteString
+          getTemplateIdBytes() {
+        java.lang.Object ref = templateId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          templateId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string template_id = 20 [json_name = "templateId"];</code>
+       * @param value The templateId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTemplateId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        templateId_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string template_id = 20 [json_name = "templateId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTemplateId() {
+        templateId_ = getDefaultInstance().getTemplateId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string template_id = 20 [json_name = "templateId"];</code>
+       * @param value The bytes for templateId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTemplateIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        templateId_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object createdAt_ = "";
+      /**
+       * <code>string created_at = 30 [json_name = "createdAt"];</code>
+       * @return The createdAt.
+       */
+      public java.lang.String getCreatedAt() {
+        java.lang.Object ref = createdAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          createdAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string created_at = 30 [json_name = "createdAt"];</code>
+       * @return The bytes for createdAt.
+       */
+      public com.google.protobuf.ByteString
+          getCreatedAtBytes() {
+        java.lang.Object ref = createdAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          createdAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string created_at = 30 [json_name = "createdAt"];</code>
+       * @param value The createdAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatedAt(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        createdAt_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string created_at = 30 [json_name = "createdAt"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreatedAt() {
+        createdAt_ = getDefaultInstance().getCreatedAt();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string created_at = 30 [json_name = "createdAt"];</code>
+       * @param value The bytes for createdAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatedAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        createdAt_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<courier.v1.Courier.Delivery> deliveries_ =
+        java.util.Collections.emptyList();
+      private void ensureDeliveriesIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          deliveries_ = new java.util.ArrayList<courier.v1.Courier.Delivery>(deliveries_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          courier.v1.Courier.Delivery, courier.v1.Courier.Delivery.Builder, courier.v1.Courier.DeliveryOrBuilder> deliveriesBuilder_;
+
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public java.util.List<courier.v1.Courier.Delivery> getDeliveriesList() {
+        if (deliveriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(deliveries_);
+        } else {
+          return deliveriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public int getDeliveriesCount() {
+        if (deliveriesBuilder_ == null) {
+          return deliveries_.size();
+        } else {
+          return deliveriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public courier.v1.Courier.Delivery getDeliveries(int index) {
+        if (deliveriesBuilder_ == null) {
+          return deliveries_.get(index);
+        } else {
+          return deliveriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder setDeliveries(
+          int index, courier.v1.Courier.Delivery value) {
+        if (deliveriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDeliveriesIsMutable();
+          deliveries_.set(index, value);
+          onChanged();
+        } else {
+          deliveriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder setDeliveries(
+          int index, courier.v1.Courier.Delivery.Builder builderForValue) {
+        if (deliveriesBuilder_ == null) {
+          ensureDeliveriesIsMutable();
+          deliveries_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          deliveriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder addDeliveries(courier.v1.Courier.Delivery value) {
+        if (deliveriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDeliveriesIsMutable();
+          deliveries_.add(value);
+          onChanged();
+        } else {
+          deliveriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder addDeliveries(
+          int index, courier.v1.Courier.Delivery value) {
+        if (deliveriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDeliveriesIsMutable();
+          deliveries_.add(index, value);
+          onChanged();
+        } else {
+          deliveriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder addDeliveries(
+          courier.v1.Courier.Delivery.Builder builderForValue) {
+        if (deliveriesBuilder_ == null) {
+          ensureDeliveriesIsMutable();
+          deliveries_.add(builderForValue.build());
+          onChanged();
+        } else {
+          deliveriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder addDeliveries(
+          int index, courier.v1.Courier.Delivery.Builder builderForValue) {
+        if (deliveriesBuilder_ == null) {
+          ensureDeliveriesIsMutable();
+          deliveries_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          deliveriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder addAllDeliveries(
+          java.lang.Iterable<? extends courier.v1.Courier.Delivery> values) {
+        if (deliveriesBuilder_ == null) {
+          ensureDeliveriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, deliveries_);
+          onChanged();
+        } else {
+          deliveriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder clearDeliveries() {
+        if (deliveriesBuilder_ == null) {
+          deliveries_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          deliveriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public Builder removeDeliveries(int index) {
+        if (deliveriesBuilder_ == null) {
+          ensureDeliveriesIsMutable();
+          deliveries_.remove(index);
+          onChanged();
+        } else {
+          deliveriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public courier.v1.Courier.Delivery.Builder getDeliveriesBuilder(
+          int index) {
+        return getDeliveriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public courier.v1.Courier.DeliveryOrBuilder getDeliveriesOrBuilder(
+          int index) {
+        if (deliveriesBuilder_ == null) {
+          return deliveries_.get(index);  } else {
+          return deliveriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public java.util.List<? extends courier.v1.Courier.DeliveryOrBuilder> 
+           getDeliveriesOrBuilderList() {
+        if (deliveriesBuilder_ != null) {
+          return deliveriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(deliveries_);
+        }
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public courier.v1.Courier.Delivery.Builder addDeliveriesBuilder() {
+        return getDeliveriesFieldBuilder().addBuilder(
+            courier.v1.Courier.Delivery.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public courier.v1.Courier.Delivery.Builder addDeliveriesBuilder(
+          int index) {
+        return getDeliveriesFieldBuilder().addBuilder(
+            index, courier.v1.Courier.Delivery.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .courier.v1.Delivery deliveries = 40 [json_name = "deliveries"];</code>
+       */
+      public java.util.List<courier.v1.Courier.Delivery.Builder> 
+           getDeliveriesBuilderList() {
+        return getDeliveriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          courier.v1.Courier.Delivery, courier.v1.Courier.Delivery.Builder, courier.v1.Courier.DeliveryOrBuilder> 
+          getDeliveriesFieldBuilder() {
+        if (deliveriesBuilder_ == null) {
+          deliveriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              courier.v1.Courier.Delivery, courier.v1.Courier.Delivery.Builder, courier.v1.Courier.DeliveryOrBuilder>(
+                  deliveries_,
+                  ((bitField0_ & 0x00000008) != 0),
+                  getParentForChildren(),
+                  isClean());
+          deliveries_ = null;
+        }
+        return deliveriesBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.GetNotificationResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.GetNotificationResponse)
+    private static final courier.v1.Courier.GetNotificationResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.GetNotificationResponse();
+    }
+
+    public static courier.v1.Courier.GetNotificationResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetNotificationResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetNotificationResponse>() {
+      @java.lang.Override
+      public GetNotificationResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetNotificationResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetNotificationResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.GetNotificationResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RetryDeliveryRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.RetryDeliveryRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+     * @return The deliveryId.
+     */
+    java.lang.String getDeliveryId();
+    /**
+     * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+     * @return The bytes for deliveryId.
+     */
+    com.google.protobuf.ByteString
+        getDeliveryIdBytes();
+  }
+  /**
+   * Protobuf type {@code courier.v1.RetryDeliveryRequest}
+   */
+  public static final class RetryDeliveryRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.RetryDeliveryRequest)
+      RetryDeliveryRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        RetryDeliveryRequest.class.getName());
+    }
+    // Use RetryDeliveryRequest.newBuilder() to construct.
+    private RetryDeliveryRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RetryDeliveryRequest() {
+      deliveryId_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.RetryDeliveryRequest.class, courier.v1.Courier.RetryDeliveryRequest.Builder.class);
+    }
+
+    public static final int DELIVERY_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object deliveryId_ = "";
+    /**
+     * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+     * @return The deliveryId.
+     */
+    @java.lang.Override
+    public java.lang.String getDeliveryId() {
+      java.lang.Object ref = deliveryId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        deliveryId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+     * @return The bytes for deliveryId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDeliveryIdBytes() {
+      java.lang.Object ref = deliveryId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        deliveryId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deliveryId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, deliveryId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(deliveryId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, deliveryId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.RetryDeliveryRequest)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.RetryDeliveryRequest other = (courier.v1.Courier.RetryDeliveryRequest) obj;
+
+      if (!getDeliveryId()
+          .equals(other.getDeliveryId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DELIVERY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getDeliveryId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.RetryDeliveryRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.RetryDeliveryRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.RetryDeliveryRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.RetryDeliveryRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.RetryDeliveryRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.RetryDeliveryRequest)
+        courier.v1.Courier.RetryDeliveryRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.RetryDeliveryRequest.class, courier.v1.Courier.RetryDeliveryRequest.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.RetryDeliveryRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        deliveryId_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.RetryDeliveryRequest getDefaultInstanceForType() {
+        return courier.v1.Courier.RetryDeliveryRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.RetryDeliveryRequest build() {
+        courier.v1.Courier.RetryDeliveryRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.RetryDeliveryRequest buildPartial() {
+        courier.v1.Courier.RetryDeliveryRequest result = new courier.v1.Courier.RetryDeliveryRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(courier.v1.Courier.RetryDeliveryRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.deliveryId_ = deliveryId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.RetryDeliveryRequest) {
+          return mergeFrom((courier.v1.Courier.RetryDeliveryRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.RetryDeliveryRequest other) {
+        if (other == courier.v1.Courier.RetryDeliveryRequest.getDefaultInstance()) return this;
+        if (!other.getDeliveryId().isEmpty()) {
+          deliveryId_ = other.deliveryId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                deliveryId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object deliveryId_ = "";
+      /**
+       * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+       * @return The deliveryId.
+       */
+      public java.lang.String getDeliveryId() {
+        java.lang.Object ref = deliveryId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          deliveryId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+       * @return The bytes for deliveryId.
+       */
+      public com.google.protobuf.ByteString
+          getDeliveryIdBytes() {
+        java.lang.Object ref = deliveryId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          deliveryId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+       * @param value The deliveryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        deliveryId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryId() {
+        deliveryId_ = getDefaultInstance().getDeliveryId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string delivery_id = 10 [json_name = "deliveryId"];</code>
+       * @param value The bytes for deliveryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        deliveryId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.RetryDeliveryRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.RetryDeliveryRequest)
+    private static final courier.v1.Courier.RetryDeliveryRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.RetryDeliveryRequest();
+    }
+
+    public static courier.v1.Courier.RetryDeliveryRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RetryDeliveryRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RetryDeliveryRequest>() {
+      @java.lang.Override
+      public RetryDeliveryRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RetryDeliveryRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RetryDeliveryRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.RetryDeliveryRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RetryDeliveryResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.RetryDeliveryResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+     * @return Whether the delivery field is set.
+     */
+    boolean hasDelivery();
+    /**
+     * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+     * @return The delivery.
+     */
+    courier.v1.Courier.Delivery getDelivery();
+    /**
+     * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+     */
+    courier.v1.Courier.DeliveryOrBuilder getDeliveryOrBuilder();
+  }
+  /**
+   * Protobuf type {@code courier.v1.RetryDeliveryResponse}
+   */
+  public static final class RetryDeliveryResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.RetryDeliveryResponse)
+      RetryDeliveryResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        RetryDeliveryResponse.class.getName());
+    }
+    // Use RetryDeliveryResponse.newBuilder() to construct.
+    private RetryDeliveryResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RetryDeliveryResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.RetryDeliveryResponse.class, courier.v1.Courier.RetryDeliveryResponse.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int DELIVERY_FIELD_NUMBER = 10;
+    private courier.v1.Courier.Delivery delivery_;
+    /**
+     * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+     * @return Whether the delivery field is set.
+     */
+    @java.lang.Override
+    public boolean hasDelivery() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+     * @return The delivery.
+     */
+    @java.lang.Override
+    public courier.v1.Courier.Delivery getDelivery() {
+      return delivery_ == null ? courier.v1.Courier.Delivery.getDefaultInstance() : delivery_;
+    }
+    /**
+     * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+     */
+    @java.lang.Override
+    public courier.v1.Courier.DeliveryOrBuilder getDeliveryOrBuilder() {
+      return delivery_ == null ? courier.v1.Courier.Delivery.getDefaultInstance() : delivery_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(10, getDelivery());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getDelivery());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.RetryDeliveryResponse)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.RetryDeliveryResponse other = (courier.v1.Courier.RetryDeliveryResponse) obj;
+
+      if (hasDelivery() != other.hasDelivery()) return false;
+      if (hasDelivery()) {
+        if (!getDelivery()
+            .equals(other.getDelivery())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasDelivery()) {
+        hash = (37 * hash) + DELIVERY_FIELD_NUMBER;
+        hash = (53 * hash) + getDelivery().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.RetryDeliveryResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.RetryDeliveryResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.RetryDeliveryResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.RetryDeliveryResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.RetryDeliveryResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.RetryDeliveryResponse)
+        courier.v1.Courier.RetryDeliveryResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.RetryDeliveryResponse.class, courier.v1.Courier.RetryDeliveryResponse.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.RetryDeliveryResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          getDeliveryFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        delivery_ = null;
+        if (deliveryBuilder_ != null) {
+          deliveryBuilder_.dispose();
+          deliveryBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_RetryDeliveryResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.RetryDeliveryResponse getDefaultInstanceForType() {
+        return courier.v1.Courier.RetryDeliveryResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.RetryDeliveryResponse build() {
+        courier.v1.Courier.RetryDeliveryResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.RetryDeliveryResponse buildPartial() {
+        courier.v1.Courier.RetryDeliveryResponse result = new courier.v1.Courier.RetryDeliveryResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(courier.v1.Courier.RetryDeliveryResponse result) {
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.delivery_ = deliveryBuilder_ == null
+              ? delivery_
+              : deliveryBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.RetryDeliveryResponse) {
+          return mergeFrom((courier.v1.Courier.RetryDeliveryResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.RetryDeliveryResponse other) {
+        if (other == courier.v1.Courier.RetryDeliveryResponse.getDefaultInstance()) return this;
+        if (other.hasDelivery()) {
+          mergeDelivery(other.getDelivery());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                input.readMessage(
+                    getDeliveryFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private courier.v1.Courier.Delivery delivery_;
+      private com.google.protobuf.SingleFieldBuilder<
+          courier.v1.Courier.Delivery, courier.v1.Courier.Delivery.Builder, courier.v1.Courier.DeliveryOrBuilder> deliveryBuilder_;
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       * @return Whether the delivery field is set.
+       */
+      public boolean hasDelivery() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       * @return The delivery.
+       */
+      public courier.v1.Courier.Delivery getDelivery() {
+        if (deliveryBuilder_ == null) {
+          return delivery_ == null ? courier.v1.Courier.Delivery.getDefaultInstance() : delivery_;
+        } else {
+          return deliveryBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      public Builder setDelivery(courier.v1.Courier.Delivery value) {
+        if (deliveryBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          delivery_ = value;
+        } else {
+          deliveryBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      public Builder setDelivery(
+          courier.v1.Courier.Delivery.Builder builderForValue) {
+        if (deliveryBuilder_ == null) {
+          delivery_ = builderForValue.build();
+        } else {
+          deliveryBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      public Builder mergeDelivery(courier.v1.Courier.Delivery value) {
+        if (deliveryBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            delivery_ != null &&
+            delivery_ != courier.v1.Courier.Delivery.getDefaultInstance()) {
+            getDeliveryBuilder().mergeFrom(value);
+          } else {
+            delivery_ = value;
+          }
+        } else {
+          deliveryBuilder_.mergeFrom(value);
+        }
+        if (delivery_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      public Builder clearDelivery() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        delivery_ = null;
+        if (deliveryBuilder_ != null) {
+          deliveryBuilder_.dispose();
+          deliveryBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      public courier.v1.Courier.Delivery.Builder getDeliveryBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getDeliveryFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      public courier.v1.Courier.DeliveryOrBuilder getDeliveryOrBuilder() {
+        if (deliveryBuilder_ != null) {
+          return deliveryBuilder_.getMessageOrBuilder();
+        } else {
+          return delivery_ == null ?
+              courier.v1.Courier.Delivery.getDefaultInstance() : delivery_;
+        }
+      }
+      /**
+       * <code>.courier.v1.Delivery delivery = 10 [json_name = "delivery"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          courier.v1.Courier.Delivery, courier.v1.Courier.Delivery.Builder, courier.v1.Courier.DeliveryOrBuilder> 
+          getDeliveryFieldBuilder() {
+        if (deliveryBuilder_ == null) {
+          deliveryBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              courier.v1.Courier.Delivery, courier.v1.Courier.Delivery.Builder, courier.v1.Courier.DeliveryOrBuilder>(
+                  getDelivery(),
+                  getParentForChildren(),
+                  isClean());
+          delivery_ = null;
+        }
+        return deliveryBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.RetryDeliveryResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.RetryDeliveryResponse)
+    private static final courier.v1.Courier.RetryDeliveryResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.RetryDeliveryResponse();
+    }
+
+    public static courier.v1.Courier.RetryDeliveryResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RetryDeliveryResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RetryDeliveryResponse>() {
+      @java.lang.Override
+      public RetryDeliveryResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RetryDeliveryResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RetryDeliveryResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.RetryDeliveryResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface NotifyRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.NotifyRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+     * </pre>
+     *
+     * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+     * @return The idempotencyKey.
+     */
+    java.lang.String getIdempotencyKey();
+    /**
+     * <pre>
+     * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+     * </pre>
+     *
+     * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+     * @return The bytes for idempotencyKey.
+     */
+    com.google.protobuf.ByteString
+        getIdempotencyKeyBytes();
+
+    /**
+     * <pre>
+     * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+     * </pre>
+     *
+     * <code>string event_type = 20 [json_name = "eventType"];</code>
+     * @return The eventType.
+     */
+    java.lang.String getEventType();
+    /**
+     * <pre>
+     * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+     * </pre>
+     *
+     * <code>string event_type = 20 [json_name = "eventType"];</code>
+     * @return The bytes for eventType.
+     */
+    com.google.protobuf.ByteString
+        getEventTypeBytes();
+
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @return A list containing the userIds.
+     */
+    java.util.List<java.lang.String>
+        getUserIdsList();
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @return The count of userIds.
+     */
+    int getUserIdsCount();
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @param index The index of the element to return.
+     * @return The userIds at the given index.
+     */
+    java.lang.String getUserIds(int index);
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the userIds at the given index.
+     */
+    com.google.protobuf.ByteString
+        getUserIdsBytes(int index);
+
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    java.util.List<courier.v1.Courier.Recipient> 
+        getRecipientsList();
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    courier.v1.Courier.Recipient getRecipients(int index);
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    int getRecipientsCount();
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    java.util.List<? extends courier.v1.Courier.RecipientOrBuilder> 
+        getRecipientsOrBuilderList();
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    courier.v1.Courier.RecipientOrBuilder getRecipientsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+     * Values are sent to the templates as text (numbers and booleans are formatted).
+     * </pre>
+     *
+     * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+     * @return Whether the data field is set.
+     */
+    boolean hasData();
+    /**
+     * <pre>
+     * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+     * Values are sent to the templates as text (numbers and booleans are formatted).
+     * </pre>
+     *
+     * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+     * @return The data.
+     */
+    com.google.protobuf.Struct getData();
+    /**
+     * <pre>
+     * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+     * Values are sent to the templates as text (numbers and booleans are formatted).
+     * </pre>
+     *
+     * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+     */
+    com.google.protobuf.StructOrBuilder getDataOrBuilder();
+
+    /**
+     * <pre>
+     * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+     * </pre>
+     *
+     * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+     * @return The localeOverride.
+     */
+    java.lang.String getLocaleOverride();
+    /**
+     * <pre>
+     * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+     * </pre>
+     *
+     * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+     * @return The bytes for localeOverride.
+     */
+    com.google.protobuf.ByteString
+        getLocaleOverrideBytes();
+
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @return A list containing the channels.
+     */
+    java.util.List<java.lang.String>
+        getChannelsList();
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @return The count of channels.
+     */
+    int getChannelsCount();
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @param index The index of the element to return.
+     * @return The channels at the given index.
+     */
+    java.lang.String getChannels(int index);
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the channels at the given index.
+     */
+    com.google.protobuf.ByteString
+        getChannelsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code courier.v1.NotifyRequest}
+   */
+  public static final class NotifyRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.NotifyRequest)
+      NotifyRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        NotifyRequest.class.getName());
+    }
+    // Use NotifyRequest.newBuilder() to construct.
+    private NotifyRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private NotifyRequest() {
+      idempotencyKey_ = "";
+      eventType_ = "";
+      userIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      recipients_ = java.util.Collections.emptyList();
+      localeOverride_ = "";
+      channels_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_NotifyRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_NotifyRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.NotifyRequest.class, courier.v1.Courier.NotifyRequest.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int IDEMPOTENCY_KEY_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object idempotencyKey_ = "";
+    /**
+     * <pre>
+     * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+     * </pre>
+     *
+     * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+     * @return The idempotencyKey.
+     */
+    @java.lang.Override
+    public java.lang.String getIdempotencyKey() {
+      java.lang.Object ref = idempotencyKey_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        idempotencyKey_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+     * </pre>
+     *
+     * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+     * @return The bytes for idempotencyKey.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdempotencyKeyBytes() {
+      java.lang.Object ref = idempotencyKey_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        idempotencyKey_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EVENT_TYPE_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object eventType_ = "";
+    /**
+     * <pre>
+     * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+     * </pre>
+     *
+     * <code>string event_type = 20 [json_name = "eventType"];</code>
+     * @return The eventType.
+     */
+    @java.lang.Override
+    public java.lang.String getEventType() {
+      java.lang.Object ref = eventType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        eventType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+     * </pre>
+     *
+     * <code>string event_type = 20 [json_name = "eventType"];</code>
+     * @return The bytes for eventType.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEventTypeBytes() {
+      java.lang.Object ref = eventType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        eventType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USER_IDS_FIELD_NUMBER = 30;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList userIds_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @return A list containing the userIds.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getUserIdsList() {
+      return userIds_;
+    }
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @return The count of userIds.
+     */
+    public int getUserIdsCount() {
+      return userIds_.size();
+    }
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @param index The index of the element to return.
+     * @return The userIds at the given index.
+     */
+    public java.lang.String getUserIds(int index) {
+      return userIds_.get(index);
+    }
+    /**
+     * <pre>
+     * Users of identity. Courier resolves each one to an address and a locale.
+     * </pre>
+     *
+     * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the userIds at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getUserIdsBytes(int index) {
+      return userIds_.getByteString(index);
+    }
+
+    public static final int RECIPIENTS_FIELD_NUMBER = 40;
+    @SuppressWarnings("serial")
+    private java.util.List<courier.v1.Courier.Recipient> recipients_;
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<courier.v1.Courier.Recipient> getRecipientsList() {
+      return recipients_;
+    }
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends courier.v1.Courier.RecipientOrBuilder> 
+        getRecipientsOrBuilderList() {
+      return recipients_;
+    }
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    @java.lang.Override
+    public int getRecipientsCount() {
+      return recipients_.size();
+    }
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    @java.lang.Override
+    public courier.v1.Courier.Recipient getRecipients(int index) {
+      return recipients_.get(index);
+    }
+    /**
+     * <pre>
+     * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+     * </pre>
+     *
+     * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+     */
+    @java.lang.Override
+    public courier.v1.Courier.RecipientOrBuilder getRecipientsOrBuilder(
+        int index) {
+      return recipients_.get(index);
+    }
+
+    public static final int DATA_FIELD_NUMBER = 50;
+    private com.google.protobuf.Struct data_;
+    /**
+     * <pre>
+     * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+     * Values are sent to the templates as text (numbers and booleans are formatted).
+     * </pre>
+     *
+     * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+     * @return Whether the data field is set.
+     */
+    @java.lang.Override
+    public boolean hasData() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+     * Values are sent to the templates as text (numbers and booleans are formatted).
+     * </pre>
+     *
+     * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+     * @return The data.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Struct getData() {
+      return data_ == null ? com.google.protobuf.Struct.getDefaultInstance() : data_;
+    }
+    /**
+     * <pre>
+     * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+     * Values are sent to the templates as text (numbers and booleans are formatted).
+     * </pre>
+     *
+     * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.StructOrBuilder getDataOrBuilder() {
+      return data_ == null ? com.google.protobuf.Struct.getDefaultInstance() : data_;
+    }
+
+    public static final int LOCALE_OVERRIDE_FIELD_NUMBER = 60;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object localeOverride_ = "";
+    /**
+     * <pre>
+     * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+     * </pre>
+     *
+     * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+     * @return The localeOverride.
+     */
+    @java.lang.Override
+    public java.lang.String getLocaleOverride() {
+      java.lang.Object ref = localeOverride_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        localeOverride_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+     * </pre>
+     *
+     * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+     * @return The bytes for localeOverride.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLocaleOverrideBytes() {
+      java.lang.Object ref = localeOverride_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        localeOverride_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CHANNELS_FIELD_NUMBER = 70;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList channels_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @return A list containing the channels.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getChannelsList() {
+      return channels_;
+    }
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @return The count of channels.
+     */
+    public int getChannelsCount() {
+      return channels_.size();
+    }
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @param index The index of the element to return.
+     * @return The channels at the given index.
+     */
+    public java.lang.String getChannels(int index) {
+      return channels_.get(index);
+    }
+    /**
+     * <pre>
+     * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+     * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+     * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+     * </pre>
+     *
+     * <code>repeated string channels = 70 [json_name = "channels"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the channels at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getChannelsBytes(int index) {
+      return channels_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(idempotencyKey_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, idempotencyKey_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(eventType_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 20, eventType_);
+      }
+      for (int i = 0; i < userIds_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 30, userIds_.getRaw(i));
+      }
+      for (int i = 0; i < recipients_.size(); i++) {
+        output.writeMessage(40, recipients_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(50, getData());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(localeOverride_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 60, localeOverride_);
+      }
+      for (int i = 0; i < channels_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 70, channels_.getRaw(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(idempotencyKey_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, idempotencyKey_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(eventType_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(20, eventType_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < userIds_.size(); i++) {
+          dataSize += computeStringSizeNoTag(userIds_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getUserIdsList().size();
+      }
+      for (int i = 0; i < recipients_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(40, recipients_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(50, getData());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(localeOverride_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(60, localeOverride_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < channels_.size(); i++) {
+          dataSize += computeStringSizeNoTag(channels_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getChannelsList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.NotifyRequest)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.NotifyRequest other = (courier.v1.Courier.NotifyRequest) obj;
+
+      if (!getIdempotencyKey()
+          .equals(other.getIdempotencyKey())) return false;
+      if (!getEventType()
+          .equals(other.getEventType())) return false;
+      if (!getUserIdsList()
+          .equals(other.getUserIdsList())) return false;
+      if (!getRecipientsList()
+          .equals(other.getRecipientsList())) return false;
+      if (hasData() != other.hasData()) return false;
+      if (hasData()) {
+        if (!getData()
+            .equals(other.getData())) return false;
+      }
+      if (!getLocaleOverride()
+          .equals(other.getLocaleOverride())) return false;
+      if (!getChannelsList()
+          .equals(other.getChannelsList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + IDEMPOTENCY_KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getIdempotencyKey().hashCode();
+      hash = (37 * hash) + EVENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getEventType().hashCode();
+      if (getUserIdsCount() > 0) {
+        hash = (37 * hash) + USER_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getUserIdsList().hashCode();
+      }
+      if (getRecipientsCount() > 0) {
+        hash = (37 * hash) + RECIPIENTS_FIELD_NUMBER;
+        hash = (53 * hash) + getRecipientsList().hashCode();
+      }
+      if (hasData()) {
+        hash = (37 * hash) + DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getData().hashCode();
+      }
+      hash = (37 * hash) + LOCALE_OVERRIDE_FIELD_NUMBER;
+      hash = (53 * hash) + getLocaleOverride().hashCode();
+      if (getChannelsCount() > 0) {
+        hash = (37 * hash) + CHANNELS_FIELD_NUMBER;
+        hash = (53 * hash) + getChannelsList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.NotifyRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.NotifyRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.NotifyRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.NotifyRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.NotifyRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.NotifyRequest)
+        courier.v1.Courier.NotifyRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_NotifyRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_NotifyRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.NotifyRequest.class, courier.v1.Courier.NotifyRequest.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.NotifyRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          getRecipientsFieldBuilder();
+          getDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        idempotencyKey_ = "";
+        eventType_ = "";
+        userIds_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        if (recipientsBuilder_ == null) {
+          recipients_ = java.util.Collections.emptyList();
+        } else {
+          recipients_ = null;
+          recipientsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        data_ = null;
+        if (dataBuilder_ != null) {
+          dataBuilder_.dispose();
+          dataBuilder_ = null;
+        }
+        localeOverride_ = "";
+        channels_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_NotifyRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.NotifyRequest getDefaultInstanceForType() {
+        return courier.v1.Courier.NotifyRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.NotifyRequest build() {
+        courier.v1.Courier.NotifyRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.NotifyRequest buildPartial() {
+        courier.v1.Courier.NotifyRequest result = new courier.v1.Courier.NotifyRequest(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(courier.v1.Courier.NotifyRequest result) {
+        if (recipientsBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0)) {
+            recipients_ = java.util.Collections.unmodifiableList(recipients_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.recipients_ = recipients_;
+        } else {
+          result.recipients_ = recipientsBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(courier.v1.Courier.NotifyRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.idempotencyKey_ = idempotencyKey_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.eventType_ = eventType_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          userIds_.makeImmutable();
+          result.userIds_ = userIds_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.data_ = dataBuilder_ == null
+              ? data_
+              : dataBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.localeOverride_ = localeOverride_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          channels_.makeImmutable();
+          result.channels_ = channels_;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.NotifyRequest) {
+          return mergeFrom((courier.v1.Courier.NotifyRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.NotifyRequest other) {
+        if (other == courier.v1.Courier.NotifyRequest.getDefaultInstance()) return this;
+        if (!other.getIdempotencyKey().isEmpty()) {
+          idempotencyKey_ = other.idempotencyKey_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getEventType().isEmpty()) {
+          eventType_ = other.eventType_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.userIds_.isEmpty()) {
+          if (userIds_.isEmpty()) {
+            userIds_ = other.userIds_;
+            bitField0_ |= 0x00000004;
+          } else {
+            ensureUserIdsIsMutable();
+            userIds_.addAll(other.userIds_);
+          }
+          onChanged();
+        }
+        if (recipientsBuilder_ == null) {
+          if (!other.recipients_.isEmpty()) {
+            if (recipients_.isEmpty()) {
+              recipients_ = other.recipients_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureRecipientsIsMutable();
+              recipients_.addAll(other.recipients_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.recipients_.isEmpty()) {
+            if (recipientsBuilder_.isEmpty()) {
+              recipientsBuilder_.dispose();
+              recipientsBuilder_ = null;
+              recipients_ = other.recipients_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              recipientsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRecipientsFieldBuilder() : null;
+            } else {
+              recipientsBuilder_.addAllMessages(other.recipients_);
+            }
+          }
+        }
+        if (other.hasData()) {
+          mergeData(other.getData());
+        }
+        if (!other.getLocaleOverride().isEmpty()) {
+          localeOverride_ = other.localeOverride_;
+          bitField0_ |= 0x00000020;
+          onChanged();
+        }
+        if (!other.channels_.isEmpty()) {
+          if (channels_.isEmpty()) {
+            channels_ = other.channels_;
+            bitField0_ |= 0x00000040;
+          } else {
+            ensureChannelsIsMutable();
+            channels_.addAll(other.channels_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                idempotencyKey_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 162: {
+                eventType_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 162
+              case 242: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureUserIdsIsMutable();
+                userIds_.add(s);
+                break;
+              } // case 242
+              case 322: {
+                courier.v1.Courier.Recipient m =
+                    input.readMessage(
+                        courier.v1.Courier.Recipient.parser(),
+                        extensionRegistry);
+                if (recipientsBuilder_ == null) {
+                  ensureRecipientsIsMutable();
+                  recipients_.add(m);
+                } else {
+                  recipientsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 322
+              case 402: {
+                input.readMessage(
+                    getDataFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 402
+              case 482: {
+                localeOverride_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 482
+              case 562: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureChannelsIsMutable();
+                channels_.add(s);
+                break;
+              } // case 562
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object idempotencyKey_ = "";
+      /**
+       * <pre>
+       * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+       * </pre>
+       *
+       * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+       * @return The idempotencyKey.
+       */
+      public java.lang.String getIdempotencyKey() {
+        java.lang.Object ref = idempotencyKey_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          idempotencyKey_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+       * </pre>
+       *
+       * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+       * @return The bytes for idempotencyKey.
+       */
+      public com.google.protobuf.ByteString
+          getIdempotencyKeyBytes() {
+        java.lang.Object ref = idempotencyKey_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          idempotencyKey_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+       * </pre>
+       *
+       * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+       * @param value The idempotencyKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdempotencyKey(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        idempotencyKey_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+       * </pre>
+       *
+       * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIdempotencyKey() {
+        idempotencyKey_ = getDefaultInstance().getIdempotencyKey();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional; unique while the event is kept. A repeat returns the first event_id and sends nothing.
+       * </pre>
+       *
+       * <code>string idempotency_key = 10 [json_name = "idempotencyKey"];</code>
+       * @param value The bytes for idempotencyKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdempotencyKeyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        idempotencyKey_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object eventType_ = "";
+      /**
+       * <pre>
+       * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+       * </pre>
+       *
+       * <code>string event_type = 20 [json_name = "eventType"];</code>
+       * @return The eventType.
+       */
+      public java.lang.String getEventType() {
+        java.lang.Object ref = eventType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          eventType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+       * </pre>
+       *
+       * <code>string event_type = 20 [json_name = "eventType"];</code>
+       * @return The bytes for eventType.
+       */
+      public com.google.protobuf.ByteString
+          getEventTypeBytes() {
+        java.lang.Object ref = eventType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          eventType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+       * </pre>
+       *
+       * <code>string event_type = 20 [json_name = "eventType"];</code>
+       * @param value The eventType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventType(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        eventType_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+       * </pre>
+       *
+       * <code>string event_type = 20 [json_name = "eventType"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEventType() {
+        eventType_ = getDefaultInstance().getEventType();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * A type of the catalog, for example "security.password_reset". Unknown types are rejected.
+       * </pre>
+       *
+       * <code>string event_type = 20 [json_name = "eventType"];</code>
+       * @param value The bytes for eventType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        eventType_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList userIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureUserIdsIsMutable() {
+        if (!userIds_.isModifiable()) {
+          userIds_ = new com.google.protobuf.LazyStringArrayList(userIds_);
+        }
+        bitField0_ |= 0x00000004;
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @return A list containing the userIds.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getUserIdsList() {
+        userIds_.makeImmutable();
+        return userIds_;
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @return The count of userIds.
+       */
+      public int getUserIdsCount() {
+        return userIds_.size();
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @param index The index of the element to return.
+       * @return The userIds at the given index.
+       */
+      public java.lang.String getUserIds(int index) {
+        return userIds_.get(index);
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the userIds at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getUserIdsBytes(int index) {
+        return userIds_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @param index The index to set the value at.
+       * @param value The userIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserIds(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureUserIdsIsMutable();
+        userIds_.set(index, value);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @param value The userIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addUserIds(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureUserIdsIsMutable();
+        userIds_.add(value);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @param values The userIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllUserIds(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureUserIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, userIds_);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserIds() {
+        userIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000004);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Users of identity. Courier resolves each one to an address and a locale.
+       * </pre>
+       *
+       * <code>repeated string user_ids = 30 [json_name = "userIds"];</code>
+       * @param value The bytes of the userIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addUserIdsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureUserIdsIsMutable();
+        userIds_.add(value);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<courier.v1.Courier.Recipient> recipients_ =
+        java.util.Collections.emptyList();
+      private void ensureRecipientsIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          recipients_ = new java.util.ArrayList<courier.v1.Courier.Recipient>(recipients_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          courier.v1.Courier.Recipient, courier.v1.Courier.Recipient.Builder, courier.v1.Courier.RecipientOrBuilder> recipientsBuilder_;
+
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public java.util.List<courier.v1.Courier.Recipient> getRecipientsList() {
+        if (recipientsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(recipients_);
+        } else {
+          return recipientsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public int getRecipientsCount() {
+        if (recipientsBuilder_ == null) {
+          return recipients_.size();
+        } else {
+          return recipientsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public courier.v1.Courier.Recipient getRecipients(int index) {
+        if (recipientsBuilder_ == null) {
+          return recipients_.get(index);
+        } else {
+          return recipientsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder setRecipients(
+          int index, courier.v1.Courier.Recipient value) {
+        if (recipientsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRecipientsIsMutable();
+          recipients_.set(index, value);
+          onChanged();
+        } else {
+          recipientsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder setRecipients(
+          int index, courier.v1.Courier.Recipient.Builder builderForValue) {
+        if (recipientsBuilder_ == null) {
+          ensureRecipientsIsMutable();
+          recipients_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          recipientsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder addRecipients(courier.v1.Courier.Recipient value) {
+        if (recipientsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRecipientsIsMutable();
+          recipients_.add(value);
+          onChanged();
+        } else {
+          recipientsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder addRecipients(
+          int index, courier.v1.Courier.Recipient value) {
+        if (recipientsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRecipientsIsMutable();
+          recipients_.add(index, value);
+          onChanged();
+        } else {
+          recipientsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder addRecipients(
+          courier.v1.Courier.Recipient.Builder builderForValue) {
+        if (recipientsBuilder_ == null) {
+          ensureRecipientsIsMutable();
+          recipients_.add(builderForValue.build());
+          onChanged();
+        } else {
+          recipientsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder addRecipients(
+          int index, courier.v1.Courier.Recipient.Builder builderForValue) {
+        if (recipientsBuilder_ == null) {
+          ensureRecipientsIsMutable();
+          recipients_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          recipientsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder addAllRecipients(
+          java.lang.Iterable<? extends courier.v1.Courier.Recipient> values) {
+        if (recipientsBuilder_ == null) {
+          ensureRecipientsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, recipients_);
+          onChanged();
+        } else {
+          recipientsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder clearRecipients() {
+        if (recipientsBuilder_ == null) {
+          recipients_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          recipientsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public Builder removeRecipients(int index) {
+        if (recipientsBuilder_ == null) {
+          ensureRecipientsIsMutable();
+          recipients_.remove(index);
+          onChanged();
+        } else {
+          recipientsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public courier.v1.Courier.Recipient.Builder getRecipientsBuilder(
+          int index) {
+        return getRecipientsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public courier.v1.Courier.RecipientOrBuilder getRecipientsOrBuilder(
+          int index) {
+        if (recipientsBuilder_ == null) {
+          return recipients_.get(index);  } else {
+          return recipientsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public java.util.List<? extends courier.v1.Courier.RecipientOrBuilder> 
+           getRecipientsOrBuilderList() {
+        if (recipientsBuilder_ != null) {
+          return recipientsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(recipients_);
+        }
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public courier.v1.Courier.Recipient.Builder addRecipientsBuilder() {
+        return getRecipientsFieldBuilder().addBuilder(
+            courier.v1.Courier.Recipient.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public courier.v1.Courier.Recipient.Builder addRecipientsBuilder(
+          int index) {
+        return getRecipientsFieldBuilder().addBuilder(
+            index, courier.v1.Courier.Recipient.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Raw addresses (a person without an account, an operations chat). Used together with or instead of user_ids.
+       * </pre>
+       *
+       * <code>repeated .courier.v1.Recipient recipients = 40 [json_name = "recipients"];</code>
+       */
+      public java.util.List<courier.v1.Courier.Recipient.Builder> 
+           getRecipientsBuilderList() {
+        return getRecipientsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          courier.v1.Courier.Recipient, courier.v1.Courier.Recipient.Builder, courier.v1.Courier.RecipientOrBuilder> 
+          getRecipientsFieldBuilder() {
+        if (recipientsBuilder_ == null) {
+          recipientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              courier.v1.Courier.Recipient, courier.v1.Courier.Recipient.Builder, courier.v1.Courier.RecipientOrBuilder>(
+                  recipients_,
+                  ((bitField0_ & 0x00000008) != 0),
+                  getParentForChildren(),
+                  isClean());
+          recipients_ = null;
+        }
+        return recipientsBuilder_;
+      }
+
+      private com.google.protobuf.Struct data_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> dataBuilder_;
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       * @return Whether the data field is set.
+       */
+      public boolean hasData() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       * @return The data.
+       */
+      public com.google.protobuf.Struct getData() {
+        if (dataBuilder_ == null) {
+          return data_ == null ? com.google.protobuf.Struct.getDefaultInstance() : data_;
+        } else {
+          return dataBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      public Builder setData(com.google.protobuf.Struct value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          data_ = value;
+        } else {
+          dataBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      public Builder setData(
+          com.google.protobuf.Struct.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          data_ = builderForValue.build();
+        } else {
+          dataBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      public Builder mergeData(com.google.protobuf.Struct value) {
+        if (dataBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            data_ != null &&
+            data_ != com.google.protobuf.Struct.getDefaultInstance()) {
+            getDataBuilder().mergeFrom(value);
+          } else {
+            data_ = value;
+          }
+        } else {
+          dataBuilder_.mergeFrom(value);
+        }
+        if (data_ != null) {
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      public Builder clearData() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        data_ = null;
+        if (dataBuilder_ != null) {
+          dataBuilder_.dispose();
+          dataBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      public com.google.protobuf.Struct.Builder getDataBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getDataFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      public com.google.protobuf.StructOrBuilder getDataOrBuilder() {
+        if (dataBuilder_ != null) {
+          return dataBuilder_.getMessageOrBuilder();
+        } else {
+          return data_ == null ?
+              com.google.protobuf.Struct.getDefaultInstance() : data_;
+        }
+      }
+      /**
+       * <pre>
+       * Event data. Validated against the catalog: required keys present, unknown keys rejected.
+       * Values are sent to the templates as text (numbers and booleans are formatted).
+       * </pre>
+       *
+       * <code>.google.protobuf.Struct data = 50 [json_name = "data"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> 
+          getDataFieldBuilder() {
+        if (dataBuilder_ == null) {
+          dataBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder>(
+                  getData(),
+                  getParentForChildren(),
+                  isClean());
+          data_ = null;
+        }
+        return dataBuilder_;
+      }
+
+      private java.lang.Object localeOverride_ = "";
+      /**
+       * <pre>
+       * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+       * </pre>
+       *
+       * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+       * @return The localeOverride.
+       */
+      public java.lang.String getLocaleOverride() {
+        java.lang.Object ref = localeOverride_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          localeOverride_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+       * </pre>
+       *
+       * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+       * @return The bytes for localeOverride.
+       */
+      public com.google.protobuf.ByteString
+          getLocaleOverrideBytes() {
+        java.lang.Object ref = localeOverride_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          localeOverride_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+       * </pre>
+       *
+       * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+       * @param value The localeOverride to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLocaleOverride(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        localeOverride_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+       * </pre>
+       *
+       * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLocaleOverride() {
+        localeOverride_ = getDefaultInstance().getLocaleOverride();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Locale for raw recipients (and for users without one); empty: the default locale of courier.
+       * </pre>
+       *
+       * <code>string locale_override = 60 [json_name = "localeOverride"];</code>
+       * @param value The bytes for localeOverride to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLocaleOverrideBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        localeOverride_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList channels_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureChannelsIsMutable() {
+        if (!channels_.isModifiable()) {
+          channels_ = new com.google.protobuf.LazyStringArrayList(channels_);
+        }
+        bitField0_ |= 0x00000040;
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @return A list containing the channels.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getChannelsList() {
+        channels_.makeImmutable();
+        return channels_;
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @return The count of channels.
+       */
+      public int getChannelsCount() {
+        return channels_.size();
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @param index The index of the element to return.
+       * @return The channels at the given index.
+       */
+      public java.lang.String getChannels(int index) {
+        return channels_.get(index);
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the channels at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getChannelsBytes(int index) {
+        return channels_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @param index The index to set the value at.
+       * @param value The channels to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChannels(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureChannelsIsMutable();
+        channels_.set(index, value);
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @param value The channels to add.
+       * @return This builder for chaining.
+       */
+      public Builder addChannels(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureChannelsIsMutable();
+        channels_.add(value);
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @param values The channels to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllChannels(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureChannelsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, channels_);
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearChannels() {
+        channels_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000040);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only these channels of the event type ("email", "in_app", "push"), for example an announcement that goes to the
+       * bell only. Empty: every channel of the type. A channel the type does not have is refused (channel_unknown). The
+       * choices of the users still apply, and webhooks are not channels of a type: they follow their own subscriptions.
+       * </pre>
+       *
+       * <code>repeated string channels = 70 [json_name = "channels"];</code>
+       * @param value The bytes of the channels to add.
+       * @return This builder for chaining.
+       */
+      public Builder addChannelsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureChannelsIsMutable();
+        channels_.add(value);
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.NotifyRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.NotifyRequest)
+    private static final courier.v1.Courier.NotifyRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.NotifyRequest();
+    }
+
+    public static courier.v1.Courier.NotifyRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NotifyRequest>
+        PARSER = new com.google.protobuf.AbstractParser<NotifyRequest>() {
+      @java.lang.Override
+      public NotifyRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<NotifyRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NotifyRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.NotifyRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface NotifyResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:courier.v1.NotifyResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string event_id = 10 [json_name = "eventId"];</code>
+     * @return The eventId.
+     */
+    java.lang.String getEventId();
+    /**
+     * <code>string event_id = 10 [json_name = "eventId"];</code>
+     * @return The bytes for eventId.
+     */
+    com.google.protobuf.ByteString
+        getEventIdBytes();
+
+    /**
+     * <pre>
+     * Number of deliveries created; 0 for a repeated idempotency_key.
+     * </pre>
+     *
+     * <code>int32 queued = 20 [json_name = "queued"];</code>
+     * @return The queued.
+     */
+    int getQueued();
+
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @return A list containing the skippedUserIds.
+     */
+    java.util.List<java.lang.String>
+        getSkippedUserIdsList();
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @return The count of skippedUserIds.
+     */
+    int getSkippedUserIdsCount();
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @param index The index of the element to return.
+     * @return The skippedUserIds at the given index.
+     */
+    java.lang.String getSkippedUserIds(int index);
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the skippedUserIds at the given index.
+     */
+    com.google.protobuf.ByteString
+        getSkippedUserIdsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code courier.v1.NotifyResponse}
+   */
+  public static final class NotifyResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:courier.v1.NotifyResponse)
+      NotifyResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        NotifyResponse.class.getName());
+    }
+    // Use NotifyResponse.newBuilder() to construct.
+    private NotifyResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private NotifyResponse() {
+      eventId_ = "";
+      skippedUserIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return courier.v1.Courier.internal_static_courier_v1_NotifyResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return courier.v1.Courier.internal_static_courier_v1_NotifyResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              courier.v1.Courier.NotifyResponse.class, courier.v1.Courier.NotifyResponse.Builder.class);
+    }
+
+    public static final int EVENT_ID_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object eventId_ = "";
+    /**
+     * <code>string event_id = 10 [json_name = "eventId"];</code>
+     * @return The eventId.
+     */
+    @java.lang.Override
+    public java.lang.String getEventId() {
+      java.lang.Object ref = eventId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        eventId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string event_id = 10 [json_name = "eventId"];</code>
+     * @return The bytes for eventId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEventIdBytes() {
+      java.lang.Object ref = eventId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        eventId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int QUEUED_FIELD_NUMBER = 20;
+    private int queued_ = 0;
+    /**
+     * <pre>
+     * Number of deliveries created; 0 for a repeated idempotency_key.
+     * </pre>
+     *
+     * <code>int32 queued = 20 [json_name = "queued"];</code>
+     * @return The queued.
+     */
+    @java.lang.Override
+    public int getQueued() {
+      return queued_;
+    }
+
+    public static final int SKIPPED_USER_IDS_FIELD_NUMBER = 30;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList skippedUserIds_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @return A list containing the skippedUserIds.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getSkippedUserIdsList() {
+      return skippedUserIds_;
+    }
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @return The count of skippedUserIds.
+     */
+    public int getSkippedUserIdsCount() {
+      return skippedUserIds_.size();
+    }
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @param index The index of the element to return.
+     * @return The skippedUserIds at the given index.
+     */
+    public java.lang.String getSkippedUserIds(int index) {
+      return skippedUserIds_.get(index);
+    }
+    /**
+     * <pre>
+     * user_ids that got no delivery (no e-mail on record).
+     * </pre>
+     *
+     * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the skippedUserIds at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getSkippedUserIdsBytes(int index) {
+      return skippedUserIds_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(eventId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, eventId_);
+      }
+      if (queued_ != 0) {
+        output.writeInt32(20, queued_);
+      }
+      for (int i = 0; i < skippedUserIds_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 30, skippedUserIds_.getRaw(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(eventId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, eventId_);
+      }
+      if (queued_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(20, queued_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < skippedUserIds_.size(); i++) {
+          dataSize += computeStringSizeNoTag(skippedUserIds_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getSkippedUserIdsList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof courier.v1.Courier.NotifyResponse)) {
+        return super.equals(obj);
+      }
+      courier.v1.Courier.NotifyResponse other = (courier.v1.Courier.NotifyResponse) obj;
+
+      if (!getEventId()
+          .equals(other.getEventId())) return false;
+      if (getQueued()
+          != other.getQueued()) return false;
+      if (!getSkippedUserIdsList()
+          .equals(other.getSkippedUserIdsList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + EVENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getEventId().hashCode();
+      hash = (37 * hash) + QUEUED_FIELD_NUMBER;
+      hash = (53 * hash) + getQueued();
+      if (getSkippedUserIdsCount() > 0) {
+        hash = (37 * hash) + SKIPPED_USER_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getSkippedUserIdsList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static courier.v1.Courier.NotifyResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static courier.v1.Courier.NotifyResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static courier.v1.Courier.NotifyResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(courier.v1.Courier.NotifyResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code courier.v1.NotifyResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:courier.v1.NotifyResponse)
+        courier.v1.Courier.NotifyResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return courier.v1.Courier.internal_static_courier_v1_NotifyResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return courier.v1.Courier.internal_static_courier_v1_NotifyResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                courier.v1.Courier.NotifyResponse.class, courier.v1.Courier.NotifyResponse.Builder.class);
+      }
+
+      // Construct using courier.v1.Courier.NotifyResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        eventId_ = "";
+        queued_ = 0;
+        skippedUserIds_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return courier.v1.Courier.internal_static_courier_v1_NotifyResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.NotifyResponse getDefaultInstanceForType() {
+        return courier.v1.Courier.NotifyResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.NotifyResponse build() {
+        courier.v1.Courier.NotifyResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public courier.v1.Courier.NotifyResponse buildPartial() {
+        courier.v1.Courier.NotifyResponse result = new courier.v1.Courier.NotifyResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(courier.v1.Courier.NotifyResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.eventId_ = eventId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.queued_ = queued_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          skippedUserIds_.makeImmutable();
+          result.skippedUserIds_ = skippedUserIds_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof courier.v1.Courier.NotifyResponse) {
+          return mergeFrom((courier.v1.Courier.NotifyResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(courier.v1.Courier.NotifyResponse other) {
+        if (other == courier.v1.Courier.NotifyResponse.getDefaultInstance()) return this;
+        if (!other.getEventId().isEmpty()) {
+          eventId_ = other.eventId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getQueued() != 0) {
+          setQueued(other.getQueued());
+        }
+        if (!other.skippedUserIds_.isEmpty()) {
+          if (skippedUserIds_.isEmpty()) {
+            skippedUserIds_ = other.skippedUserIds_;
+            bitField0_ |= 0x00000004;
+          } else {
+            ensureSkippedUserIdsIsMutable();
+            skippedUserIds_.addAll(other.skippedUserIds_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 82: {
+                eventId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 82
+              case 160: {
+                queued_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 160
+              case 242: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureSkippedUserIdsIsMutable();
+                skippedUserIds_.add(s);
+                break;
+              } // case 242
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object eventId_ = "";
+      /**
+       * <code>string event_id = 10 [json_name = "eventId"];</code>
+       * @return The eventId.
+       */
+      public java.lang.String getEventId() {
+        java.lang.Object ref = eventId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          eventId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string event_id = 10 [json_name = "eventId"];</code>
+       * @return The bytes for eventId.
+       */
+      public com.google.protobuf.ByteString
+          getEventIdBytes() {
+        java.lang.Object ref = eventId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          eventId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string event_id = 10 [json_name = "eventId"];</code>
+       * @param value The eventId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        eventId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string event_id = 10 [json_name = "eventId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEventId() {
+        eventId_ = getDefaultInstance().getEventId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string event_id = 10 [json_name = "eventId"];</code>
+       * @param value The bytes for eventId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        eventId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private int queued_ ;
+      /**
+       * <pre>
+       * Number of deliveries created; 0 for a repeated idempotency_key.
+       * </pre>
+       *
+       * <code>int32 queued = 20 [json_name = "queued"];</code>
+       * @return The queued.
+       */
+      @java.lang.Override
+      public int getQueued() {
+        return queued_;
+      }
+      /**
+       * <pre>
+       * Number of deliveries created; 0 for a repeated idempotency_key.
+       * </pre>
+       *
+       * <code>int32 queued = 20 [json_name = "queued"];</code>
+       * @param value The queued to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQueued(int value) {
+
+        queued_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Number of deliveries created; 0 for a repeated idempotency_key.
+       * </pre>
+       *
+       * <code>int32 queued = 20 [json_name = "queued"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearQueued() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        queued_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList skippedUserIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureSkippedUserIdsIsMutable() {
+        if (!skippedUserIds_.isModifiable()) {
+          skippedUserIds_ = new com.google.protobuf.LazyStringArrayList(skippedUserIds_);
+        }
+        bitField0_ |= 0x00000004;
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @return A list containing the skippedUserIds.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getSkippedUserIdsList() {
+        skippedUserIds_.makeImmutable();
+        return skippedUserIds_;
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @return The count of skippedUserIds.
+       */
+      public int getSkippedUserIdsCount() {
+        return skippedUserIds_.size();
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @param index The index of the element to return.
+       * @return The skippedUserIds at the given index.
+       */
+      public java.lang.String getSkippedUserIds(int index) {
+        return skippedUserIds_.get(index);
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the skippedUserIds at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getSkippedUserIdsBytes(int index) {
+        return skippedUserIds_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @param index The index to set the value at.
+       * @param value The skippedUserIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSkippedUserIds(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureSkippedUserIdsIsMutable();
+        skippedUserIds_.set(index, value);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @param value The skippedUserIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSkippedUserIds(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureSkippedUserIdsIsMutable();
+        skippedUserIds_.add(value);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @param values The skippedUserIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllSkippedUserIds(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureSkippedUserIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, skippedUserIds_);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSkippedUserIds() {
+        skippedUserIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000004);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * user_ids that got no delivery (no e-mail on record).
+       * </pre>
+       *
+       * <code>repeated string skipped_user_ids = 30 [json_name = "skippedUserIds"];</code>
+       * @param value The bytes of the skippedUserIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSkippedUserIdsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureSkippedUserIdsIsMutable();
+        skippedUserIds_.add(value);
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:courier.v1.NotifyResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:courier.v1.NotifyResponse)
+    private static final courier.v1.Courier.NotifyResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new courier.v1.Courier.NotifyResponse();
+    }
+
+    public static courier.v1.Courier.NotifyResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NotifyResponse>
+        PARSER = new com.google.protobuf.AbstractParser<NotifyResponse>() {
+      @java.lang.Override
+      public NotifyResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<NotifyResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NotifyResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public courier.v1.Courier.NotifyResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_courier_v1_Recipient_descriptor;
   private static final 
@@ -2865,6 +10469,41 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_courier_v1_SendNotificationResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_Delivery_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_Delivery_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_GetNotificationRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_GetNotificationRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_GetNotificationResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_GetNotificationResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_RetryDeliveryRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_RetryDeliveryRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_RetryDeliveryResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_RetryDeliveryResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_NotifyRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_NotifyRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_courier_v1_NotifyResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_courier_v1_NotifyResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2874,31 +10513,76 @@ java.lang.String defaultValue) {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\030courier/v1/courier.proto\022\ncourier.v1\"T" +
-      "\n\tRecipient\022-\n\007channel\030\n \001(\0162\023.courier.v" +
-      "1.ChannelR\007channel\022\030\n\007address\030\024 \001(\tR\007add" +
-      "ress\"\317\002\n\027SendNotificationRequest\022\'\n\017idem" +
-      "potency_key\030\n \001(\tR\016idempotencyKey\022\026\n\006loc" +
-      "ale\030\024 \001(\tR\006locale\022\037\n\013template_id\030\036 \001(\tR\n" +
-      "templateId\022Z\n\rtemplate_data\030( \003(\01325.cour" +
-      "ier.v1.SendNotificationRequest.TemplateD" +
-      "ataEntryR\014templateData\0225\n\nrecipients\0302 \003" +
-      "(\0132\025.courier.v1.RecipientR\nrecipients\032?\n" +
-      "\021TemplateDataEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005" +
-      "value\030\002 \001(\tR\005value:\0028\001\"[\n\030SendNotificati" +
-      "onResponse\022\'\n\017notification_id\030\n \001(\tR\016not" +
-      "ificationId\022\026\n\006queued\030\024 \001(\005R\006queued*K\n\007C" +
-      "hannel\022\027\n\023CHANNEL_UNSPECIFIED\020\000\022\021\n\rCHANN" +
-      "EL_EMAIL\020\n\022\024\n\020CHANNEL_TELEGRAM\020\0242o\n\016Cour" +
-      "ierService\022]\n\020SendNotification\022#.courier" +
-      ".v1.SendNotificationRequest\032$.courier.v1" +
-      ".SendNotificationResponseB1Z/github.com/" +
-      "huponx/protogen/courier/v1;courierv1b\006pr" +
-      "oto3"
+      "\n\030courier/v1/courier.proto\022\ncourier.v1\032\026" +
+      "authz/v1/options.proto\032\034google/protobuf/" +
+      "struct.proto\"T\n\tRecipient\022-\n\007channel\030\n \001" +
+      "(\0162\023.courier.v1.ChannelR\007channel\022\030\n\007addr" +
+      "ess\030\024 \001(\tR\007address\"\317\002\n\027SendNotificationR" +
+      "equest\022\'\n\017idempotency_key\030\n \001(\tR\016idempot" +
+      "encyKey\022\026\n\006locale\030\024 \001(\tR\006locale\022\037\n\013templ" +
+      "ate_id\030\036 \001(\tR\ntemplateId\022Z\n\rtemplate_dat" +
+      "a\030( \003(\01325.courier.v1.SendNotificationReq" +
+      "uest.TemplateDataEntryR\014templateData\0225\n\n" +
+      "recipients\0302 \003(\0132\025.courier.v1.RecipientR" +
+      "\nrecipients\032?\n\021TemplateDataEntry\022\020\n\003key\030" +
+      "\001 \001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"[\n\030" +
+      "SendNotificationResponse\022\'\n\017notification" +
+      "_id\030\n \001(\tR\016notificationId\022\026\n\006queued\030\024 \001(" +
+      "\005R\006queued\"\223\002\n\010Delivery\022\016\n\002id\030\n \001(\tR\002id\022-" +
+      "\n\007channel\030\024 \001(\0162\023.courier.v1.ChannelR\007ch" +
+      "annel\022\030\n\007address\030\036 \001(\tR\007address\0222\n\006statu" +
+      "s\030( \001(\0162\032.courier.v1.DeliveryStatusR\006sta" +
+      "tus\022\032\n\010attempts\0302 \001(\005R\010attempts\022\035\n\nlast_" +
+      "error\030< \001(\tR\tlastError\022&\n\017next_attempt_a" +
+      "t\030F \001(\tR\rnextAttemptAt\022\027\n\007sent_at\030P \001(\tR" +
+      "\006sentAt\"A\n\026GetNotificationRequest\022\'\n\017not" +
+      "ification_id\030\n \001(\tR\016notificationId\"\270\001\n\027G" +
+      "etNotificationResponse\022\'\n\017notification_i" +
+      "d\030\n \001(\tR\016notificationId\022\037\n\013template_id\030\024" +
+      " \001(\tR\ntemplateId\022\035\n\ncreated_at\030\036 \001(\tR\tcr" +
+      "eatedAt\0224\n\ndeliveries\030( \003(\0132\024.courier.v1" +
+      ".DeliveryR\ndeliveries\"7\n\024RetryDeliveryRe" +
+      "quest\022\037\n\013delivery_id\030\n \001(\tR\ndeliveryId\"I" +
+      "\n\025RetryDeliveryResponse\0220\n\010delivery\030\n \001(" +
+      "\0132\024.courier.v1.DeliveryR\010delivery\"\233\002\n\rNo" +
+      "tifyRequest\022\'\n\017idempotency_key\030\n \001(\tR\016id" +
+      "empotencyKey\022\035\n\nevent_type\030\024 \001(\tR\teventT" +
+      "ype\022\031\n\010user_ids\030\036 \003(\tR\007userIds\0225\n\nrecipi" +
+      "ents\030( \003(\0132\025.courier.v1.RecipientR\nrecip" +
+      "ients\022+\n\004data\0302 \001(\0132\027.google.protobuf.St" +
+      "ructR\004data\022\'\n\017locale_override\030< \001(\tR\016loc" +
+      "aleOverride\022\032\n\010channels\030F \003(\tR\010channels\"" +
+      "m\n\016NotifyResponse\022\031\n\010event_id\030\n \001(\tR\007eve" +
+      "ntId\022\026\n\006queued\030\024 \001(\005R\006queued\022(\n\020skipped_" +
+      "user_ids\030\036 \003(\tR\016skippedUserIds*\206\001\n\007Chann" +
+      "el\022\027\n\023CHANNEL_UNSPECIFIED\020\000\022\021\n\rCHANNEL_E" +
+      "MAIL\020\n\022\024\n\020CHANNEL_TELEGRAM\020\024\022\022\n\016CHANNEL_" +
+      "IN_APP\020\036\022\023\n\017CHANNEL_WEBHOOK\020(\022\020\n\014CHANNEL" +
+      "_PUSH\0202*\273\001\n\016DeliveryStatus\022\037\n\033DELIVERY_S" +
+      "TATUS_UNSPECIFIED\020\000\022\033\n\027DELIVERY_STATUS_P" +
+      "ENDING\020\n\022\030\n\024DELIVERY_STATUS_SENT\020\024\022\032\n\026DE" +
+      "LIVERY_STATUS_FAILED\020\036\022\030\n\024DELIVERY_STATU" +
+      "S_DEAD\020(\022\033\n\027DELIVERY_STATUS_SKIPPED\02022\352\003" +
+      "\n\016CourierService\022~\n\020SendNotification\022#.c" +
+      "ourier.v1.SendNotificationRequest\032$.cour" +
+      "ier.v1.SendNotificationResponse\"\037\322\363\030\033R\031c" +
+      "ourier:notification:send\022`\n\006Notify\022\031.cou" +
+      "rier.v1.NotifyRequest\032\032.courier.v1.Notif" +
+      "yResponse\"\037\322\363\030\033R\031courier:notification:se" +
+      "nd\022}\n\017GetNotification\022\".courier.v1.GetNo" +
+      "tificationRequest\032#.courier.v1.GetNotifi" +
+      "cationResponse\"!\322\363\030\035R\033courier:notificati" +
+      "on:manage\022w\n\rRetryDelivery\022 .courier.v1." +
+      "RetryDeliveryRequest\032!.courier.v1.RetryD" +
+      "eliveryResponse\"!\322\363\030\035R\033courier:notificat" +
+      "ion:manageB1Z/github.com/huponx/protogen" +
+      "/courier/v1;courierv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          authz.v1.Options.getDescriptor(),
+          com.google.protobuf.StructProto.getDescriptor(),
         });
     internal_static_courier_v1_Recipient_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2924,7 +10608,56 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_courier_v1_SendNotificationResponse_descriptor,
         new java.lang.String[] { "NotificationId", "Queued", });
+    internal_static_courier_v1_Delivery_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_courier_v1_Delivery_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_Delivery_descriptor,
+        new java.lang.String[] { "Id", "Channel", "Address", "Status", "Attempts", "LastError", "NextAttemptAt", "SentAt", });
+    internal_static_courier_v1_GetNotificationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_courier_v1_GetNotificationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_GetNotificationRequest_descriptor,
+        new java.lang.String[] { "NotificationId", });
+    internal_static_courier_v1_GetNotificationResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_courier_v1_GetNotificationResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_GetNotificationResponse_descriptor,
+        new java.lang.String[] { "NotificationId", "TemplateId", "CreatedAt", "Deliveries", });
+    internal_static_courier_v1_RetryDeliveryRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_courier_v1_RetryDeliveryRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_RetryDeliveryRequest_descriptor,
+        new java.lang.String[] { "DeliveryId", });
+    internal_static_courier_v1_RetryDeliveryResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_courier_v1_RetryDeliveryResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_RetryDeliveryResponse_descriptor,
+        new java.lang.String[] { "Delivery", });
+    internal_static_courier_v1_NotifyRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_courier_v1_NotifyRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_NotifyRequest_descriptor,
+        new java.lang.String[] { "IdempotencyKey", "EventType", "UserIds", "Recipients", "Data", "LocaleOverride", "Channels", });
+    internal_static_courier_v1_NotifyResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_courier_v1_NotifyResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_courier_v1_NotifyResponse_descriptor,
+        new java.lang.String[] { "EventId", "Queued", "SkippedUserIds", });
     descriptor.resolveAllFeaturesImmutable();
+    authz.v1.Options.getDescriptor();
+    com.google.protobuf.StructProto.getDescriptor();
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(authz.v1.Options.rule);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
   }
 
   // @@protoc_insertion_point(outer_class_scope)
